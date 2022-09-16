@@ -31,7 +31,7 @@ function Footer() {
                                 <input type="checkbox"  name="man" /><span>Чоловік</span>
                             </label>
                             <label>
-                                <input type="checkbox"  name="wooman" /><span>Жінка</span>
+                                <input type="checkbox"  name="woman" /><span>Жінка</span>
                             </label>
                             <label>
                                 <input type="checkbox"  name="child" /><span>Дитина</span>

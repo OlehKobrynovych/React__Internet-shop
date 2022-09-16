@@ -47,7 +47,7 @@ export const datas = {
         },
         {
             name: 'Жінки',
-	        href: '/wooman',
+	        href: '/woman',
 	        image: 'asdasd',
 	        id: '3',
             subCategories: [

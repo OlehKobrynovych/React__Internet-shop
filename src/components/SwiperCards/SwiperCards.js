@@ -16,14 +16,23 @@ import ProductCard from '../ProductCard/ProductCard';
 function SwiperCards({title, priceNew}) {
     
     const [filterDatas, setFilterDatas] = useState([]);
+    const [vw, setVw] = useState(window.innerWidth);
 
     useEffect(() => {
         if(priceNew) {
             setFilterDatas(datas.products.filter(el => el.new_price !== null))
         } else {
             setFilterDatas(datas.products.filter(el => el.new_price == null))
-        }
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    function handleResize() {
+        setVw(window.innerWidth)
+    }
 
     return (
         <div className="swiper-cards">
@@ -31,9 +40,9 @@ function SwiperCards({title, priceNew}) {
                 <h2 className="swiper-cards__title">{title}</h2>
 
                 <Swiper
-                    slidesPerView={3}
+                    slidesPerView={vw > 500 ? vw > 768 ? 3 : 2 : 1}
                     spaceBetween={30}
-                    slidesPerGroup={3}
+                    slidesPerGroup={vw > 500 ? vw > 768 ? 3 : 2 : 1}
                     loop={true}
                     loopFillGroupWithBlank={true}
                     pagination={{
