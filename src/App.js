@@ -14,7 +14,7 @@ function App() {
               <Route path="What" element={<WhatView />} />
               <Route path="Who" element={<WhoView />} /> */}
           </Routes>
-          {/* <Footer /> */}
+          <Footer />
       </div>
   );
 }

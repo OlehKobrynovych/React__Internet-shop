@@ -7,7 +7,22 @@
 }
 
 .heart-btn__text {
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 11px;
+    display: none;
+}
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 1080px) {
+    .heart-btn__text {
+        display: block;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 11px;
+    } 
 }

@@ -1,17 +1,16 @@
-.cart-btn {
+.login-btn {
 
 }
 
-.cart-btn__img {
+.login-btn__img {
     width: 20px;
-    height: 20px;
 }
 
-.cart-btn__text {
+.login-btn__text {
     display: none;
 }
 
-
+  
 @media (min-width: 576px) {
 
 }
@@ -21,7 +20,7 @@
 }
 
 @media (min-width: 1080px) {
-    .cart-btn__text {
+    .login-btn__text {
         display: block;
         color: #fff;
         text-transform: uppercase;
