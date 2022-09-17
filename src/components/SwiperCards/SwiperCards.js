@@ -10,7 +10,7 @@ import {datas} from '../../data.js'
 
 import { useState, useRef, useEffect } from 'react';
 
-// import cart from '../../assets/images/cart.svg';
+import circle from '../../assets/images/circle.svg';
 import ProductCard from '../ProductCard/ProductCard';
 
 function SwiperCards({title, priceNew}) {
@@ -37,7 +37,11 @@ function SwiperCards({title, priceNew}) {
     return (
         <div className="swiper-cards">
             <div className="swiper-cards--wrap container">
-                <h2 className="swiper-cards__title">{title}</h2>
+                <div className="swiper-cards__title-wrap">
+                    <h2 className="swiper-cards__title">{title}</h2>
+                    <img className="swiper-cards__circle-left" src={circle} alt='img'/>
+                    <img className="swiper-cards__circle-right" src={circle} alt='img'/>
+                </div>
 
                 <Swiper
                     slidesPerView={vw > 500 ? vw > 768 ? 3 : 2 : 1}
@@ -50,9 +54,8 @@ function SwiperCards({title, priceNew}) {
                     }}
                     navigation={true}
                     modules={[Navigation]}
-                    className="mySwiper"
+                    className="mySwiper asd"
                 >
-
                     {
                         filterDatas.map(products => (
                             <SwiperSlide key={products.id}><ProductCard products={products}/></SwiperSlide>

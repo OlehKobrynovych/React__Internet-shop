@@ -1,10 +1,9 @@
 import './Header.css';
 
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import search from '../../assets/images/search.svg';
 import logo from '../../assets/images/logo.svg';
-
 
 import HeartBtn from '../HeartBtn/HeartBtn';
 import CartBtn from '../CartBtn/CartBtn';
@@ -18,7 +17,6 @@ function Header() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
     // const navigate = useNavigate();
 
-    
     const searchInputRef = useRef(null);
 
     const handleClick = () => {
@@ -30,18 +28,18 @@ function Header() {
             <div className="header--wrap container">
                 <MobileMenu />
 
-                <a href='#'><img className='header__logo' src={logo} alt='img'/></a>
+                <NavLink to='#'><img className='header__logo' src={logo} alt='img'/></NavLink>
 
                 <div className="header__menu-wrap">
                     <ul className="header__menu">
                         {
                             datas.categories.map(categories => (
                                 <li className="header__menu-link-wrap" key={categories.id}>
-                                    <a className="header__menu-link" href={categories.href}>{categories.name}</a>
+                                    <NavLink className="header__menu-link" to={categories.href}>{categories.name}</NavLink>
                                     <div className="header__menu-link-dropdown">
                                         <ul className="header__menu-link-dropdown-wrap">
                                             {
-                                                categories.subCategories.map(subCategories => (<li key={subCategories.id}><a href="#">{subCategories.name}</a></li>))
+                                                categories.subCategories.map(subCategories => (<li key={subCategories.id}><NavLink to="#">{subCategories.name}</NavLink></li>))
                                             }
                                         </ul>
                                     </div>

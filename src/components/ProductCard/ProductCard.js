@@ -1,11 +1,10 @@
 import './ProductCard.css';
 
-// import { useState, useRef, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import photo1 from '../../assets/images/photo1.webp';
 import heart from '../../assets/images/heart.svg';
 import cart from '../../assets/images/cart.svg';
-
+// import { useState, useRef, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 
 // import Helocation from '../Helocation/Helocation';
 

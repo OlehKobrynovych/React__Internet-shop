@@ -35,7 +35,6 @@
 .product-card__bottom-wrap {
     display: flex;
     justify-content: space-between;
-    /* padding: 16px; */
 }
 
 .product-card__price-wrap {

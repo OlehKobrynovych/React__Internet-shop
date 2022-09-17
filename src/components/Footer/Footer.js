@@ -5,8 +5,8 @@ import facebook from '../../assets/images/facebook.svg';
 import logo from '../../assets/images/logo.svg';
 import {datas} from '../../data.js'
 
-import { useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
+// import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Footer() {
     // const [isOpen, setIsOpen] = useState(false);
@@ -15,9 +15,6 @@ function Footer() {
     // const handleClick = () => {
     //     setIsOpen(!isOpen)
     // };
-
-
-
    
     return (
         <div className="footer hidden">
@@ -39,7 +36,7 @@ function Footer() {
                         </div>
 
                         <div className="footer__top-mail-wrap">
-                            <input type="mail" name="mail" placeholder="Email"></input>
+                            <input className="footer__top-mail" type="mail" name="mail" placeholder="Email"></input>
                             <button className="footer__top-btn">Підписка</button>
                         </div>
                     </div>
@@ -49,7 +46,7 @@ function Footer() {
                     <div className="footer__bottom container">
                         <div className="footer__bottom-info">
                             <div className="footer__bottom-social">
-                                <a className="footer__bottom-social-logo" to='#'><img src={logo} alt='img' /></a>
+                                <NavLink className="footer__bottom-social-logo" to='#'><img src={logo} alt='img' /></NavLink>
                                 <div className="footer__bottom-social-link-wrap">
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.facebook} target='_blank'><img src={facebook} alt='img' /></a>
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.instagram} target='_blank'><img src={instagram} alt='img' /></a>
@@ -59,11 +56,11 @@ function Footer() {
                             <div className="footer__bottom-menu">
                                 <div className="footer__bottom-menu-title">Каталог</div>
                                     <ul className="footer__bottom-menu-link-wrap">
-                                        <li><a href='#'>Про компанію</a></li>
-                                        <li><a href='#'>Публічна оферта</a></li>
-                                        <li><a href='#'>Доставка і оплата</a></li>
-                                        <li><a href='#'>Контакти</a></li>
-                                        <li><a href='#'>Допомога</a></li>
+                                        <li><NavLink to='#'>Про компанію</NavLink></li>
+                                        <li><NavLink to='#'>Публічна оферта</NavLink></li>
+                                        <li><NavLink to='#'>Доставка і оплата</NavLink></li>
+                                        <li><NavLink to='#'>Контакти</NavLink></li>
+                                        <li><NavLink to='#'>Допомога</NavLink></li>
                                     </ul>
                             </div>
 

@@ -1,9 +1,8 @@
 import './HeartBtn.css';
 
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import heart from '../../assets/images/heart.svg';
-// import { ReactComponent as heart } from '../../assets/images/heart.svg'  
+// import { useState, useRef } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import heart from '../../assets/images/heart.svg';
 // import { ReactComponent as heart } from '../../assets/images/heart.svg'  
 
 // import Helocation from '../Helocation/Helocation';

@@ -1,8 +1,8 @@
 import './CartBtn.css';
 
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import cart from '../../assets/images/cart.svg';
+// import { useState, useRef } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import cart from '../../assets/images/cart.svg';
 
 // import Helocation from '../Helocation/Helocation';
 

@@ -24,14 +24,22 @@
 .footer__top-checkbox {
     margin-top: 7px;
     margin-bottom: 7px;
+    display: flex;
+    gap: 15px;
 }
 
 .footer__top-mail-wrap {
     display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #000;
-    width: 90%;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
     margin-top: 36px;
+}
+
+.footer__top-mail {
+    width: 100%;
+    border-bottom: 1px solid #000;
+    padding-bottom: 4px;
 }
 
 .footer__top-btn {
@@ -79,6 +87,7 @@
 }
 
 /* -------------------------- */
+
 .footer__bottom-menu {
     display: none;
 }
@@ -100,6 +109,7 @@
 }
 
 /* ----------------------------- */
+
 .footer__bottom-catalog {
     display: none;
 }
@@ -119,7 +129,6 @@
     font-size: 16px;
     margin-bottom: 16px;
 }
-
 
 /* ----------------------- */
 
@@ -166,9 +175,21 @@
 
 .footer__bottom-license-text {
     font-size: 12px;
-
 }
 
+@media (min-width: 370px) {
+    .footer__top-mail-wrap {
+        display: flex;
+        flex-direction: row;
+        gap: 0;
+        width: 100%;
+        margin-top: 36px;
+    }
+
+    .footer__top-mail {
+        width: 90%;
+    }
+}
 
 @media (min-width: 576px) {
     

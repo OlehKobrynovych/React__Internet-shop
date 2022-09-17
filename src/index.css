@@ -6,7 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* background: #000; */
 }
 
@@ -64,9 +64,9 @@ input {
 }
 img,
 svg {
-  margin: 0 auto;
-  /* width: 100%; */
-  /* height: 100%; */
+  /* margin: 0 auto; */
+  width: 100%;
+  height: 100%;
   display: block;
   object-fit: cover;
   object-position: center;
