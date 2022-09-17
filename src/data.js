@@ -12,7 +12,7 @@ export const datas = {
     categories: [
         {
             name: 'Унісекс',
-	        href: '/Unisex',
+	        href: '/unisex',
 	        id: '1',
             subCategories: [
                 {
@@ -46,7 +46,7 @@ export const datas = {
             ],
         },
         {
-            name: 'Жінки',
+            name: 'Жінкам',
 	        href: '/woman',
 	        image: 'asdasd',
 	        id: '3',
@@ -78,7 +78,7 @@ export const datas = {
             ],
         },
         {
-            name: 'Діти',
+            name: 'Дітям',
 	        href: '/children',
 	        image: 'asdasd',
 	        id: '4',

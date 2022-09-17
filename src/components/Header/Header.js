@@ -1,7 +1,10 @@
 import './Header.css';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {setSelectedCategory, getDatas} from '../../store/homeSlice';
+
 import search from '../../assets/images/search.svg';
 import logo from '../../assets/images/logo.svg';
 
@@ -17,25 +20,42 @@ function Header() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
     // const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+    const users = useSelector(state => state.homeSlice.datas);
+
     const searchInputRef = useRef(null);
 
     const handleClick = () => {
         searchInputRef.current.focus()
     };
+    
+    const handleCategories = (name) => {
+        dispatch(setSelectedCategory(name))
+    };
+
+    useEffect(() => {
+        dispatch(getDatas(datas))
+    }, [])
 
     return (
         <div className="header">
             <div className="header--wrap container">
                 <MobileMenu />
 
-                <NavLink to='#'><img className='header__logo' src={logo} alt='img'/></NavLink>
+                <NavLink to='/'><img className='header__logo' src={logo} alt='img'/></NavLink>
 
                 <div className="header__menu-wrap">
                     <ul className="header__menu">
                         {
                             datas.categories.map(categories => (
                                 <li className="header__menu-link-wrap" key={categories.id}>
-                                    <NavLink className="header__menu-link" to={categories.href}>{categories.name}</NavLink>
+                                    <NavLink 
+                                        className="header__menu-link" 
+                                        to={categories.href} 
+                                        onClick={() => handleCategories(categories.name)}
+                                    >
+                                        {categories.name}
+                                    </NavLink>
                                     <div className="header__menu-link-dropdown">
                                         <ul className="header__menu-link-dropdown-wrap">
                                             {

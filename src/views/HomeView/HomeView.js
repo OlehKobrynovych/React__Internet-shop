@@ -7,6 +7,7 @@ import kids from '../../assets/images/kids.webp';
 import poshta from '../../assets/images/poshta.jpg';
 import DropDownMenu from '../../components/DropDownMenu/DropDownMenu';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -14,12 +15,19 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay} from "swiper";
 
+import {datas} from '../../data.js'
+import { useEffect } from 'react';
+
 function HomeView() {
+    const dispatch = useDispatch();
+    const users = useSelector(state => state.homeSlice.datas);
+    // debugger
+    
    
     return (
         <div className="home-view hidden">
             {/* <DropDownMenu /> */}
-
+            {/* {users?.shopInfo?.id} */}
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}

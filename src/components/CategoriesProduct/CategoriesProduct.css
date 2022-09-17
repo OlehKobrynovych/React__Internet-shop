@@ -1,0 +1,39 @@
+.categories-product {
+
+}
+
+.categories-product--wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.categories-product__card {
+    
+}
+
+@media (min-width: 450px) {
+    .categories-product__card {
+        max-width: 200px;
+        min-width: 200px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .categories-product__card {
+        max-width: 260px;
+        min-width: 200px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 1080px) {
+   
+}
