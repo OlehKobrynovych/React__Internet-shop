@@ -26,8 +26,9 @@ function HomeView() {
    
     return (
         <div className="home-view hidden">
-            {/* <DropDownMenu /> */}
             {/* {users?.shopInfo?.id} */}
+            <DropDownMenu />
+            
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -39,6 +40,7 @@ function HomeView() {
                 className="mySwiper"
             >
                 <SwiperSlide><img className="home-view__swiper-img" src={man} alt='img'/></SwiperSlide>
+                {/* <SwiperSlide><img className="home-view__swiper-img" src={'images/man.webp'} alt='img'/></SwiperSlide> */}
                 <SwiperSlide><img className="home-view__swiper-img" src={kids} alt='img'/></SwiperSlide>
                 <SwiperSlide><img className="home-view__swiper-img" src={man} alt='img'/></SwiperSlide>
                 <SwiperSlide><img className="home-view__swiper-img" src={kids} alt='img'/></SwiperSlide>

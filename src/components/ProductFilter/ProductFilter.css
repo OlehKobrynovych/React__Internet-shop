@@ -20,9 +20,41 @@
     margin-bottom: 32px;
 }
 
+.product-filter__item--wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
 
+.product-filter__item {
+    
+}
+
+.product-filter__last-product {
+    margin-bottom: 28px;
+}
+
+.product-filter__last-product-title {
+    font-size: 40px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+@media (min-width: 450px) {
+    .product-filter__item {
+        max-width: 200px;
+        min-width: 200px;
+        width: 100%;
+    }
+}
 @media (min-width: 576px) {
-
+    .product-filter__item {
+        max-width: 260px;
+        min-width: 200px;
+        width: 100%;
+    }
 }
 
 @media (min-width: 768px) {

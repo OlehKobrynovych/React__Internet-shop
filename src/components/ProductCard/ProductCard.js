@@ -3,6 +3,8 @@ import './ProductCard.css';
 import photo1 from '../../assets/images/photo1.webp';
 import heart from '../../assets/images/heart.svg';
 import cart from '../../assets/images/cart.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLastViewProduct } from '../../store/homeSlice';
 // import { useState, useRef, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
@@ -10,11 +12,19 @@ import cart from '../../assets/images/cart.svg';
 
 function ProductCard({products}) {
 
+    const dispatch = useDispatch();
+    // const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
+
+    const handleClick = (products) => {
+        dispatch(setLastViewProduct(products))
+   };
+
     return (
         <div className="product-card">
-            <img className="product-card__img" src={photo1} alt='img'/>
+            {/* <img className="product-card__img" src={photo1} alt='img' onClick={() => handleClick(products)}/> */}
+            <img className="product-card__img" src={products.image} alt='img' onClick={() => handleClick(products)}/>
             <div className="product-card__text-wrap">
-                <div className="product-card__title">{products.name}</div>
+                <div className="product-card__title" onClick={() => handleClick(products)}>{products.name}</div>
                 <div className="product-card__bottom-wrap">
                     {
                         products.new_price !== null ? (

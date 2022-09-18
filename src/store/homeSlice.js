@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   datas: {},
   selectedCategory: '',
+  selectedSubCategories: [],
+  lastViewProduct: null,
 }
 
 export const homeSlice = createSlice({
@@ -15,6 +17,12 @@ export const homeSlice = createSlice({
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
     },
+    setSelectedSubCategories: (state, action) => {
+      state.selectedSubCategories = action.payload;
+    },
+    setLastViewProduct: (state, action) => {
+      state.lastViewProduct = action.payload;
+    },
     // decrement: (state) => {
     //   state.value -= 1
     // },
@@ -24,6 +32,6 @@ export const homeSlice = createSlice({
   },
 })
 
-export const { getDatas, setSelectedCategory } = homeSlice.actions
+export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories } = homeSlice.actions
 
 export default homeSlice.reducer

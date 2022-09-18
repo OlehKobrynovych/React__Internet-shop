@@ -68,7 +68,7 @@ function Footer() {
                                 <div className="footer__bottom-catalog-title">Каталог</div>
                                     <ul className="footer__bottom-catalog-link-wrap">
                                         {
-                                        datas.categories.map(categories => (<li key={categories.id}><a href={categories.href}>{categories.name}</a></li>))  
+                                        datas.categories.map(categories => (<li key={categories.id}><NavLink to={categories.href}>{categories.name}</NavLink></li>))  
                                         }
                                     </ul>
                             </div>

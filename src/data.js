@@ -172,86 +172,234 @@ export const datas = {
             id: '1',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: 90
         },
         {
             id: '2',
             name: 'Сорочка',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: 90
         },
         {
             id: '3',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: 90
         },
         {
             id: '4',
             name: 'Куртка',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: 90
         },
         {
             id: '5',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: 90
         },
         {
             id: '6',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: 90
         },
         {
             id: '7',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: null
         },
         {
             id: '8',
             name: 'Сорочка',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: null
         },
         {
             id: '9',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: null
         },
         {
             id: '10',
             name: 'Куртка',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: null
         },
         {
             id: '11',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: null
         },
         {
             id: '12',
             name: 'Джинси',
             price: 100,
-            image: '../../assets/images/photo1.webp',
+            image: 'images/photo1.webp',
             new_price: null
         },
+       
+        {
+            id: '13',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: 90
+        },
+        {
+            id: '14',
+            name: 'Сорочка',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: 90
+        },
+        {
+            id: '15',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: 90
+        },
+        {
+            id: '16',
+            name: 'Куртка',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: 90
+        },
+        {
+            id: '17',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: 90
+        },
+        {
+            id: '18',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: 90
+        },
+        {
+            id: '19',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: null
+        },
+        {
+            id: '20',
+            name: 'Сорочка',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: null
+        },
+        {
+            id: '21',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: null
+        },
+        {
+            id: '22',
+            name: 'Куртка',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: null
+        },
+        {
+            id: '23',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: null
+        },
+        {
+            id: '24',
+            name: 'Джинси',
+            price: 100,
+            image: 'images/photo1.webp',
+            new_price: null
+        },
+        // {
+        //     id: '25',
+        //     name: 'Джинси',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: 90
+        // },
+        // {
+        //     id: '26',
+        //     name: 'Сорочка',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: 90
+        // },
+        // {
+        //     id: '27',
+        //     name: 'Джинси',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: 90
+        // },
+        // {
+        //     id: '28',
+        //     name: 'Сорочка',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: null
+        // },
+        // {
+        //     id: '29',
+        //     name: 'Джинси',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: null
+        // },
+        // {
+        //     id: '30',
+        //     name: 'Куртка',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: null
+        // },
+        // {
+        //     id: '31',
+        //     name: 'Джинси',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: null
+        // },
+        // {
+        //     id: '32',
+        //     name: 'Джинси',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: null
+        // },
+        // {
+        //     id: '33',
+        //     name: 'Джинси',
+        //     price: 100,
+        //     image: 'images/photo1.webp',
+        //     new_price: 90
+        // },
     ] 
 }
 

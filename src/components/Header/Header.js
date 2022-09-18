@@ -3,7 +3,7 @@ import './Header.css';
 import { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {setSelectedCategory, getDatas} from '../../store/homeSlice';
+import {setSelectedCategory, getDatas, setSelectedSubCategories} from '../../store/homeSlice';
 
 import search from '../../assets/images/search.svg';
 import logo from '../../assets/images/logo.svg';
@@ -17,11 +17,11 @@ import {datas} from '../../data.js'
 
 
 function Header() {
-    // const [isOpenMenu, setIsOpenMenu] = useState(false);
+    // const [activeCategory, setActiveCategory] = useState(null);
     // const navigate = useNavigate();
 
     const dispatch = useDispatch();
-    const users = useSelector(state => state.homeSlice.datas);
+    const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
 
     const searchInputRef = useRef(null);
 
@@ -29,12 +29,16 @@ function Header() {
         searchInputRef.current.focus()
     };
     
-    const handleCategories = (name) => {
+    const handleCategories = (name, id) => {
         dispatch(setSelectedCategory(name))
     };
 
     useEffect(() => {
         dispatch(getDatas(datas))
+        // let res = datas.categories[0].subCategories
+        // debugger
+        // dispatch(setSelectedSubCategories(datas.categories[0].subCategories))
+        // dispatch(setSelectedSubCategories(res))
     }, [])
 
     return (
@@ -48,11 +52,11 @@ function Header() {
                     <ul className="header__menu">
                         {
                             datas.categories.map(categories => (
-                                <li className="header__menu-link-wrap" key={categories.id}>
+                                <li className={`header__menu-link-wrap ${selectedCategory == categories.name ? 'header__menu-link--active' : ''}`} key={categories.id}>
                                     <NavLink 
                                         className="header__menu-link" 
                                         to={categories.href} 
-                                        onClick={() => handleCategories(categories.name)}
+                                        onClick={() => handleCategories(categories.name, categories.id)}
                                     >
                                         {categories.name}
                                     </NavLink>
