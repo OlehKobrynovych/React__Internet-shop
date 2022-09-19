@@ -27,7 +27,7 @@ function HomeView() {
     return (
         <div className="home-view hidden">
             {/* {users?.shopInfo?.id} */}
-            <DropDownMenu />
+            {/* <DropDownMenu /> */}
             
             <Swiper
                 spaceBetween={30}

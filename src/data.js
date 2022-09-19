@@ -1,3 +1,4 @@
+import { Manipulation } from "swiper";
 
 export const datas = {
     shopInfo: {
@@ -173,7 +174,9 @@ export const datas = {
             name: 'Джинси',
             price: 100,
             image: 'images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            categories: 'Чоловікам',
+            subCategories: 'Штани'
         },
         {
             id: '2',

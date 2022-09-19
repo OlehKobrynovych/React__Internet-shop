@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 // import Helocation from '../Helocation/Helocation';
 
-function PaginationProduct({ productsPerPage, totalProducts, paginate, currentPage }) {
+function PaginationProduct({ productsPerPage, totalProducts, setCurrentPage, currentPage }) {
     const [activeNum, setActiveNum] = useState(1);
 
     // const searchInputRef = useRef(null);
@@ -32,9 +32,9 @@ function PaginationProduct({ productsPerPage, totalProducts, paginate, currentPa
             <ul className='pagination-product--wrap'>
                 {pageNumbers.map((number, id) => (
                     <li key={number} className={`pagination-product__link-wrap ${currentPage == (id + 1) ? 'pagination-product__link--active' : ''}`}>
-                        <a onClick={() => paginate(number)} className="pagination-product__link">
+                        <button onClick={() => setCurrentPage(number)} className="pagination-product__link">
                             {number}
-                        </a>
+                        </button>
                     </li>
                 ))}
             </ul>

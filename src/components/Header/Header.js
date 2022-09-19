@@ -14,6 +14,7 @@ import LoginBtn from '../LoginBtn/LoginBtn';
 import MobileMenu from '../MobileMenu/MobileMenu';
 
 import {datas} from '../../data.js'
+import DropDownMenu from '../DropDownMenu/DropDownMenu';
 
 
 function Header() {
@@ -21,7 +22,7 @@ function Header() {
     // const navigate = useNavigate();
 
     const dispatch = useDispatch();
-    const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
+    // const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
 
     const searchInputRef = useRef(null);
 
@@ -29,16 +30,20 @@ function Header() {
         searchInputRef.current.focus()
     };
     
-    const handleCategories = (name, id) => {
+    const handleCategories = (name) => {
         dispatch(setSelectedCategory(name))
     };
 
     useEffect(() => {
+        //   const fetchProducts = async () => {
+        //     setLoading(true);
+        //     const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+        //     setProducts(res.data);
+        //     setLoading(false);
+        //   };
+        //   fetchProducts();
+
         dispatch(getDatas(datas))
-        // let res = datas.categories[0].subCategories
-        // debugger
-        // dispatch(setSelectedSubCategories(datas.categories[0].subCategories))
-        // dispatch(setSelectedSubCategories(res))
     }, [])
 
     return (
@@ -52,11 +57,12 @@ function Header() {
                     <ul className="header__menu">
                         {
                             datas.categories.map(categories => (
-                                <li className={`header__menu-link-wrap ${selectedCategory == categories.name ? 'header__menu-link--active' : ''}`} key={categories.id}>
+                                <li className="header__menu-link-wrap"  key={categories.id}>
                                     <NavLink 
                                         className="header__menu-link" 
                                         to={categories.href} 
-                                        onClick={() => handleCategories(categories.name, categories.id)}
+                                        // onClick={() => handleCategories(categories.name, categories.id)}
+                                        onClick={() => handleCategories(categories.name)}
                                     >
                                         {categories.name}
                                     </NavLink>
@@ -82,8 +88,9 @@ function Header() {
                     <CartBtn />
                     <LoginBtn />
                 </div>
-
             </div>
+            
+            <DropDownMenu />
         </div>
     );
 }

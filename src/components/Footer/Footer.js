@@ -46,7 +46,7 @@ function Footer() {
                     <div className="footer__bottom container">
                         <div className="footer__bottom-info">
                             <div className="footer__bottom-social">
-                                <NavLink className="footer__bottom-social-logo" to='#'><img src={logo} alt='img' /></NavLink>
+                                <NavLink className="footer__bottom-social-logo" to='/'><img src={logo} alt='img' /></NavLink>
                                 <div className="footer__bottom-social-link-wrap">
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.facebook} target='_blank'><img src={facebook} alt='img' /></a>
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.instagram} target='_blank'><img src={instagram} alt='img' /></a>

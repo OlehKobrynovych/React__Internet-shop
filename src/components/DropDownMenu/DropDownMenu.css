@@ -1,5 +1,23 @@
 .drop-down-menu {
-    
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background: #fff;
+    transition: .8s;
+}
+
+.drop-down-menu--active {
+    position: absolute;
+    top: 82px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background: #fff;
+    transition: .8s;
 }
 
 .drop-down-menu__header {
@@ -51,6 +69,90 @@
 .drop-down-menu__header-link.active::before {
     width: 100%;
 }
+
+.drop-down-menu__sub-categories--wrap {
+
+}
+
+.drop-down-menu__sub-categories-link-wrap {
+    border-bottom: 1px solid #E4E4E5;
+}
+.drop-down-menu__sub-categories-link {
+    display: inline-block;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.drop-down-menu__btn-wrap {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E4E4E5;
+}
+
+.drop-down-menu__btn-img {
+    width: 23px;
+    height: 23px;
+    display: inline-block;
+    margin-right: 7px;
+}
+
+.drop-down-menu__btn-text {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 21px;
+    text-transform: uppercase;
+}
+
+.drop-down-menu__info {
+    
+}
+
+.drop-down-menu__info-link-wrap {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E4E4E5;
+}
+
+.drop-down-menu__info-link {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.drop-down-menu__contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.drop-down-menu__contact-tel-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.drop-down-menu__contact-tel {
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.drop-down-menu__contact-social-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.drop-down-menu__contact-social {
+    width: 25px;
+    height: 25px;
+}
   
 @media (min-width: 576px) {
 
@@ -61,5 +163,7 @@
 }
 
 @media (min-width: 1080px) {
-    
+    .drop-down-menu--active {
+        display: none;
+    } 
 }

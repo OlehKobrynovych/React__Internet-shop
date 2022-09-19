@@ -40,9 +40,6 @@
     transition: .3s;
 }
 
-.header__menu-link--active {
-}
-
 .header__menu-link:hover {
     scale: 1.15;
 }
@@ -59,7 +56,7 @@
 }
   
 .header__menu-link-wrap:hover .header__menu-link::before,
-.header__menu-link--active .header__menu-link::before {
+.header__menu-link.active::before {
     width: 100%;
 }
   
