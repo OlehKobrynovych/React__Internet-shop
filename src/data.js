@@ -18,6 +18,7 @@ export const datas = {
             subCategories: [
                 {
                     name: 'Унісекс',
+                    href: '/unisex/unisex',
                     id: '1'
                 }
             ],
@@ -30,18 +31,22 @@ export const datas = {
             subCategories: [
                 {
                     name: 'Штани',
+                    href: '/man/pants',
                     id: '1'
                 },
                 {
                     name: 'Шапки',
+                    href: '/man/hats',
                     id: '2'
                 },
                 {
                     name: 'Куртки',
+                    href: '/man/pants',
                     id: '3'
                 },
                 {
                     name: 'Сорочки',
+                    href: '/man/jackets',
                     id: '4'
                 },
             ],
@@ -54,27 +59,28 @@ export const datas = {
             subCategories: [
                 {
                     name: 'Штани',
+                    href: '/woman/pants',
                     id: '1'
                 },
                 {
                     name: 'Шапки',
+                    href: '/woman/hats',
                     id: '2'
                 },
                 {
                     name: 'Куртки',
+                    href: '/woman/pants',
                     id: '3'
                 },
                 {
                     name: 'Сорочки',
+                    href: '/woman/jackets',
                     id: '4'
                 },
                 {
                     name: 'Шкарпетки',
+                    href: '/woman/socks',
                     id: '5'
-                },
-                {
-                    name: 'Сорочки',
-                    id: '6'
                 },
             ],
         },
@@ -86,22 +92,27 @@ export const datas = {
             subCategories: [
                 {
                     name: 'Штани',
+                    href: '/children/pants',
                     id: '1'
                 },
                 {
                     name: 'Шапки',
+                    href: '/children/hats',
                     id: '2'
                 },
                 {
                     name: 'Куртки',
+                    href: '/children/pants',
                     id: '3'
                 },
                 {
                     name: 'Сорочки',
+                    href: '/children/jackets',
                     id: '4'
                 },
                 {
                     name: 'одяг',
+                    href: '/children/clothing',
                     id: '5'
                 },
             ],
@@ -114,18 +125,22 @@ export const datas = {
             subCategories: [
                 {
                     name: 'Штани',
+                    href: '/collections/pants',
                     id: '1'
                 },
                 {
                     name: 'Шапки',
+                    href: '/collections/hats',
                     id: '2'
                 },
                 {
                     name: 'Куртки',
+                    href: '/collections/pants',
                     id: '3'
                 },
                 {
                     name: 'Сорочки',
+                    href: '/collections/jackets',
                     id: '4'
                 },
             ],
@@ -138,31 +153,23 @@ export const datas = {
             subCategories: [
                 {
                     name: 'Штани',
+                    href: '/discounts/pants',
                     id: '1'
                 },
                 {
                     name: 'Шапки',
+                    href: '/discounts/hats',
                     id: '2'
                 },
                 {
                     name: 'Куртки',
+                    href: '/discounts/pants',
                     id: '3'
                 },
                 {
                     name: 'Сорочки',
+                    href: '/discounts/jackets',
                     id: '4'
-                },
-                {
-                    name: 'Сорочки',
-                    id: '5'
-                },
-                {
-                    name: 'Сорочки',
-                    id: '6'
-                },
-                {
-                    name: 'Сорочки',
-                    id: '7'
                 },
             ],
         },
@@ -172,7 +179,7 @@ export const datas = {
         {
             id: '1',
             name: 'Джинси',
-            price: 100,
+            price: 110,
             image: 'images/photo1.webp',
             new_price: 90,
             categories: 'Чоловікам',
@@ -188,14 +195,14 @@ export const datas = {
         {
             id: '3',
             name: 'Джинси',
-            price: 100,
+            price: 500,
             image: 'images/photo1.webp',
             new_price: 90
         },
         {
             id: '4',
             name: 'Куртка',
-            price: 100,
+            price: 180,
             image: 'images/photo1.webp',
             new_price: 90
         },

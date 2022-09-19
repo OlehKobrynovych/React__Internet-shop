@@ -61,7 +61,6 @@ function Header() {
                                     <NavLink 
                                         className="header__menu-link" 
                                         to={categories.href} 
-                                        // onClick={() => handleCategories(categories.name, categories.id)}
                                         onClick={() => handleCategories(categories.name)}
                                     >
                                         {categories.name}
@@ -69,7 +68,7 @@ function Header() {
                                     <div className="header__menu-link-dropdown">
                                         <ul className="header__menu-link-dropdown-wrap">
                                             {
-                                                categories.subCategories.map(subCategories => (<li key={subCategories.id}><NavLink to="#">{subCategories.name}</NavLink></li>))
+                                                categories.subCategories.map(subCategories => (<li key={subCategories.id}><NavLink to={subCategories.href}>{subCategories.name}</NavLink></li>))
                                             }
                                         </ul>
                                     </div>

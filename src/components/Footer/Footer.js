@@ -56,7 +56,7 @@ function Footer() {
                             <div className="footer__bottom-menu">
                                 <div className="footer__bottom-menu-title">Каталог</div>
                                     <ul className="footer__bottom-menu-link-wrap">
-                                        <li><NavLink to='#'>Про компанію</NavLink></li>
+                                        <li><NavLink to='/about'>Про компанію</NavLink></li>
                                         <li><NavLink to='#'>Публічна оферта</NavLink></li>
                                         <li><NavLink to='#'>Доставка і оплата</NavLink></li>
                                         <li><NavLink to='#'>Контакти</NavLink></li>

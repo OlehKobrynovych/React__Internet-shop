@@ -1,6 +1,6 @@
 import './DropDownMenu.css';
 import { useState, useRef, useEffect } from 'react';
-import { NavLink} from 'react-router-dom';
+import { NavLink, useLocation} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {datas} from '../../data.js'
 
@@ -15,11 +15,23 @@ import instagram from '../../assets/images/instagram.svg';
 // import login from '../../assets/images/login.svg';
 
 function DropDownMenu() {
-    // const [selectedSubCategories, setSelectedSubCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState(null);
     // const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
     // const selectedSubCategories = useSelector(state => state.homeSlice.selectedSubCategories);
     const datas = useSelector(state => state.homeSlice.datas);
     const isOpenMenu = useSelector(state => state.homeSlice.isOpenMenu);
+    let location = useLocation();
+
+    useEffect(() => {
+        if (datas && datas.categories) {
+            if (location.pathname === '/') {
+                setSelectedCategories(datas.categories[0]);
+            } else {
+                setSelectedCategories(datas.categories.find(el => el.href == location.pathname))
+            }
+        }
+    }, [location, datas]);
+    
     // debugger
     // const dispatch = useDispatch();
 
@@ -29,19 +41,15 @@ function DropDownMenu() {
     //     searchInputRef.current.focus()
     // };
 
-    // useEffect(() => {
-    //     setSelectedSubCategories(datas.categories.filter(el => el.name == selectedCategory))
-    // }, [])
-
     return (
         // <div className="drop-down-menu">
         <div className={`${isOpenMenu ? "drop-down-menu--active" : "drop-down-menu"}`}>
             <div className="drop-down-menu__header">
                 <ul className="drop-down-menu__header--wrap container">
                     {
-                       datas?.categories && datas?.categories.length ? datas.categories.map(categories => (
-                            <li className="drop-down-menu__header-link" key={categories.id}><NavLink to={categories.href}>{categories.name}</NavLink></li> 
-                        )) : ''
+                        datas?.categories?.length && datas.categories.map(categories => (
+                            <li key={categories.id}><NavLink to={categories.href} className="drop-down-menu__header-link">{categories.name}</NavLink></li> 
+                        ))
                     }
                 </ul>
             </div>
@@ -50,10 +58,10 @@ function DropDownMenu() {
 
                 <ul className="drop-down-menu__sub-categories-link-wrap">
                     {
-                        datas?.categories && datas?.categories.length ?  datas.categories[0].subCategories.map(subCategories => (
-                            <li key={subCategories.id}><NavLink className="drop-down-menu__sub-categories-link" to='#'>{subCategories.name}</NavLink></li>
-                            )) : ''
-                        }
+                        selectedCategories && selectedCategories?.subCategories.map(subCategories => (
+                            <li key={subCategories.id}><NavLink className="drop-down-menu__sub-categories-link" to={subCategories.href}>{subCategories.name}</NavLink></li>
+                        )) 
+                    }
                 </ul>
 
                 <button className="drop-down-menu__btn-wrap">
@@ -70,7 +78,7 @@ function DropDownMenu() {
                 </button>
 
                 <ul className="drop-down-menu__info">
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Про компанію</NavLink></li>
+                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='/about'>Про компанію</NavLink></li>
                     <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Публічна оферта</NavLink></li>
                     <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Доставка і оплата</NavLink></li>
                     <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Контакти</NavLink></li>

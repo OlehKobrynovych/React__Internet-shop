@@ -20,6 +20,40 @@
     margin-bottom: 32px;
 }
 
+.product-filter__filter-wrap {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 16px;
+   margin-bottom: 16px;
+}
+
+.product-filter__filter {
+
+}
+
+.product-filter__sort-wrap {
+
+}
+
+.product-filter__sort-label {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.product-filter__sort-select {
+    border: none;
+}
+
+.product-filter__sort-select:focus-visible {
+    border: none;
+}
+
+.product-filter__sort-option {
+
+}
+
 .product-filter__item--wrap {
     display: flex;
     justify-content: center;
