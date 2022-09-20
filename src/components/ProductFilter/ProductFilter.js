@@ -19,18 +19,27 @@ function ProductFilter() {
     let location = useLocation();
 
     const [selectedSort, setSelectedSort] = useState('priceUp');
-    const [selectedPath, setSelectedPath] = useState(null);
+
+    const [selectedCategories, setSelectedCategories] = useState(null);
+    const [selectedSubCategories, setSelectedSubCategories] = useState(null);
+
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(20);
-    // const indexOfLastProducts = currentPage * productsPerPage;
-    // const indexOfFirstProducts = indexOfLastProducts - productsPerPage;
-    // const currentProducts = products.slice(indexOfFirstProducts, indexOfLastProducts);
-  
+ 
+
     useEffect(() => {
+        let arr = location.pathname.split('/')
+
         if (datas && datas.categories) {
             setProducts(datas.products);
-            setSelectedPath(datas.categories.find(el => el.href == location.pathname))
+            setSelectedCategories(datas.categories.find(el => el.href == ('/' + arr[1])))
+            // debugger
+        };
+
+        if (arr[2]) {
+            setSelectedSubCategories(selectedCategories?.subCategories.find(el => el.href == location.pathname))
+            // debugger
         }
     }, [location, datas])
 
@@ -55,15 +64,16 @@ function ProductFilter() {
 
     return (
         <div className="product-filter">
+            {selectedSubCategories?.name}
              <div className="product-filter--wrap container">
                 <p className="product-filter__path">
                     <NavLink to='/'>Головна сторінка</NavLink>
                     <span>&nbsp; / &nbsp;</span>
-                    <span>{selectedPath?.name}</span>
+                    <span>{selectedCategories?.name}</span>
                     <span>&nbsp; /</span>
                 </p>
              
-                <h2 className="product-filter__title">{selectedPath?.name}</h2>
+                <h2 className="product-filter__title">{selectedCategories?.name}</h2>
 
                 <div className="product-filter__filter-wrap">
                     <div className="product-filter__filter">
@@ -93,7 +103,6 @@ function ProductFilter() {
                 <PaginationProduct
                     productsPerPage={productsPerPage}
                     totalProducts={products.length}
-                    // paginate={paginate} 
                     setCurrentPage={setCurrentPage} 
                     currentPage={currentPage}
                 />
