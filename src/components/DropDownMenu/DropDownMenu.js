@@ -2,17 +2,13 @@ import './DropDownMenu.css';
 import { useState, useRef, useEffect } from 'react';
 import { NavLink, useLocation} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {datas} from '../../data.js'
+import { setIsOpenMenu } from '../../store/homeSlice';
 
 import login from '../../assets/images/login.svg';
 import cart from '../../assets/images/cart.svg';
 import heart from '../../assets/images/heart.svg';
 import facebook from '../../assets/images/facebook.svg';
 import instagram from '../../assets/images/instagram.svg';
-
-
-// import { useState, useRef } from 'react';
-// import login from '../../assets/images/login.svg';
 
 function DropDownMenu() {
     const [selectedCategories, setSelectedCategories] = useState(null);
@@ -21,28 +17,26 @@ function DropDownMenu() {
     const datas = useSelector(state => state.homeSlice.datas);
     const isOpenMenu = useSelector(state => state.homeSlice.isOpenMenu);
     let location = useLocation();
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
+        let arr = location.pathname.split('/')
+
         if (datas && datas.categories) {
             if (location.pathname === '/') {
                 setSelectedCategories(datas.categories[0]);
             } else {
-                setSelectedCategories(datas.categories.find(el => el.href == location.pathname))
+                setSelectedCategories(datas.categories.find(el => el.href == ('/' + arr[1])))
             }
         }
     }, [location, datas]);
-    
-    // debugger
-    // const dispatch = useDispatch();
 
-    // const navigate = useNavigate();
-
-    // const handleClick = () => {
-    //     searchInputRef.current.focus()
-    // };
+    const handleClick = () => {
+        dispatch(setIsOpenMenu())
+    };
 
     return (
-        // <div className="drop-down-menu">
         <div className={`${isOpenMenu ? "drop-down-menu--active" : "drop-down-menu"}`}>
             <div className="drop-down-menu__header">
                 <ul className="drop-down-menu__header--wrap container">
@@ -59,7 +53,7 @@ function DropDownMenu() {
                 <ul className="drop-down-menu__sub-categories-link-wrap">
                     {
                         selectedCategories && selectedCategories?.subCategories.map(subCategories => (
-                            <li key={subCategories.id}><NavLink className="drop-down-menu__sub-categories-link" to={subCategories.href}>{subCategories.name}</NavLink></li>
+                            <li key={subCategories.id}><NavLink className="drop-down-menu__sub-categories-link" to={subCategories.href} onClick={handleClick}>{subCategories.name}</NavLink></li>
                         )) 
                     }
                 </ul>

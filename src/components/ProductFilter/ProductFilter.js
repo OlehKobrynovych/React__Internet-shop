@@ -6,10 +6,6 @@ import { useEffect, useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { useLocation } from 'react-router-dom';
 
-// import { useState, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import cart from '../../assets/images/cart.svg';
-
 
 function ProductFilter() {
    
