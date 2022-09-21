@@ -40,7 +40,6 @@ function HomeView() {
                 className="mySwiper"
             >
                 <SwiperSlide><img className="home-view__swiper-img" src={man} alt='img'/></SwiperSlide>
-                {/* <SwiperSlide><img className="home-view__swiper-img" src={'images/man.webp'} alt='img'/></SwiperSlide> */}
                 <SwiperSlide><img className="home-view__swiper-img" src={kids} alt='img'/></SwiperSlide>
                 <SwiperSlide><img className="home-view__swiper-img" src={man} alt='img'/></SwiperSlide>
                 <SwiperSlide><img className="home-view__swiper-img" src={kids} alt='img'/></SwiperSlide>

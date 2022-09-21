@@ -1,0 +1,44 @@
+.page-not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-not-found__number {
+    display: block;
+    font-size: 80px;
+    color: red;
+    margin-bottom: 30px;
+}
+
+.page-not-found__title {
+    display: block;
+    font-size: 45px;
+    margin-bottom: 30px;
+}
+
+.page-not-found__btn {
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 12px 28px;
+    margin-left: 10px;
+    transition: .3s;
+}
+
+.page-not-found__btn:hover {
+    background: rgb(109, 107, 107);
+    scale: 1.11;
+}
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 1080px) {
+
+}
