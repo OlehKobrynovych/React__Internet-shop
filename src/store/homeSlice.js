@@ -4,7 +4,8 @@ const initialState = {
   datas: {},
   selectedCategory: '',
   selectedSubCategories: [],
-  lastViewProduct: null,
+  // lastViewProduct: null,
+  lastViewProduct: [],
   isOpenMenu: false,
 }
 
@@ -22,7 +23,11 @@ export const homeSlice = createSlice({
       state.selectedSubCategories = action.payload;
     },
     setLastViewProduct: (state, action) => {
-      state.lastViewProduct = action.payload;
+      if (state.lastViewProduct.length >= 3) {
+        state.lastViewProduct = [... state.lastViewProduct.slice(1,3), action.payload]
+      } else {
+        state.lastViewProduct = [...state.lastViewProduct, action.payload];
+      }
     },
     setIsOpenMenu: (state) => {
       state.isOpenMenu = !state.isOpenMenu;

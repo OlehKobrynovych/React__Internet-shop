@@ -34,8 +34,12 @@
     margin-bottom: 20px;
 }
 
-.swiper {
+/* .swiper {
     overflow: visible !important;
+} */
+
+.swiper-cards--wrap.container .swiper {
+    overflow: visible;
 }
 
 .swiper-backface-hidden .swiper-slide {

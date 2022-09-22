@@ -76,6 +76,11 @@
     text-transform: uppercase;
     margin-bottom: 20px;
 }
+
+.product-filter__last-product-werap-cart {
+    display: flex;
+    gap: 15px;
+}
 @media (min-width: 450px) {
     .product-filter__item {
         max-width: 200px;

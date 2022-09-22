@@ -68,7 +68,6 @@ function ProductFilter() {
             {
                 isPageNotFound ? <PageNotFound /> :
                     <div className="product-filter">
-                        {selectedSubCategories?.name}
                         <div className="product-filter--wrap container">
                             <p className="product-filter__path">
                                 <NavLink to='/'>Головна сторінка</NavLink>
@@ -115,7 +114,11 @@ function ProductFilter() {
                                 lastViewProduct && (
                                     <div className="product-filter__last-product">
                                         <h2 className="product-filter__last-product-title">Переглянуті продукти</h2>
-                                        <ProductCard products={lastViewProduct}/>
+                                        <div className="product-filter__last-product-werap-cart">
+                                            {
+                                                lastViewProduct.map(el => (<ProductCard products={el}/>))
+                                            }
+                                        </div>
                                     </div>
                                 ) 
                             }

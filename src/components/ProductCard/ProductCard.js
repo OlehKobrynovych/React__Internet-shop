@@ -5,6 +5,7 @@ import heart from '../../assets/images/heart.svg';
 import cart from '../../assets/images/cart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLastViewProduct } from '../../store/homeSlice';
+import { useNavigate } from 'react-router-dom';
 // import { useState, useRef, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
@@ -14,10 +15,13 @@ function ProductCard({products}) {
 
     const dispatch = useDispatch();
     // const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
+    const navigate = useNavigate();
+
 
     const handleClick = (products) => {
+        navigate(`/product/${products.id}`);
         dispatch(setLastViewProduct(products))
-   };
+    };
 
     return (
         <div className="product-card">

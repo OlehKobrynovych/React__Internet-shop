@@ -54,7 +54,7 @@ function SwiperCards({title, priceNew}) {
                     }}
                     navigation={true}
                     modules={[Navigation]}
-                    className="mySwiper asd"
+                    className="mySwiper swiper-cards__visible"
                 >
                     {
                         filterDatas.map(products => (

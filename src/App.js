@@ -6,6 +6,7 @@ import HomeView from './views/HomeView/HomeView';
 import ProductFilter from './components/ProductFilter/ProductFilter';
 import AboutUs from './components/AboutUs/AboutUs';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import ProductInformation from './components/ProductInformation/ProductInformation';
 
 function App() {
   return (
@@ -14,8 +15,6 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<HomeView />} />
-                {/* <Route path="/catalog/:id" element={<ProductFilter />} /> */}
-                {/* <Route path="/:id" element={<ProductFilter />} /> */}
                 <Route path="/unisex" element={<ProductFilter />} />
                 <Route path="/unisex/:id" element={<ProductFilter />} />
                 <Route path="/man" element={<ProductFilter />} />
@@ -28,10 +27,12 @@ function App() {
                 <Route path="/collections/:id" element={<ProductFilter />} />
                 <Route path="/discounts" element={<ProductFilter />} />
                 <Route path="/discounts/:id" element={<ProductFilter />} />
+
+                <Route path="/product/:id" element={<ProductInformation />} />
+
                 <Route path="/about" element={<AboutUs />} />
                 
                 <Route path="*" element={<PageNotFound />} />
-                {/* <Route path="*" element={<HomeView />} /> */}
             </Routes>
             <Footer />
         </div>

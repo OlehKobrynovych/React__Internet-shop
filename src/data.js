@@ -9,6 +9,9 @@ export const datas = {
         contact_number: '+38 (067) 380-41-11',
         contact_number_two: '+38 (067) 380-41-11',
         location: 'м.Рівне, Фабрична, 12',
+        deliveryMthods: 'Самовивіз з магазину або службами доставки Нова Пошта',
+        paymentMethods: 'Ви можете оплатити  товар на сайті або за реквізитами',
+        guarantee: 'Обмін\повернення товару протягом 14 днів',
     },
     categories: [
         {
@@ -183,7 +186,15 @@ export const datas = {
             image: '/images/photo1.webp',
             new_price: 90,
             category: 'Чоловікам',
-            subCategory: 'Штани'
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '2',
