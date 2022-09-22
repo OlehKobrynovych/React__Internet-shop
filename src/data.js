@@ -201,162 +201,391 @@ export const datas = {
             name: 'Сорочка',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '3',
             name: 'Джинси',
             price: 500,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '4',
             name: 'Куртка',
             price: 180,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '5',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '6',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '7',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '8',
             name: 'Сорочка',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '9',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Жінкам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '10',
             name: 'Куртка',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '11',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Жінкам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '12',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
-       
-        {
+               {
             id: '13',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Жінкам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '14',
             name: 'Сорочка',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '15',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Жінкам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '16',
             name: 'Куртка',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '17',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '18',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: 90
+            new_price: 90,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '19',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '20',
             name: 'Сорочка',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '21',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '22',
             name: 'Куртка',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '23',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         {
             id: '24',
             name: 'Джинси',
             price: 100,
             image: '/images/photo1.webp',
-            new_price: null
+            new_price: null,
+            category: 'Чоловікам',
+            subCategory: 'Штани',
+            description: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
+            size: 'L XL XXL',
+            imageArr: [
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+                '/images/photo1.webp',
+            ]
         },
         // {
         //     id: '25',

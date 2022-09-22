@@ -33,7 +33,8 @@ function Header() {
     const handleCategories = (name) => {
         dispatch(setSelectedCategory(name))
     };
-
+    
+   
     useEffect(() => {
         //   const fetchProducts = async () => {
         //     setLoading(true);

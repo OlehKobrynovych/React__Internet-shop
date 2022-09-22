@@ -4,8 +4,8 @@ const initialState = {
   datas: {},
   selectedCategory: '',
   selectedSubCategories: [],
-  // lastViewProduct: null,
   lastViewProduct: [],
+  favoriteProduct: [],
   isOpenMenu: false,
 }
 
@@ -32,6 +32,9 @@ export const homeSlice = createSlice({
     setIsOpenMenu: (state) => {
       state.isOpenMenu = !state.isOpenMenu;
     },
+    setFavoriteProduct: (state, action) => {
+      state.favoriteProduct = action.payload;
+    },
     // decrement: (state) => {
     //   state.value -= 1
     // },
@@ -41,6 +44,6 @@ export const homeSlice = createSlice({
   },
 })
 
-export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu } = homeSlice.actions
+export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct } = homeSlice.actions
 
 export default homeSlice.reducer

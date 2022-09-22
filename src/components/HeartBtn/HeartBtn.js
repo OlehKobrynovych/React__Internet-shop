@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './HeartBtn.css';
 
 // import { useState, useRef } from 'react';
@@ -8,6 +10,9 @@ import './HeartBtn.css';
 // import Helocation from '../Helocation/Helocation';
 
 function HeartBtn() {
+    const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
+    const navigate = useNavigate();
+
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
 
     // const searchInputRef = useRef(null);
@@ -18,8 +23,13 @@ function HeartBtn() {
     //     searchInputRef.current.focus()
     // };
 
+    const handleClick = () => {
+        navigate('/wishlist')
+    };
+
+
     return (
-        <div className="heart-btn">
+        <div className="heart-btn" onClick={handleClick}>
             <svg className="heart-btn__img" fill='#fff' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 471.701 471.701"  xmlSpace="preserve">
                     <g>
@@ -33,6 +43,10 @@ function HeartBtn() {
                     </g>
             </svg>
             <p className="heart-btn__text">обрані</p>
+
+            {
+               favoriteProduct.length !== 0 && (<div className="heart-btn__count">{favoriteProduct.length}</div>) 
+            }
         </div>
     );
 }

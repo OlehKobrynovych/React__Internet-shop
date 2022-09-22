@@ -7,6 +7,7 @@ import ProductFilter from './components/ProductFilter/ProductFilter';
 import AboutUs from './components/AboutUs/AboutUs';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import ProductInformation from './components/ProductInformation/ProductInformation';
+import WishList from './components/WishList/WishList';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/discounts" element={<ProductFilter />} />
                 <Route path="/discounts/:id" element={<ProductFilter />} />
 
+                <Route path="/wishlist" element={<WishList />} />
                 <Route path="/product/:id" element={<ProductInformation />} />
 
                 <Route path="/about" element={<AboutUs />} />

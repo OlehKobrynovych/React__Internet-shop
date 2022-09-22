@@ -1,4 +1,5 @@
 .heart-btn {
+    position: relative;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -12,6 +13,21 @@
 
 .heart-btn__text {
     display: none;
+}
+
+.heart-btn__count {
+    position: absolute;
+    top: -13px;
+    right: -9px;
+    background: rgb(247, 17, 17);
+    color: #fff;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
 }
 
 @media (min-width: 576px) {
