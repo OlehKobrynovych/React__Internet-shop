@@ -77,6 +77,10 @@
     height: 23px;
 }
 
+/* .product-card__btn-img:hover {
+    fill: #E31E24;
+} */
+
 
 @media (min-width: 576px) {
     

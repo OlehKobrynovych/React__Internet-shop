@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { useLocation } from 'react-router-dom';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import LastProduct from '../LastProduct/LastProduct';
 
 
 function ProductFilter() {
@@ -40,6 +41,8 @@ function ProductFilter() {
         if (arr[2] && obj?.subCategories) {
             let res = obj?.subCategories.find(el => el.href == location.pathname)
             res?.name ? setSelectedSubCategories(res) : setIsPageNotFound(true)
+        } else {
+            setSelectedSubCategories(null)
         }
     }, [location, datas])
 
@@ -69,12 +72,23 @@ function ProductFilter() {
                 isPageNotFound ? <PageNotFound /> :
                     <div className="product-filter">
                         <div className="product-filter--wrap container">
-                            <p className="product-filter__path">
-                                <NavLink to='/'>Головна сторінка</NavLink>
-                                <span>&nbsp; / &nbsp;</span>
-                                <span>{selectedCategories?.name}</span>
-                                <span>&nbsp; /</span>
-                            </p>
+
+                            {
+                                selectedSubCategories ? ( 
+                                    <div className="product-filter__path">
+                                        <NavLink className="product-filter__path-link" to='/'>Головна сторінка</NavLink>
+                                        <span>&nbsp; / &nbsp;</span>
+                                        <NavLink className="product-filter__path-link" to={selectedCategories.href}>{selectedCategories?.name}</NavLink>
+                                        <span>&nbsp; / &nbsp;</span>
+                                        <span>{selectedSubCategories.name}</span>
+                                    </div>
+                                ) : (<div className="product-filter__path">
+                                        <NavLink className="product-filter__path-link" to='/'>Головна сторінка</NavLink>
+                                        <span>&nbsp; / &nbsp;</span>
+                                        <span>{selectedCategories?.name}</span>
+                                        <span>&nbsp; /</span>
+                                    </div>)
+                            }
                         
                             <h2 className="product-filter__title">{selectedCategories?.name}</h2>
 
@@ -110,18 +124,8 @@ function ProductFilter() {
                                 currentPage={currentPage}
                             />
 
-                            {
-                                lastViewProduct && (
-                                    <div className="product-filter__last-product">
-                                        <h2 className="product-filter__last-product-title">Переглянуті продукти</h2>
-                                        <div className="product-filter__last-product-werap-cart">
-                                            {
-                                                lastViewProduct.map(el => (<ProductCard products={el}/>))
-                                            }
-                                        </div>
-                                    </div>
-                                ) 
-                            }
+                            <LastProduct />
+
                         </div>
                     </div>
             }

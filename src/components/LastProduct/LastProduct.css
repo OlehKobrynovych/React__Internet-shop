@@ -1,0 +1,27 @@
+.last-product {
+    margin-top: 25px;
+    margin-bottom: 28px;
+}
+
+.last-product__title {
+    font-size: 40px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.last-product__wrap-cart {
+    display: flex;
+    gap: 15px;
+}
+@media (min-width: 576px) {
+
+}
+  
+@media (min-width: 768px) {
+    
+}
+  
+@media (min-width: 1080px) {
+
+}
