@@ -1,0 +1,152 @@
+.shopping-cart {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.shopping-cart--wrap {
+
+}
+
+.shopping-cart__path {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.shopping-cart__path-link {
+    
+}
+
+.shopping-cart__title {
+    font-size: 40px;
+    line-height: 1.2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.shopping-cart__pdoduct-wrap {
+
+}
+
+.shopping-cart__pdoduct {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 0;
+    border-top: 1px solid #E4E4E5;
+    border-bottom: 1px solid #E4E4E5;
+} 
+
+.shopping-cart__pdoduct-info-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    gap: 10px;
+}
+
+.shopping-cart__pdoduct-img {
+    max-width: 130px;
+}
+
+.shopping-cart__pdoduct-info {
+
+}
+
+.shopping-cart__pdoduct-price-wrap {
+
+}
+
+.shopping-cart__pdoduct-price-old {
+    font-size: 16;
+    color: red;
+    text-decoration: line-through;
+}
+
+.shopping-cart__pdoduct-price {
+    font-size: 20px;
+}
+
+.shopping-cart__pdoduct-count-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.shopping-cart__delete-btn {
+    width: 35px;
+    height: 35px;
+    opacity: .7;
+}
+
+.shopping-cart__delete-btn:hover {
+    opacity: 1;
+    scale: 1.1;
+}
+
+.shopping-cart__total-price-wrap {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 35px;
+}
+
+.shopping-cart__total-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.shopping-cart__total-price-title {
+    font-size: 18px;
+}
+
+.shopping-cart__total-price-number {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.shopping-cart__btn-buy {
+    border: 1px solid #000;
+    padding: 12px 30px;
+    transition: .3s;
+}
+
+.shopping-cart__btn-buy:hover {
+    background: rgb(121, 117, 117);
+    color: #fff;
+}
+
+.shopping-cart__pdoduct-error {
+    font-size: 21px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media (min-width: 576px) {
+    .shopping-cart__pdoduct {
+        flex-direction: row;
+    } 
+
+    .shopping-cart__pdoduct-info-wrap {
+        width: 50%;
+    }
+
+    .shopping-cart__pdoduct-count-wrap {
+        justify-content: space-around;
+        width: 50%;
+    }
+}
+  
+@media (min-width: 768px) {
+  
+}
+  
+@media (min-width: 1080px) {
+
+}

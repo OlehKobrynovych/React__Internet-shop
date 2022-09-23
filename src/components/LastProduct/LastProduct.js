@@ -14,7 +14,7 @@ function LastProduct() {
                 <h2 className="last-product__title">Переглянуті продукти</h2>
                 <div className="last-product__wrap-cart">
                     {
-                        lastViewProduct.map(el => (<ProductCard products={el}/>))
+                        lastViewProduct.map(el => (<ProductCard key={el.id} products={el}/>))
                     }
                 </div>
             </div>

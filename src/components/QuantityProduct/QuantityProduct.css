@@ -1,0 +1,26 @@
+.quantity-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.quantity-product__pdoduct-count {
+    width: 60px;
+    border: 1px solid #000;
+    margin-left: 10px;
+}
+
+.quantity-product__pdoduct-total-price {
+
+}
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 1080px) {
+
+}

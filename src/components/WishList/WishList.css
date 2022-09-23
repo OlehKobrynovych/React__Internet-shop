@@ -7,6 +7,15 @@
 
 }
 
+.wish-list__path {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.wish-list__path-link {
+    
+}
+
 .wish-list__title {
     font-size: 40px;
     line-height: 1.2;

@@ -6,7 +6,9 @@ const initialState = {
   selectedSubCategories: [],
   lastViewProduct: [],
   favoriteProduct: [],
+  shoppingProduct: [],
   isOpenMenu: false,
+  // totalPrice: {},
 }
 
 export const homeSlice = createSlice({
@@ -35,6 +37,12 @@ export const homeSlice = createSlice({
     setFavoriteProduct: (state, action) => {
       state.favoriteProduct = action.payload;
     },
+    setShoppingProduct: (state, action) => {
+      state.shoppingProduct = action.payload;
+    },
+    // setTotalPrice: (state, action) => {
+    //   state.totalPrice = action.payload;
+    // },
     // decrement: (state) => {
     //   state.value -= 1
     // },
@@ -44,6 +52,6 @@ export const homeSlice = createSlice({
   },
 })
 
-export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct } = homeSlice.actions
+export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct, setShoppingProduct } = homeSlice.actions
 
 export default homeSlice.reducer

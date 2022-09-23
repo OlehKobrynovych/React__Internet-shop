@@ -18,12 +18,7 @@ import DropDownMenu from '../DropDownMenu/DropDownMenu';
 
 
 function Header() {
-    // const [activeCategory, setActiveCategory] = useState(null);
-    // const navigate = useNavigate();
-
     const dispatch = useDispatch();
-    // const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
-
     const searchInputRef = useRef(null);
 
     const handleClick = () => {
@@ -33,7 +28,6 @@ function Header() {
     const handleCategories = (name) => {
         dispatch(setSelectedCategory(name))
     };
-    
    
     useEffect(() => {
         //   const fetchProducts = async () => {

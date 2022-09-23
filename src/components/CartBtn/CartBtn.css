@@ -1,4 +1,5 @@
 .cart-btn {
+    position: relative;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -7,12 +8,28 @@
 }
 
 .cart-btn__img {
+    fill: #fff;
     width: 20px;
     height: 20px;
 }
 
 .cart-btn__text {
     display: none;
+}
+
+.cart-btn__count {
+    position: absolute;
+    top: -17px;
+    right: -16px;
+    background: rgb(247, 17, 17);
+    color: #fff;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
 }
 
 @media (min-width: 576px) {
@@ -30,4 +47,8 @@
         text-transform: uppercase;
         font-size: 11px;
     } 
+
+    .cart-btn__count {
+        right: -8px;
+    }
 }

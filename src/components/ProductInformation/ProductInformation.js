@@ -7,10 +7,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SwiperCards from '../SwiperCards/SwiperCards';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import LastProduct from '../LastProduct/LastProduct';
+import { setShoppingProduct } from '../../store/homeSlice';
 
 
 function ProductInformation() {
@@ -20,6 +21,10 @@ function ProductInformation() {
     const [product, setProduct] = useState({});
     const [selectedCategories, setSelectedCategories] = useState(null);
     const [selectedSubCategories, setSelectedSubCategories] = useState(null);
+    const [isShoppingProduct, setIsShoppingProduct] = useState(false);
+    const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
+    const dispatch = useDispatch();
+
 // debugger
     useEffect(() => {
         let selectedProduct = datas?.products?.find(el => el.id == id )
@@ -37,8 +42,20 @@ function ProductInformation() {
 
     // const navigate = useNavigate();
 
-    // const handleClick = () => {
-    //     searchInputRef.current.focus()
+    const handleAddProduct = () => {
+        if(shoppingProduct.some(el => el.id === product.id)) {
+            let res = shoppingProduct.filter(el => el.id !== product.id)
+            dispatch(setShoppingProduct(res))
+        } else {
+            let res = [...shoppingProduct, product]
+            dispatch(setShoppingProduct(res.map(el => el.id == product.id ? {...el, count: 1} : el)))
+        }
+
+        setIsShoppingProduct(!isShoppingProduct)
+    };
+
+    // const handleAddProduct = () => {
+    //     dispatch(setShoppingProducts())
     // };
 
     return (
@@ -97,7 +114,11 @@ function ProductInformation() {
                                     product?.description && (<div className="product-information__description"><p><b>Опис</b></p><p>{product.description}</p></div>)
                                 }
 
-                                <button className="product-information__btn-cart">Добавити в кошик</button>
+                                <button className="product-information__btn-cart" onClick={handleAddProduct}>
+                                    {
+                                        !isShoppingProduct ? "Добавити в кошик" : "Видалити з кошика"
+                                    }
+                                </button>
 
                                 {
                                     datas?.shopInfo?.guarantee && (<div className="product-information__guarantee"><p><b>Гарантія</b></p><p>{datas.shopInfo.guarantee}</p></div>)
