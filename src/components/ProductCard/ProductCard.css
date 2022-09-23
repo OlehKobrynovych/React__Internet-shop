@@ -77,9 +77,13 @@
     height: 23px;
 }
 
-/* .product-card__btn-img:hover {
+.product-card__btn-img--active {
     fill: #E31E24;
-} */
+}
+
+.product-card__btn-img:hover {
+    fill: #E31E24;
+}
 
 
 @media (min-width: 576px) {
