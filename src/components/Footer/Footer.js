@@ -47,13 +47,14 @@ function Footer() {
                         <div className="footer__bottom-info">
                             <div className="footer__bottom-social">
                                 <NavLink className="footer__bottom-social-logo" to='/'><img src={logo} alt='img' /></NavLink>
+                                <NavLink className="footer__bottom-social-about" to='/about'>Про компанію</NavLink>
                                 <div className="footer__bottom-social-link-wrap">
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.facebook} target='_blank'><img src={facebook} alt='img' /></a>
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.instagram} target='_blank'><img src={instagram} alt='img' /></a>
                                 </div>
                             </div>
 
-                            <div className="footer__bottom-menu">
+                            {/* <div className="footer__bottom-menu">
                                 <div className="footer__bottom-menu-title">Каталог</div>
                                     <ul className="footer__bottom-menu-link-wrap">
                                         <li><NavLink to='/about'>Про компанію</NavLink></li>
@@ -62,7 +63,7 @@ function Footer() {
                                         <li><NavLink to='#'>Контакти</NavLink></li>
                                         <li><NavLink to='#'>Допомога</NavLink></li>
                                     </ul>
-                            </div>
+                            </div> */}
 
                             <div className="footer__bottom-catalog">
                                 <div className="footer__bottom-catalog-title">Каталог</div>

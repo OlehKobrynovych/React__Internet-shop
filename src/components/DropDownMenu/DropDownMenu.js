@@ -58,25 +58,25 @@ function DropDownMenu() {
                     }
                 </ul>
 
-                <button className="drop-down-menu__btn-wrap">
+                <NavLink className="drop-down-menu__btn-wrap" to='#' onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={login} alt='img'/>
                     <span className="drop-down-menu__btn-text">Вхід</span>
-                </button>
-                <button className="drop-down-menu__btn-wrap">
+                </NavLink>
+                <NavLink className="drop-down-menu__btn-wrap" to='/cart' onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={cart} alt='img'/>
                     <span className="drop-down-menu__btn-text">Кошик</span>
-                </button>
-                <button className="drop-down-menu__btn-wrap">
+                </NavLink>
+                <NavLink className="drop-down-menu__btn-wrap" to='/wishlist' onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={heart} alt='img'/>
                     <span className="drop-down-menu__btn-text">Обрані</span>
-                </button>
+                </NavLink>
 
                 <ul className="drop-down-menu__info">
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='/about'>Про компанію</NavLink></li>
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Публічна оферта</NavLink></li>
+                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='/about' onClick={handleClick}>Про компанію</NavLink></li>
+                    {/* <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Публічна оферта</NavLink></li>
                     <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Доставка і оплата</NavLink></li>
                     <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Контакти</NavLink></li>
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Допомога</NavLink></li>
+                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Допомога</NavLink></li> */}
                 </ul>
 
                 <div className="drop-down-menu__contact">

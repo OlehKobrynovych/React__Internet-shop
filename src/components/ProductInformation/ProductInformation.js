@@ -38,9 +38,9 @@ function ProductInformation() {
         }
     }, [datas, id])
 
-    // const searchInputRef = useRef(null);
-
-    // const navigate = useNavigate();
+    useEffect(() => {
+        setIsShoppingProduct(shoppingProduct.some(el => el.id === id))
+    }, [])
 
     const handleAddProduct = () => {
         if(shoppingProduct.some(el => el.id === product.id)) {

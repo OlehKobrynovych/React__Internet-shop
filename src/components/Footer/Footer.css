@@ -68,12 +68,21 @@
 
 .footer__bottom-social {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 28px;
 }
 
 .footer__bottom-social-logo {
     display: none;
+}
+
+.footer__bottom-social-about {
+    font-size: 16px;
+    font-weight: 700;
+    /* margin-bottom: 16px; */
+    text-transform: uppercase;
 }
 
 .footer__bottom-social-link-wrap {
@@ -88,7 +97,7 @@
 
 /* -------------------------- */
 
-.footer__bottom-menu {
+/* .footer__bottom-menu {
     display: none;
 }
 
@@ -106,7 +115,7 @@
 .footer__bottom-menu-link-wrap li {
     font-size: 16px;
     margin-bottom: 16px;
-}
+} */
 
 /* ----------------------------- */
 
