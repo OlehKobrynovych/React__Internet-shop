@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   datas: {},
+  selectedLanguage: {},
   selectedCategory: '',
   selectedSubCategories: [],
   lastViewProduct: [],
@@ -17,6 +18,9 @@ export const homeSlice = createSlice({
   reducers: {
     getDatas: (state, action) => {
       state.datas = action.payload;
+    },
+    setSelectedLanguage: (state, action) => {
+      state.selectedLanguage = action.payload;
     },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
@@ -52,6 +56,6 @@ export const homeSlice = createSlice({
   },
 })
 
-export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct, setShoppingProduct } = homeSlice.actions
+export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct, setShoppingProduct, setSelectedLanguage } = homeSlice.actions
 
 export default homeSlice.reducer

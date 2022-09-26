@@ -13,7 +13,7 @@ function ProductFilter() {
    
     // const dispatch = useDispatch();
     const datas = useSelector(state => state.homeSlice.datas);
-    const lastViewProduct = useSelector(state => state.homeSlice.lastViewProduct);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     let location = useLocation();
 
     const [selectedSort, setSelectedSort] = useState('priceUp');
@@ -76,14 +76,14 @@ function ProductFilter() {
                             {
                                 selectedSubCategories ? ( 
                                     <div className="product-filter__path">
-                                        <NavLink className="product-filter__path-link" to='/'>Головна сторінка</NavLink>
+                                        <NavLink className="product-filter__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
                                         <span>&nbsp; / &nbsp;</span>
                                         <NavLink className="product-filter__path-link" to={selectedCategories.href}>{selectedCategories?.name}</NavLink>
                                         <span>&nbsp; / &nbsp;</span>
                                         <span>{selectedSubCategories.name}</span>
                                     </div>
                                 ) : (<div className="product-filter__path">
-                                        <NavLink className="product-filter__path-link" to='/'>Головна сторінка</NavLink>
+                                        <NavLink className="product-filter__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
                                         <span>&nbsp; / &nbsp;</span>
                                         <span>{selectedCategories?.name}</span>
                                         <span>&nbsp; /</span>
@@ -97,12 +97,12 @@ function ProductFilter() {
 
                                 </div>
                                 <div className="product-filter__sort-wrap">
-                                    <span className="product-filter__sort-label">Сортування</span>
+                                    <span className="product-filter__sort-label">{selectedLanguage?.categoriesPage?.categoriesSortTitle}</span>
                                     <select className="product-filter__sort-select" onChange={handleChangeSort} value={selectedSort}>
-                                        <option className="product-filter__sort-option" value="priceUp">По зростанню ціни</option>
-                                        <option className="product-filter__sort-option" value="priceDown">По спаданню ціни</option>
-                                        <option className="product-filter__sort-option" value="newPrice">Знижки</option>
-                                        <option className="product-filter__sort-option" value="new">Новинки</option>
+                                        <option className="product-filter__sort-option" value="priceUp">{selectedLanguage?.categoriesPage?.categoriesSortOption1}</option>
+                                        <option className="product-filter__sort-option" value="priceDown">{selectedLanguage?.categoriesPage?.categoriesSortOption2}</option>
+                                        <option className="product-filter__sort-option" value="newPrice">{selectedLanguage?.categoriesPage?.categoriesSortOption3}</option>
+                                        <option className="product-filter__sort-option" value="new">{selectedLanguage?.categoriesPage?.categoriesSortOption4}</option>
                                     </select>
                                 </div>
                             </div>

@@ -14,6 +14,7 @@ function ProductCard({products}) {
 
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
+    const datas = useSelector(state => state.homeSlice.datas);
     const [isFavoriteProduct, setIsFavoriteProduct] = useState(false);
     const [isShoppingProduct, setIsShoppingProduct] = useState(false);
     const dispatch = useDispatch();
@@ -61,12 +62,12 @@ function ProductCard({products}) {
                     {
                         products.new_price !== null ? (
                             <div className="product-card__price-wrap">
-                                <div className="product-card__price--discount">{products.price} ₴</div>
-                                <div className="product-card__price-new">{products.new_price} ₴</div> 
+                                <div className="product-card__price--discount">{products.price} {datas?.shopInfo?.selectedCurrency}</div>
+                                <div className="product-card__price-new">{products.new_price} {datas?.shopInfo?.selectedCurrency}</div> 
                             </div> 
                         ) : (
                             <div className="product-card__price-wrap">
-                                <div className="product-card__price">{products.price} ₴</div>
+                                <div className="product-card__price">{products.price} {datas?.shopInfo?.selectedCurrency}</div>
                             </div> 
                         )
                     }

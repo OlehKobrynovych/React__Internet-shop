@@ -15,14 +15,15 @@ import { setShoppingProduct } from '../../store/homeSlice';
 
 
 function ProductInformation() {
-    // let location = useLocation();
     const datas = useSelector(state => state.homeSlice.datas);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+    const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
+    const lastViewProduct = useSelector(state => state.homeSlice.lastViewProduct);
     let { id } = useParams();
     const [product, setProduct] = useState({});
     const [selectedCategories, setSelectedCategories] = useState(null);
     const [selectedSubCategories, setSelectedSubCategories] = useState(null);
     const [isShoppingProduct, setIsShoppingProduct] = useState(false);
-    const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const dispatch = useDispatch();
 
 // debugger
@@ -66,7 +67,7 @@ function ProductInformation() {
                         {
                            product && (
                                 <div className="product-information__path container">
-                                    <NavLink className="product-information__path-link" to='/'>Головна сторінка</NavLink>
+                                    <NavLink className="product-information__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
                                     <span>&nbsp; / &nbsp;</span>
                                     {
                                         selectedCategories?.href && ( <NavLink className="product-information__path-link" to={selectedCategories?.href}>{selectedCategories?.name}</NavLink>)
@@ -100,44 +101,46 @@ function ProductInformation() {
                                 <h2 className="product-information__title">{product?.name}</h2>
 
                                 <div className="product-information__price-wrap">
-                                    <span className={`product-information__price ${product.new_price ? "product-information__price-old" : ""}`}>{product?.price}₴</span>
+                                    <span className={`product-information__price ${product.new_price ? "product-information__price-old" : ""}`}>{product?.price}{datas?.shopInfo?.selectedCurrency}</span>
                                     {
-                                        product?.new_price ? (<span className="product-information__new-price">{product.new_price}₴</span>) : ""
+                                        product?.new_price ? (<span className="product-information__new-price">{product.new_price}{datas?.shopInfo?.selectedCurrency}</span>) : ""
                                     }
                                 </div>
                                 
                                 {
-                                    product?.size &&  (<p className="product-information__size"><b>Доступні розміра: </b>(&nbsp;{product.size}&nbsp;)</p>)
+                                    product?.size &&  (<p className="product-information__size"><b>{selectedLanguage?.productPage?.productSizeTitle}</b>(&nbsp;{product.size}&nbsp;)</p>)
                                 }
                                 
                                 {
-                                    product?.description && (<div className="product-information__description"><p><b>Опис</b></p><p>{product.description}</p></div>)
+                                    product?.description && (<div className="product-information__description"><p><b>{selectedLanguage?.productPage?.productDescriptionTitle}</b></p><p>{product.description}</p></div>)
                                 }
 
                                 <button className="product-information__btn-cart" onClick={handleAddProduct}>
                                     {
-                                        !isShoppingProduct ? "Добавити в кошик" : "Видалити з кошика"
+                                        !isShoppingProduct ? selectedLanguage?.productPage?.productBtnCartAdd : selectedLanguage?.productPage?.productBtnCartNotAdd
                                     }
                                 </button>
 
                                 {
-                                    datas?.shopInfo?.guarantee && (<div className="product-information__guarantee"><p><b>Гарантія</b></p><p>{datas.shopInfo.guarantee}</p></div>)
+                                    datas?.shopInfo?.guarantee && (<div className="product-information__guarantee"><p><b>{selectedLanguage?.productPage?.productGuaranteeTitle}</b></p><p>{datas.shopInfo.guarantee}</p></div>)
                                 }
 
                                 {
-                                    datas?.shopInfo?.deliveryMthods && (<div className="product-information__delivery-mthods"><p><b>Способи доставки:</b></p><p>{datas.shopInfo.deliveryMthods}</p></div>)
+                                    datas?.shopInfo?.deliveryMthods && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{datas.shopInfo.deliveryMthods}</p></div>)
                                 }
 
                                 {
-                                    datas?.shopInfo?.paymentMethods && (<div className="product-information__payment-methods"><p><b>Способи оплати:</b></p><p>{datas.shopInfo.paymentMethods}</p></div>)
+                                    datas?.shopInfo?.paymentMethods && (<div className="product-information__payment-methods"><p><b>{selectedLanguage?.productPage?.productPaymentTitle}</b></p><p>{datas.shopInfo.paymentMethods}</p></div>)
                                 }
 
                             </div>
                         </div>
 
-                        <SwiperCards title={'Подібні продукти'} priceNew={false} />
+                        <SwiperCards title={selectedLanguage?.productPage?.productSwiperTitle} priceNew={false} />
 
-                        <LastProduct />
+                        {
+                            lastViewProduct.length && (<LastProduct />)
+                        }
                         
                     </div>) : (<PageNotFound />)
             }

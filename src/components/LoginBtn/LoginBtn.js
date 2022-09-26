@@ -1,17 +1,10 @@
 import './LoginBtn.css';
 import login from '../../assets/images/login.svg';
+import { useSelector } from 'react-redux';
 
-// import { useState, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// import Helocation from '../Helocation/Helocation';
 
 function LoginBtn() {
-    // const [isOpenMenu, setIsOpenMenu] = useState(false);
-
-    // const searchInputRef = useRef(null);
-
-    // const navigate = useNavigate();
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
     // const handleClick = () => {
     //     searchInputRef.current.focus()
@@ -36,7 +29,7 @@ function LoginBtn() {
                     </g>
                 </g>
             </svg>
-            <p className="login-btn__text">Вхід</p>
+            <p className="login-btn__text">{selectedLanguage?.header?.loginBtn}</p>
         </div>
     );
 }

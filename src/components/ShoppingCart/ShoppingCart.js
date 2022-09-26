@@ -12,7 +12,8 @@ import { setShoppingProduct } from '../../store/homeSlice';
 
 
 function ShoppingCart() {
-   
+    const datas = useSelector(state => state.homeSlice.datas);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const dispatch = useDispatch();
     const [totalPrice, setTotalPrice] = useState(null);
@@ -35,13 +36,13 @@ function ShoppingCart() {
         <div className="shopping-cart--wrap container">
 
             <div className="shopping-cart__path">
-                <NavLink className="shopping-cart__path-link" to='/'>Головна сторінка</NavLink>
+                <NavLink className="shopping-cart__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
                 <span>&nbsp; / &nbsp;</span>
-                <span>Кошик</span>
+                <span>{selectedLanguage?.cartPage?.cartName}</span>
                 <span>&nbsp; /</span>
             </div>
 
-            <h2 className="shopping-cart__title">Кошик</h2>
+            <h2 className="shopping-cart__title">{selectedLanguage?.cartPage?.cartName}</h2>
 
             {
                shoppingProduct.length ? (
@@ -55,10 +56,10 @@ function ShoppingCart() {
                                             <div className="shopping-cart__pdoduct-info-title">{el.name}</div>
                                         </div>
                                         <div className="shopping-cart__pdoduct-price-wrap">
-                                            <p>Ціна:</p>
+                                            <p>{selectedLanguage?.cartPage?.cartPriceTitle}</p>
                                             {
-                                                el.new_price ? (<><p className="shopping-cart__pdoduct-price-old">{el.price}₴</p><p className="shopping-cart__pdoduct-price">{el.new_price}₴</p></>)
-                                                : (<p className="shopping-cart__pdoduct-price">{el.price}₴</p>)
+                                                el.new_price ? (<><p className="shopping-cart__pdoduct-price-old">{el.price}{datas?.shopInfo?.selectedCurrency}</p><p className="shopping-cart__pdoduct-price">{el.new_price}{datas?.shopInfo?.selectedCurrency}</p></>)
+                                                : (<p className="shopping-cart__pdoduct-price">{el.price}{datas?.shopInfo?.selectedCurrency}</p>)
                                             }
                                         </div>
                                     </div>
@@ -72,13 +73,13 @@ function ShoppingCart() {
 
                        <div className="shopping-cart__total-price-wrap">
                             <div className="shopping-cart__total-price">
-                                <span className="shopping-cart__total-price-title">Загальна сума:</span>
-                                <span className="shopping-cart__total-price-number">{totalPrice}₴</span>
+                                <span className="shopping-cart__total-price-title">{selectedLanguage?.cartPage?.cartTotalTitle}</span>
+                                <span className="shopping-cart__total-price-number">{totalPrice}{datas?.shopInfo?.selectedCurrency}</span>
                             </div>
-                           <button className="shopping-cart__btn-buy">Оформити замовлення</button>
+                           <button className="shopping-cart__btn-buy">{selectedLanguage?.cartPage?.cartBtnBuy}</button>
                        </div>
                    </div>
-               ) : (<p className="shopping-cart__pdoduct-error">Ваш кошик пустий!!!</p>)
+               ) : (<p className="shopping-cart__pdoduct-error">{selectedLanguage?.cartPage?.cartError}</p>)
             }
         </div>
      </div>

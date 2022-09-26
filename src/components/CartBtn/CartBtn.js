@@ -2,13 +2,10 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './CartBtn.css';
 
-// import { useState, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import cart from '../../assets/images/cart.svg';
-
 function CartBtn() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -29,7 +26,7 @@ function CartBtn() {
                 <g>
                 </g>
             </svg>
-            <p className="cart-btn__text">Кошик</p>
+            <p className="cart-btn__text">{selectedLanguage?.header?.cartBtn}</p>
 
             {
                 shoppingProduct.length !== 0 && (<div className="cart-btn__count">{shoppingProduct.length}</div>) 

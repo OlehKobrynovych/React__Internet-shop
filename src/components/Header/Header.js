@@ -3,7 +3,7 @@ import './Header.css';
 import { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {setSelectedCategory, getDatas, setSelectedSubCategories} from '../../store/homeSlice';
+import {setSelectedCategory, getDatas, setSelectedSubCategories, setSelectedLanguage} from '../../store/homeSlice';
 
 import search from '../../assets/images/search.svg';
 import logo from '../../assets/images/logo.svg';
@@ -14,12 +14,15 @@ import LoginBtn from '../LoginBtn/LoginBtn';
 import MobileMenu from '../MobileMenu/MobileMenu';
 
 import {datas} from '../../data.js'
+import {datasLanguage} from '../../datasLanguage.js'
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
 
 
 function Header() {
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+
 
     const handleClick = () => {
         searchInputRef.current.focus()
@@ -38,6 +41,8 @@ function Header() {
         //   };
         //   fetchProducts();
 
+
+        dispatch(setSelectedLanguage(datasLanguage[datas.shopInfo.language]))
         dispatch(getDatas(datas))
     }, [])
 
@@ -75,7 +80,7 @@ function Header() {
                 
                 <div className="header__wrap-btn">
                     <div className="header__search-wrap">
-                        <input className="header__search" ref={searchInputRef} type="text" name="search" placeholder="Пошук" />
+                        <input className="header__search" ref={searchInputRef} type="text" name="search" placeholder={selectedLanguage?.header?.placeholderSearch} />
                         <img className="header__search-img" src={search} alt='img' onClick={() => handleClick()} />
                     </div>
                     <HeartBtn />

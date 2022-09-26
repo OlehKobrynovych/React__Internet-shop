@@ -5,12 +5,12 @@ import { setShoppingProduct, setTotalPrice } from '../../store/homeSlice';
 import './QuantityProduct.css';
 
 function QuantityProduct({price, new_price, id, count}) {
+    const datas = useSelector(state => state.homeSlice.datas);
+    const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const [quantity, setQuantity] = useState(count);
     const [pdoductTotalPrice, setPdoductTotalPrice] = useState(null);
-    const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
-// debugger
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
 
     useEffect(() => {
         let res = new_price ? (quantity * new_price) : (quantity * price)
@@ -26,13 +26,13 @@ function QuantityProduct({price, new_price, id, count}) {
     return (
         <div className="quantity-product">
             <form className="quantity-product__pdoduct-count-form" action="">
-                <span>Введіть кількість:</span>
+                <span>{selectedLanguage?.cartPage?.cartQuantityTitle}</span>
                 <input className="quantity-product__pdoduct-count" onChange={(e) => setQuantity(e.target.value)} value={quantity} type="number" id="" name="quantity" min="1" />
             </form>
 
             <div className="quantity-product__pdoduct-total-price">
-                <p>Загальна ціна:</p>
-                {pdoductTotalPrice}₴
+                <p>{selectedLanguage?.cartPage?.cartTotalPriceTitle}</p>
+                {pdoductTotalPrice}{datas?.shopInfo?.selectedCurrency}
             </div>
         </div>
     );

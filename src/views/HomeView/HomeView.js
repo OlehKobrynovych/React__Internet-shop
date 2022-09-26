@@ -19,6 +19,7 @@ import {datas} from '../../data.js'
 import { useEffect } from 'react';
 
 function HomeView() {
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const dispatch = useDispatch();
     const users = useSelector(state => state.homeSlice.datas);
     // debugger
@@ -26,8 +27,6 @@ function HomeView() {
    
     return (
         <div className="home-view hidden">
-            {/* {users?.shopInfo?.id} */}
-            {/* <DropDownMenu /> */}
             
             <Swiper
                 spaceBetween={30}
@@ -45,7 +44,7 @@ function HomeView() {
                 <SwiperSlide><img className="home-view__swiper-img" src={kids} alt='img'/></SwiperSlide>
             </Swiper>
 
-            <SwiperCards title={'Новинки'} priceNew={false}/>
+            <SwiperCards title={selectedLanguage?.homePage?.titleSwiperNew} priceNew={false}/>
 
             <div className="home-view__images container">
                 <NavLink className="grid-area__b" to='#'><img src={man} alt='img'/></NavLink>
@@ -64,7 +63,7 @@ function HomeView() {
                 </p>
             </div>
 
-            <SwiperCards title={'Знижки'} priceNew={true}/>
+            <SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} priceNew={true}/>
         </div> 
     );
 }

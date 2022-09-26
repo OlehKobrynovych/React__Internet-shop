@@ -11,13 +11,8 @@ import './HeartBtn.css';
 
 function HeartBtn() {
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const navigate = useNavigate();
-
-    // const [isOpenMenu, setIsOpenMenu] = useState(false);
-
-    // const searchInputRef = useRef(null);
-
-    // const navigate = useNavigate();
 
     // const handleClick = () => {
     //     searchInputRef.current.focus()
@@ -42,7 +37,7 @@ function HeartBtn() {
                             C444.801,187.101,434.001,213.101,414.401,232.701z"/>
                     </g>
             </svg>
-            <p className="heart-btn__text">обрані</p>
+            <p className="heart-btn__text">{selectedLanguage?.header?.heartBtn}</p>
 
             {
                favoriteProduct.length !== 0 && (<div className="heart-btn__count">{favoriteProduct.length}</div>) 
