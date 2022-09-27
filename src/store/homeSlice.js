@@ -29,8 +29,12 @@ export const homeSlice = createSlice({
       state.selectedSubCategories = action.payload;
     },
     setLastViewProduct: (state, action) => {
-      if (state.lastViewProduct.length >= 3) {
-        state.lastViewProduct = [... state.lastViewProduct.slice(1,3), action.payload]
+      if (state.lastViewProduct.length == 3) {
+        if(state.lastViewProduct.find(el => el.id == action.payload.id)) {
+          
+        } else {
+          state.lastViewProduct = [... state.lastViewProduct.slice(1,3), action.payload]
+        }
       } else {
         state.lastViewProduct = [...state.lastViewProduct, action.payload];
       }

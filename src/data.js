@@ -2,7 +2,7 @@
 export const datas = {
     shopInfo: {
         id: '1',
-        language: 'ENG',  // Щоб поміняти мову потрібно вписати 'UA' або 'ENG'
+        language: 'UA',  // Щоб поміняти мову потрібно вписати 'UA' або 'ENG'
         selectedCurrency: '€',  // Щоб поміняти валюту потрібно вписати '₴' або '€'
         name: 'Dnipro',
         facebook: 'https://www.facebook.com',

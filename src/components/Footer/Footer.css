@@ -45,6 +45,12 @@
 .footer__top-btn {
     border: 1px solid #000;
     padding: 11px 30px;
+    transition: .3s;
+}
+
+.footer__top-btn:hover {
+    background: rgb(121, 117, 117);
+    color: #fff;
 }
 
 /* ------------------------------------------------ */
@@ -171,6 +177,12 @@
     display: block;
     background: #fff;
     white-space: nowrap;
+    transition: .3s;
+}
+
+.footer__bottom-contact-btn:hover {
+    background: rgb(121, 117, 117);
+    color: #fff;
 }
 
 .footer__bottom-license {

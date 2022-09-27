@@ -12,6 +12,8 @@
 
 .last-product__wrap-cart {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 15px;
 }
 @media (min-width: 576px) {

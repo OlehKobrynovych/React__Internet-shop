@@ -30,7 +30,7 @@ function Footer() {
                             {
                                 selectedLanguage?.footer?.subscribeCheckbox.map(el => (
                                     <label key={el}>
-                                        <input type="checkbox"  name="man" /><span>{el}</span>
+                                        <input type="checkbox"  name={el} /><span>{el}</span>
                                     </label>
                                 ))
                             }

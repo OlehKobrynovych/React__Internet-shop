@@ -27,8 +27,8 @@
 }
 
 .page-not-found__btn:hover {
-    background: rgb(109, 107, 107);
-    scale: 1.11;
+    background: rgb(121, 117, 117);
+    color: #fff;
 }
 
 @media (min-width: 576px) {
