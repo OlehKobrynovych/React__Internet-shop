@@ -42,6 +42,36 @@ function Header() {
         //   fetchProducts();
 
 
+        
+
+        // fetch('/all').then(res => res.json()).then(res => console.log(res))
+
+        fetch('/all').then(res => console.log(res))
+        // .then(res => console.log(res))
+
+        let data = {
+            shop_id: '1',
+            category_id: '1',
+            name: 'asd',
+            price: 12,
+            new_price: 10,
+            images: [],
+            details: 'asdasdasdasdasd',
+            colors: [],
+            sizes: []
+        };
+
+
+        fetch('/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        //   }).then(res => res.json()).then(res => console.log(res))
+          }).then(res => console.log(res)).then(res => console.log(res))
+
+
         dispatch(setSelectedLanguage(datasLanguage[datas.shopInfo.language]))
         dispatch(getDatas(datas))
     }, [])
