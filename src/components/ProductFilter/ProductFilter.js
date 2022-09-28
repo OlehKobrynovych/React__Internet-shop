@@ -1,64 +1,75 @@
 import './ProductFilter.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import PaginationProduct from '../PaginationProduct/PaginationProduct';
 import { useEffect, useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { useLocation } from 'react-router-dom';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import LastProduct from '../LastProduct/LastProduct';
+import Preloader from '../Preloader/Preloader';
 
 
 function ProductFilter() {
-   
-    // const dispatch = useDispatch();
-    const datas = useSelector(state => state.homeSlice.datas);
+    
+    let { id } = useParams();
+    const products = useSelector(state => state.homeSlice.products);
+    const lastViewProduct = useSelector(state => state.homeSlice.lastViewProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
-    let location = useLocation();
-
-    const [selectedSort, setSelectedSort] = useState('priceUp');
-
-    const [selectedCategories, setSelectedCategories] = useState(null);
-    const [selectedSubCategories, setSelectedSubCategories] = useState(null);
+    const [categoryProducts, setCategoryProducts] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const [isPageNotFound, setIsPageNotFound] = useState(false);
-    // debugger
-
-    const [products, setProducts] = useState([]);
+    const [selectedSort, setSelectedSort] = useState('priceUp');
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(5);
+//    console.log(categoryProducts)
+    // const dispatch = useDispatch();
+    // let location = useLocation();
+    // debugger
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        fetch(`http://localhost:3000/api/categories/${id}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    setSelectedCategory(res.data);
+                } else {
+                    setCategoryProducts(null)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, [id])
+
+    useEffect(() => {
+        if (products.length) {
+            setCategoryProducts(products.filter(el => el.category_id == id))
+        }
+    }, [selectedCategory])
  
     useEffect(() => {
-        let arr = location.pathname.split('/')
-        let obj = {};
-        
-        if (datas && datas.categories) {
-            setProducts(datas.products);
-            obj = datas.categories.find(el => el.href == ('/' + arr[1]));
-            setSelectedCategories(obj)
-            setIsPageNotFound(false)
-        };
-
-        if (arr[2] && obj?.subCategories) {
-            let res = obj?.subCategories.find(el => el.href == location.pathname)
-            res?.name ? setSelectedSubCategories(res) : setIsPageNotFound(true)
-        } else {
-            setSelectedSubCategories(null)
-        }
-    }, [location, datas])
-
-
-    useEffect(() => {
-        if (datas && datas.products) {
             if (selectedSort == 'priceUp') {
-                let arr = [...datas.products]
+                let arr = [...categoryProducts]
                 let res = arr.sort((a, b) => a.price - b.price)
-                setProducts(res);
+                setCategoryProducts(res);
             } else if (selectedSort == 'priceDown') {
-                let arr = [...datas.products]
+                let arr = [...categoryProducts]
                 let res = arr.sort((a, b) => b.price - a.price)
-                setProducts(res);
+                setCategoryProducts(res);
+            } else if (selectedSort == 'newPrice') {
+                let res = [...categoryProducts.filter(el => el.new_price !== 0), ...categoryProducts.filter(el => el.new_price == 0)]
+                setCategoryProducts(res);
+            } else if (selectedSort == 'new') {
+                let res = [...categoryProducts.filter(el => el.new_price == 0), ...categoryProducts.filter(el => el.new_price !== 0)]
+                setCategoryProducts(res);
             }
-        }
     }, [selectedSort])
 
     const handleChangeSort = (e) => {
@@ -69,11 +80,18 @@ function ProductFilter() {
     return (
         <>
             {
-                isPageNotFound ? <PageNotFound /> :
-                    <div className="product-filter">
+                 isLoading ? (<Preloader/>) : categoryProducts.length ?
+                    (<div className="product-filter">
                         <div className="product-filter--wrap container">
 
-                            {
+                            <div className="product-filter__path">
+                                <NavLink className="product-filter__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
+                                <span>&nbsp; / &nbsp;</span>
+                                <span>{selectedCategory?.name}</span>
+                                <span>&nbsp; /</span>
+                            </div>
+                           
+                            {/* {
                                 selectedSubCategories ? ( 
                                     <div className="product-filter__path">
                                         <NavLink className="product-filter__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
@@ -88,9 +106,9 @@ function ProductFilter() {
                                         <span>{selectedCategories?.name}</span>
                                         <span>&nbsp; /</span>
                                     </div>)
-                            }
+                            } */}
                         
-                            <h2 className="product-filter__title">{selectedCategories?.name}</h2>
+                            <h2 className="product-filter__title">{selectedCategory?.name}</h2>
 
                             <div className="product-filter__filter-wrap">
                                 <div className="product-filter__filter">
@@ -109,9 +127,9 @@ function ProductFilter() {
 
                             <ul className='product-filter__item--wrap categories-product--wrap'>
                                 {
-                                    products.map(products => (
-                                        <li key={products.id} className='product-filter__item'>
-                                            <ProductCard products={products}/>
+                                    categoryProducts.map(el => (
+                                        <li key={el._id} className='product-filter__item'>
+                                            <ProductCard product={el}/>
                                         </li>
                                     ))
                                 }
@@ -119,15 +137,17 @@ function ProductFilter() {
 
                             <PaginationProduct
                                 productsPerPage={productsPerPage}
-                                totalProducts={products.length}
+                                totalProducts={categoryProducts.length}
                                 setCurrentPage={setCurrentPage} 
                                 currentPage={currentPage}
                             />
 
-                            <LastProduct />
+                            {
+                                !!lastViewProduct.length && (<LastProduct />)
+                            }
 
                         </div>
-                    </div>
+                    </div>) : (<PageNotFound />)
             }
         </>
     );

@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import './PageNotFound.css';
-
-import woman from '../../assets/images/woman.webp';
 import { useSelector } from 'react-redux';
 
 function PageNotFound() {

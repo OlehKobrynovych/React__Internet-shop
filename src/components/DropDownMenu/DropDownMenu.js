@@ -11,10 +11,11 @@ import facebook from '../../assets/images/facebook.svg';
 import instagram from '../../assets/images/instagram.svg';
 
 function DropDownMenu() {
-    const [selectedCategories, setSelectedCategories] = useState(null);
-    // const selectedCategory = useSelector(state => state.homeSlice.selectedCategory);
-    // const selectedSubCategories = useSelector(state => state.homeSlice.selectedSubCategories);
+    const categories = useSelector(state => state.homeSlice.categories);
+    const shop = useSelector(state => state.homeSlice.shop);
     const datas = useSelector(state => state.homeSlice.datas);
+    const [selectedCategories, setSelectedCategories] = useState(null);
+    // const selectedSubCategories = useSelector(state => state.homeSlice.selectedSubCategories);
     const isOpenMenu = useSelector(state => state.homeSlice.isOpenMenu);
     let location = useLocation();
     const dispatch = useDispatch();
@@ -41,8 +42,8 @@ function DropDownMenu() {
             <div className="drop-down-menu__header">
                 <ul className="drop-down-menu__header--wrap container">
                     {
-                        datas?.categories?.length && datas.categories.map(categories => (
-                            <li key={categories.id}><NavLink to={categories.href} className="drop-down-menu__header-link">{categories.name}</NavLink></li> 
+                        categories?.length && categories.map(category => (
+                            <li key={category._id}><NavLink to={`category/${category._id}`} className="drop-down-menu__header-link">{category.name}</NavLink></li> 
                         ))
                     }
                 </ul>
@@ -50,13 +51,13 @@ function DropDownMenu() {
                 
             <div className="drop-down-menu__sub-categories--wrap container">
 
-                <ul className="drop-down-menu__sub-categories-link-wrap">
+                {/* <ul className="drop-down-menu__sub-categories-link-wrap">
                     {
                         selectedCategories && selectedCategories?.subCategories.map(subCategories => (
                             <li key={subCategories.id}><NavLink className="drop-down-menu__sub-categories-link" to={subCategories.href} onClick={handleClick}>{subCategories.name}</NavLink></li>
                         )) 
                     }
-                </ul>
+                </ul> */}
 
                 <NavLink className="drop-down-menu__btn-wrap" to='#' onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={login} alt='img'/>
@@ -73,20 +74,16 @@ function DropDownMenu() {
 
                 <ul className="drop-down-menu__info">
                     <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='/about' onClick={handleClick}>Про компанію</NavLink></li>
-                    {/* <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Публічна оферта</NavLink></li>
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Доставка і оплата</NavLink></li>
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Контакти</NavLink></li>
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='#'>Допомога</NavLink></li> */}
                 </ul>
 
                 <div className="drop-down-menu__contact">
                     <div className="drop-down-menu__contact-tel-wrap">
-                        <a className='drop-down-menu__contact-tel' href="tel:+380673804111">{datas.shopInfo ? datas.shopInfo.contact_number : ''}</a>
-                        <a className='drop-down-menu__contact-tel' href="tel:+380673804111">{datas.shopInfo ? datas.shopInfo.contact_number_two : ''}</a>
+                        <a className='drop-down-menu__contact-tel' href="tel:+380673804111">{shop?.contact_number}</a>
+                        <a className='drop-down-menu__contact-tel' href="tel:+380673804111">{shop?.contact_number_two}</a>
                     </div>
                     <div className="drop-down-menu__contact-social-wrap">
-                        <a className="drop-down-menu__contact-social" href={datas.shopInfo ? datas.shopInfo.facebook : ''} target='_blank'><img src={facebook} alt='img' /></a>
-                        <a className="drop-down-menu__contact-social" href={datas.shopInfo ? datas.shopInfo.instagram : ''} target='_blank'><img src={instagram} alt='img' /></a>
+                        <a className="drop-down-menu__contact-social" href={shop?.facebook_url} target='_blank'><img src={facebook} alt='img' /></a>
+                        <a className="drop-down-menu__contact-social" href={shop?.instagram_url} target='_blank'><img src={instagram} alt='img' /></a>
                     </div>
                 </div>
             </div>

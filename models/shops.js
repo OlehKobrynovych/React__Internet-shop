@@ -36,6 +36,11 @@ const ShopsSchema = mongoose.Schema({
         required: false,
         
     },
+	currency: {
+        type: String,
+        required: false,
+        
+    },
 }, { collection: 'shops' })
 const Shops = module.exports = mongoose.model('Shops', ShopsSchema)
 

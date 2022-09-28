@@ -2,8 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   datas: {},
+  products: [],
+  categories: [],
+  shop: {},
   selectedLanguage: {},
-  selectedCategory: '',
   selectedSubCategories: [],
   lastViewProduct: [],
   favoriteProduct: [],
@@ -19,24 +21,30 @@ export const homeSlice = createSlice({
     getDatas: (state, action) => {
       state.datas = action.payload;
     },
+    getProducts: (state, action) => {
+      state.products = action.payload;
+    },
     setSelectedLanguage: (state, action) => {
       state.selectedLanguage = action.payload;
     },
-    setSelectedCategory: (state, action) => {
-      state.selectedCategory = action.payload;
+    setCategories: (state, action) => {
+      state.categories = action.payload;
+    },
+    setShop: (state, action) => {
+      state.shop = action.payload;
     },
     setSelectedSubCategories: (state, action) => {
       state.selectedSubCategories = action.payload;
     },
     setLastViewProduct: (state, action) => {
       if (state.lastViewProduct.length == 3) {
-        if(state.lastViewProduct.find(el => el.id == action.payload.id)) {
-          
-        } else {
+        if(!state.lastViewProduct.find(el => el._id == action.payload._id)) {
           state.lastViewProduct = [... state.lastViewProduct.slice(1,3), action.payload]
-        }
+        } 
       } else {
-        state.lastViewProduct = [...state.lastViewProduct, action.payload];
+        if (!state.lastViewProduct.find(el => el._id == action.payload._id)) {
+          state.lastViewProduct = [...state.lastViewProduct, action.payload];
+        }
       }
     },
     setIsOpenMenu: (state) => {
@@ -60,6 +68,6 @@ export const homeSlice = createSlice({
   },
 })
 
-export const { getDatas, setSelectedCategory, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct, setShoppingProduct, setSelectedLanguage } = homeSlice.actions
+export const { getDatas, getProducts, setShop, setCategories, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct, setShoppingProduct, setSelectedLanguage } = homeSlice.actions
 
 export default homeSlice.reducer

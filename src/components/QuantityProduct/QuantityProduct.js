@@ -5,7 +5,7 @@ import { setShoppingProduct, setTotalPrice } from '../../store/homeSlice';
 import './QuantityProduct.css';
 
 function QuantityProduct({price, new_price, id, count}) {
-    const datas = useSelector(state => state.homeSlice.datas);
+    const shop = useSelector(state => state.homeSlice.shop);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const [quantity, setQuantity] = useState(count);
@@ -13,15 +13,11 @@ function QuantityProduct({price, new_price, id, count}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        let res = new_price ? (quantity * new_price) : (quantity * price)
+        let res = new_price !== 0 ? (quantity * new_price) : (quantity * price)
         setPdoductTotalPrice(res)
 
-        dispatch(setShoppingProduct(shoppingProduct.map(el => el.id == id ? {...el, count: quantity} : el)));
+        dispatch(setShoppingProduct(shoppingProduct.map(el => el._id == id ? {...el, count: quantity} : el)));
     }, [quantity])
-
-    // const handleChange = (num) => {
-    //     setQuantity(num)
-    // };
 
     return (
         <div className="quantity-product">
@@ -32,7 +28,7 @@ function QuantityProduct({price, new_price, id, count}) {
 
             <div className="quantity-product__pdoduct-total-price">
                 <p>{selectedLanguage?.cartPage?.cartTotalPriceTitle}</p>
-                {pdoductTotalPrice}{datas?.shopInfo?.selectedCurrency}
+                {pdoductTotalPrice}{shop.currency}
             </div>
         </div>
     );

@@ -12,18 +12,20 @@ import { setShoppingProduct } from '../../store/homeSlice';
 
 
 function ShoppingCart() {
-    const datas = useSelector(state => state.homeSlice.datas);
-    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
+    const shop = useSelector(state => state.homeSlice.shop);
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [totalPrice, setTotalPrice] = useState(null);
+
     const [nameForm, setNameForm] = useState('');
     const [phoneForm, setPhoneForm] = useState('');
     const [emailForm, setEmailForm] = useState('');
     const [commentForm, setCommentForm] = useState('');
     const [checkboxForm, setCheckboxFor] = useState(false);
     const [isSubmitError, setIsSubmitError] = useState(false);
+    // const datas = useSelector(state => state.homeSlice.datas);
 
     useEffect(() => {
         setTotalPrice(shoppingProduct.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
@@ -34,7 +36,7 @@ function ShoppingCart() {
     }, [shoppingProduct])
 
     const handleClickDelete = (product) => {
-       let res = shoppingProduct.filter(el => el.id !== product.id)
+       let res = shoppingProduct.filter(el => el._id !== product._id)
        dispatch(setShoppingProduct(res))
     };
    
@@ -74,22 +76,22 @@ function ShoppingCart() {
                    <div className="shopping-cart__pdoduct-wrap">
                        {
                            shoppingProduct.map(el => (
-                                <div className="shopping-cart__pdoduct" key={el.id}>
+                                <div className="shopping-cart__pdoduct" key={el._id}>
                                     <div className="shopping-cart__pdoduct-info-wrap">
-                                        <img className="shopping-cart__pdoduct-img" onClick={() => handleClick(el.id)} src={el.image} alt='img'/>
+                                        <img className="shopping-cart__pdoduct-img" onClick={() => handleClick(el._id)} src={el.images[0]} alt='img'/>
                                         <div className="shopping-cart__pdoduct-info">
                                             <div className="shopping-cart__pdoduct-info-title">{el.name}</div>
                                         </div>
                                         <div className="shopping-cart__pdoduct-price-wrap">
                                             <p>{selectedLanguage?.cartPage?.cartPriceTitle}</p>
                                             {
-                                                el.new_price ? (<><p className="shopping-cart__pdoduct-price-old">{el.price}{datas?.shopInfo?.selectedCurrency}</p><p className="shopping-cart__pdoduct-price">{el.new_price}{datas?.shopInfo?.selectedCurrency}</p></>)
-                                                : (<p className="shopping-cart__pdoduct-price">{el.price}{datas?.shopInfo?.selectedCurrency}</p>)
+                                                el.new_price ? (<><p className="shopping-cart__pdoduct-price-old">{el.price}{shop.currency}</p><p className="shopping-cart__pdoduct-price">{el.new_price}{shop.currency}</p></>)
+                                                : (<p className="shopping-cart__pdoduct-price">{el.price}{shop.currency}</p>)
                                             }
                                         </div>
                                     </div>
                                     <div className="shopping-cart__pdoduct-count-wrap">
-                                        <QuantityProduct price={el.price} new_price={el.new_price} id={el.id} count={el.count}/>
+                                        <QuantityProduct price={el.price} new_price={el.new_price} id={el._id} count={el.count}/>
                                         <button onClick={() => handleClickDelete(el)}><img className="shopping-cart__delete-btn" src={deleteImg} alt='img'/></button>
                                     </div>
                                 </div>
@@ -99,7 +101,7 @@ function ShoppingCart() {
                        <div className="shopping-cart__total-price-wrap">
                             <div className="shopping-cart__total-price">
                                 <span className="shopping-cart__total-price-title">{selectedLanguage?.cartPage?.cartTotalTitle}</span>
-                                <span className="shopping-cart__total-price-number">{totalPrice}{datas?.shopInfo?.selectedCurrency}</span>
+                                <span className="shopping-cart__total-price-number">{totalPrice}{shop.currency}</span>
                             </div>
                        </div>
 
@@ -110,9 +112,9 @@ function ShoppingCart() {
                            <div className="shopping-cart__form-input-wrap">
                                 <label className="shopping-cart__form-input-name-wrap" for="fname">
                                     <span className="shopping-cart__form-input-name-title">{selectedLanguage?.cartPage?.cartFormName}</span>
-                                    <input className="shopping-cart__form-input" onChange={(e) => setNameForm(e.target.value)} value={nameForm} type="text" id="fname" name="firstname" placeholder="Ваше прізвище та ім'я"/>
+                                    <input className="shopping-cart__form-input" onChange={(e) => setNameForm(e.target.value)} value={nameForm} type="text" id="fname" name="name" placeholder="Ваше прізвище та ім'я"/>
                                 </label>
-                                <label className="shopping-cart__form-input-phone-wrap" for="tell">
+                                <label className="shopping-cart__form-input-phone-wrap" for="phone">
                                     <span className="shopping-cart__form-input-phone-title">{selectedLanguage?.cartPage?.cartFormPhone}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setPhoneForm(e.target.value)} value={phoneForm} type="tel" id="phone" name="phone" placeholder="1234567890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
                                 </label>

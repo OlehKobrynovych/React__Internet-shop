@@ -26,7 +26,7 @@ function WishList() {
 
             <div className="wish-list__product-wrap">
                 {
-                    favoriteProduct.length ? (favoriteProduct.map(el => (<ProductCard products={el} key={el.id}/>))) 
+                    favoriteProduct.length ? (favoriteProduct.map(el => (<ProductCard product={el} key={el._id}/>))) 
                     : (<p className="wish-list__product-error">{selectedLanguage?.wishlistPage?.wishlistError}</p>)
                 }
             </div>

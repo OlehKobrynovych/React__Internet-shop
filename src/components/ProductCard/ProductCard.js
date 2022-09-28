@@ -1,8 +1,5 @@
 import './ProductCard.css';
 
-import photo1 from '../../assets/images/photo1.webp';
-import heart from '../../assets/images/heart.svg';
-import cart from '../../assets/images/cart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFavoriteProduct, setLastViewProduct, setShoppingProduct } from '../../store/homeSlice';
 import { useNavigate } from 'react-router-dom';
@@ -10,70 +7,70 @@ import { useEffect, useState } from 'react';
 // import { useState, useRef, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
-function ProductCard({products}) {
+function ProductCard({product}) {
 
+    const shop = useSelector(state => state.homeSlice.shop);
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
-    const datas = useSelector(state => state.homeSlice.datas);
-    const [isFavoriteProduct, setIsFavoriteProduct] = useState(false);
-    const [isShoppingProduct, setIsShoppingProduct] = useState(false);
+    const [isFavoriteProduct, setIsFavoriteProduct] = useState([]);
+    const [isShoppingProduct, setIsShoppingProduct] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    // const datas = useSelector(state => state.homeSlice.datas);
 
-    const handleClick = (products) => {
-        navigate(`/product/${products.id}`);
-        dispatch(setLastViewProduct(products))
+    const handleClick = (product) => {
+        navigate(`/product/${product._id}`);
+        dispatch(setLastViewProduct(product))
     };
 
     useEffect(() => {
-        setIsFavoriteProduct(favoriteProduct.some(el => el.id == products.id))
+        setIsFavoriteProduct(favoriteProduct.some(el => el._id == product._id))
     }, [favoriteProduct])
     
     useEffect(() => {
-        setIsShoppingProduct(shoppingProduct.some(el => el.id == products.id))
+        setIsShoppingProduct(shoppingProduct.some(el => el._id == product._id))
     }, [shoppingProduct])
    
-    const handleClickFavorite = (products) => {
-        if(favoriteProduct.some(el => el.id === products.id)) {
-            let res = favoriteProduct.filter(el => el.id !== products.id)
+    const handleClickFavorite = (product) => {
+        if(favoriteProduct.some(el => el._id === product._id)) {
+            let res = favoriteProduct.filter(el => el._id !== product._id)
             dispatch(setFavoriteProduct(res))
         } else {
-            let res = [...favoriteProduct, products]
+            let res = [...favoriteProduct, product]
             dispatch(setFavoriteProduct(res))
         }
     };
    
-    const handleClickShopping = (products) => {
-        if(shoppingProduct.some(el => el.id === products.id)) {
-            let res = shoppingProduct.filter(el => el.id !== products.id)
+    const handleClickShopping = (product) => {
+        if(shoppingProduct.some(el => el._id === product._id)) {
+            let res = shoppingProduct.filter(el => el._id !== product._id)
             dispatch(setShoppingProduct(res))
         } else {
-            let res = [...shoppingProduct, products]
-            dispatch(setShoppingProduct(res.map(el => el.id == products.id ? {...el, count: 1} : el)))
+            let res = [...shoppingProduct, product]
+            dispatch(setShoppingProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
         }
     };
 
     return (
         <div className="product-card">
-            <img className="product-card__img" src={products.image} alt='img' onClick={() => handleClick(products)}/>
+            <img className="product-card__img" src={product.images[0]} alt='img' onClick={() => handleClick(product)}/>
             <div className="product-card__text-wrap">
-                <div className="product-card__title" onClick={() => handleClick(products)}>{products.name}</div>
+                <div className="product-card__title" onClick={() => handleClick(product)}>{product.name}</div>
                 <div className="product-card__bottom-wrap">
                     {
-                        products.new_price !== null ? (
+                        product.new_price !== 0 ? (
                             <div className="product-card__price-wrap">
-                                <div className="product-card__price--discount">{products.price} {datas?.shopInfo?.selectedCurrency}</div>
-                                <div className="product-card__price-new">{products.new_price} {datas?.shopInfo?.selectedCurrency}</div> 
+                                <div className="product-card__price--discount">{product.price} {shop.currency}</div>
+                                <div className="product-card__price-new">{product.new_price} {shop.currency}</div> 
                             </div> 
                         ) : (
                             <div className="product-card__price-wrap">
-                                <div className="product-card__price">{products.price} {datas?.shopInfo?.selectedCurrency}</div>
+                                <div className="product-card__price">{product.price} {shop.currency}</div>
                             </div> 
                         )
                     }
                     <div className="product-card__btn-wrap">
-                        {/* <button className="product-card__btn" onClick={() => handleClickFavorite(products)}><img className="product-card__btn-img" src={heart} alt='img'/></button> */}
-                        <button className="product-card__btn" onClick={() => handleClickFavorite(products)}>
+                        <button className="product-card__btn" onClick={() => handleClickFavorite(product)}>
                             <svg className={`product-card__btn-img ${isFavoriteProduct ? "product-card__btn-img--active" : ""}`} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 viewBox="0 0 471.701 471.701" xmlSpace="preserve">
                                 <g>
@@ -87,8 +84,7 @@ function ProductCard({products}) {
                                 </g>
                             </svg>
                         </button>
-                        {/* <button className="product-card__btn" onClick={() => handleClickShopping(products)}><img className="product-card__btn-img" src={cart} alt='img'/></button> */}
-                        <button className="product-card__btn" onClick={() => handleClickShopping(products)}>
+                        <button className="product-card__btn" onClick={() => handleClickShopping(product)}>
                             <svg className={`product-card__btn-img ${isShoppingProduct ? "product-card__btn-img--active" : ""}`} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 viewBox="0 0 60 60" xmlSpace="preserve">
                                 <path d="M11.68,13l-0.833-5h-2.99C7.411,6.28,5.859,5,4,5C1.794,5,0,6.794,0,9s1.794,4,4,4c1.859,0,3.411-1.28,3.858-3h1.294l0.5,3

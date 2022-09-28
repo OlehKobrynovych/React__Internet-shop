@@ -127,6 +127,8 @@
 } 
 
 .product-information__btn-cart {
+    display: block;
+    width: 288px;
     border: 1px solid #000;
     padding: 12px 65px;
     margin-top: 10px;

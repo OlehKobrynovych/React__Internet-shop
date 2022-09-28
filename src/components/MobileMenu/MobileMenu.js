@@ -3,10 +3,6 @@ import './MobileMenu.css';
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsOpenMenu } from '../../store/homeSlice';
-// import { useNavigate } from 'react-router-dom';
-// import login from '../../assets/images/login.svg';
-
-// import Helocation from '../Helocation/Helocation';
 
 function MobileMenu() {
     const isOpenMenu = useSelector(state => state.homeSlice.isOpenMenu);
@@ -15,6 +11,11 @@ function MobileMenu() {
 
     const handleClick = () => {
         dispatch(setIsOpenMenu())
+        if (!isOpenMenu) {
+            document.body.style.overflow = "hidden" 
+        } else {
+            document.body.style.overflow = "unset"
+        }
     };
 
     return (

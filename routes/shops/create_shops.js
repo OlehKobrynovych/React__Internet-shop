@@ -3,6 +3,7 @@ const { create_shops } = require('../../models/shops')
 module.exports = async (req, res) => {
     try {   
     	const shops_data = req.body
+        console.log(shops_data)
 		const result = await create_shops(shops_data)
 
         if (process.env.MODE === 'dev') 

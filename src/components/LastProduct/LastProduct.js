@@ -14,7 +14,7 @@ function LastProduct() {
                 <h2 className="last-product__title">{selectedLanguage?.productPage?.productLastTitle}</h2>
                 <div className="last-product__wrap-cart">
                     {
-                        lastViewProduct.map(el => (<ProductCard key={el.id} products={el}/>))
+                        lastViewProduct.map(el => (<ProductCard key={el._id} product={el}/>))
                     }
                 </div>
             </div>

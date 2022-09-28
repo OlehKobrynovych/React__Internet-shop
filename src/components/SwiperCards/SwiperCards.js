@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Navigation } from "swiper";
+import { Navigation, Autoplay } from "swiper";
 
 import {datas} from '../../data.js'
 
@@ -13,18 +13,11 @@ import { useState, useRef, useEffect } from 'react';
 import circle from '../../assets/images/circle.svg';
 import ProductCard from '../ProductCard/ProductCard';
 
-function SwiperCards({title, priceNew}) {
+function SwiperCards({title, products}) {
     
-    const [filterDatas, setFilterDatas] = useState([]);
     const [vw, setVw] = useState(window.innerWidth);
 
     useEffect(() => {
-        if(priceNew) {
-            setFilterDatas(datas.products.filter(el => el.new_price !== null))
-        } else {
-            setFilterDatas(datas.products.filter(el => el.new_price == null))
-        };
-
         window.addEventListener("resize", handleResize);
 
         return () => window.removeEventListener("resize", handleResize);
@@ -53,12 +46,13 @@ function SwiperCards({title, priceNew}) {
                     clickable: true,
                     }}
                     navigation={true}
+                    initialSlide='1'
                     modules={[Navigation]}
                     className="mySwiper swiper-cards__visible"
                 >
                     {
-                        filterDatas.map(products => (
-                            <SwiperSlide key={products.id}><ProductCard products={products}/></SwiperSlide>
+                        products.map(product => (
+                            <SwiperSlide key={product._id}><ProductCard product={product}/></SwiperSlide>
                         ))
                     }
                 </Swiper>

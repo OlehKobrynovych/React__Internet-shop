@@ -1,44 +1,36 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
-import HomeView from './views/HomeView/HomeView';
-import ProductFilter from './components/ProductFilter/ProductFilter';
-import AboutUs from './components/AboutUs/AboutUs';
-import PageNotFound from './components/PageNotFound/PageNotFound';
-import ProductInformation from './components/ProductInformation/ProductInformation';
-import WishList from './components/WishList/WishList';
-import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import React, { Suspense } from 'react';
+import Preloader from './components/Preloader/Preloader';
+const Footer = React.lazy(() => import('./components/Footer/Footer'));
+const Header = React.lazy(() => import('./components/Header/Header'));
+const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
+const ProductFilter = React.lazy(() => import('./components/ProductFilter/ProductFilter'));
+const AboutUs = React.lazy(() => import('./components/AboutUs/AboutUs'));
+const PageNotFound = React.lazy(() => import('./components/PageNotFound/PageNotFound'));
+const ProductInformation = React.lazy(() => import('./components/ProductInformation/ProductInformation'));
+const WishList = React.lazy(() => import('./components/WishList/WishList'));
+const ShoppingCart = React.lazy(() => import('./components/ShoppingCart/ShoppingCart'));
 
 function App() {
-  return (
-      <div className="app">
-          <Header />
-          <Routes>
-              <Route path="/" element={<HomeView />} />
-              <Route path="/unisex" element={<ProductFilter />} />
-              <Route path="/unisex/:id" element={<ProductFilter />} />
-              <Route path="/man" element={<ProductFilter />} />
-              <Route path="/man/:id" element={<ProductFilter />} />
-              <Route path="/woman" element={<ProductFilter />} />
-              <Route path="/woman/:id" element={<ProductFilter />} />
-              <Route path="/children" element={<ProductFilter />} />
-              <Route path="/children/:id" element={<ProductFilter />} />
-              <Route path="/collections" element={<ProductFilter />} />
-              <Route path="/collections/:id" element={<ProductFilter />} />
-              <Route path="/discounts" element={<ProductFilter />} />
-              <Route path="/discounts/:id" element={<ProductFilter />} />
-
-              <Route path="/wishlist" element={<WishList />} />
-              <Route path="/cart" element={<ShoppingCart />} />
-              <Route path="/product/:id" element={<ProductInformation />} />
-
-              <Route path="/about" element={<AboutUs />} />
-              
-              <Route path="*" element={<PageNotFound />} />
-          </Routes>
-          <Footer />
-      </div>
+    return (
+        <div className="app">
+            <Suspense fallback={<Preloader />}>
+                <Header />
+                <Suspense fallback={<Preloader />}>
+                    <Routes>
+                        <Route path="/" element={<HomeView />} />
+                        <Route path="/category/:id" element={<ProductFilter />} />
+                        <Route path="/product/:id" element={<ProductInformation />} />
+                        <Route path="/wishlist" element={<WishList />} />
+                        <Route path="/cart" element={<ShoppingCart />} />
+                        <Route path="/about" element={<AboutUs />} />
+                        <Route path="*" element={<PageNotFound />} />
+                    </Routes>
+                </Suspense>
+                <Footer />
+            </Suspense>
+        </div>
   );
 }
 

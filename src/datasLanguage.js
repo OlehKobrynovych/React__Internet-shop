@@ -32,7 +32,10 @@ export const datasLanguage = {
         },
         productPage: {
             productSizeTitle: 'Доступні розміра: ',
+            productColorsTitle: 'Доступні кольори: ',
             productDescriptionTitle: 'Опис',
+            productBtnWishListAdd: 'Добавити в обрані',
+            productBtnWishListNotAdd: 'Видалити з обраних',
             productBtnCartAdd: 'Добавити в кошик',
             productBtnCartNotAdd: 'Видалити з кошика',
             productGuaranteeTitle: 'Гарантія',
@@ -99,7 +102,10 @@ export const datasLanguage = {
         },
         productPage: {
             productSizeTitle: 'Available sizes: ',
+            productColorsTitle: 'Available colors: ',
             productDescriptionTitle: 'Description',
+            productBtnWishListAdd: 'Add to favorites',
+            productBtnWishListNotAdd: 'Remove from favorites',
             productBtnCartAdd: 'Add to cart',
             productBtnCartNotAdd: 'Remove from cart',
             productGuaranteeTitle: 'Guarantee',
