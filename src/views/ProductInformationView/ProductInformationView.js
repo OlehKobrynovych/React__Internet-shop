@@ -1,5 +1,5 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom';
-import './ProductInformation.css';
+import './ProductInformationView.css';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,14 +8,14 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SwiperCards from '../SwiperCards/SwiperCards';
-import PageNotFound from '../PageNotFound/PageNotFound';
-import LastProduct from '../LastProduct/LastProduct';
+import SwiperCards from '../../components/SwiperCards/SwiperCards';
+import PageNotFoundView from '../PageNotFoundView/PageNotFoundView';
+import LastProduct from '../../components/LastProduct/LastProduct';
 import { setFavoriteProduct, setShoppingProduct } from '../../store/homeSlice';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../../components/Preloader/Preloader';
 
 
-function ProductInformation() {
+function ProductInformationView() {
     let { id } = useParams();
     const products = useSelector(state => state.homeSlice.products);
     const categories = useSelector(state => state.homeSlice.categories);
@@ -209,10 +209,10 @@ function ProductInformation() {
                             lastViewProduct.length && (<LastProduct />)
                         }
                         
-                    </div>) : (<PageNotFound />)
+                    </div>) : (<PageNotFoundView />)
             }
         </>
     );
 }
 
-export default ProductInformation;
+export default ProductInformationView;

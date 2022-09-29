@@ -12,9 +12,9 @@ function Preloader() {
 
     return (
         <div className="preloader--wrap">
-           <div class="loader-circle-4 spinner_top">
-                <div class="loader-circle-4 spinner_mid">
-                    <div class="loader-circle-4 spinner_bot"></div>
+           <div className="loader-circle-4 spinner_top">
+                <div className="loader-circle-4 spinner_mid">
+                    <div className="loader-circle-4 spinner_bot"></div>
                 </div>
             </div>
         </div>

@@ -17,6 +17,8 @@ import { Autoplay} from "swiper";
 
 import {datas} from '../../data.js'
 import { useEffect, useState } from 'react';
+import Preloader from '../../components/Preloader/Preloader';
+
 
 function HomeView() {
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
@@ -72,7 +74,7 @@ function HomeView() {
                     </div>
 
                     <SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} products={productsNew}/>
-                </div>) : '' 
+                </div>) : (<Preloader/>) 
             }
         </>
     );

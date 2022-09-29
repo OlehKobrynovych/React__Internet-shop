@@ -5,12 +5,12 @@ import Preloader from './components/Preloader/Preloader';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
-const ProductFilter = React.lazy(() => import('./components/ProductFilter/ProductFilter'));
-const AboutUs = React.lazy(() => import('./components/AboutUs/AboutUs'));
-const PageNotFound = React.lazy(() => import('./components/PageNotFound/PageNotFound'));
-const ProductInformation = React.lazy(() => import('./components/ProductInformation/ProductInformation'));
-const WishList = React.lazy(() => import('./components/WishList/WishList'));
-const ShoppingCart = React.lazy(() => import('./components/ShoppingCart/ShoppingCart'));
+const ProductFilterView = React.lazy(() => import('./views/ProductFilterView/ProductFilterView'));
+const AboutUsView = React.lazy(() => import('./views/AboutUsView/AboutUsView'));
+const PageNotFoundView = React.lazy(() => import('./views/PageNotFoundView/PageNotFoundView'));
+const ProductInformationView = React.lazy(() => import('./views/ProductInformationView/ProductInformationView'));
+const WishListView = React.lazy(() => import('./views/WishListView/WishListView'));
+const ShoppingCartView = React.lazy(() => import('./views/ShoppingCartView/ShoppingCartView'));
 
 function App() {
     return (
@@ -20,12 +20,12 @@ function App() {
                 <Suspense fallback={<Preloader />}>
                     <Routes>
                         <Route path="/" element={<HomeView />} />
-                        <Route path="/category/:id" element={<ProductFilter />} />
-                        <Route path="/product/:id" element={<ProductInformation />} />
-                        <Route path="/wishlist" element={<WishList />} />
-                        <Route path="/cart" element={<ShoppingCart />} />
-                        <Route path="/about" element={<AboutUs />} />
-                        <Route path="*" element={<PageNotFound />} />
+                        <Route path="/category/:id" element={<ProductFilterView />} />
+                        <Route path="/product/:id" element={<ProductInformationView />} />
+                        <Route path="/wishlist" element={<WishListView />} />
+                        <Route path="/cart" element={<ShoppingCartView />} />
+                        <Route path="/about" element={<AboutUsView />} />
+                        <Route path="*" element={<PageNotFoundView />} />
                     </Routes>
                 </Suspense>
                 <Footer />

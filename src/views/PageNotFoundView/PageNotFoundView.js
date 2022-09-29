@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import './PageNotFound.css';
+import './PageNotFoundView.css';
 import { useSelector } from 'react-redux';
 
-function PageNotFound() {
+function PageNotFoundView() {
 
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     // const handleClick = () => {
@@ -21,4 +21,4 @@ function PageNotFound() {
     );
 }
 
-export default PageNotFound;
+export default PageNotFoundView;

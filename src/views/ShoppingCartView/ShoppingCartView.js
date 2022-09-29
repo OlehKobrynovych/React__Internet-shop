@@ -1,17 +1,17 @@
-import './ShoppingCart.css';
+import './ShoppingCartView.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import QuantityProduct from '../QuantityProduct/QuantityProduct';
+import QuantityProduct from '../../components/QuantityProduct/QuantityProduct';
 
 import deleteImg from '../../assets/images/deleteImg.svg';
 import { setShoppingProduct } from '../../store/homeSlice';
 
 
 
-function ShoppingCart() {
+function ShoppingCartView() {
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const shop = useSelector(state => state.homeSlice.shop);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
@@ -152,4 +152,4 @@ function ShoppingCart() {
     );
 }
 
-export default ShoppingCart;
+export default ShoppingCartView;

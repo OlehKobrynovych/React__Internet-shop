@@ -1,16 +1,16 @@
-import './ProductFilter.css';
+import './ProductFilterView.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
-import PaginationProduct from '../PaginationProduct/PaginationProduct';
+import PaginationProduct from '../../components/PaginationProduct/PaginationProduct';
 import { useEffect, useState } from 'react';
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import { useLocation } from 'react-router-dom';
-import PageNotFound from '../PageNotFound/PageNotFound';
-import LastProduct from '../LastProduct/LastProduct';
-import Preloader from '../Preloader/Preloader';
+import PageNotFoundView from '../PageNotFoundView/PageNotFoundView';
+import LastProduct from '../../components/LastProduct/LastProduct';
+import Preloader from '../../components/Preloader/Preloader';
 
 
-function ProductFilter() {
+function ProductFilterView() {
     
     let { id } = useParams();
     const products = useSelector(state => state.homeSlice.products);
@@ -147,10 +147,10 @@ function ProductFilter() {
                             }
 
                         </div>
-                    </div>) : (<PageNotFound />)
+                    </div>) : (<PageNotFoundView />)
             }
         </>
     );
 }
 
-export default ProductFilter;
+export default ProductFilterView;

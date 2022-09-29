@@ -1,11 +1,11 @@
-import './WishList.css';
+import './WishListView.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import { NavLink } from 'react-router-dom';
 
 
-function WishList() {
+function WishListView() {
    
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
@@ -35,4 +35,4 @@ function WishList() {
     );
 }
 
-export default WishList;
+export default WishListView;

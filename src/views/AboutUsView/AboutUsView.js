@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import './AboutUs.css';
+import './AboutUsView.css';
 
 import woman from '../../assets/images/woman.webp';
 
@@ -10,7 +10,7 @@ import woman from '../../assets/images/woman.webp';
 
 // import Helocation from '../Helocation/Helocation';
 
-function AboutUs() {
+function AboutUsView() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
 
     // const searchInputRef = useRef(null);
@@ -274,4 +274,4 @@ function AboutUs() {
     );
 }
 
-export default AboutUs;
+export default AboutUsView;
