@@ -6,10 +6,11 @@ function CartBtn() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+    const shop = useSelector(state => state.homeSlice.shop);
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/cart')
+        navigate(`/${shop.name}/cart`)
     };
 
     return (

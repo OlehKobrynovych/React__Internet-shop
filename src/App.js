@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import React, { Suspense } from 'react';
 import Preloader from './components/Preloader/Preloader';
 import SignInView from './views/SignInView/SignInView';
+import Layout from './Layout/Layout';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -19,24 +20,19 @@ function App() {
         <div className="app">
             
            <Suspense fallback={<Preloader />}>
-               {
-                    !location.pathname.includes('auth/login') && <Header />
-               }
-                <Suspense fallback={<Preloader />}>
-                    <Routes>
-                        <Route path="/" element={<HomeView />} />
-                        <Route path="/category/:id" element={<ProductFilterView />} />
-                        <Route path="/product/:id" element={<ProductInformationView />} />
-                        <Route path="/wishlist" element={<WishListView />} />
-                        <Route path="/cart" element={<ShoppingCartView />} />
-                        <Route path="/about" element={<AboutUsView />} />
-                        <Route path="/auth/login" element={<SignInView />} />
+                <Routes>
+                    <Route path="/" element={<SignInView />}/>
+
+                    <Route path="/:shopName/" element={<Layout />}>
+                        <Route index element={<HomeView />}/>
+                        <Route path="category/:id" element={<ProductFilterView />} />
+                        <Route path="product/:id" element={<ProductInformationView />} />
+                        <Route path="wishlist" element={<WishListView />} />
+                        <Route path="cart" element={<ShoppingCartView />} />
+                        <Route path="about" element={<AboutUsView />} />
                         <Route path="*" element={<PageNotFoundView />} />
-                    </Routes>
-                </Suspense>
-                {
-                    !location.pathname.includes('auth/login') && <Footer />
-                }
+                    </Route>
+                </Routes>
             </Suspense>
 
             {/* <Suspense fallback={<Preloader />}>

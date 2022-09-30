@@ -3,7 +3,7 @@ import './PageNotFoundView.css';
 import { useSelector } from 'react-redux';
 
 function PageNotFoundView() {
-
+    const shop = useSelector(state => state.homeSlice.shop);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     // const handleClick = () => {
     //     searchInputRef.current.focus()
@@ -15,7 +15,7 @@ function PageNotFoundView() {
             <h2 className="page-not-found__title">{selectedLanguage?.notFoundPage?.notFoundTitle}</h2>
             <div>
                 <span>{selectedLanguage?.notFoundPage?.notFoundGetBackTitle}</span>
-                <NavLink className="page-not-found__btn" to="/">{selectedLanguage?.homePage?.homeName}</NavLink>
+                <NavLink className="page-not-found__btn" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
             </div>
         </div>
     );

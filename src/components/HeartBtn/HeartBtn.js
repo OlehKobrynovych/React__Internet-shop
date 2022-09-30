@@ -12,6 +12,7 @@ import './HeartBtn.css';
 function HeartBtn() {
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+    const shop = useSelector(state => state.homeSlice.shop);
     const navigate = useNavigate();
 
     // const handleClick = () => {
@@ -19,7 +20,7 @@ function HeartBtn() {
     // };
 
     const handleClick = () => {
-        navigate('/wishlist')
+        navigate(`/${shop.name}/wishlist`)
     };
 
 

@@ -2,7 +2,7 @@ import './SignInView.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import singInSwiper1 from '../../assets/images/singInSwiper1.svg';
 import singInSwiper2 from '../../assets/images/singInSwiper2.svg';
 import singInSwiper3 from '../../assets/images/singInSwiper3.svg';

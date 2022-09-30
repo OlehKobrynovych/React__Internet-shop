@@ -8,17 +8,24 @@ import {datas} from '../../data.js'
 // import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 function Footer() {
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const shop = useSelector(state => state.homeSlice.shop);
-
+    const categories = useSelector(state => state.homeSlice.categories);
+    const [shopCategories, setShopCategories] = useState([]);
+    
     // const [isOpen, setIsOpen] = useState(false);
     // const navigate = useNavigate();
 
     // const handleClick = () => {
     //     setIsOpen(!isOpen)
     // };
+
+    useEffect(() => {
+        setShopCategories(categories.filter(el => el.parent_id == 'null'))
+    }, [categories])
    
     return (
         <div className="footer hidden">
@@ -48,30 +55,19 @@ function Footer() {
                     <div className="footer__bottom container">
                         <div className="footer__bottom-info">
                             <div className="footer__bottom-social">
-                                <NavLink className="footer__bottom-social-logo" to='/'><img src={shop.logo} alt='img' /></NavLink>
-                                <NavLink className="footer__bottom-social-about" to='/about'>{selectedLanguage?.footer?.aboutMenuTitle}</NavLink>
+                                <NavLink className="footer__bottom-social-logo" to={`/${shop.name}`}><img src={shop.logo} alt='img' /></NavLink>
+                                <NavLink className="footer__bottom-social-about" to={`/${shop.name}/about`}>{selectedLanguage?.footer?.aboutMenuTitle}</NavLink>
                                 <div className="footer__bottom-social-link-wrap">
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.facebook} target='_blank'><img src={facebook} alt='img' /></a>
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.instagram} target='_blank'><img src={instagram} alt='img' /></a>
                                 </div>
                             </div>
 
-                            {/* <div className="footer__bottom-menu">
-                                <div className="footer__bottom-menu-title">Каталог</div>
-                                    <ul className="footer__bottom-menu-link-wrap">
-                                        <li><NavLink to='/about'>Про компанію</NavLink></li>
-                                        <li><NavLink to='#'>Публічна оферта</NavLink></li>
-                                        <li><NavLink to='#'>Доставка і оплата</NavLink></li>
-                                        <li><NavLink to='#'>Контакти</NavLink></li>
-                                        <li><NavLink to='#'>Допомога</NavLink></li>
-                                    </ul>
-                            </div> */}
-
                             <div className="footer__bottom-catalog">
                                 <div className="footer__bottom-catalog-title">{selectedLanguage?.footer?.catalogTitle}</div>
                                     <ul className="footer__bottom-catalog-link-wrap">
                                         {
-                                        datas.categories.map(categories => (<li key={categories.id}><NavLink to={categories.href}>{categories.name}</NavLink></li>))  
+                                            !!shopCategories.length && shopCategories.map(category => (<li key={category._id}><NavLink to={`/${shop.name}/category/${category._id}`}>{category.name}</NavLink></li>))  
                                         }
                                     </ul>
                             </div>

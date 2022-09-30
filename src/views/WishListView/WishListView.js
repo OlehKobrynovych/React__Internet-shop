@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 
 function WishListView() {
-   
+    const shop = useSelector(state => state.homeSlice.shop);
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
@@ -16,7 +16,7 @@ function WishListView() {
         <div className="wish-list--wrap container">
 
             <div className="wish-list__path">
-                <NavLink className="wish-list__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
+                <NavLink className="wish-list__path-link" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
                 <span>&nbsp; / &nbsp;</span>
                 <span>{selectedLanguage?.wishlistPage?.wishlistName}</span>
                 <span>&nbsp; /</span>

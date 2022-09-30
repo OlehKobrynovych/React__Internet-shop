@@ -17,6 +17,7 @@ function ProductFilterView() {
     const lastViewProduct = useSelector(state => state.homeSlice.lastViewProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const categories = useSelector(state => state.homeSlice.categories);
+    const shop = useSelector(state => state.homeSlice.shop);
     const [categoryProducts, setCategoryProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState({});
     const [parentCategories, setParentCategories] = useState({});
@@ -104,14 +105,14 @@ function ProductFilterView() {
                             {
                                 selectedCategory.parent_id !== 'null' ? ( 
                                     <div className="product-filter__path">
-                                        <NavLink className="product-filter__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
+                                        <NavLink className="product-filter__path-link" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
                                         <span>&nbsp; / &nbsp;</span>
-                                        <NavLink className="product-filter__path-link" to={`/category/${parentCategories._id}`}>{parentCategories?.name}</NavLink>
+                                        <NavLink className="product-filter__path-link" to={`/${shop.name}/category/${parentCategories._id}`}>{parentCategories?.name}</NavLink>
                                         <span>&nbsp; / &nbsp;</span>
                                         <span>{selectedCategory.name}</span>
                                     </div>
                                 ) : (<div className="product-filter__path">
-                                        <NavLink className="product-filter__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
+                                        <NavLink className="product-filter__path-link" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
                                         <span>&nbsp; / &nbsp;</span>
                                         <span>{selectedCategory?.name}</span>
                                         <span>&nbsp; /</span>

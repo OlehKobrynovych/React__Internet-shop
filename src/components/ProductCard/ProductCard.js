@@ -19,7 +19,7 @@ function ProductCard({product}) {
     // const datas = useSelector(state => state.homeSlice.datas);
 
     const handleClick = (product) => {
-        navigate(`/product/${product._id}`);
+        navigate(`/${shop.name}/product/${product._id}`);
         dispatch(setLastViewProduct(product))
     };
 

@@ -32,52 +32,6 @@ function Header() {
     
     useEffect(() => {
 
-        // fetch('http://localhost:3000/api/products/all').then(res => console.log(res.json())).then(res => console.log(res))
-        fetch('http://localhost:3000/api/products/all')
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data.length) {
-                    dispatch(getProducts(res.data));
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
-        
-        fetch('http://localhost:3000/api/categories/all')
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data.length) {
-                    dispatch(setCategories(res.data));
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
-        
-        fetch('http://localhost:3000/api/shops/all')
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data.length) {
-                    dispatch(setShop(res.data[0]));
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
-
-        // fetch('http://localhost:3000/api/categories/', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data),
-        //   }).then(res => res.json()).then(res => console.log(res))
-
-            
-       
-        // вибір мови
-        // dispatch(setSelectedLanguage(datasLanguage[datas.shopInfo.language]));
     }, [])
     
     useEffect(() => {
@@ -95,7 +49,7 @@ function Header() {
                 <MobileMenu />
 
                 {
-                    shop?.logo && <NavLink to='/'><img className='header__logo' src={shop.logo} alt='img'/></NavLink>
+                    shop?.logo && <NavLink to={`/${shop.name}`}><img className='header__logo' src={shop.logo} alt='img'/></NavLink>
                 }
 
                 <div className="header__menu-wrap">
@@ -105,14 +59,14 @@ function Header() {
                                 <li className="header__menu-link-wrap"  key={category._id}>
                                     <NavLink 
                                         className="header__menu-link" 
-                                        to={`/category/${category._id}`}
+                                        to={`/${shop.name}/category/${category._id}`}
                                     >
                                         {category.name}
                                     </NavLink>
                                     <div className="header__menu-link-dropdown">
                                         <ul className="header__menu-link-dropdown-wrap">
                                             {
-                                                categories.map(subCategories => subCategories.parent_id == category._id && (<li key={subCategories._id}><NavLink className="header__menu-sublink-dropdown" to={`/category/${subCategories._id}`}>{subCategories.name}</NavLink></li>))
+                                                categories.map(subCategories => subCategories.parent_id == category._id && (<li key={subCategories._id}><NavLink className="header__menu-sublink-dropdown" to={`/${shop.name}/category/${subCategories._id}`}>{subCategories.name}</NavLink></li>))
                                             }
                                         </ul>
                                     </div>

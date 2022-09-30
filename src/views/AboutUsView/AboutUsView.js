@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import './AboutUsView.css';
 
 import woman from '../../assets/images/woman.webp';
+import { useSelector } from 'react-redux';
 
 
 // import { useState, useRef } from 'react';
@@ -11,6 +12,7 @@ import woman from '../../assets/images/woman.webp';
 // import Helocation from '../Helocation/Helocation';
 
 function AboutUsView() {
+    const shop = useSelector(state => state.homeSlice.shop);
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
 
     // const searchInputRef = useRef(null);
@@ -25,7 +27,7 @@ function AboutUsView() {
         <div className="about-us">
             <div className="about-us-wrap container">
                 <p className="about-us__path">
-                    <NavLink to='/'>Головна сторінка &nbsp; / &nbsp;</NavLink>
+                    <NavLink to={`/${shop.name}`}>Головна сторінка &nbsp; / &nbsp;</NavLink>
                     <span>ПРО НАС &nbsp; /</span>
                 </p>
 

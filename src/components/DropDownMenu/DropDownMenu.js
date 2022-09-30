@@ -51,7 +51,7 @@ function DropDownMenu() {
                 <ul className="drop-down-menu__header--wrap container">
                     {
                         shopCategories?.length && shopCategories.map(category => (
-                            <li key={category._id}><NavLink to={`category/${category._id}`} className="drop-down-menu__header-link">{category.name}</NavLink></li> 
+                            <li key={category._id}><NavLink to={`/${shop.name}category/${category._id}`} className="drop-down-menu__header-link">{category.name}</NavLink></li> 
                         ))
                     }
                 </ul>
@@ -62,7 +62,7 @@ function DropDownMenu() {
                 <ul className="drop-down-menu__sub-categories-link-wrap">
                     {
                         !!shopSubCategories.length && shopSubCategories.map(subCategories => (
-                            <li key={subCategories._id}><NavLink className="drop-down-menu__sub-categories-link" to={`category/${subCategories._id}`} onClick={handleClick}>{subCategories.name}</NavLink></li>
+                            <li key={subCategories._id}><NavLink className="drop-down-menu__sub-categories-link" to={`/${shop.name}category/${subCategories._id}`} onClick={handleClick}>{subCategories.name}</NavLink></li>
                         )) 
                     }
                 </ul>
@@ -71,17 +71,17 @@ function DropDownMenu() {
                     <img className="drop-down-menu__btn-img" src={login} alt='img'/>
                     <span className="drop-down-menu__btn-text">Вхід</span>
                 </NavLink>
-                <NavLink className="drop-down-menu__btn-wrap" to='/cart' onClick={handleClick}>
+                <NavLink className="drop-down-menu__btn-wrap" to={`/${shop.name}/cart`} onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={cart} alt='img'/>
                     <span className="drop-down-menu__btn-text">Кошик</span>
                 </NavLink>
-                <NavLink className="drop-down-menu__btn-wrap" to='/wishlist' onClick={handleClick}>
+                <NavLink className="drop-down-menu__btn-wrap" to={`/${shop.name}/wishlist`} onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={heart} alt='img'/>
                     <span className="drop-down-menu__btn-text">Обрані</span>
                 </NavLink>
 
                 <ul className="drop-down-menu__info">
-                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to='/about' onClick={handleClick}>Про компанію</NavLink></li>
+                    <li className="drop-down-menu__info-link-wrap"><NavLink className="drop-down-menu__info-link" to={`/${shop.name}/about`} onClick={handleClick}>Про компанію</NavLink></li>
                 </ul>
 
                 <div className="drop-down-menu__contact">

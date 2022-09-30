@@ -127,16 +127,16 @@ function ProductInformationView() {
                         {
                            selectedCategories?.name && (
                                 <div className="product-information__path container">
-                                    <NavLink className="product-information__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
+                                    <NavLink className="product-information__path-link" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
                                     <span>&nbsp; / &nbsp;</span>
                                     {
                                         selectedCategories.parent_id == 'null' ? (
-                                            <NavLink className="product-information__path-link" to={`/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
+                                            <NavLink className="product-information__path-link" to={`/${shop.name}/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
                                         ) : (
                                             <>
-                                                <NavLink className="product-information__path-link" to={`/category/${parentCategories._id}`}>{parentCategories?.name}</NavLink>
+                                                <NavLink className="product-information__path-link" to={`/${shop.name}/category/${parentCategories._id}`}>{parentCategories?.name}</NavLink>
                                                 <span>&nbsp; / &nbsp;</span>
-                                                <NavLink className="product-information__path-link" to={`/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
+                                                <NavLink className="product-information__path-link" to={`/${shop.name}/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
                                             </>
                                         )
                                     }

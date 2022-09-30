@@ -71,16 +71,16 @@ function HomeView() {
 
                         <div className="home-view__images-wrap container">
                             {
-                                mainSliderImages[0]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[0]._id}`}><img className="home-view__image" src={mainSliderImages[0]?.image_url} alt='img'/></NavLink>
+                                mainSliderImages[0]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[0]._id}`}><img className="home-view__image" src={mainSliderImages[0]?.image_url} alt='img'/></NavLink>
                             }
                             {
-                                mainSliderImages[1]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[1]._id}`}><img className="home-view__image" src={mainSliderImages[1]?.image_url} alt='img'/></NavLink>
+                                mainSliderImages[1]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[1]._id}`}><img className="home-view__image" src={mainSliderImages[1]?.image_url} alt='img'/></NavLink>
                             }
                             {
-                                mainSliderImages[2]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[2]._id}`}><img className="home-view__image" src={mainSliderImages[2]?.image_url} alt='img'/></NavLink>
+                                mainSliderImages[2]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[2]._id}`}><img className="home-view__image" src={mainSliderImages[2]?.image_url} alt='img'/></NavLink>
                             }
                             {
-                                mainSliderImages[3]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[3]._id}`}><img className="home-view__image" src={mainSliderImages[3]?.image_url} alt='img'/></NavLink>
+                                mainSliderImages[3]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[3]._id}`}><img className="home-view__image" src={mainSliderImages[3]?.image_url} alt='img'/></NavLink>
                             }
                         </div>
 

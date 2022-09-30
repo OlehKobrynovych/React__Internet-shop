@@ -58,7 +58,7 @@
 }
 
 .sign-in__form {
-    padding: 50px;
+    padding: 20px;
 }
 
 .sign-in__company-name {
@@ -152,6 +152,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .sign-in__form {
+        padding: 50px;
     }
 }
   

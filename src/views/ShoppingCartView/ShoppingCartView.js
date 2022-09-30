@@ -55,7 +55,7 @@ function ShoppingCartView() {
     };
     
     const handleClick = (id) => {
-        navigate(`/product/${id}`);
+        navigate(`/${shop.name}/product/${id}`);
     };
 
     return (
@@ -63,7 +63,7 @@ function ShoppingCartView() {
         <div className="shopping-cart--wrap container">
 
             <div className="shopping-cart__path">
-                <NavLink className="shopping-cart__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
+                <NavLink className="shopping-cart__path-link" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
                 <span>&nbsp; / &nbsp;</span>
                 <span>{selectedLanguage?.cartPage?.cartName}</span>
                 <span>&nbsp; /</span>
