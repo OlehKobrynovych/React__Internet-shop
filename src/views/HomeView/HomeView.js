@@ -5,7 +5,6 @@ import man from '../../assets/images/man.webp';
 import woman from '../../assets/images/woman.webp';
 import kids from '../../assets/images/kids.webp';
 import poshta from '../../assets/images/poshta.jpg';
-import DropDownMenu from '../../components/DropDownMenu/DropDownMenu';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,66 +14,97 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay} from "swiper";
 
-import {datas} from '../../data.js'
 import { useEffect, useState } from 'react';
 import Preloader from '../../components/Preloader/Preloader';
 
 
 function HomeView() {
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+    const shop = useSelector(state => state.homeSlice.shop);
     const products = useSelector(state => state.homeSlice.products);
+    const categories = useSelector(state => state.homeSlice.categories);
     const [productsNew, setProductsNew] = useState([]);
     const [productsOld, setProductsOld] = useState([]);
+    const [mainSliderImages, setMainSliderImages] = useState([]);
     const dispatch = useDispatch();
     // debugger
+    // console.log(mainSliderImages)
     
     useEffect(() => {
-        setProductsNew(products.filter(el => el.new_price))
-        setProductsOld(products.filter(el => !el.new_price))
+        if (products.length) {
+            setProductsNew(products.filter(el => el.new_price))
+            setProductsOld(products.filter(el => !el.new_price))
+        }
     }, [products])
+    
+    useEffect(() => {
+        if (categories?.length) {
+            setMainSliderImages(categories.filter(el => el.parent_id == 'null'))
+        }
+    }, [categories])
    
     return (
         <>
             {
-                productsNew.length && productsOld.length ?
+                productsOld.length ?
                     (<div className="home-view hidden">
-                    <Swiper
-                        spaceBetween={30}
-                        centeredSlides={true}
-                        autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false,
-                        }}
-                        modules={[Autoplay]}
-                        className="mySwiper"
-                    >
-                        <SwiperSlide><img className="home-view__swiper-img" src={man} alt='img'/></SwiperSlide>
-                        <SwiperSlide><img className="home-view__swiper-img" src={kids} alt='img'/></SwiperSlide>
-                        <SwiperSlide><img className="home-view__swiper-img" src={man} alt='img'/></SwiperSlide>
-                        <SwiperSlide><img className="home-view__swiper-img" src={kids} alt='img'/></SwiperSlide>
-                    </Swiper>
+                        {
+                            !!mainSliderImages?.length && (
+                                <Swiper
+                                    spaceBetween={30}
+                                    centeredSlides={true}
+                                    autoplay={{
+                                    delay: 3000,
+                                    disableOnInteraction: false,
+                                    }}
+                                    modules={[Autoplay]}
+                                    className="mySwiper"
+                                >
+                                    {
+                                       mainSliderImages.map(el => (<SwiperSlide key={el._id}><img className="home-view__swiper-img" src={el.image_url} alt='img'/></SwiperSlide>))
+                                    }
+                                </Swiper>
+                            )
+                        }
 
-                    <SwiperCards title={selectedLanguage?.homePage?.titleSwiperNew} products={productsOld}/>
+                        <SwiperCards title={selectedLanguage?.homePage?.titleSwiperNew} products={productsOld}/>
 
-                    <div className="home-view__images container">
-                        <NavLink className="grid-area__b" to='#'><img src={man} alt='img'/></NavLink>
-                        <NavLink className="grid-area__a" to='#'><img src={woman} alt='img'/></NavLink>
-                        <NavLink className="grid-area__c" to='#'><img src={kids} alt='img'/></NavLink>
-                    </div>
-
-                    <div className="home-view__info container">
-                        <div className="home-view__info-delivery">
-                            <img className="home-view__info-delivery-img" src={poshta} alt='img'/>
-                            <p className="home-view__info-delivery-text">Безкоштовна доставка від 5 999 грн</p>
+                        <div className="home-view__images-wrap container">
+                            {
+                                mainSliderImages[0]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[0]._id}`}><img className="home-view__image" src={mainSliderImages[0]?.image_url} alt='img'/></NavLink>
+                            }
+                            {
+                                mainSliderImages[1]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[1]._id}`}><img className="home-view__image" src={mainSliderImages[1]?.image_url} alt='img'/></NavLink>
+                            }
+                            {
+                                mainSliderImages[2]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[2]._id}`}><img className="home-view__image" src={mainSliderImages[2]?.image_url} alt='img'/></NavLink>
+                            }
+                            {
+                                mainSliderImages[3]?.image_url &&  <NavLink className="home-view__image-link" to={`/category/${mainSliderImages[3]._id}`}><img className="home-view__image" src={mainSliderImages[3]?.image_url} alt='img'/></NavLink>
+                            }
                         </div>
-                        <h2 className="home-view__info-title"> Інтернет-магазин одягу Goldi</h2>
-                        <p className="home-view__info-text">
-                            Goldi - мультикультурне об'єднання молодих людей, які змінюють світ кожного дня. Ми вивчаємо модні тенденції та аналізуємо маркет для того, щоб популяризувати культуру різних напрямів та стилів серед звичайних людей. Адже, мода не тільки на дахах дорогих ресторанів мегаполісів, але й в кожному передмісті.
-                        </p>
-                    </div>
 
-                    <SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} products={productsNew}/>
-                </div>) : (<Preloader/>) 
+                        <div className="home-view__info container">
+                            <div className="home-view__info-delivery">
+                                <img className="home-view__info-delivery-img" src={poshta} alt='img'/>
+                                <p className="home-view__info-delivery-text">Безкоштовна доставка від 5 999 грн</p>
+                            </div>
+
+                            {
+                                shop?.name && (
+                                    <>
+                                        <h2 className="home-view__info-title">{selectedLanguage?.homePage?.homeInfoTitle} {shop.name}</h2>
+                                        <p className="home-view__info-text">{shop.descriptionShop}</p>
+                                    </>
+                                )
+                            }
+                        </div>
+                        
+                        {
+                            productsNew.length && (<SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} products={productsNew}/>)
+                        }
+                        
+                    </div>) : (<Preloader/>) 
             }
         </>
     );

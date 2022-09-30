@@ -3,10 +3,9 @@ import './Header.css';
 import { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {setCategories, getProducts, setSelectedSubCategories, setSelectedLanguage, setShop} from '../../store/homeSlice';
+import {setCategories, getProducts, setSelectedSubCategories, setSelectedLanguage, setShop, setIsOpenMenu} from '../../store/homeSlice';
 
 import search from '../../assets/images/search.svg';
-import logo from '../../assets/images/logo.svg';
 
 import HeartBtn from '../HeartBtn/HeartBtn';
 import CartBtn from '../CartBtn/CartBtn';
@@ -19,9 +18,9 @@ import DropDownMenu from '../DropDownMenu/DropDownMenu';
 
 
 function Header() {
-    // const datas = useSelector(state => state.homeSlice.datas);
-    // const shop = useSelector(state => state.homeSlice.shop);
+    const shop = useSelector(state => state.homeSlice.shop);
     const categories = useSelector(state => state.homeSlice.categories);
+    const [shopCategories, setShopCategories] = useState([]);
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
@@ -67,29 +66,6 @@ function Header() {
                 console.error('Error:', error);
             })
 
-
-        // let data = {
-        //     shop_id: '1',
-        //     category_id: '1',
-        //     name: 'Штани',
-        //     price: 100,
-        //     new_price: 80,
-        //     images: [
-        //         '/images/photo1.webp'
-        //     ],
-        //     details: 'Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.',
-        //     colors: ['red', 'yellow'],
-        //     sizes: ['XL', 'L', 'XXL']
-        // };
-
-        // let data = {
-        //     name: 'Штани',
-        //     image_url: 'url/asdasdasd',
-        //     parent_id: '1',
-        //     shop_id: '6333055e19047777b333e42e'
-        // };
-
-
         // fetch('http://localhost:3000/api/categories/', {
         //     method: 'POST',
         //     headers: {
@@ -98,36 +74,46 @@ function Header() {
         //     body: JSON.stringify(data),
         //   }).then(res => res.json()).then(res => console.log(res))
 
-
-        
+            
+       
         // вибір мови
-        dispatch(setSelectedLanguage(datasLanguage['UA']));
         // dispatch(setSelectedLanguage(datasLanguage[datas.shopInfo.language]));
     }, [])
+    
+    useEffect(() => {
+        dispatch(setSelectedLanguage(datasLanguage[shop.language]));
+    }, [shop])
+
+    useEffect(() => {
+        setShopCategories(categories.filter(el => el.parent_id == 'null'))
+    }, [categories])
+
 
     return (
         <div className="header">
             <div className="header--wrap container">
                 <MobileMenu />
 
-                <NavLink to='/'><img className='header__logo' src={logo} alt='img'/></NavLink>
+                {
+                    shop?.logo && <NavLink to='/'><img className='header__logo' src={shop.logo} alt='img'/></NavLink>
+                }
 
                 <div className="header__menu-wrap">
                     <ul className="header__menu">
                         {
-                          categories.length &&  categories?.map(category => (
+                          !!shopCategories.length &&  shopCategories?.map(category => (
                                 <li className="header__menu-link-wrap"  key={category._id}>
                                     <NavLink 
                                         className="header__menu-link" 
-                                        to={`category/${category._id}`}
+                                        to={`/category/${category._id}`}
                                     >
                                         {category.name}
                                     </NavLink>
                                     <div className="header__menu-link-dropdown">
                                         <ul className="header__menu-link-dropdown-wrap">
-                                            {/* {
-                                                categories.subCategories.map(subCategories => (<li key={subCategories.id}><NavLink to={subCategories.href}>{subCategories.name}</NavLink></li>))
-                                            } */}
+                                            {
+                                                categories.map(subCategories => subCategories.parent_id == category._id && (<li key={subCategories._id}><NavLink className="header__menu-sublink-dropdown" to={`/category/${subCategories._id}`}>{subCategories.name}</NavLink></li>))
+                                            }
                                         </ul>
                                     </div>
                                 </li>
@@ -148,6 +134,7 @@ function Header() {
             </div>
             
             <DropDownMenu />
+                    
         </div>
     );
 }

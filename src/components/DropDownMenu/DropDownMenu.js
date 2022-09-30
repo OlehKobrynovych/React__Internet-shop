@@ -1,6 +1,6 @@
 import './DropDownMenu.css';
-import { useState, useRef, useEffect } from 'react';
-import { NavLink, useLocation} from 'react-router-dom';
+import React, { useState, useRef, useEffect, memo } from 'react';
+import { NavLink, useLocation, useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsOpenMenu } from '../../store/homeSlice';
 
@@ -13,28 +13,36 @@ import instagram from '../../assets/images/instagram.svg';
 function DropDownMenu() {
     const categories = useSelector(state => state.homeSlice.categories);
     const shop = useSelector(state => state.homeSlice.shop);
-    const datas = useSelector(state => state.homeSlice.datas);
-    const [selectedCategories, setSelectedCategories] = useState(null);
-    // const selectedSubCategories = useSelector(state => state.homeSlice.selectedSubCategories);
+    const [shopCategories, setShopCategories] = useState([]);
+    const [shopSubCategories, setShopSubCategories] = useState([]);
     const isOpenMenu = useSelector(state => state.homeSlice.isOpenMenu);
     let location = useLocation();
     const dispatch = useDispatch();
-
+// console.log(shopSubCategories)
 
     useEffect(() => {
-        let arr = location.pathname.split('/')
+        setShopCategories(categories.filter(el => el.parent_id == 'null'))
+    }, [categories])
 
-        if (datas && datas.categories) {
-            if (location.pathname === '/') {
-                setSelectedCategories(datas.categories[0]);
+    useEffect(() => {
+        if (!!categories.length) {
+            if (location.pathname.includes('category')) {
+                let arr = location.pathname.split('/')
+                let res = categories.filter(el => el.parent_id == arr[arr.length - 1])
+                setShopSubCategories(res.length !== 0 ? res : categories.filter(el => el.parent_id == categories[0]._id))
             } else {
-                setSelectedCategories(datas.categories.find(el => el.href == ('/' + arr[1])))
+                setShopSubCategories(categories.filter(el => el.parent_id == categories[0]._id))
             }
         }
-    }, [location, datas]);
-
+    }, [location]);
+ 
     const handleClick = () => {
         dispatch(setIsOpenMenu())
+        if (!isOpenMenu) {
+            document.body.style.overflow = "hidden" 
+        } else {
+            document.body.style.overflow = "unset"
+        }
     };
 
     return (
@@ -42,7 +50,7 @@ function DropDownMenu() {
             <div className="drop-down-menu__header">
                 <ul className="drop-down-menu__header--wrap container">
                     {
-                        categories?.length && categories.map(category => (
+                        shopCategories?.length && shopCategories.map(category => (
                             <li key={category._id}><NavLink to={`category/${category._id}`} className="drop-down-menu__header-link">{category.name}</NavLink></li> 
                         ))
                     }
@@ -51,13 +59,13 @@ function DropDownMenu() {
                 
             <div className="drop-down-menu__sub-categories--wrap container">
 
-                {/* <ul className="drop-down-menu__sub-categories-link-wrap">
+                <ul className="drop-down-menu__sub-categories-link-wrap">
                     {
-                        selectedCategories && selectedCategories?.subCategories.map(subCategories => (
-                            <li key={subCategories.id}><NavLink className="drop-down-menu__sub-categories-link" to={subCategories.href} onClick={handleClick}>{subCategories.name}</NavLink></li>
+                        !!shopSubCategories.length && shopSubCategories.map(subCategories => (
+                            <li key={subCategories._id}><NavLink className="drop-down-menu__sub-categories-link" to={`category/${subCategories._id}`} onClick={handleClick}>{subCategories.name}</NavLink></li>
                         )) 
                     }
-                </ul> */}
+                </ul>
 
                 <NavLink className="drop-down-menu__btn-wrap" to='#' onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={login} alt='img'/>
@@ -91,4 +99,4 @@ function DropDownMenu() {
     );
 }
 
-export default DropDownMenu;
+export default memo(DropDownMenu);

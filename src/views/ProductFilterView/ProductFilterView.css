@@ -86,6 +86,11 @@
     
 }
 
+.product-filter__categories-error {
+    text-align: center;
+    font-size: 22px;
+}
+
 @media (min-width: 450px) {
     .product-filter__item {
         max-width: 200px;

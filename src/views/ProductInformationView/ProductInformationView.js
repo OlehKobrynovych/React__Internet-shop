@@ -22,7 +22,8 @@ function ProductInformationView() {
     const shop = useSelector(state => state.homeSlice.shop);
     const [product, setProduct] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedCategories, setSelectedCategories] = useState(null);
+    const [selectedCategories, setSelectedCategories] = useState({});
+    const [parentCategories, setParentCategories] = useState({});
     const [similarProducts, setSimilarProducts] = useState([]);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
@@ -81,9 +82,13 @@ function ProductInformationView() {
 
     useEffect(() => {
         if ( products.length && product?.category_id) {
-            let selectedCategory = categories?.find(el => el._id === product?.category_id)
+            let selectedCategory = categories?.find(el => el._id === product.category_id)
             setSelectedCategories(selectedCategory)
 
+            if (selectedCategory?.parent_id !== 'null') {
+                setParentCategories(categories?.find(el => el._id === selectedCategory.parent_id))
+            }
+            
             if (selectedCategory?._id) {
                 setSimilarProducts(products?.filter(el => el.category_id == selectedCategory._id))
             }
@@ -120,17 +125,21 @@ function ProductInformationView() {
                 isLoading ? (<Preloader/>) : !!product ? (
                     <div className="product-information">
                         {
-                           product && (
+                           selectedCategories?.name && (
                                 <div className="product-information__path container">
                                     <NavLink className="product-information__path-link" to='/'>{selectedLanguage?.homePage?.homeName}</NavLink>
                                     <span>&nbsp; / &nbsp;</span>
                                     {
-                                        selectedCategories?.name && ( <NavLink className="product-information__path-link" to={`category/${selectedCategories.name}`}>{selectedCategories?.name}</NavLink>)
+                                        selectedCategories.parent_id == 'null' ? (
+                                            <NavLink className="product-information__path-link" to={`/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
+                                        ) : (
+                                            <>
+                                                <NavLink className="product-information__path-link" to={`/category/${parentCategories._id}`}>{parentCategories?.name}</NavLink>
+                                                <span>&nbsp; / &nbsp;</span>
+                                                <NavLink className="product-information__path-link" to={`/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
+                                            </>
+                                        )
                                     }
-                                    <span>&nbsp; / &nbsp;</span>
-                                    {/* {
-                                        selectedSubCategories?.href && ( <NavLink className="product-information__path-link" to={selectedSubCategories?.href}>{selectedSubCategories?.name}</NavLink>)
-                                    } */}
                                     <span>&nbsp; / &nbsp;</span>
                                     <span>{product?.name}</span>
                                 </div>) 
@@ -185,18 +194,18 @@ function ProductInformationView() {
                                         !isShoppingProduct ? selectedLanguage?.productPage?.productBtnCartAdd : selectedLanguage?.productPage?.productBtnCartNotAdd
                                     }
                                 </button>
-
-                                {/* {
+{/* 
+                                {
                                     datas?.shopInfo?.guarantee && (<div className="product-information__guarantee"><p><b>{selectedLanguage?.productPage?.productGuaranteeTitle}</b></p><p>{datas.shopInfo.guarantee}</p></div>)
-                                }
-
-                                {
-                                    datas?.shopInfo?.deliveryMthods && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{datas.shopInfo.deliveryMthods}</p></div>)
-                                }
-
-                                {
-                                    datas?.shopInfo?.paymentMethods && (<div className="product-information__payment-methods"><p><b>{selectedLanguage?.productPage?.productPaymentTitle}</b></p><p>{datas.shopInfo.paymentMethods}</p></div>)
                                 } */}
+
+                                {
+                                    shop?.deliveryMethods && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{shop.deliveryMethods}</p></div>)
+                                }
+
+                                {
+                                    shop?.paymentMethods && (<div className="product-information__payment-methods"><p><b>{selectedLanguage?.productPage?.productPaymentTitle}</b></p><p>{shop.paymentMethods}</p></div>)
+                                }
 
                             </div>
                         </div>

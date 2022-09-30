@@ -1,0 +1,160 @@
+.sign-in {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    
+}
+
+.sign-in-wrap {
+    height: 100vh;
+}
+
+.sign-in__swiper {
+    background-color: #065bea;
+    padding: 30px;
+}
+
+.sign-in__slider-wrap {
+
+}
+
+.sign-in__slider-img {
+
+}
+
+.sign-in__slider-title {
+    text-align: center;
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.sign-in__slider-text {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    color: #fff;
+}
+
+.mySwiper.sign-in__mySwiper .swiper-button-next {
+    display: none;
+}
+
+.mySwiper.sign-in__mySwiper .swiper-button-prev {
+    display: none;
+}
+
+.sign-in__mySwiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #fff;
+}
+
+.sign-in__form-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in__form {
+    padding: 50px;
+}
+
+.sign-in__company-name {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.sign-in__form-title {
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.sign-in__form-sub-title {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.sign-in__form-sub-title-link {
+    color: blue;
+    transition: .3s;
+}
+
+.sign-in__form-sub-title-link:hover {
+    scale: 1.05;
+}
+
+.sign-in__label {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sign-in__input {
+    padding: 15px 20px;
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.sign-in__btn {
+    width: 100%;
+    background: #065bea;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    padding: 15px 0;
+    outline: none;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
+.sign-in__btn:hover {
+    background-color: #333;
+}
+
+.sign-in__link-to-main {
+    font-size: 18px;
+    color: blue;
+    transition: .3s;
+}
+
+.sign-in__link-to-main:hover {
+    scale: 1.05;
+}
+
+@media (min-width: 576px) {
+  
+}
+  
+@media (min-width: 768px) {
+    .sign-in-wrap {
+        display: flex;
+    }
+    .sign-in__swiper {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+  
+@media (min-width: 1080px) {
+
+}

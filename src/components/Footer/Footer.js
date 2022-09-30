@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 
 function Footer() {
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+    const shop = useSelector(state => state.homeSlice.shop);
 
     // const [isOpen, setIsOpen] = useState(false);
     // const navigate = useNavigate();
@@ -47,7 +48,7 @@ function Footer() {
                     <div className="footer__bottom container">
                         <div className="footer__bottom-info">
                             <div className="footer__bottom-social">
-                                <NavLink className="footer__bottom-social-logo" to='/'><img src={logo} alt='img' /></NavLink>
+                                <NavLink className="footer__bottom-social-logo" to='/'><img src={shop.logo} alt='img' /></NavLink>
                                 <NavLink className="footer__bottom-social-about" to='/about'>{selectedLanguage?.footer?.aboutMenuTitle}</NavLink>
                                 <div className="footer__bottom-social-link-wrap">
                                     <a className="footer__bottom-social-link" href={datas.shopInfo.facebook} target='_blank'><img src={facebook} alt='img' /></a>

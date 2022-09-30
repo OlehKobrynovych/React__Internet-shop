@@ -20,6 +20,7 @@ export const datasLanguage = {
         },
         homePage: {
             homeName: 'Головна сторінка',
+            homeInfoTitle: 'Інтернет-магазин',
             titleSwiperDiscounts: 'Знижки',
             titleSwiperNew: 'Новинки',
         },
@@ -29,6 +30,7 @@ export const datasLanguage = {
             categoriesSortOption2: 'По спаданню ціни:',
             categoriesSortOption3: 'Знижки:',
             categoriesSortOption4: 'Новинки:',
+            categoriesError: 'В цій категорії не має товарів',
         },
         productPage: {
             productSizeTitle: 'Доступні розміра: ',
@@ -90,6 +92,7 @@ export const datasLanguage = {
         },
         homePage: {
             homeName: 'Main page',
+            homeInfoTitle: 'Internet-shope',
             titleSwiperDiscounts: 'Discounts',
             titleSwiperNew: 'Novelty',
         },
@@ -99,6 +102,7 @@ export const datasLanguage = {
             categoriesSortOption2: 'As the price drops',
             categoriesSortOption3: 'Discounts',
             categoriesSortOption4: 'Novelty',
+            categoriesError: 'There are no products in this category',
         },
         productPage: {
             productSizeTitle: 'Available sizes: ',

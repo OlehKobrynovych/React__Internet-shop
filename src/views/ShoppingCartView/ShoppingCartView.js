@@ -110,29 +110,29 @@ function ShoppingCartView() {
 
                        <form className="shopping-cart__form" action="">
                            <div className="shopping-cart__form-input-wrap">
-                                <label className="shopping-cart__form-input-name-wrap" for="fname">
+                                <label className="shopping-cart__form-input-name-wrap" htmlFor="fname">
                                     <span className="shopping-cart__form-input-name-title">{selectedLanguage?.cartPage?.cartFormName}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setNameForm(e.target.value)} value={nameForm} type="text" id="fname" name="name" placeholder="Ваше прізвище та ім'я"/>
                                 </label>
-                                <label className="shopping-cart__form-input-phone-wrap" for="phone">
+                                <label className="shopping-cart__form-input-phone-wrap" htmlFor="phone">
                                     <span className="shopping-cart__form-input-phone-title">{selectedLanguage?.cartPage?.cartFormPhone}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setPhoneForm(e.target.value)} value={phoneForm} type="tel" id="phone" name="phone" placeholder="1234567890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
                                 </label>
-                                <label className="shopping-cart__form-input-label" for="email">
+                                <label className="shopping-cart__form-input-label" htmlFor="email">
                                     <span>{selectedLanguage?.cartPage?.cartFormMail}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setEmailForm(e.target.value)} value={emailForm} type="text" id="email" name="email" placeholder="Email"/>
                                 </label>
                            </div>
 
                             <div className="shopping-cart__form-textarea-wrap">
-                                <label className="shopping-cart__form-input-label" for="comment">
+                                <label className="shopping-cart__form-input-label" htmlFor="comment">
                                     <span>{selectedLanguage?.cartPage?.cartFormComment}</span>
                                     <textarea className="shopping-cart__form-input" onChange={(e) => setCommentForm(e.target.value)} value={commentForm} type="text" id="comment" name="comment" placeholder="" rows="5" cols="33"/>
                                 </label>
                             </div>
 
                             <div className="shopping-cart__btn-buy-wrap">
-                                <label className="shopping-cart__form-input-label" for="checkbox">
+                                <label className="shopping-cart__form-input-label" htmlFor="checkbox">
                                     <input className="shopping-cart__form-checkbox" checked={checkboxForm} onChange={() => setCheckboxFor(!checkboxForm)} type="checkbox" id="checkbox" name="checkbox" />
                                     <span className="shopping-cart__form-checkbox-title">{selectedLanguage?.cartPage?.cartFormCheckbox}</span>
                                 </label>
