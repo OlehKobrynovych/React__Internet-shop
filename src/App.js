@@ -6,6 +6,8 @@ import SignInView from './views/SignInView/SignInView';
 import Layout from './Layout/Layout';
 import SignUpView from './views/SignUpView/SignUpView';
 import LandingView from './views/LandingView/LandingView';
+import UserView from './views/UserView/UserView';
+import UserCategories from './components/UserCategories/UserCategories';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -24,6 +26,10 @@ function App() {
            <Suspense fallback={<Preloader />}>
                 <Routes>
                     <Route path="/" element={<LandingView />}/>
+                    <Route path="/auth/:userId" element={<UserView />}>
+                        <Route path="categories" element={<UserCategories />}/>
+
+                    </Route>
                     <Route path="/auth/login" element={<SignInView />}/>
                     <Route path="/auth/register" element={<SignUpView />}/>
 
