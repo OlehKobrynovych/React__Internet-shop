@@ -51,7 +51,7 @@ function DropDownMenu() {
                 <ul className="drop-down-menu__header--wrap container">
                     {
                         shopCategories?.length && shopCategories.map(category => (
-                            <li key={category._id}><NavLink to={`/${shop.name}category/${category._id}`} className="drop-down-menu__header-link">{category.name}</NavLink></li> 
+                            <li key={category._id}><NavLink to={`/${shop.name}/category/${category._id}`} className="drop-down-menu__header-link">{category.name}</NavLink></li> 
                         ))
                     }
                 </ul>
@@ -62,7 +62,7 @@ function DropDownMenu() {
                 <ul className="drop-down-menu__sub-categories-link-wrap">
                     {
                         !!shopSubCategories.length && shopSubCategories.map(subCategories => (
-                            <li key={subCategories._id}><NavLink className="drop-down-menu__sub-categories-link" to={`/${shop.name}category/${subCategories._id}`} onClick={handleClick}>{subCategories.name}</NavLink></li>
+                            <li key={subCategories._id}><NavLink className="drop-down-menu__sub-categories-link" to={`/${shop.name}/category/${subCategories._id}`} onClick={handleClick}>{subCategories.name}</NavLink></li>
                         )) 
                     }
                 </ul>

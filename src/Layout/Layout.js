@@ -2,15 +2,18 @@ import './Layout.css';
 import React, { useEffect, useRef, useState } from "react";
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import { Outlet, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getProducts, setCategories, setShop } from '../store/homeSlice';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts, setCategories, setSelectedLanguage, setShop } from '../store/homeSlice';
+import { datasLanguage } from '../datasLanguage';
 
 
 function Layout() {
  
+    const shop = useSelector(state => state.homeSlice.shop);
     let { shopName } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 // console.log(shopName)
     // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
@@ -45,7 +48,8 @@ function Layout() {
              if (res.success && res.data.length) {
                  let res1 = res.data.find(el => el.name == shopName)
                 //  console.log(res1)
-                fetch(`http://localhost:3000/api/shops/${res1._id}`)
+                if (res1?.name) {
+                    fetch(`http://localhost:3000/api/shops/${res1._id}`)
                     .then(res2 => res2.json())
                     .then(res2 => {
                         if (res2.success && res2.data._id) {
@@ -55,6 +59,9 @@ function Layout() {
                     .catch((error) => {
                         console.error('Error:', error);
                     })
+                } else {
+                    navigate('/')
+                }
              }
          })
          .catch((error) => {
@@ -74,6 +81,10 @@ function Layout() {
         // вибір мови
         // dispatch(setSelectedLanguage(datasLanguage[datas.shopInfo.language]));
     }, [])
+
+    useEffect(() => {
+        dispatch(setSelectedLanguage(datasLanguage[shop.language]));
+    }, [shop])
 
 // debugger
     return (

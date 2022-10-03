@@ -34,9 +34,7 @@ function Header() {
 
     }, [])
     
-    useEffect(() => {
-        dispatch(setSelectedLanguage(datasLanguage[shop.language]));
-    }, [shop])
+   
 
     useEffect(() => {
         setShopCategories(categories.filter(el => el.parent_id == 'null'))

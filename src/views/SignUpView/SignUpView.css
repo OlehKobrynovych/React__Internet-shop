@@ -1,28 +1,28 @@
-.sign-in {
+.sign-up {
     margin: 0 auto;
     width: 100%;
     max-width: 1200px;
     
 }
 
-.sign-in-wrap {
+.sign-up-wrap {
     height: 100vh;
 }
 
-.sign-in__swiper {
+.sign-up__swiper {
     background-color: #065bea;
     padding: 30px;
 }
 
-.sign-in__slider-wrap {
+.sign-up__slider-wrap {
 
 }
 
-.sign-in__slider-img {
+.sign-up__slider-img {
 
 }
 
-.sign-in__slider-title {
+.sign-up__slider-title {
     text-align: center;
     font-size: 22px;
     text-transform: uppercase;
@@ -31,7 +31,7 @@
     color: #fff;
 }
 
-.sign-in__slider-text {
+.sign-up__slider-text {
     text-align: center;
     font-size: 18px;
     margin-top: 15px;
@@ -39,67 +39,69 @@
     color: #fff;
 }
 
-.mySwiper.sign-in__mySwiper .swiper-button-next {
+.mySwiper.sign-up__mySwiper .swiper-button-next {
     display: none;
 }
 
-.mySwiper.sign-in__mySwiper .swiper-button-prev {
+.mySwiper.sign-up__mySwiper .swiper-button-prev {
     display: none;
 }
 
-.sign-in__mySwiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.sign-up__mySwiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: #fff;
 }
 
-.sign-in__form-wrap {
+.sign-up__form-wrap {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
-.sign-in__form {
+.sign-up__form {
     padding: 20px;
+    height: 100%;
 }
 
-.sign-in__company-name {
+.sign-up__company-name {
     font-size: 30px;
     margin-top: 10px;
-    margin-bottom: 125px;
+    margin-bottom: 22px;
     text-transform: uppercase;
 }
 
-.sign-in__form-title {
+.sign-up__form-title {
     font-size: 25px;
     margin-top: 10px;
     margin-bottom: 15px;
     text-align: center;
 }
 
-.sign-in__form-sub-title {
+.sign-up__form-sub-title {
     font-size: 18px;
     margin-top: 10px;
     margin-bottom: 15px;
 }
 
-.sign-in__form-sub-title-link {
+.sign-up__form-sub-title-link {
     color: blue;
     transition: .3s;
 }
 
-.sign-in__form-sub-title-link:hover {
+.sign-up__form-sub-title-link:hover {
     scale: 1.05;
 }
 
-.sign-in__label {
+.sign-up__label {
     font-size: 16px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.sign-in__input {
+.sign-up__input {
     padding: 15px 20px;
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     font-size: 14px;
     line-height: 17px;
     color: #333;
@@ -109,19 +111,14 @@
     border: 1px solid #065bea;
 }
 
-.sign-in__leave-password {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.sign-in__login-error {
+.sign-up__login-error {
     color: red;
     margin-top: 15px;
     margin-bottom: 15px;
     text-align: center;
 }
 
-.sign-in__btn {
+.sign-up__btn {
     width: 100%;
     background: #065bea;
     border: none;
@@ -138,17 +135,17 @@
     transition: .3s;
 }
 
-.sign-in__btn:hover {
+.sign-up__btn:hover {
     background-color: #333;
 }
 
-.sign-in__link-to-main {
+.sign-up__link-to-main {
     font-size: 18px;
     color: blue;
     transition: .3s;
 }
 
-.sign-in__link-to-main:hover {
+.sign-up__link-to-main:hover {
     scale: 1.05;
 }
 
@@ -157,18 +154,18 @@
 }
   
 @media (min-width: 768px) {
-    .sign-in-wrap {
+    .sign-up-wrap {
         display: flex;
     }
-    .sign-in__swiper {
+    .sign-up__swiper {
         width: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    .sign-in__form {
-        padding: 50px;
+    .sign-up__form {
+        padding: 0 20px;
     }
 }
   

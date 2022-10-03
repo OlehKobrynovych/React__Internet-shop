@@ -4,6 +4,8 @@ import React, { Suspense } from 'react';
 import Preloader from './components/Preloader/Preloader';
 import SignInView from './views/SignInView/SignInView';
 import Layout from './Layout/Layout';
+import SignUpView from './views/SignUpView/SignUpView';
+import LandingView from './views/LandingView/LandingView';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -21,7 +23,9 @@ function App() {
             
            <Suspense fallback={<Preloader />}>
                 <Routes>
-                    <Route path="/" element={<SignInView />}/>
+                    <Route path="/" element={<LandingView />}/>
+                    <Route path="/auth/login" element={<SignInView />}/>
+                    <Route path="/auth/register" element={<SignUpView />}/>
 
                     <Route path="/:shopName/" element={<Layout />}>
                         <Route index element={<HomeView />}/>

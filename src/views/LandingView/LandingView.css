@@ -1,0 +1,25 @@
+.landing-view__title {
+    text-align: center;
+    font-size: 30px;
+}
+
+.landing-view__btn {
+    border: 1px solid #000;
+    margin: 100px;
+}
+
+@media (min-width: 576px) {
+
+}
+  
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 960px) {
+  
+}
+  
+@media (min-width: 1080px) {
+    
+}

@@ -2,13 +2,13 @@ import './SignInView.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import singInSwiper1 from '../../assets/images/singInSwiper1.svg';
 import singInSwiper2 from '../../assets/images/singInSwiper2.svg';
 import singInSwiper3 from '../../assets/images/singInSwiper3.svg';
 
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -20,35 +20,47 @@ function SignInView() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isValid, setIsValid] = useState(false);
+    const [loginError, setLoginError] = useState('');
+    const [user, setUser] = useState({});
+    const navigate = useNavigate();
+    // console.log(user)
 
-    const isValidEmail = (value) => {
-      return  /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(value);
-    }
+
+    // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+    // const [isValid, setIsValid] = useState(false);
+    // const isValidEmail = (value) => {
+    //   return  /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(value);
+    // }
 
     const handleChange = () => {
+        let data = {
+            email: email,
+            password: password
+        }
 
-        // fetch('http://localhost:3000/api/categories/all')
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         if (res.success && res.data.length) {
-        //             dispatch(setCategories(res.data));
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     })
-
-        // if (isValidEmail(email)) {
-        //     if (password) {
-
-        //     }
-        // }
+         fetch('http://localhost:3000/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success == false) {
+                    setLoginError(res.message)
+                } else {
+                    setUser(res.user)
+                }
+            })
     }
-   
-    // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
-// debugger
+    // useEffect(() => {
+    //     if (user._id) {
+    //         navigate(`/auth/${user._id}`)
+    //     }
+    // }, [user])
+   
     return (
         <div className="sign-in">
             <div className="sign-in-wrap">
@@ -77,7 +89,7 @@ function SignInView() {
                     <form className="sign-in__form">
                         <h2 className="sign-in__company-name">Назва фірми</h2>
                         <h3 className="sign-in__form-title">Sign in</h3>
-                        <p className="sign-in__form-sub-title"><span>Не маєте облікового запису? </span><NavLink className="sign-in__form-sub-title-link" to='#'>Sign up now</NavLink></p>
+                        <p className="sign-in__form-sub-title"><span>Не маєте облікового запису? </span><NavLink className="sign-in__form-sub-title-link" to='/auth/register'>Sign up now</NavLink></p>
 
                         <label className='sign-in__label' htmlFor="email">
                             <span>Емейл</span>
@@ -90,6 +102,7 @@ function SignInView() {
                             className='sign-in__input'
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
+                            placeholder='Введіть емейл...'
                         />
                         <label className='sign-in__label' htmlFor="password">
                             <span>Пароль</span>
@@ -102,13 +115,18 @@ function SignInView() {
                             className='sign-in__input'
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
+                            placeholder='Введіть пароль...'
                         />
 
-                        <p className=''><NavLink to='#'>Забули пароль?</NavLink></p>
+                        <p className='sign-in__leave-password'><NavLink to='#'>Забули пароль?</NavLink></p>
+
+                        {
+                            !!loginError.length && <p className='sign-in__login-error'>{loginError}</p>
+                        }
 
                         <button className='sign-in__btn' type="submit" onClick={handleChange}>Авторизуватися</button>
                         
-                        <p><span>Повернутись на </span><NavLink className='sign-in__link-to-main' to='#'>Головну</NavLink></p>
+                        <p><span>Повернутись на </span><NavLink className='sign-in__link-to-main' to='/'>Головну</NavLink></p>
                     </form>
                 </div>
             </div>
