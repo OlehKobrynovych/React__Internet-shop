@@ -50,6 +50,7 @@ function SignInView() {
                 if (res.success == false) {
                     setLoginError(res.message)
                 } else {
+                    console.log(res)
                     setUser(res.user)
                 }
             })
@@ -86,7 +87,7 @@ function SignInView() {
                 </div>
 
                 <div className="sign-in__form-wrap">
-                    <form className="sign-in__form">
+                    <div className="sign-in__form">
                         <h2 className="sign-in__company-name">Назва фірми</h2>
                         <h3 className="sign-in__form-title">Sign in</h3>
                         <p className="sign-in__form-sub-title"><span>Не маєте облікового запису? </span><NavLink className="sign-in__form-sub-title-link" to='/auth/register'>Sign up now</NavLink></p>
@@ -127,7 +128,7 @@ function SignInView() {
                         <button className='sign-in__btn' type="submit" onClick={handleChange}>Авторизуватися</button>
                         
                         <p><span>Повернутись на </span><NavLink className='sign-in__link-to-main' to='/'>Головну</NavLink></p>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -28,7 +28,7 @@ function HomeView() {
     const [mainSliderImages, setMainSliderImages] = useState([]);
     const dispatch = useDispatch();
     // debugger
-    // console.log(mainSliderImages)
+    // console.log(categories)
     
     useEffect(() => {
         if (products.length) {
@@ -39,6 +39,7 @@ function HomeView() {
     
     useEffect(() => {
         if (categories?.length) {
+            // console.log(categories)
             setMainSliderImages(categories.filter(el => el.parent_id == 'null'))
         }
     }, [categories])
@@ -46,7 +47,7 @@ function HomeView() {
     return (
         <>
             {
-                productsOld.length ?
+                productsOld?.length ?
                     (<div className="home-view hidden">
                         {
                             !!mainSliderImages?.length && (
