@@ -1,8 +1,9 @@
 const { get_all_products } = require('../../models/products')
 
 module.exports = async (req, res) => {
-    try {   
-    	const result = await get_all_products()
+    try {
+        const shop_id = req.params.id
+    	const result = await get_all_products(shop_id)
 
         if (process.env.MODE === 'dev') 
             console.log('[GET-ALL] Request to products is successfully processed')

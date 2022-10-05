@@ -25,47 +25,52 @@ function ProductFilterView() {
     const [selectedSort, setSelectedSort] = useState('priceUp');
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(5);
-    // console.log(selectedCategory)
+    // console.log(parentCategories)
     // const dispatch = useDispatch();
     // let location = useLocation();
-    // const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     // debugger
 
     useEffect(() => {
-        // setIsLoading(true);
+        setIsLoading(true);
+        setIsPageNotFound(false);
 
-        if (categories?.length) {
-            let res = categories.filter(el => el._id == id)
-            if (res.length) {
-                setSelectedCategory(res[0])
-                setIsPageNotFound(false)
-                
-                if (res[0].parent_id !== 'null') {
-                    setParentCategories(categories.find(el => el._id == res[0].parent_id))
+        fetch(`http://localhost:3000/api/categories/${id}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    setSelectedCategory(res.data);
+                } else {
+                    setIsPageNotFound(true)
                 }
-            } else {
-                setIsPageNotFound(true)
-            }
-        }
-        // fetch(`http://localhost:3000/api/categories/${id}`)
-        // fetch('http://localhost:3000/api/categories/all')
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         if (res.success && res.data) {
-        //             setSelectedCategory(res.data);
-        //         } else {
-        //             setCategoryProducts(null)
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     })
-        //     .finally(() => {
-        //         setIsLoading(false);
-        //     });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, [id, categories])
 
     useEffect(() => {
+        
+        if (selectedCategory?.parent_id && selectedCategory?.parent_id !== 'null') {
+            setIsLoading(true);
+            fetch(`http://localhost:3000/api/categories/${selectedCategory.parent_id}`)
+               .then(res => res.json())
+               .then(res => {
+                   if (res.success && res.data) {
+                       setParentCategories(res.data);
+                   } 
+               })
+               .catch((error) => {
+                   console.error('Error:', error);
+               })
+               .finally(() => {
+                    setIsLoading(false);
+                });
+        } 
+
         if (products?.length && selectedCategory._id) {
             let res = products.filter(el => el.category_id == selectedCategory._id)
             setCategoryProducts(res)
@@ -98,12 +103,13 @@ function ProductFilterView() {
     return (
         <>
             {
+                isLoading ? <Preloader /> :
                 isPageNotFound ? (<PageNotFoundView />) :
                     (<div className="product-filter">
                         <div className="product-filter--wrap container">
 
                             {
-                                selectedCategory.parent_id !== 'null' ? ( 
+                                selectedCategory?.parent_id !== 'null' ? ( 
                                     <div className="product-filter__path">
                                         <NavLink className="product-filter__path-link" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
                                         <span>&nbsp; / &nbsp;</span>

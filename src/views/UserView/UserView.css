@@ -1,3 +1,7 @@
+.user-view {
+    position: relative;
+}
+
 .user-view__sidenav {
     height: 100%;
     width: 100%;
@@ -128,7 +132,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .user-view__header-btn-message {

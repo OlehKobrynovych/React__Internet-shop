@@ -6,7 +6,7 @@
 }
 
 .sign-up-wrap {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .sign-up__swiper {

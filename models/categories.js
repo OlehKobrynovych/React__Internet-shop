@@ -1,26 +1,26 @@
 const mongoose = require('mongoose')
 
 const CategoriesSchema = mongoose.Schema({
+    id: {
+        type: String,
+        required: false
+    },
 	name: {
         type: String,
-        required: false,
-        
+        required: false
     },
 	image_url: {
         type: String,
-        required: false,
-        
+        required: false
     },
 	parent_id: {
         type: String,
-        required: false,
-        
+        required: false
     },
 	shop_id: {
         type: String,
-        required: false,
-        
-    },
+        required: false
+    }
 }, { collection: 'categories' })
 const Categories = module.exports = mongoose.model('Categories', CategoriesSchema)
 
@@ -36,8 +36,8 @@ module.exports.get_categories = function (categories_id) {
     return Categories.findOne({ _id: categories_id })
 }
 
-module.exports.get_all_categories = function () {
-    return Categories.find({})
+module.exports.get_all_categories = function (shop_id) {
+    return Categories.find({ shop_id })
 }
 
 module.exports.delete_categories = function (categories_id) {

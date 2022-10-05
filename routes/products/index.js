@@ -10,8 +10,8 @@ const router = express.Router()
 
 router.post('/', auth, create_products)
 router.put('/:id', auth, update_by_id_products)
-router.get('/all', auth, select_all_from_products)
-router.get('/:id', auth, select_by_id_products)
+router.get('/:id/all', select_all_from_products)
+router.get('/:id', select_by_id_products)
 router.delete('/:id', auth, delete_by_id_products)
 
 module.exports = router

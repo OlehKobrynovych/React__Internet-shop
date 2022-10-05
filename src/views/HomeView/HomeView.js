@@ -25,10 +25,10 @@ function HomeView() {
     const categories = useSelector(state => state.homeSlice.categories);
     const [productsNew, setProductsNew] = useState([]);
     const [productsOld, setProductsOld] = useState([]);
-    const [mainSliderImages, setMainSliderImages] = useState([]);
     const dispatch = useDispatch();
     // debugger
     // console.log(categories)
+    // const [mainSliderImages, setMainSliderImages] = useState([]);
     
     useEffect(() => {
         if (products.length) {
@@ -36,13 +36,6 @@ function HomeView() {
             setProductsOld(products.filter(el => !el.new_price))
         }
     }, [products])
-    
-    useEffect(() => {
-        if (categories?.length) {
-            // console.log(categories)
-            setMainSliderImages(categories.filter(el => el.parent_id == 'null'))
-        }
-    }, [categories])
    
     return (
         <>
@@ -50,7 +43,7 @@ function HomeView() {
                 productsOld?.length ?
                     (<div className="home-view hidden">
                         {
-                            !!mainSliderImages?.length && (
+                            !!categories?.length && (
                                 <Swiper
                                     spaceBetween={30}
                                     centeredSlides={true}
@@ -62,7 +55,7 @@ function HomeView() {
                                     className="mySwiper"
                                 >
                                     {
-                                       mainSliderImages.map(el => (<SwiperSlide key={el._id}><img className="home-view__swiper-img" src={el.image_url} alt='img'/></SwiperSlide>))
+                                       categories.map(el => (<SwiperSlide key={el._id}><img className="home-view__swiper-img" src={el.image_url} alt='img'/></SwiperSlide>))
                                     }
                                 </Swiper>
                             )
@@ -72,16 +65,16 @@ function HomeView() {
 
                         <div className="home-view__images-wrap container">
                             {
-                                mainSliderImages[0]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[0]._id}`}><img className="home-view__image" src={mainSliderImages[0]?.image_url} alt='img'/></NavLink>
+                                categories[0]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${categories[0]._id}`}><img className="home-view__image" src={categories[0]?.image_url} alt='img'/></NavLink>
                             }
                             {
-                                mainSliderImages[1]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[1]._id}`}><img className="home-view__image" src={mainSliderImages[1]?.image_url} alt='img'/></NavLink>
+                                categories[1]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${categories[1]._id}`}><img className="home-view__image" src={categories[1]?.image_url} alt='img'/></NavLink>
                             }
                             {
-                                mainSliderImages[2]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[2]._id}`}><img className="home-view__image" src={mainSliderImages[2]?.image_url} alt='img'/></NavLink>
+                                categories[2]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${categories[2]._id}`}><img className="home-view__image" src={categories[2]?.image_url} alt='img'/></NavLink>
                             }
                             {
-                                mainSliderImages[3]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${mainSliderImages[3]._id}`}><img className="home-view__image" src={mainSliderImages[3]?.image_url} alt='img'/></NavLink>
+                                categories[3]?.image_url &&  <NavLink className="home-view__image-link" to={`/${shop.name}/category/${categories[3]._id}`}><img className="home-view__image" src={categories[3]?.image_url} alt='img'/></NavLink>
                             }
                         </div>
 

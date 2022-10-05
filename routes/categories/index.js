@@ -10,8 +10,8 @@ const router = express.Router()
 
 router.post('/', auth, create_categories)
 router.put('/:id', auth, update_by_id_categories)
-router.get('/all', auth, select_all_from_categories)
-router.get('/:id', auth, select_by_id_categories)
+router.get('/:id/all', select_all_from_categories)
+router.get('/:id', select_by_id_categories)
 router.delete('/:id', auth, delete_by_id_categories)
 
 module.exports = router

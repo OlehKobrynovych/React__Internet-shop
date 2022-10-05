@@ -61,8 +61,8 @@ module.exports.get_products = function (products_id) {
     return Products.findOne({ _id: products_id })
 }
 
-module.exports.get_all_products = function () {
-    return Products.find({})
+module.exports.get_all_products = function (shop_id) {
+    return Products.find({ shop_id })
 }
 
 module.exports.delete_products = function (products_id) {

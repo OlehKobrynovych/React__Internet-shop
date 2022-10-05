@@ -21,21 +21,17 @@ function DropDownMenu() {
 // console.log(shopSubCategories)
 
     useEffect(() => {
-        setShopCategories(categories.filter(el => el.parent_id == 'null'))
-    }, [categories])
-
-    useEffect(() => {
         if (!!categories.length) {
             if (location.pathname.includes('category')) {
                 let arr = location.pathname.split('/')
-                let res = categories.filter(el => el.parent_id == arr[arr.length - 1])
-                setShopSubCategories(res.length !== 0 ? res : categories.filter(el => el.parent_id == categories[0]._id))
+                let res = categories.filter(el => el._id == arr[arr.length - 1])
+                res.length ? setShopSubCategories(res[0].sub_categories) : setShopSubCategories(categories[0].sub_categories)
             } else {
-                setShopSubCategories(categories.filter(el => el.parent_id == categories[0]._id))
+                setShopSubCategories(categories[0].sub_categories)
             }
         }
-    }, [location]);
- 
+    }, [location, categories]);
+
     const handleClick = () => {
         dispatch(setIsOpenMenu())
         if (!isOpenMenu) {
@@ -50,7 +46,7 @@ function DropDownMenu() {
             <div className="drop-down-menu__header">
                 <ul className="drop-down-menu__header--wrap container">
                     {
-                        shopCategories?.length && shopCategories.map(category => (
+                            categories?.length && categories.map(category => (
                             <li key={category._id}><NavLink to={`/${shop.name}/category/${category._id}`} className="drop-down-menu__header-link">{category.name}</NavLink></li> 
                         ))
                     }

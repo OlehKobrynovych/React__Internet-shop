@@ -8,6 +8,8 @@ import SignUpView from './views/SignUpView/SignUpView';
 import LandingView from './views/LandingView/LandingView';
 import UserView from './views/UserView/UserView';
 import UserCategories from './components/UserCategories/UserCategories';
+import UserShop from './components/UserShop/UserShop';
+import UserHome from './components/UserHome/UserHome';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -27,6 +29,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<LandingView />}/>
                     <Route path="/auth/:userId" element={<UserView />}>
+                        <Route index element={<UserHome />}/>
+                        <Route path="shop" element={<UserShop />}/>
                         <Route path="categories" element={<UserCategories />}/>
 
                     </Route>

@@ -6,7 +6,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import singInSwiper1 from '../../assets/images/singInSwiper1.svg';
 import singInSwiper2 from '../../assets/images/singInSwiper2.svg';
 import singInSwiper3 from '../../assets/images/singInSwiper3.svg';
-
+import { setUser } from '../../store/userSlice';
 
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,7 +21,7 @@ function SignInView() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState('');
-    const [user, setUser] = useState({});
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     // console.log(user)
 
@@ -47,21 +47,16 @@ function SignInView() {
           })
             .then(res => res.json())
             .then(res => {
-                if (res.success == false) {
-                    setLoginError(res.message)
+                if (res.success && res.data) {
+                    dispatch(setUser(res.data))
+                    localStorage.setItem('auth', JSON.stringify(res.data));
+                    navigate(`/auth/${res.data._id}`)
                 } else {
-                    console.log(res)
-                    setUser(res.user)
+                    setLoginError(res.message)
                 }
             })
     }
 
-    // useEffect(() => {
-    //     if (user._id) {
-    //         navigate(`/auth/${user._id}`)
-    //     }
-    // }, [user])
-   
     return (
         <div className="sign-in">
             <div className="sign-in-wrap">

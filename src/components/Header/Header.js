@@ -20,11 +20,11 @@ import DropDownMenu from '../DropDownMenu/DropDownMenu';
 function Header() {
     const shop = useSelector(state => state.homeSlice.shop);
     const categories = useSelector(state => state.homeSlice.categories);
-    const [shopCategories, setShopCategories] = useState([]);
+    // const [shopCategories, setShopCategories] = useState([]);
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
-    // console.log(shops)
+    // console.log(categories)
 
     const handleClick = () => {
         searchInputRef.current.focus()
@@ -34,13 +34,6 @@ function Header() {
 
     }, [])
     
-   
-
-    useEffect(() => {
-        setShopCategories(categories.filter(el => el.parent_id == 'null'))
-    }, [categories])
-
-
     return (
         <div className="header">
             <div className="header--wrap container">
@@ -53,7 +46,7 @@ function Header() {
                 <div className="header__menu-wrap">
                     <ul className="header__menu">
                         {
-                          !!shopCategories.length &&  shopCategories?.map(category => (
+                          !!categories.length &&  categories?.map(category => (
                                 <li className="header__menu-link-wrap"  key={category._id}>
                                     <NavLink 
                                         className="header__menu-link" 
@@ -64,7 +57,7 @@ function Header() {
                                     <div className="header__menu-link-dropdown">
                                         <ul className="header__menu-link-dropdown-wrap">
                                             {
-                                                categories.map(subCategories => subCategories.parent_id == category._id && (<li key={subCategories._id}><NavLink className="header__menu-sublink-dropdown" to={`/${shop.name}/category/${subCategories._id}`}>{subCategories.name}</NavLink></li>))
+                                                category?.sub_categories.map(subCategories => (<li key={subCategories._id}><NavLink className="header__menu-sublink-dropdown" to={`/${shop.name}/category/${subCategories._id}`}>{subCategories.name}</NavLink></li>))
                                             }
                                         </ul>
                                     </div>
@@ -81,7 +74,7 @@ function Header() {
                     </div>
                     <HeartBtn />
                     <CartBtn />
-                    <LoginBtn />
+                    {/* <LoginBtn /> */}
                 </div>
             </div>
             

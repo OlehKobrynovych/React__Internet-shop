@@ -14,6 +14,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
+import { setUser } from '../../store/userSlice';
 
 
 function SignUpView() {
@@ -24,10 +25,11 @@ function SignUpView() {
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
     const [loginError, setLoginError] = useState('');
-    const [user, setUser] = useState({});
     const navigate = useNavigate();
-    console.log(user)
-    console.log(loginError)
+    const dispatch = useDispatch();
+    // const [user, setUser] = useState({});
+    // console.log(user)
+    // console.log(loginError)
 
 
     // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
@@ -56,10 +58,12 @@ function SignUpView() {
               })
                 .then(res => res.json())
                 .then(res => {
-                    if (res.success == false) {
-                        setLoginError(res.message)
+                    if (res.success && res.data) {
+                        dispatch(setUser(res.data))
+                        localStorage.setItem('auth', JSON.stringify(res.data));
+                        navigate(`/auth/${res.data._id}`)
                     } else {
-                        setUser(res.user)
+                        setLoginError(res.message)
                     }
                 })
         } else {
@@ -67,12 +71,6 @@ function SignUpView() {
         }
     }
 
-    // useEffect(() => {
-    //     if (user._id) {
-    //         navigate(`/auth/${user._id}`)
-    //     }
-    // }, [user])
-   
     return (
         <div className="sign-up">
             <div className="sign-up-wrap">
@@ -98,7 +96,7 @@ function SignUpView() {
                 </div>
 
                 <div className="sign-up__form-wrap">
-                    <form className="sign-up__form">
+                    <div className="sign-up__form">
                         <h2 className="sign-up__company-name">Назва фірми</h2>
                         <h3 className="sign-up__form-title">Create account</h3>
                         <p className="sign-up__form-sub-title"><span>Перейти на сторінку </span><NavLink className="sign-up__form-sub-title-link" to='/auth/login'>Login page</NavLink></p>
@@ -148,7 +146,7 @@ function SignUpView() {
                         <input
                             id="password1"
                             name="password1"
-                            type="password1"
+                            type="password"
                             required
                             className='sign-up__input'
                             onChange={(e) => setPassword1(e.target.value)}
@@ -161,7 +159,7 @@ function SignUpView() {
                         <input
                             id="password2"
                             name="password2"
-                            type="password2"
+                            type="password"
                             required
                             className='sign-up__input'
                             onChange={(e) => setPassword2(e.target.value)}
@@ -176,7 +174,7 @@ function SignUpView() {
                         <button className='sign-up__btn' type="submit" onClick={handleChange}>Створити</button>
                         
                         <p><span>Повернутись на </span><NavLink className='sign-up__link-to-main' to='/'>Головну</NavLink></p>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

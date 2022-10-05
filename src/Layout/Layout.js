@@ -31,7 +31,6 @@ function Layout() {
                     .then(res2 => res2.json())
                     .then(res2 => {
                         if (res2.success && res2.data._id) {
-                            // console.log(res2)
                             dispatch(setShop(res2.data));
                         }
                     })
@@ -54,21 +53,14 @@ function Layout() {
         //     },
         //     body: JSON.stringify(data),
         //   }).then(res => res.json()).then(res => console.log(res))
-
-            
-       
-        // вибір мови
-        // dispatch(setSelectedLanguage(datasLanguage[datas.shopInfo.language]));
     }, [])
 
     useEffect(() => {
-        // debugger
         if (shop.name) {
             fetch(`http://localhost:3000/api/products/${shop._id}/all`)
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data.length) {
-                    console.log(res)
                     dispatch(getProducts(res.data));
                 }
             })
@@ -76,13 +68,11 @@ function Layout() {
                 console.error('Error:', error);
             })
             
-            // console.log(shop)
             fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
                 .then(res => res.json())
                 .then(res => {
-                    // debugger
-                    console.log(res)
                     if (res.success && res.data.length) {
+                        // console.log(res)
                         dispatch(setCategories(res.data));
                     }
                 })
@@ -90,8 +80,6 @@ function Layout() {
                     console.error('Error:', error);
                 })
         }
-
-
 
         dispatch(setSelectedLanguage(datasLanguage[shop.language]));
     }, [shop])

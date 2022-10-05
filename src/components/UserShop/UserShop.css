@@ -1,0 +1,144 @@
+.user-shop {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.user-shop--wrpa {
+
+}
+
+.user-shop__section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: #eee;
+    color: #444;
+    padding: 16px;
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+}
+
+.user-shop__section-input-wrap {
+
+}
+  
+.user-shop__section-input-label {
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-shop__section-input {
+    padding: 15px 20px;
+    max-width: 45%;
+    width: 100%;
+    min-width: 240px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.user-shop__section-info-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-shop__section-info-title {
+    font-size: 16px;
+}
+
+.user-shop__section-info-text {
+
+}
+/* 
+.user-shop__input-btn-wrap {
+
+} 
+
+.user-shop__input-btn {
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.user-shop__input-btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-shop__input-btn-img {
+    width: 25px;
+    height: 25px;
+} */
+
+.user-shop__section-btn-wrap {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.user-shop__section-btn-wrap:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-shop__section-btn {
+    position: absolute;
+    top: 4px;
+    left: 7px;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(-45deg);
+}
+
+.user-shop__section-btn--active {
+    top: 9px;
+    transform: rotate(135deg);
+}
+
+.user-shop__section-info {
+    display: none;
+    padding: 10px 15px;
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: .3s;
+    /* transition: max-height 0.2s ease-out; */
+}
+
+.user-shop__section-info--active {
+    display: block;
+    max-height: 100%;
+}
+
+.user-shop__btn {
+    border: 1px solid #000;
+    padding: 6px 15px;
+}
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 1080px) {
+ 
+}
