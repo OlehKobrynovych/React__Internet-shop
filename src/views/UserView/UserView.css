@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.user-view--wrpa {
+    overflow: hidden;
+}
+
 .user-view__sidenav {
     height: 100%;
     width: 100%;
@@ -12,7 +16,7 @@
     background-color: #0d48ac;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 18px;
 }
 
 .user-view__sidenav--open {
@@ -25,19 +29,24 @@
     left: -100%;
 }
 
-.user-view__sidenav-btn {
+.user-view__sidenav-btn-wrap {
     display: flex;
     justify-content: end;
     margin-bottom: 15px;
-    margin-right: 15px;
+    margin-right: 30px;
     color: #fff;
-    cursor: pointer;
+    /* cursor: pointer; */
     font-size: 33px;
     transition: .3s;
 }
 
+.user-view__sidenav-btn {
+    transition: .3s;
+    cursor: pointer;
+}
+
 .user-view__sidenav-btn:hover {
-    scale: 1.05;
+    scale: 1.14;
 }
 
 .user-view__sidenav-title {
@@ -136,6 +145,7 @@
 }
 
 .user-view__header-btn-message {
+    display: none;
     position: relative;
 }
 
@@ -170,6 +180,20 @@
 
 .user-view__header-avatar-name {
 
+}
+
+.user-view__header-login-wrap {
+    display: none;
+}
+
+@media (min-width: 400px) {
+  .user-view__header-btn-message {
+      display: block;
+  }
+
+  .user-view__header-login-wrap {
+      display: block;
+  }
 }
   
 @media (min-width: 576px) {

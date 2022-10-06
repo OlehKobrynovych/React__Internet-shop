@@ -4,7 +4,7 @@ import './UserView.css';
 import bell from '../../assets/images/bell.svg';
 import avatar from '../../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUser } from '../../store/userSlice';
+import { setIsNeedUpdate, setUser } from '../../store/userSlice';
 import LoginBtn from '../../components/LoginBtn/LoginBtn';
 import ModalWindow from '../../components/ModalWindow/ModalWindow';
 
@@ -72,40 +72,44 @@ function UserView() {
 
     return (
         <div className='user-view'>
-            <div className={`user-view__sidenav ${!isOpenMenu ? "user-view__sidenav--open" : "user-view__sidenav--close"}`}>
-                <div className="user-view__sidenav-btn" onClick={() => openNav()}><b>&times;</b></div>
-                <h3 className='user-view__sidenav-title'>Назва сайту</h3>
-                <NavLink className='user-view__sidenav-link' to={`/auth/${user._id}/shop`}>Магазин</NavLink>
-                <NavLink className='user-view__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
-                <NavLink className='user-view__sidenav-link' to="#">Товар</NavLink>
-            </div>
-
-            <div className={`user-view__main ${!isOpenMenu ? "user-view__main--open" : "user-view__main--close"}`}>
-                <div className='user-view__header container'>
-                    <div className='user-view__header-menu' onClick={() => openNav()}>
-                        <span className={`user-view__header-menu-span ${!isOpenMenu ? "user-view__header-menu-span--open1" : ""}`}></span>
-                        <span className='user-view__header-menu-span user-view__header-menu-span2'></span>
-                        <span className={`user-view__header-menu-span ${!isOpenMenu ? "user-view__header-menu-span--open3" : ""}`}></span>
-                    </div>
-
-                    <div className='user-view__header-btn--wrap'>
-                        <div className='user-view__header-btn-message'>
-                            <img className='user-view__header-btn-message-img' src={bell} alt='img' />
-                            <div className='user-view__header-btn-message-circle'></div>
-                        </div>
-
-                        <NavLink to={`/auth/${user._id}`} className='user-view__header-avatar-wrap'>
-                            <img className='user-view__header-avatar-img' src={avatar} alt='img' />
-                            <b className='user-view__header-avatar-name'>{user?.first_name} {user?.last_name}</b>
-                        </NavLink>
-
-                        <div onClick={() => setModalWindow(!isModalWindow)}>
-                            <LoginBtn />
-                        </div>
-                    </div>
+            <div className='user-view--wrpa'>
+                <div className={`user-view__sidenav ${!isOpenMenu ? "user-view__sidenav--open" : "user-view__sidenav--close"}`}>
+                    <div className="user-view__sidenav-btn-wrap"><b onClick={() => openNav()} className="user-view__sidenav-btn">&times;</b></div>
+                    <h3 className='user-view__sidenav-title'>Назва сайту</h3>
+                    <NavLink className='user-view__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdate(false)) }>Магазин</NavLink>
+                    <NavLink className='user-view__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
+                    <NavLink className='user-view__sidenav-link' to="#">Товар</NavLink>
+                    <NavLink className='user-view__sidenav-link' to="#">Повідомлення</NavLink>
+                    <button onClick={() => setModalWindow(!isModalWindow)} className='user-view__sidenav-link'>Вихід</button>
                 </div>
 
-                <Outlet />
+                <div className={`user-view__main ${!isOpenMenu ? "user-view__main--open" : "user-view__main--close"}`}>
+                    <div className='user-view__header container'>
+                        <div className='user-view__header-menu' onClick={() => openNav()}>
+                            <span className={`user-view__header-menu-span ${!isOpenMenu ? "user-view__header-menu-span--open1" : ""}`}></span>
+                            <span className='user-view__header-menu-span user-view__header-menu-span2'></span>
+                            <span className={`user-view__header-menu-span ${!isOpenMenu ? "user-view__header-menu-span--open3" : ""}`}></span>
+                        </div>
+
+                        <div className='user-view__header-btn--wrap'>
+                            <div className='user-view__header-btn-message'>
+                                <img className='user-view__header-btn-message-img' src={bell} alt='img' />
+                                <div className='user-view__header-btn-message-circle'></div>
+                            </div>
+
+                            <NavLink to={`/auth/${user._id}`} className='user-view__header-avatar-wrap'>
+                                <img className='user-view__header-avatar-img' src={avatar} alt='img' />
+                                <b className='user-view__header-avatar-name'>{user?.first_name} {user?.last_name}</b>
+                            </NavLink>
+
+                            <div className='user-view__header-login-wrap' onClick={() => setModalWindow(!isModalWindow)}>
+                                <LoginBtn />
+                            </div>
+                        </div>
+                    </div>
+
+                    <Outlet />
+                </div>
             </div>
 
             {

@@ -2,118 +2,75 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './UserShop.css';
 import editIcon from './../../assets/images/editIcon.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsNeedUpdate, setShop } from '../../store/userSlice';
+import CreationShop from '../CreationShop/CreationShop';
+import Preloader from '../Preloader/Preloader';
 
 
 function UserShop() {
-    // const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const [isOpenInfo, setisOpenInfo] = useState([]);
-    const [name, setName] = useState([]);
-    const [facebook_url, setFacebook_url] = useState([]);
-    const [instagram_url, setInstagram_url] = useState([]);
-    // console.log(categories)
+    const user = useSelector(state => state.userSlice.user);
+    const shop = useSelector(state => state.userSlice.shop);
+    const isNeedUpdate = useSelector(state => state.userSlice.isNeedUpdate);
+    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+    console.log(isNeedUpdate)
 
     useEffect(() => {
-  
-    }, [])
+        setIsLoading(true)
 
-    const handleClick = (num) => {
-        if (isOpenInfo.includes(num)) {
-            setisOpenInfo(isOpenInfo.filter(el => el !== num))
-        } else {
-            setisOpenInfo([...isOpenInfo, num])
-        }
+        fetch('http://localhost:3000/api/shops/all')
+        .then(res => res.json())
+        .then(res => {
+            if (res.success && res.data) {
+                let res1 = res.data.find(el => el.owner_id == user._id)
+                if (res1?.name) {
+                    dispatch(setShop(res1));
+                }  
+            } else {
+                console.log(res)
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+    }, [user, isNeedUpdate])
+
+    const handleUpdate = () => {
+        dispatch(setIsNeedUpdate(!isNeedUpdate)) 
     }
+  
 
     return (
-        <div className="user-shop">
-            <div className="user-shop--wrpa container">
-                <div className="user-shop__section">
-                    <div className="user-shop__section-input-wrap">
-                        <label className='user-shop__section-input-label' htmlFor="name">
-                            <b>Ім'я магазину</b>
-                        </label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            required
-                            className='user-shop__section-input'
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            placeholder="Введіть ім'я магазину..."
-                        />
-                    </div>
-
-                    <div className='user-shop__section-info-wrap'>
-                        <b className='user-shop__section-info-title'>Імя Вашого магазину:</b>
-                        <span className='user-shop__section-info-text'>	&nbsp;{name}</span>
-                    </div>
-
-                    <div onClick={() => handleClick(1)} className='user-shop__section-btn-wrap'>
-                        <div className={`user-shop__section-btn ${isOpenInfo.includes(1) ? 'user-shop__section-btn--active' : ''}`}></div>
-                    </div>
-                </div>
-                <div className={`user-shop__section-info ${isOpenInfo.includes(1) ? 'user-shop__section-info--active' : ''}`}>
-                    <p>Введіть ім'я магазину.</p>
-                </div>
-                
-                <div className="user-shop__section">
-                    <div className="user-shop__section-input-wrap">
-                        <label className='user-shop__section-input-label' htmlFor="facebook_url">
-                            <b>Facebook</b>
-                        </label>
-                        <input
-                            id="facebook_url"
-                            name="facebook_url"
-                            type="text"
-                            required
-                            className='user-shop__section-input'
-                            onChange={(e) => setFacebook_url(e.target.value)}
-                            value={facebook_url}
-                            placeholder="Введіть facebook url..."
-                        />
-                    </div>
-                    <div onClick={() => handleClick(2)} className='user-shop__section-btn-wrap'>
-                        <div className={`user-shop__section-btn ${isOpenInfo.includes(2) ? 'user-shop__section-btn--active' : ''}`}></div>
-                    </div>
-                </div>
-                <div className={`user-shop__section-info ${isOpenInfo.includes(2) ? 'user-shop__section-info--active' : ''}`}>
-                    <p>Введіть url адресу сторінки facebook, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.</p>
-                </div>
-                
-                <div className="user-shop__section">
-                    <div className="user-shop__section-input-wrap">
-                        <label className='user-shop__section-input-label' htmlFor="instagram_url">
-                            <b>Instagram</b>
-                        </label>
-                        <input
-                            id="instagram_url"
-                            name="instagram_url"
-                            type="text"
-                            required
-                            className='user-shop__section-input'
-                            onChange={(e) => setInstagram_url(e.target.value)}
-                            value={instagram_url}
-                            placeholder="Введіть instagram url..."
-                        />
-                    </div>
-                    <div onClick={() => handleClick(3)} className='user-shop__section-btn-wrap'>
-                        <div className={`user-shop__section-btn ${isOpenInfo.includes(3) ? 'user-shop__section-btn--active' : ''}`}></div>
-                    </div>
-                </div>
-                <div className={`user-shop__section-info ${isOpenInfo.includes(3) ? 'user-shop__section-info--active' : ''}`}>
-                    <p>Введіть url адресу сторінки instagram, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.</p>
-                </div>
-
-
-                <button  className='user-shop__btn'>Створити</button>
-
-            </div>
-
-             {/* <div className='user-shop__input-btn-wrap'>
-                        <button className='user-shop__input-btn'><img className='user-shop__input-btn-img' src={editIcon} alt="img"/></button>
-            </div> */}
-        </div>
+        <>
+            {
+                isLoading ? <Preloader /> : (
+                    <>
+                        {
+                           isNeedUpdate ? <CreationShop /> : (
+                               <>
+                                    {
+                                        shop?.name && (
+                                            <div className="user-shop">
+                                                <div className="user-shop--wrap container">
+                                                    <h3  className='user-shop__title'>Магазин {shop.name}</h3>
+                                                    <h3  className='user-shop__title'>Телефон {shop.contact_number}</h3>
+                                                    <h3  className='user-shop__title'>Адрес {shop.location}</h3>
+                                                    <button className='user-shop__btn' onClick={() => handleUpdate()}>Оновити</button>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                </>
+                            )
+                        }
+                    </>
+                )
+            }
+        </>
     );
 }
 
