@@ -14,7 +14,7 @@ function UserShop() {
     const isNeedUpdate = useSelector(state => state.userSlice.isNeedUpdate);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
-    console.log(isNeedUpdate)
+    // console.log(isNeedUpdate)
 
     useEffect(() => {
         setIsLoading(true)
@@ -56,10 +56,56 @@ function UserShop() {
                                         shop?.name && (
                                             <div className="user-shop">
                                                 <div className="user-shop--wrap container">
-                                                    <h3  className='user-shop__title'>Магазин {shop.name}</h3>
-                                                    <h3  className='user-shop__title'>Телефон {shop.contact_number}</h3>
-                                                    <h3  className='user-shop__title'>Адрес {shop.location}</h3>
-                                                    <button className='user-shop__btn' onClick={() => handleUpdate()}>Оновити</button>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Назва магазин:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.name}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Facebook:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.facebook_url}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Instagram:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.instagram_url}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Контакний номер телефону:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.contact_number}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Додатковий контакний номер телефону:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.contact_number_two}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Адреса:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.location}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Валюта:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.currency}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Мова сайту:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.language}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Способи доставки:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.deliveryMethods}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Способи оплати:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.paymentMethods}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Опис магазину:</span>
+                                                        <span  className='user-shop__info-text'>&nbsp;{shop.descriptionShop}</span>
+                                                    </div>
+                                                    <div className='user-shop__info-wrap'>
+                                                        <span  className='user-shop__info-title'>Логотип:</span>
+                                                        <img className='user-shop__info-logo' src={shop.logo} alt='img'/>
+                                                    </div>
+                                                    
+                                                    <button className='user-shop__btn' onClick={() => handleUpdate()}>Редагувати</button>
                                                 </div>
                                             </div>
                                         )

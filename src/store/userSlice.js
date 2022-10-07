@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   user: {},
   shop: {},
+  categories: [],
   isNeedUpdate: false,
 
 }
@@ -17,12 +18,15 @@ export const userSlice = createSlice({
     setShop: (state, action) => {
       state.shop = action.payload;
     },
+    setCategories: (state, action) => {
+      state.categories = [...state.categories, action.payload];
+    },
     setIsNeedUpdate: (state, action) => {
       state.isNeedUpdate = action.payload;
     },
   },
 })
 
-export const { setUser, setShop, setIsNeedUpdate } = userSlice.actions
+export const { setUser, setShop, setCategories, setIsNeedUpdate } = userSlice.actions
 
 export default userSlice.reducer
