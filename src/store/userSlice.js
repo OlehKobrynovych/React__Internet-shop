@@ -18,6 +18,9 @@ export const userSlice = createSlice({
     setShop: (state, action) => {
       state.shop = action.payload;
     },
+    getCategories: (state, action) => {
+      state.categories = [...action.payload];
+    },
     setCategories: (state, action) => {
       state.categories = [...state.categories, action.payload];
     },
@@ -27,6 +30,6 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setUser, setShop, setCategories, setIsNeedUpdate } = userSlice.actions
+export const { setUser, setShop, getCategories, setCategories, setIsNeedUpdate } = userSlice.actions
 
 export default userSlice.reducer

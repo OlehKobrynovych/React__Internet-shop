@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setCategories } from '../../store/userSlice';
 import './UserCategories.css';
+import man from '../../assets/images/man.webp';
+import deleteImg from '../../assets/images/deleteImg.svg';
+import editIcon from '../../assets/images/editIcon.svg';
+import kids from '../../assets/images/kids.webp';
 
 function UserCategories() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -13,26 +17,12 @@ function UserCategories() {
     const [isOpenInfo, setisOpenInfo] = useState([]);
     const [name, setName] = useState('');
     const [image_url, setImage_url] = useState('');
+    const [subCategory, setSubCategory] = useState('');
     const dispatch = useDispatch();
     
-    // console.log(new Date())
-
-    useEffect(() => {
-        fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
-                .then(res => res.json())
-                .then(res => {
-                    if (res.success && res.data.length) {
-                        // console.log(res)
-                        dispatch(setCategories(res.data));
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                })
-    }, [])
+    console.log(categories)
 
     const handleCreateCategory = () => {
-
         let data = {
             id: new Date().toString(),
             name: name,
@@ -59,7 +49,7 @@ function UserCategories() {
                     // navigate(`/auth/${user._id}/shop`)
                     // localStorage.setItem('auth', JSON.stringify(res.data));
                 } else {
-                    console.log(res)
+                    console.log('POST UserCategories:', res)
                 }
             })
             .catch((error) => {
@@ -78,11 +68,11 @@ function UserCategories() {
     return (
         <div className="user-categories">
             <div className="user-categories--wrpa container">
-                <h4 className="user-categories__title">Мої категорії</h4>
+                <h4 className="user-categories__title">Мої категорії {categories.length}/5</h4>
 
                 <div className="user-categories__create">
                     <div className="user-categories__create-input-wrap">
-                        <label className='user-categories__create-input-label' htmlFor="name">
+                        <label className='user-categories__create-label' htmlFor="name">
                             <b>Назва категорії</b>
                         </label>
                         <input
@@ -108,8 +98,56 @@ function UserCategories() {
                     </div>
                 </div>
                 <div className={`user-categories__create-info ${isOpenInfo.includes(1) ? 'user-categories__create-info--active' : ''}`}>
-                    <p>Для створення категорії Впишіть її назву і нажміть на кнопку створити. Кількість категорій обмежена до "5". Для коректного відображення картинок, формат картинки повинен бути 16:9</p>
+                    <p>Для створення категорії Впишіть її назву і нажміть на кнопку створити. Кількість категорій обмежена до "5". Для коректного відображення картинок, формат картинки повинен бути 16:9. Після створення категорії зможете створювати підкатегорії.</p>
                 </div>
+
+                {
+                    categories.length && (
+                        <div className="user-categories__cards">
+                            {
+                                categories.map(el => (
+                                    <div className="user-categories__card" key={el._id}>
+                                        {/* <img className="user-categories__card-img" src={el.image_url} alt='img'/> */}
+                                        <img className="user-categories__card-img" src={man} alt='img'/>
+                                        <div className="user-categories__card-info">
+                                            <div className="user-categories__card-title"><b>Назва категорії:</b> {el.name}</div>
+                                            <label className='user-categories__card-label' htmlFor="setSubCategory">
+                                                <b>Створити підкатегорію</b>
+                                            </label>
+                                            <div className='user-categories__card-input-wrap'>
+                                                <input
+                                                    id="setSubCategory"
+                                                    name="setSubCategory"
+                                                    type="text"
+                                                    className='user-categories__card-input'
+                                                    onChange={(e) => setSubCategory(e.target.value)}
+                                                    value={subCategory}
+                                                    placeholder="Введіть назву..."
+                                                />
+                                                <button className='user-categories__card-btn'>+</button>
+                                            </div>
+                                            <p className='user-categories__card-sub-title'><b>Підкатегорії:</b></p>
+                                            <ul className='user-categories__card-sub-category'>
+                                                {
+                                                    el.sub_categories.map(subCategories => (
+                                                        <li className='user-categories__card-sub-category-wrap' key={subCategories._id}>
+                                                            <div>{subCategories.name}</div>
+                                                            <div className='user-categories__card-sub-category-btn-wrap'>
+                                                                <img className='user-categories__card-sub-category-btn' src={editIcon} alt='img'/>
+                                                                <img className='user-categories__card-sub-category-btn' src={deleteImg} alt='img'/>
+                                                            </div>
+                                                        </li>
+                                                    ))
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    )
+                }
+
             </div>
         </div>
     );

@@ -27,7 +27,7 @@ function CreationShop() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // console.log(isNeedUpdate)
+    // console.log(user)
 
     useEffect(() => {
         if (isNeedUpdate) {
@@ -83,12 +83,13 @@ function CreationShop() {
             })
                 .then(res => res.json())
                 .then(res => {
-                    if (res.success && res.data) {
-                        dispatch(setShop(res.data))
+                    if (res.success && res.data?.name) {
+                        // dispatch(setShop(res.data))
                         // navigate(`/auth/${user._id}/shop`)
                         // localStorage.setItem('auth', JSON.stringify(res.data));
+                        console.log('PUT CreationShop:', res)
                     } else {
-                        console.log(res)
+                        console.log('PUT CreationShop:', res)
                     }
                 })
                 .catch((error) => {
@@ -112,7 +113,7 @@ function CreationShop() {
                         // navigate(`/auth/${user._id}/shop`)
                         // localStorage.setItem('auth', JSON.stringify(res.data));
                     } else {
-                        console.log(res)
+                        console.log('POST CreationShop', res)
                     }
                 })
                 .catch((error) => {

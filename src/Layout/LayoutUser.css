@@ -1,12 +1,12 @@
-.user-view {
+.layout-user {
     position: relative;
 }
 
-.user-view--wrpa {
+.layout-user--wrpa {
     overflow: hidden;
 }
 
-.user-view__sidenav {
+.layout-user__sidenav {
     height: 100%;
     width: 100%;
     position: fixed;
@@ -19,17 +19,17 @@
     padding-top: 18px;
 }
 
-.user-view__sidenav--open {
+.layout-user__sidenav--open {
     transition: 0.5s;
     left: 250;
 }
 
-.user-view__sidenav--close {
+.layout-user__sidenav--close {
     transition: 0.5s;
     left: -100%;
 }
 
-.user-view__sidenav-btn-wrap {
+.layout-user__sidenav-btn-wrap {
     display: flex;
     justify-content: end;
     margin-bottom: 15px;
@@ -40,16 +40,16 @@
     transition: .3s;
 }
 
-.user-view__sidenav-btn {
+.layout-user__sidenav-btn {
     transition: .3s;
     cursor: pointer;
 }
 
-.user-view__sidenav-btn:hover {
+.layout-user__sidenav-btn:hover {
     scale: 1.14;
 }
 
-.user-view__sidenav-title {
+.layout-user__sidenav-title {
     text-align: center;
     margin-top: 5px;
     margin-bottom: 15px;
@@ -57,7 +57,7 @@
     font-size: 18px;
 }
 
-.user-view__sidenav-link {
+.layout-user__sidenav-link {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -68,12 +68,12 @@
     transition: 0.3s;
 }
 
-.user-view__sidenav-link:hover {
+.layout-user__sidenav-link:hover {
     color: #c3bcbc;
     scale: 1.05;
 }
 
-.user-view__closebtn {
+.layout-user__closebtn {
     position: absolute;
     top: 0;
     right: 25px;
@@ -81,22 +81,22 @@
     margin-left: 50px;
 }
 
-.user-view__main {
+.layout-user__main {
     transition: 0.5s;
     /* padding: 16px; */
 }
 
-.user-view__main--open {
+.layout-user__main--open {
     transition: 0.5s;
     margin-left: 250px;
 }
 
-.user-view__main--close {
+.layout-user__main--close {
     transition: 0.5s;
     margin-left: 0;
 }
 
-.user-view__header {
+.layout-user__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -105,7 +105,7 @@
     padding-bottom: 15px;
 }
 
-.user-view__header-menu {
+.layout-user__header-menu {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -116,46 +116,46 @@
     cursor: pointer;
 }
 
-.user-view__header-menu-span {
+.layout-user__header-menu-span {
     width: 100%;
     height: 2px;
     background-color: #000;
 }
 
-.user-view__header-menu-span2 {
+.layout-user__header-menu-span2 {
     position: absolute;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
 }
 
-.user-view__header-menu-span--open1 {
+.layout-user__header-menu-span--open1 {
     width: 68%;
 }
 
-.user-view__header-menu-span--open3 {
+.layout-user__header-menu-span--open3 {
    width: 48%; 
 }
 
-.user-view__header-btn--wrap {
+.layout-user__header-btn--wrap {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 30px;
 }
 
-.user-view__header-btn-message {
+.layout-user__header-btn-message {
     display: none;
     position: relative;
 }
 
-.user-view__header-btn-message-img {
+.layout-user__header-btn-message-img {
     width: 25px;
     height: 25px;
     cursor: pointer;
 }
 
-.user-view__header-btn-message-circle {
+.layout-user__header-btn-message-circle {
     position: absolute;
     top: -6px;
     right: -6px;
@@ -165,49 +165,49 @@
     background-color: #0d48ac;
 }
 
-.user-view__header-avatar-wrap {
+.layout-user__header-avatar-wrap {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
 }
 
-.user-view__header-avatar-img {
+.layout-user__header-avatar-img {
     display: inline-block;
     width: 50px;
     height: 50px;
 }
 
-.user-view__header-avatar-name {
+.layout-user__header-avatar-name {
 
 }
 
-.user-view__header-login-wrap {
+.layout-user__header-login-wrap {
     display: none;
 }
 
 @media (min-width: 400px) {
-  .user-view__header-btn-message {
+  .layout-user__header-btn-message {
       display: block;
   }
 
-  .user-view__header-login-wrap {
+  .layout-user__header-login-wrap {
       display: block;
   }
 }
   
 @media (min-width: 576px) {
-    .user-view__sidenav {padding-top: 15px;}
-    .user-view__sidenav a {font-size: 18px;}
+    .layout-user__sidenav {padding-top: 15px;}
+    .layout-user__sidenav a {font-size: 18px;}
 }
   
 @media (min-width: 768px) {
-    .user-view__sidenav {
+    .layout-user__sidenav {
         width: 250px;
     }
 
     
-    .user-view__sidenav--close {
+    .layout-user__sidenav--close {
         left: -500px;
     }
 }

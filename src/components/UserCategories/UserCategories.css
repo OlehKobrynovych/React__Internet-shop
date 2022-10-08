@@ -34,7 +34,7 @@
 
 }
 
-.user-categories__create-input-label {
+.user-categories__create-label {
     display: block;
     font-size: 16px;
     margin-top: 10px;
@@ -137,7 +137,114 @@
     max-height: 100%;
 }
 
+.user-categories__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
+.user-categories__card {
+    display: flex;
+    gap: 15px
+}
+
+.user-categories__card-img {
+    aspect-ratio: 16 / 9;
+    max-width: 50%;
+    width: 100%;
+}
+
+.user-categories__card-info {
+    width: 50%;
+}
+
+.user-categories__card-title {
+    font-size: 27px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.user-categories__card-label {
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-categories__card-input-wrap {
+    display: flex;
+}
+
+.user-categories__card-input {
+    padding: 10px 20px;
+    max-width: 45%;
+    width: 100%;
+    min-width: 200px;
+    /* margin-bottom: 10px; */
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.user-categories__card-btn {
+    border: 2px solid black;
+    background-color: white;
+    padding: 3px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-color: #0d48ac;
+    color: #0d48ac;
+    font-size: 25px;
+    margin-left: 15px;
+    transition: .3s;
+    border-radius: 12px;
+}
+
+.user-categories__card-btn:hover {
+    background: #0d48ac;
+    color: white;
+}
+
+.user-categories__card-sub-title {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.user-categories__card-sub-category {
+
+}
+
+.user-categories__card-sub-category-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #eee;
+    padding: 5px;
+}
+
+.user-categories__card-sub-category-btn-wrap {
+    display: flex;
+    gap: 20px;
+}
+
+.user-categories__card-sub-category-btn {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 3px;
+    transition: .3s;
+}
+
+.user-categories__card-sub-category-btn:hover {
+    background-color: rgb(161, 157, 157);
+}
 
 @media (min-width: 576px) {
 

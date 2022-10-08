@@ -6,10 +6,10 @@ import SignInView from './views/SignInView/SignInView';
 import Layout from './Layout/Layout';
 import SignUpView from './views/SignUpView/SignUpView';
 import LandingView from './views/LandingView/LandingView';
-import UserView from './views/UserView/UserView';
 import UserCategories from './components/UserCategories/UserCategories';
 import UserShop from './components/UserShop/UserShop';
 import UserHome from './components/UserHome/UserHome';
+import LayoutUser from './Layout/LayoutUser';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -28,7 +28,7 @@ function App() {
            <Suspense fallback={<Preloader />}>
                 <Routes>
                     <Route path="/" element={<LandingView />}/>
-                    <Route path="/auth/:userId" element={<UserView />}>
+                    <Route path="/auth/:userId" element={<LayoutUser />}>
                         <Route index element={<UserHome />}/>
                         <Route path="shop" element={<UserShop />}/>
                         <Route path="categories" element={<UserCategories />}/>
@@ -48,23 +48,6 @@ function App() {
                     </Route>
                 </Routes>
             </Suspense>
-
-            {/* <Suspense fallback={<Preloader />}>
-                <Header />
-                <Suspense fallback={<Preloader />}>
-                    <Routes>
-                        <Route path="/" element={<HomeView />} />
-                        <Route path="/category/:id" element={<ProductFilterView />} />
-                        <Route path="/product/:id" element={<ProductInformationView />} />
-                        <Route path="/wishlist" element={<WishListView />} />
-                        <Route path="/cart" element={<ShoppingCartView />} />
-                        <Route path="/about" element={<AboutUsView />} />
-                        <Route path="/auth/login" element={<SignInView />} />
-                        <Route path="*" element={<PageNotFoundView />} />
-                    </Routes>
-                </Suspense>
-                <Footer />
-            </Suspense> */}
         </div>
   );
 }
