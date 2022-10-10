@@ -14,6 +14,25 @@
     font-size: 20px;
 }
 
+.user-categories__error-create-text {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    color: rgb(249, 23, 23);
+}
+
+.user-categories__error-create-btn {
+    position: absolute;
+    top: -9px;
+    right: -25px;
+    width: 20px;
+    text-align: center;
+    height: 20px;
+    border: 1px solid rgb(249, 23, 23);
+    border-radius: 50%;
+    padding-left: 1px;
+}
+
 .user-categories__create {
     display: flex;
     flex-wrap: wrap;
@@ -145,7 +164,8 @@
 
 .user-categories__card {
     display: flex;
-    gap: 15px
+    gap: 15px;
+    border: 5px solid #e3dede;
 }
 
 .user-categories__card-img {
@@ -156,12 +176,43 @@
 
 .user-categories__card-info {
     width: 50%;
+    padding: 10px;
+}
+
+.user-categories__card-title-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eee;
+    padding-top: 5px;
+    padding: 5px;
+    /* padding-bottom: 5px; */
+    /* margin-bottom: 20px; */
 }
 
 .user-categories__card-title {
     font-size: 27px;
-    margin-top: 5px;
-    margin-bottom: 20px;
+    /* margin-top: 5px; */
+    /* margin-bottom: 20px; */
+}
+
+.user-categories__card-title-btn-wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.user-categories__card-title-btn {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 3px;
+    transition: .3s;
+}
+
+.user-categories__card-title-btn:hover {
+    background-color: rgb(161, 157, 157);
 }
 
 .user-categories__card-label {
@@ -173,21 +224,6 @@
 
 .user-categories__card-input-wrap {
     display: flex;
-}
-
-.user-categories__card-input {
-    padding: 10px 20px;
-    max-width: 45%;
-    width: 100%;
-    min-width: 200px;
-    /* margin-bottom: 10px; */
-    font-size: 14px;
-    line-height: 17px;
-    color: #333;
-    outline: none;
-    border-radius: 8px;
-    background: #f6f7fa;
-    border: 1px solid #065bea;
 }
 
 .user-categories__card-btn {

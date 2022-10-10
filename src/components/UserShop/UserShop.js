@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './UserShop.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsNeedUpdate, setShop } from '../../store/userSlice';
+import { setIsNeedUpdateShop, setShop } from '../../store/userSlice';
 import CreationShop from '../CreationShop/CreationShop';
 import Preloader from '../Preloader/Preloader';
 
@@ -11,19 +11,19 @@ import Preloader from '../Preloader/Preloader';
 function UserShop() {
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
-    const isNeedUpdate = useSelector(state => state.userSlice.isNeedUpdate);
+    const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const dispatch = useDispatch();
     // console.log('asdasd: ',shop)
 
     const handleUpdate = () => {
-        dispatch(setIsNeedUpdate(!isNeedUpdate)) 
+        dispatch(setIsNeedUpdateShop(!isNeedUpdateShop)) 
     }
 
     return (
         <>
             {
                
-                isNeedUpdate ? <CreationShop /> : (
+                isNeedUpdateShop ? <CreationShop /> : (
                     <>
                         {
                             shop?.name && (

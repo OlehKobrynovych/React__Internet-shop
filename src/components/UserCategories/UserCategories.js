@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setCategories } from '../../store/userSlice';
+import { setCategories, setIsCleanInput, setIsNeedUpdateCategories } from '../../store/userSlice';
 import './UserCategories.css';
 import man from '../../assets/images/man.webp';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import editIcon from '../../assets/images/editIcon.svg';
 import kids from '../../assets/images/kids.webp';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import CardInput from '../CardInput/CardInput';
 
 function UserCategories() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -14,24 +16,69 @@ function UserCategories() {
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
-    const [isOpenInfo, setisOpenInfo] = useState([]);
+    const isCleanInput = useSelector(state => state.userSlice.isCleanInput);
+    const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
+    const [isModalWindow, setIsModalWindow] = useState(false);
+    const [isOpenInfo, setIsOpenInfo] = useState([]);
+    const [deleteId, setDeleteId] = useState('');
+    const [isErrorCreate, setIsErrorCreate] = useState(false);
     const [name, setName] = useState('');
     const [image_url, setImage_url] = useState('');
     const [subCategory, setSubCategory] = useState('');
     const dispatch = useDispatch();
     
-    console.log(categories)
+    // console.log(categories)
 
     const handleCreateCategory = () => {
+        if (categories.length < 5) {
+            let data = {
+                id: new Date().toString(),
+                name: name,
+                image_url: image_url,
+                parent_id: 'null',
+                shop_id: shop._id,
+                token: user.token,
+            }
+    
+            fetch('http://localhost:3000/api/categories/', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        // console.log(res)
+                        dispatch(setCategories(res.data))
+                        // navigate(`/auth/${user._id}/shop`)
+                        // localStorage.setItem('auth', JSON.stringify(res.data));
+                    } else {
+                        console.log('POST UserCategories:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        } else {
+            setIsErrorCreate(true)
+        }
+        
+        setName('')
+        setImage_url('')
+    }
+    
+    const handleCreateSubCategory = (id) => {
         let data = {
             id: new Date().toString(),
-            name: name,
-            image_url: image_url,
-            parent_id: 'null',
+            name: subCategory,
+            image_url: '',
+            parent_id: id,
             shop_id: shop._id,
             token: user.token,
         }
-
+    
         fetch('http://localhost:3000/api/categories/', {
             method: 'POST',
             headers: {
@@ -42,10 +89,10 @@ function UserCategories() {
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
-                    console.log(res)
-                    dispatch(setCategories(res.data))
-                    setName('')
-                    setImage_url('')
+                    // console.log(res)
+                    dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
+                    dispatch(setIsCleanInput(!isCleanInput))
+                    // dispatch(setCategories(res.data))
                     // navigate(`/auth/${user._id}/shop`)
                     // localStorage.setItem('auth', JSON.stringify(res.data));
                 } else {
@@ -55,20 +102,73 @@ function UserCategories() {
             .catch((error) => {
                 console.error('Error:', error);
             })
+        
+        setSubCategory('')
     }
 
     const handleHelpOpen = (num) => {
         if (isOpenInfo.includes(num)) {
-            setisOpenInfo(isOpenInfo.filter(el => el !== num))
+            setIsOpenInfo(isOpenInfo.filter(el => el !== num))
         } else {
-            setisOpenInfo([...isOpenInfo, num])
+            setIsOpenInfo([...isOpenInfo, num])
         }
+    }
+    
+    const handleDelete = (id) => {
+        setIsModalWindow(true)
+        setDeleteId(id)
+    }
+   
+    const handleIsDelete = (boolean) => {
+        const data = {
+            token: user.token,
+        }
+
+        if (boolean) {
+            fetch(`http://localhost:3000/api/categories/${deleteId}`, {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        console.log('del', res)
+                        dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
+                    } else {
+                        console.log('DELETE UserCategories', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+
+            setIsModalWindow(false)
+        } else {
+            setIsModalWindow(false)
+        }
+
+        setDeleteId('')
     }
 
     return (
         <div className="user-categories">
+
+            {
+                isModalWindow && <ModalWindow title={'Ви впевнені?'}  text={'Видалити дану категорію'} handleClick={handleIsDelete}/>
+            }
+           
             <div className="user-categories--wrpa container">
                 <h4 className="user-categories__title">Мої категорії {categories.length}/5</h4>
+
+                {
+                    isErrorCreate && (<div className="user-categories__error-create-text">
+                                        <span>Ви дасягнули ліміту категорій</span>
+                                        <button className="user-categories__error-create-btn" onClick={() => setIsErrorCreate(false)}>x</button>
+                                      </div>)
+                }
 
                 <div className="user-categories__create">
                     <div className="user-categories__create-input-wrap">
@@ -110,12 +210,19 @@ function UserCategories() {
                                         {/* <img className="user-categories__card-img" src={el.image_url} alt='img'/> */}
                                         <img className="user-categories__card-img" src={man} alt='img'/>
                                         <div className="user-categories__card-info">
-                                            <div className="user-categories__card-title"><b>Назва категорії:</b> {el.name}</div>
+                                            <div className="user-categories__card-title-wrap">
+                                                <div className="user-categories__card-title"><b>Назва категорії:</b> {el.name}</div>
+                                                <div className="user-categories__card-title-btn-wrap">
+                                                    <img className="user-categories__card-title-btn" src={editIcon} alt='img'/>
+                                                    <img className="user-categories__card-title-btn" src={deleteImg} alt='img'/>
+                                                </div>
+                                            </div>
                                             <label className='user-categories__card-label' htmlFor="setSubCategory">
                                                 <b>Створити підкатегорію</b>
                                             </label>
                                             <div className='user-categories__card-input-wrap'>
-                                                <input
+                                                <CardInput setSubCategory={setSubCategory}/>
+                                                {/* <input
                                                     id="setSubCategory"
                                                     name="setSubCategory"
                                                     type="text"
@@ -123,8 +230,8 @@ function UserCategories() {
                                                     onChange={(e) => setSubCategory(e.target.value)}
                                                     value={subCategory}
                                                     placeholder="Введіть назву..."
-                                                />
-                                                <button className='user-categories__card-btn'>+</button>
+                                                /> */}
+                                                <button className='user-categories__card-btn' onClick={() => handleCreateSubCategory(el._id)}>+</button>
                                             </div>
                                             <p className='user-categories__card-sub-title'><b>Підкатегорії:</b></p>
                                             <ul className='user-categories__card-sub-category'>
@@ -134,7 +241,7 @@ function UserCategories() {
                                                             <div>{subCategories.name}</div>
                                                             <div className='user-categories__card-sub-category-btn-wrap'>
                                                                 <img className='user-categories__card-sub-category-btn' src={editIcon} alt='img'/>
-                                                                <img className='user-categories__card-sub-category-btn' src={deleteImg} alt='img'/>
+                                                                <img className='user-categories__card-sub-category-btn' onClick={() => handleDelete(subCategories._id)} src={deleteImg} alt='img'/>
                                                             </div>
                                                         </li>
                                                     ))

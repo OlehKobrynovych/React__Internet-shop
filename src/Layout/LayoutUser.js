@@ -4,7 +4,7 @@ import './LayoutUser.css';
 import bell from '../assets/images/bell.svg';
 import avatar from '../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCategories, setCategories, setIsNeedUpdate, setShop, setUser } from '../store/userSlice';
+import { getCategories, setCategories, setIsNeedUpdateShop, setShop, setUser } from '../store/userSlice';
 import LoginBtn from '../components/LoginBtn/LoginBtn';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
 
@@ -15,7 +15,8 @@ function LayoutUser() {
     const [isModalWindow, setModalWindow] = useState(false);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
-    const isNeedUpdate = useSelector(state => state.userSlice.isNeedUpdate);
+    const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
+    const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const navigate = useNavigate();
@@ -68,7 +69,7 @@ function LayoutUser() {
         .finally(() => {
             // setIsLoading(false);
         });
-    }, [user, isNeedUpdate])
+    }, [user, isNeedUpdateShop])
     
     useEffect(() => {
         fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
@@ -83,7 +84,7 @@ function LayoutUser() {
             .catch((error) => {
                 console.error('Error:', error);
             })
-    }, [shop])
+    }, [shop, isNeedUpdateCategories])
 
 
 
@@ -116,7 +117,7 @@ function LayoutUser() {
                 <div className={`layout-user__sidenav ${!isOpenMenu ? "layout-user__sidenav--open" : "layout-user__sidenav--close"}`}>
                     <div className="layout-user__sidenav-btn-wrap"><b onClick={() => openNav()} className="layout-user__sidenav-btn">&times;</b></div>
                     <h3 className='layout-user__sidenav-title'>Назва сайту</h3>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdate(false)) }>Магазин</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false)) }>Магазин</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
                     <NavLink className='layout-user__sidenav-link' to="#">Товар</NavLink>
                     <NavLink className='layout-user__sidenav-link' to="#">Повідомлення</NavLink>

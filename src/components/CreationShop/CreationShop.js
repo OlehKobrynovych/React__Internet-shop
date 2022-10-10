@@ -3,14 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './CreationShop.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsNeedUpdate, setShop } from '../../store/userSlice';
+import { setIsNeedUpdateShop, setShop } from '../../store/userSlice';
 
 
 function CreationShop() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
-    const isNeedUpdate = useSelector(state => state.userSlice.isNeedUpdate);
+    const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const [isOpenInfo, setisOpenInfo] = useState([]);
     const [name, setName] = useState('');
     const [facebook_url, setFacebook_url] = useState('');
@@ -30,7 +30,7 @@ function CreationShop() {
     // console.log(user)
 
     useEffect(() => {
-        if (isNeedUpdate) {
+        if (isNeedUpdateShop) {
             setName(shop.name);
             setFacebook_url(shop.facebook_url);
             setInstagram_url(shop.instagram_url);
@@ -45,7 +45,7 @@ function CreationShop() {
             setPaymentMethods(shop.paymentMethods);
             setDescriptionShop(shop.descriptionShop);
         }
-    }, [isNeedUpdate])
+    }, [isNeedUpdateShop])
 
     const handleHelpOpen = (num) => {
         if (isOpenInfo.includes(num)) {
@@ -73,7 +73,7 @@ function CreationShop() {
             token: user.token,
         }
 
-        if (isNeedUpdate) {
+        if (isNeedUpdateShop) {
             fetch(`http://localhost:3000/api/shops/${shop._id}`, {
                 method: 'PUT',
                 headers: {
@@ -96,7 +96,7 @@ function CreationShop() {
                     console.error('Error:', error);
                 })
                 .finally(() => {
-                    dispatch(setIsNeedUpdate(!isNeedUpdate)) 
+                    dispatch(setIsNeedUpdateShop(!isNeedUpdateShop)) 
                 });
         } else {
             fetch('http://localhost:3000/api/shops/', {
@@ -406,7 +406,7 @@ function CreationShop() {
 
                 <button onClick={handleSend}  className='creation-shop__btn'>
                     {
-                        isNeedUpdate ? 'Оновити' : 'Створити'
+                        isNeedUpdateShop ? 'Оновити' : 'Створити'
                     }
                 </button>
             </div>
