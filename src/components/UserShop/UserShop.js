@@ -11,7 +11,9 @@ import Preloader from '../Preloader/Preloader';
 function UserShop() {
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
+    const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
+    const [notFilledText, setNotFilledText] = useState('не вказано');
     const dispatch = useDispatch();
     // console.log('asdasd: ',shop)
 
@@ -23,59 +25,59 @@ function UserShop() {
         <>
             {
                
-                isNeedUpdateShop ? <CreationShop /> : (
+                isNeedUpdateShop || isNeedCreateShop ? <CreationShop /> : (
                     <>
                         {
                             shop?.name && (
                                 <div className="user-shop">
                                     <div className="user-shop--wrap container">
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Назва магазин:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.name}</span>
+                                            <span  className='user-shop__info-title'>Назва магазин:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.name}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Facebook:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.facebook_url}</span>
+                                            <span  className='user-shop__info-title'>Facebook:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.facebook_url ? shop.facebook_url : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Instagram:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.instagram_url}</span>
+                                            <span  className='user-shop__info-title'>Instagram:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.instagram_url ? shop.instagram_url : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Контакний номер телефону:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.contact_number}</span>
+                                            <span  className='user-shop__info-title'>Контакний номер телефону:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.contact_number ? shop.contact_number : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Додатковий контакний номер телефону:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.contact_number_two}</span>
+                                            <span  className='user-shop__info-title'>Додатковий контакний номер телефону:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.contact_number_two ? shop.contact_number_two : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Адреса:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.location}</span>
+                                            <span  className='user-shop__info-title'>Адреса:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.location ? shop.location : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Валюта:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.currency}</span>
+                                            <span  className='user-shop__info-title'>Валюта:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.currency ? shop.currency : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Мова сайту:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.language}</span>
+                                            <span  className='user-shop__info-title'>Мова сайту:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.language ? shop.language : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Способи доставки:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.deliveryMethods}</span>
+                                            <span  className='user-shop__info-title'>Способи доставки:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.deliveryMethods ? shop.deliveryMethods : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Способи оплати:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.paymentMethods}</span>
+                                            <span  className='user-shop__info-title'>Способи оплати:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.paymentMethods ? shop.paymentMethods : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Опис магазину:</span>
-                                            <span  className='user-shop__info-text'>&nbsp;{shop.descriptionShop}</span>
+                                            <span  className='user-shop__info-title'>Опис магазину:&nbsp;</span>
+                                            <span  className='user-shop__info-text'>{shop.descriptionShop ? shop.descriptionShop : notFilledText}</span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
-                                            <span  className='user-shop__info-title'>Логотип:</span>
-                                            <img className='user-shop__info-logo' src={shop.logo} alt='img'/>
+                                            <span  className='user-shop__info-title'>Логотип:&nbsp;</span>
+                                            {shop.logo ? <img className='user-shop__info-logo' src={shop.logo} alt='img'/> : notFilledText}
                                         </div>
                                         
                                         <button className='user-shop__btn' onClick={() => handleUpdate()}>Редагувати</button>

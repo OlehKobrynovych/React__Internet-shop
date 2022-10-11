@@ -3,7 +3,7 @@ import login from '../../assets/images/login.svg';
 import { useSelector } from 'react-redux';
 
 
-function ModalWindow({title, text, handleClick}) {
+function ModalWindow({title, text, handleClick, leftBtn='Ні', rightBtn='Так', children}) {
     // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
     const handleClickBtn = (boolean) => {
@@ -15,9 +15,10 @@ function ModalWindow({title, text, handleClick}) {
             <div className="modal-window--wrap">
                 <h3 className="modal-window__title">{title}</h3>
                 <div className="modal-window__text">{text}</div>
+                {children}
                 <div className="modal-window__btn-wrap">
-                    <button onClick={() => handleClickBtn(false)} className="modal-window__btn modal-window__btn1">Ні</button>
-                    <button onClick={() => handleClickBtn(true)} className="modal-window__btn modal-window__btn2">Так</button>
+                    <button onClick={() => handleClickBtn(false)} className="modal-window__btn modal-window__btn1">{leftBtn}</button>
+                    <button onClick={() => handleClickBtn(true)} className="modal-window__btn modal-window__btn2">{rightBtn}</button>
                 </div>
             </div>
         </div>

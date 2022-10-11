@@ -7,6 +7,13 @@
     padding-bottom: 50px;
 }
 
+.creation-shop__title {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .creation-shop__section {
     display: flex;
     justify-content: space-between;

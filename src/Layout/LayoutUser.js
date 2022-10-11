@@ -4,7 +4,7 @@ import './LayoutUser.css';
 import bell from '../assets/images/bell.svg';
 import avatar from '../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCategories, setCategories, setIsNeedUpdateShop, setShop, setUser } from '../store/userSlice';
+import { getCategories, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setShop, setUser } from '../store/userSlice';
 import LoginBtn from '../components/LoginBtn/LoginBtn';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
 
@@ -57,8 +57,12 @@ function LayoutUser() {
             if (res.success && res.data) {
                 let res1 = res.data.find(el => el.owner_id == user._id)
                 if (res1?.name) {
+                    // console.log(res1)
                     dispatch(setShop(res1));
-                }  
+                    dispatch(setIsNeedCreateShop(false));
+                } else {
+                    dispatch(setIsNeedCreateShop(true));
+                } 
             } else {
                 console.log('GET LayoutUser:', res)
             }

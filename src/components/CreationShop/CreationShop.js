@@ -3,13 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './CreationShop.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsNeedUpdateShop, setShop } from '../../store/userSlice';
+import { setIsNeedCreateShop, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
 
 
 function CreationShop() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
+    const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const [isOpenInfo, setisOpenInfo] = useState([]);
     const [name, setName] = useState('');
@@ -84,8 +85,6 @@ function CreationShop() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data?.name) {
-                        // dispatch(setShop(res.data))
-                        // navigate(`/auth/${user._id}/shop`)
                         // localStorage.setItem('auth', JSON.stringify(res.data));
                         console.log('PUT CreationShop:', res)
                     } else {
@@ -110,7 +109,6 @@ function CreationShop() {
                 .then(res => {
                     if (res.success && res.data) {
                         dispatch(setShop(res.data))
-                        // navigate(`/auth/${user._id}/shop`)
                         // localStorage.setItem('auth', JSON.stringify(res.data));
                     } else {
                         console.log('POST CreationShop', res)
@@ -119,12 +117,19 @@ function CreationShop() {
                 .catch((error) => {
                     console.error('Error:', error);
                 })
+                .finally(() => {
+                    dispatch(setIsNeedCreateShop(false)); 
+                });
         }
     }
 
     return (
         <div className="creation-shop">
             <div className="creation-shop--wrpa container">
+                {
+                    isNeedCreateShop ? <p className="creation-shop__title">Створення магазину</p> : <p className="creation-shop__title">Оновлення магазину</p>
+                }
+
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
                         <label className='creation-shop__section-input-label' htmlFor="name">
