@@ -40,8 +40,7 @@
 }
 
 .product-information__swiper-wrap .swiper-button-next {
-    width: 50px;
-    height: 50px;
+    
 } 
 
 .product-information__swiper-wrap .swiper-button-next::after {
@@ -54,8 +53,7 @@
 } 
 
 .product-information__swiper-wrap .swiper-button-prev {
-    width: 50px;
-    height: 50px;
+    
 } 
 
 .product-information__swiper-wrap .swiper-button-prev::after {
@@ -87,11 +85,15 @@
 .product-information__swiper-wrap .swiper-button-next {
     top: 50% !important;
     right: 16px !important;
+    width: 50px;
+    height: 50px;
 }
 
 .product-information__swiper-wrap .swiper-button-prev {
     top: 50% !important;
     left: 16px !important;
+    width: 50px;
+    height: 50px;
 }
 
 .product-information__price-wrap {

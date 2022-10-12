@@ -4,7 +4,7 @@ import './LayoutUser.css';
 import bell from '../assets/images/bell.svg';
 import avatar from '../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCategories, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setShop, setUser } from '../store/userSlice';
+import { getCategories, getProducts, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setShop, setUser } from '../store/userSlice';
 import LoginBtn from '../components/LoginBtn/LoginBtn';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
 
@@ -15,8 +15,9 @@ function LayoutUser() {
     const [isModalWindow, setModalWindow] = useState(false);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
-    const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
+    const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
+    const isNeedUpdateProducts = useSelector(state => state.userSlice.isNeedUpdateProducts);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const navigate = useNavigate();
@@ -89,8 +90,22 @@ function LayoutUser() {
                 console.error('Error:', error);
             })
     }, [shop, isNeedUpdateCategories])
-
-
+   
+    useEffect(() => {
+        fetch(`http://localhost:3000/api/products/${shop._id}/all`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    // console.log(res)
+                    dispatch(getProducts(res.data));
+                } else {
+                    console.log('GET LayoutUser:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+    }, [shop, isNeedUpdateProducts])
 
     const handleResize = () => {
         if (window.innerWidth < 768) {
@@ -123,7 +138,7 @@ function LayoutUser() {
                     <h3 className='layout-user__sidenav-title'>Назва сайту</h3>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false)) }>Магазин</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to="#">Товар</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>Товар</NavLink>
                     <NavLink className='layout-user__sidenav-link' to="#">Повідомлення</NavLink>
                     <button onClick={() => setModalWindow(!isModalWindow)} className='layout-user__sidenav-link'>Вихід</button>
                 </div>

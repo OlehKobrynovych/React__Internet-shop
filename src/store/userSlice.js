@@ -4,9 +4,12 @@ const initialState = {
   user: {},
   shop: {},
   categories: [],
+  products: [],
+  editProduct: {},
   isNeedCreateShop: false,
   isNeedUpdateShop: false,
   isNeedUpdateCategories: false,
+  isNeedUpdateProducts: false,
   isCleanInput: false,
 }
 
@@ -23,8 +26,14 @@ export const userSlice = createSlice({
     getCategories: (state, action) => {
       state.categories = [...action.payload];
     },
+    getProducts: (state, action) => {
+      state.products = [...action.payload];
+    },
     setCategories: (state, action) => {
       state.categories = [...state.categories, action.payload];
+    },
+    setEditProduct: (state, action) => {
+      state.editProduct = action.payload;
     },
     setIsNeedCreateShop: (state, action) => {
       state.isNeedCreateShop = action.payload;
@@ -35,12 +44,15 @@ export const userSlice = createSlice({
     setIsNeedUpdateCategories: (state, action) => {
       state.isNeedUpdateCategories = action.payload;
     },
+    setIsNeedUpdateProducts: (state, action) => {
+      state.isNeedUpdateProducts = action.payload;
+    },
     setIsCleanInput: (state, action) => {
       state.isCleanInput = action.payload;
     },
   },
 })
 
-export const { setUser, setShop, getCategories, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput } = userSlice.actions
+export const { setUser, setShop, getCategories, getProducts, setCategories, setEditProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsNeedUpdateProducts, setIsCleanInput } = userSlice.actions
 
 export default userSlice.reducer

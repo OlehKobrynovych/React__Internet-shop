@@ -24,7 +24,6 @@ function UserShop() {
     return (
         <>
             {
-               
                 isNeedUpdateShop || isNeedCreateShop ? <CreationShop /> : (
                     <>
                         {
@@ -87,7 +86,6 @@ function UserShop() {
                         }
                     </>
                 )
-                   
             }
         </>
     );

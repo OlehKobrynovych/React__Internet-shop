@@ -10,6 +10,8 @@ import UserCategories from './components/UserCategories/UserCategories';
 import UserShop from './components/UserShop/UserShop';
 import UserHome from './components/UserHome/UserHome';
 import LayoutUser from './Layout/LayoutUser';
+import UserProduct from './components/UserProduct/UserProduct';
+import CreationProduct from './components/CreationProduct/CreationProduct';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -32,6 +34,8 @@ function App() {
                         <Route index element={<UserHome />}/>
                         <Route path="shop" element={<UserShop />}/>
                         <Route path="categories" element={<UserCategories />}/>
+                        <Route path="product" element={<UserProduct />}/>
+                        <Route path="product/create" element={<CreationProduct />}/>
 
                     </Route>
                     <Route path="/auth/login" element={<SignInView />}/>

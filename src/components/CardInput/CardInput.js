@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './CardInput.css';
 
-function CardInput({setSubCategory}) {
+function CardInput({handleChange}) {
     const isCleanInput = useSelector(state => state.userSlice.isCleanInput);
     const [name, setName] = useState('');
 
@@ -12,7 +12,7 @@ function CardInput({setSubCategory}) {
     }, [isCleanInput])
    
     useEffect(() => {
-        setSubCategory(name)
+        handleChange(name)
     }, [name])
 
     return (

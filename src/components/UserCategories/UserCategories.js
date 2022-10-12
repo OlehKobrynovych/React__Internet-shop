@@ -266,7 +266,7 @@ function UserCategories() {
             
             {
                 isModalEditSubCategory && <ModalWindow title={'Редагувати категорію?'}  text={'Введіть нову назву'} handleClick={handleIsEditSubCategory} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
-                                            <CardInput setSubCategory={setSubCategory}/>
+                                            <CardInput handleChange={setSubCategory}/>
                                           </ ModalWindow>
             }
            
@@ -331,7 +331,7 @@ function UserCategories() {
                                                 <b>Створити підкатегорію</b>
                                             </label>
                                             <div className='user-categories__card-input-wrap'>
-                                                <CardInput setSubCategory={setSubCategory}/>
+                                                <CardInput handleChange={setSubCategory}/>
                                                 <button className='user-categories__card-btn' onClick={() => handleCreateSubCategory(el._id)}>+</button>
                                             </div>
                                             <p className='user-categories__card-sub-title'><b>Підкатегорії:</b></p>
