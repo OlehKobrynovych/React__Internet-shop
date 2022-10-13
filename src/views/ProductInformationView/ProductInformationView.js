@@ -81,19 +81,34 @@ function ProductInformationView() {
     }, [id])
 
     useEffect(() => {
-        if ( products.length && product?.category_id) {
+        if ( products?.length && product?.category_id) {
             let selectedCategory = categories?.find(el => el._id === product.category_id)
-            setSelectedCategories(selectedCategory)
-
-            if (selectedCategory?.parent_id !== 'null') {
-                setParentCategories(categories?.find(el => el._id === selectedCategory.parent_id))
-            }
-            
-            if (selectedCategory?._id) {
-                setSimilarProducts(products?.filter(el => el.category_id == selectedCategory._id))
+            // console.log(categories)
+            if (selectedCategory?.name) {
+                setSelectedCategories(selectedCategory)
+            } else {
+                let res = {}
+                categories.map(el => {
+                    let res1 = el.sub_categories.find(ell => ell._id === product.category_id) 
+                    if (res1?.name) {
+                        res = res1
+                    }
+                })
+                setSelectedCategories(res)
             }
         }
     }, [product])
+   
+    useEffect(() => {
+
+        if (selectedCategories?.parent_id !== 'null') {
+            setParentCategories(categories?.find(el => el._id === selectedCategories.parent_id))
+        }
+        
+        if (selectedCategories?._id) {
+            setSimilarProducts(products?.filter(el => el.category_id == selectedCategories._id))
+        }
+    }, [selectedCategories])
    
     const handleAddShoppingProduct = () => {
         if(shoppingProduct.some(el => el._id === product._id)) {
@@ -122,7 +137,7 @@ function ProductInformationView() {
     return (
         <>
             {
-                isLoading ? (<Preloader/>) : !!product ? (
+                isLoading ? (<Preloader/>) : !!product.name ? (
                     <div className="product-information">
                         {
                            selectedCategories?.name && (
@@ -130,13 +145,13 @@ function ProductInformationView() {
                                     <NavLink className="product-information__path-link" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
                                     <span>&nbsp; / &nbsp;</span>
                                     {
-                                        selectedCategories.parent_id == 'null' ? (
-                                            <NavLink className="product-information__path-link" to={`/${shop.name}/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
+                                        selectedCategories?.parent_id == 'null' ? (
+                                            <NavLink className="product-information__path-link" to={`/${shop.name}/category/${selectedCategories?._id}`}>{selectedCategories?.name}</NavLink>
                                         ) : (
                                             <>
-                                                <NavLink className="product-information__path-link" to={`/${shop.name}/category/${parentCategories._id}`}>{parentCategories?.name}</NavLink>
+                                                <NavLink className="product-information__path-link" to={`/${shop.name}/category/${parentCategories?._id}`}>{parentCategories?.name}</NavLink>
                                                 <span>&nbsp; / &nbsp;</span>
-                                                <NavLink className="product-information__path-link" to={`/${shop.name}/category/${selectedCategories._id}`}>{selectedCategories?.name}</NavLink>
+                                                <NavLink className="product-information__path-link" to={`/${shop.name}/category/${selectedCategories?._id}`}>{selectedCategories?.name}</NavLink>
                                             </>
                                         )
                                     }

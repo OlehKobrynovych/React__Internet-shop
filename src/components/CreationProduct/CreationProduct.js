@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './CreationProduct.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsCleanInput, setIsNeedUpdateProducts, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
+import { setEditProduct, setIsCleanInput, setIsNeedUpdateProducts, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import CreationShop from '../CreationShop/CreationShop';
 import Preloader from '../Preloader/Preloader';
@@ -14,6 +14,7 @@ function CreationProduct() {
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
+    const editProduct = useSelector(state => state.userSlice.editProduct);
     const isCleanInput = useSelector(state => state.userSlice.isCleanInput);
     const [isOpenInfo, setIsOpenInfo] = useState([]);
     const [searchCategory, setSearchCategory] = useState('');
@@ -28,12 +29,13 @@ function CreationProduct() {
     const [userColors, setUserColors] = useState('');
     const [userSizes, setUserSizes] = useState('');
     const [userImages, setUserImages] = useState('');
-    const [errorCreateText, setErrorCreateText] = useState('');
+    // const [errorCreateText, setErrorCreateText] = useState('');
     // const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const isNeedUpdateProducts = useSelector(state => state.userSlice.isNeedUpdateProducts);
-    const editProduct = useSelector(state => state.userSlice.editProduct);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     // console.log(categories)
 
     useEffect(() => {
@@ -88,9 +90,13 @@ function CreationProduct() {
         setSelectCategory(obj)
         setSearchCategory('')
     }
+   
+    const handleReturn = () => {
+        navigate(`/auth/${user._id}/product`)
+        dispatch(setEditProduct({}))
+    }
 
     const handleSend = () => {
-
         let data = {
             shop_id: shop._id,
             category_id: selectCategory._id,
@@ -104,38 +110,59 @@ function CreationProduct() {
             token: user.token,
         }
 
-        fetch('http://localhost:3000/api/products/', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    console.log(res)
-                    setErrorCreateText("Товар створено")
-                    setName('')
-                    setSelectCategory({})
-                    setPrice(0)
-                    setNew_price(0)
-                    setImages([])
-                    setDetails('')
-                    setColors([])
-                    setSizes([])
-                    dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))
-                    // localStorage.setItem('auth', JSON.stringify(res.data));
-                } else {
-                    console.log('POST CreationProduct', res)
-                }
+        if (editProduct._id) {
+            fetch(`http://localhost:3000/api/products/${editProduct._id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             })
-            .catch((error) => {
-                console.error('Error:', error);
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        // console.log(res)
+                    } else {
+                        console.log('PUT CreationProduct', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    dispatch(setEditProduct({}))
+                });
+        } else {
+            fetch('http://localhost:3000/api/products/', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             })
-            .finally(() => {
-                // dispatch(setIsNeedCreateShop(false)); 
-            });
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        // console.log(res)
+                    } else {
+                        console.log('POST CreationProduct', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        }
+
+        setName('')
+        setSelectCategory({})
+        setPrice(0)
+        setNew_price(0)
+        setImages([])
+        setDetails('')
+        setColors([])
+        setSizes([])
+        dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))
+        navigate(`/auth/${user._id}/product`)
     }
 
     return (
@@ -366,17 +393,22 @@ function CreationProduct() {
                     <p>Загрузіть картинки товару.</p>
                 </div>
 
-
-                {
+                {/* {
                     !!errorCreateText.length && !name.length && !selectCategory?.name && price == 0 && new_price == 0 && !images.length && !details.length && !colors.length && !sizes.length 
                                                 && <div className='creation-product__error-text'>{errorCreateText}</div>
-                }
+                } */}
 
-                <button className='creation-product__btn-create' onClick={handleSend}>
+                <div className='creation-product__btn-create-wrap'>
                     {
-                        isNeedUpdateShop ? 'Оновити' : 'Створити'
+                         editProduct?._id && <button className='creation-product__btn-create' onClick={handleReturn}>Відмінити</button>
                     }
-                </button>
+                  
+                    <button className='creation-product__btn-create' onClick={handleSend}>
+                        {
+                            editProduct?._id ? 'Оновити' : 'Створити'
+                        }
+                    </button>
+                </div>
             </div>
         </div>
     );

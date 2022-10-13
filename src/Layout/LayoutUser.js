@@ -22,7 +22,7 @@ function LayoutUser() {
     const navigate = useNavigate();
     // const navigate = useNavigate();
     // let { userId } = useParams();
-    // console.log(user)
+    // console.log(shop)
 
     useEffect(() => {
         // fetch('http://localhost:3000/api/products/all')
