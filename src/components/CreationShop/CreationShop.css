@@ -26,6 +26,7 @@
     font-size: 15px;
     margin-top: 8px;
     margin-bottom: 8px;
+    box-shadow: 2px 1px 3px rgb(0 0 0 / 52%);
 }
 
 .creation-shop__section-input-wrap {
@@ -167,6 +168,11 @@
     display: block;
     max-height: 100%;
 }
+.creation-shop__btn-wrap {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
 
 .creation-shop__btn {
     border: 2px solid black;
@@ -178,7 +184,7 @@
     color: #0d48ac;
     margin-top: 20px;
     margin-bottom: 10px;
-    margin-left: auto;
+    margin-left: 60px;
     display: block;
     transition: .3s;
 }

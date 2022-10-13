@@ -175,7 +175,7 @@ function LayoutUser() {
             {
                 isModalWindow && <ModalWindow title={'Ви впевнені?'} text={'Бажаєте покинути особистий кабінет?'} handleClick={handleExit}/>
             }
-            
+
         </div>
     );
 }

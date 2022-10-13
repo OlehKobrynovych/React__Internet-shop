@@ -4,6 +4,7 @@ import './CreationShop.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsNeedCreateShop, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
+import { toast } from 'react-toastify';
 
 
 function CreationShop() {
@@ -55,6 +56,10 @@ function CreationShop() {
             setisOpenInfo([...isOpenInfo, num])
         }
     }
+
+    const handleReturn = () => {
+        dispatch(setIsNeedUpdateShop(false))
+    }
     
     const handleSend = () => {
         let data = {
@@ -84,9 +89,19 @@ function CreationShop() {
             })
                 .then(res => res.json())
                 .then(res => {
-                    if (res.success && res.data?.name) {
+                    if (res.success && res.data) {
                         // localStorage.setItem('auth', JSON.stringify(res.data));
                         console.log('PUT CreationShop:', res)
+                        toast.success('Дані оновлено', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
                     } else {
                         console.log('PUT CreationShop:', res)
                     }
@@ -109,6 +124,16 @@ function CreationShop() {
                 .then(res => {
                     if (res.success && res.data) {
                         dispatch(setShop(res.data))
+                        toast.success('Магазин створено', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
                         // localStorage.setItem('auth', JSON.stringify(res.data));
                     } else {
                         console.log('POST CreationShop', res)
@@ -409,16 +434,24 @@ function CreationShop() {
                     <p>Виберіть логотип Вашого магазину</p>
                 </div>
 
+                <div className='creation-shop__btn-wrap'>
+                    {
+                         isNeedUpdateShop && <button className='creation-shop__btn' onClick={handleReturn}>Відмінити</button>
+                    }
+                  
+                    <button className='creation-shop__btn' onClick={handleSend}>
+                        {
+                            isNeedUpdateShop ? 'Оновити' : 'Створити'
+                        }
+                    </button>
+                </div>
+{/* 
                 <button onClick={handleSend}  className='creation-shop__btn'>
                     {
                         isNeedUpdateShop ? 'Оновити' : 'Створити'
                     }
-                </button>
+                </button> */}
             </div>
-
-             {/* <div className='creation-shop__input-btn-wrap'>
-                        <button className='creation-shop__input-btn'><img className='creation-shop__input-btn-img' src={editIcon} alt="img"/></button>
-            </div> */}
         </div>
     );
 }

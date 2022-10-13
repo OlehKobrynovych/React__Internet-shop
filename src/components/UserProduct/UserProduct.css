@@ -60,6 +60,7 @@
     margin: 5px;
     border: 2px solid #0d48ac;
     aspect-ratio: 9 / 16;
+    box-shadow: rgb(0 0 0 / 20%) 0px 5px 15px -7px, rgb(0 0 0 / 14%) 0px 13px 13px 3px, rgb(0 0 0 / 12%) 0px 9px 30px 8px;
 }
 
 .user-product__card-wrap {
@@ -104,6 +105,16 @@
 
 .user-product__card-swiper-wrap .swiper-button-prev:hover::after {
     transform: translateX(-10px);
+}
+
+.user-product__card-swiper-img {
+
+}
+
+.user-product__card-swiper-img-none {
+    padding: 15px;
+    height: 372px;
+    object-fit: contain;
 }
 
 .user-product__card-info {

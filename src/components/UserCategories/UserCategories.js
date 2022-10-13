@@ -9,6 +9,8 @@ import editIcon from '../../assets/images/editIcon.svg';
 import kids from '../../assets/images/kids.webp';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import CardInput from '../CardInput/CardInput';
+import { toast } from 'react-toastify';
+import noPhotos from '../../assets/images/noPhotos.svg';
 
 function UserCategories() {
     // let { userId } = useParams();
@@ -56,6 +58,16 @@ function UserCategories() {
                         if (res.success && res.data) {
                             // console.log(res)
                             dispatch(setCategories(res.data))
+                            toast.success('Категорію створено', {
+                                position: "bottom-right",
+                                autoClose: 2500,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            })
                         } else {
                             console.log('POST UserCategories:', res)
                         }
@@ -98,6 +110,16 @@ function UserCategories() {
                     // console.log(res)
                     dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
                     dispatch(setIsCleanInput(!isCleanInput))
+                    toast.success('Підкатегорію створено', {
+                        position: "bottom-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
                 } else {
                     console.log('POST UserCategories:', res)
                 }
@@ -150,6 +172,7 @@ function UserCategories() {
                     .then(res => {
                         if (res.success && res.data) {
                             console.log('del', res)
+                           
                         } else {
                             console.log('DELETE UserCategories', res)
                         }
@@ -170,6 +193,16 @@ function UserCategories() {
                     .then(res => {
                         if (res.success && res.data) {
                             console.log('del', res)
+                            toast.success('Категорія видалена', {
+                                position: "bottom-right",
+                                autoClose: 2500,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            })
                         } else {
                             console.log('DELETE UserCategories', res)
                         }
@@ -203,6 +236,16 @@ function UserCategories() {
                     if (res.success && res.data) {
                         // console.log('del', res)
                         dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
+                        toast.success('Підкатегорія видалена', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
                     } else {
                         console.log('DELETE UserCategories', res)
                     }
@@ -239,6 +282,16 @@ function UserCategories() {
                     if (res.success && res.data) {
                         // console.log('edit', res)
                         dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
+                        toast.success('Назва змінена', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
                     } else {
                         console.log('Edit UserCategories', res)
                     }
@@ -317,8 +370,11 @@ function UserCategories() {
                             {
                                 categories.map(el => (
                                     <div className="user-categories__card" key={el._id}>
-                                        {/* <img className="user-categories__card-img" src={el.image_url} alt='img'/> */}
-                                        <img className="user-categories__card-img" src={man} alt='img'/>
+                                        {
+                                            el?.image_url ? <img className="user-categories__card-img" src={el?.image_url} alt='img'/>
+                                                :  <img className="user-categories__card-img-none" src={noPhotos} alt='img'/>
+                                        }
+                                        {/* <img className="user-categories__card-img" src={man} alt='img'/> */}
                                         <div className="user-categories__card-info">
                                             <div className="user-categories__card-title-wrap">
                                                 <div className="user-categories__card-title"><b>Назва категорії:</b> {el.name}</div>

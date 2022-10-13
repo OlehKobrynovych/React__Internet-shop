@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import './LandingView.css';
 
 
@@ -13,7 +14,6 @@ function LandingView() {
             <h2 className='landing-view__title container'>Landing сторінка</h2>
             <button className='landing-view__btn' onClick={() => navigate('/auth/login')}>Увійти</button>
             <button className='landing-view__btn' onClick={() => navigate('/auth/register')}>Зареєструватись</button>
-          
         </div>
     );
 }

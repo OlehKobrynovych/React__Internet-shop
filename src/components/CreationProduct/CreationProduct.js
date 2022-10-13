@@ -8,6 +8,8 @@ import deleteImg from '../../assets/images/deleteImg.svg';
 import CreationShop from '../CreationShop/CreationShop';
 import Preloader from '../Preloader/Preloader';
 import CardInput from '../CardInput/CardInput';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function CreationProduct() {
@@ -122,6 +124,16 @@ function CreationProduct() {
                 .then(res => {
                     if (res.success && res.data) {
                         // console.log(res)
+                        toast.success('Дані оновлено', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
                     } else {
                         console.log('PUT CreationProduct', res)
                     }
@@ -144,6 +156,16 @@ function CreationProduct() {
                 .then(res => {
                     if (res.success && res.data) {
                         // console.log(res)
+                        toast.success('Товар створено', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
                     } else {
                         console.log('POST CreationProduct', res)
                     }
@@ -392,11 +414,6 @@ function CreationProduct() {
                 <div className={`creation-product__section-info ${isOpenInfo.includes(8) ? 'creation-product__section-info--active' : ''}`}>
                     <p>Загрузіть картинки товару.</p>
                 </div>
-
-                {/* {
-                    !!errorCreateText.length && !name.length && !selectCategory?.name && price == 0 && new_price == 0 && !images.length && !details.length && !colors.length && !sizes.length 
-                                                && <div className='creation-product__error-text'>{errorCreateText}</div>
-                } */}
 
                 <div className='creation-product__btn-create-wrap'>
                     {

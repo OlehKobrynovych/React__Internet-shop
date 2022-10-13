@@ -5,6 +5,7 @@ import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditProduct, setIsCleanInput, setIsNeedUpdateProducts, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
+import noPhotos from '../../assets/images/noPhotos.svg';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -12,6 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import ModalWindow from '../ModalWindow/ModalWindow';
+import { toast } from 'react-toastify';
 
 
 function UserProduct() {
@@ -62,6 +64,16 @@ function UserProduct() {
                     if (res.success && res.data) {
                         // console.log('del', res)
                         dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))
+                        toast.success('Товар видалено', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
                     } else {
                         console.log('DELETE UserCategories', res)
                     }
@@ -104,7 +116,9 @@ function UserProduct() {
                                             className="mySwiper"
                                             >
                                             {
-                                                el?.images?.map(image => <SwiperSlide key={image}><img className="user-product__card-swiper-img" src={image} alt='img'/></SwiperSlide>)
+                                                !!el?.images?.length ? el?.images.map(image => <SwiperSlide key={image}><img className="user-product__card-swiper-img" src={image} alt='img'/></SwiperSlide>)
+                                                 : <img className="user-product__card-swiper-img-none" src={noPhotos} alt='img'/> 
+                                                
                                             }
                                         </Swiper>
                                     </div>

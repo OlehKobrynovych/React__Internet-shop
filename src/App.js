@@ -12,6 +12,7 @@ import UserHome from './components/UserHome/UserHome';
 import LayoutUser from './Layout/LayoutUser';
 import UserProduct from './components/UserProduct/UserProduct';
 import CreationProduct from './components/CreationProduct/CreationProduct';
+import { ToastContainer } from 'react-toastify';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -26,8 +27,20 @@ function App() {
     const location = useLocation();
     return (
         <div className="app">
+            <ToastContainer 
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             
-           <Suspense fallback={<Preloader />}>
+            <Suspense fallback={<Preloader />}>
                 <Routes>
                     <Route path="/" element={<LandingView />}/>
                     <Route path="/auth/:userId" element={<LayoutUser />}>
