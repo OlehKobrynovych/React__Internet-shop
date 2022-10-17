@@ -74,6 +74,16 @@ function UserCategories() {
                     })
                     .catch((error) => {
                         console.error('Error:', error);
+                        toast.error('Сталася помилка', {
+                            position: "top-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
                     })
             } else {
                 setErrorCreateText('Ви дасягнули ліміту категорій')
@@ -126,6 +136,16 @@ function UserCategories() {
             })
             .catch((error) => {
                 console.error('Error:', error);
+                toast.error('Сталася помилка', {
+                    position: "top-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             })
         
         setSubCategory('')
@@ -209,6 +229,16 @@ function UserCategories() {
                     })
                     .catch((error) => {
                         console.error('Error:', error);
+                        toast.error('Сталася помилка', {
+                            position: "top-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
                     })
 
             dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
@@ -252,6 +282,16 @@ function UserCategories() {
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
         } 
         
@@ -298,6 +338,16 @@ function UserCategories() {
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
         } 
         
@@ -371,10 +421,10 @@ function UserCategories() {
                                 categories.map(el => (
                                     <div className="user-categories__card" key={el._id}>
                                         {
-                                            el?.image_url ? <img className="user-categories__card-img" src={el?.image_url} alt='img'/>
+                                            // el?.image_url ? <img className="user-categories__card-img" src={el?.image_url} alt='img'/>
+                                            el?.image_url ? <img className="user-categories__card-img" src={man} alt='img'/>
                                                 :  <img className="user-categories__card-img-none" src={noPhotos} alt='img'/>
                                         }
-                                        {/* <img className="user-categories__card-img" src={man} alt='img'/> */}
                                         <div className="user-categories__card-info">
                                             <div className="user-categories__card-title-wrap">
                                                 <div className="user-categories__card-title"><b>Назва категорії:</b> {el.name}</div>

@@ -14,6 +14,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { toast } from 'react-toastify';
+import ReactPaginate from 'react-paginate';
 
 
 function UserProduct() {
@@ -24,18 +25,67 @@ function UserProduct() {
     const isNeedUpdateProducts = useSelector(state => state.userSlice.isNeedUpdateProducts);
     const [isModalDelProduct, setIsModalDelProduct] = useState(false);
     const [deleteId, setDeleteId] = useState('');
+    const [seachName, setSeachName] = useState('');
+    const [filterProducts, setFilterProducts] = useState([]);
+    const [selectedSort, setSelectedSort] = useState('Всі товари');
     // const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     // const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     // console.log(categories)
 
-   
+    const itemsPerPage = 2;                            // кількість карток на сторінці 
+    const [currentProducts, setcurrentProducts] = useState(null);
+    const [pageCount, setPageCount] = useState(0);
+    const [itemOffset, setItemOffset] = useState(0);
+    // const [itemOffset1, setItemOffset1] = useState(0);
+    console.log(currentProducts)
+    console.log(pageCount)
+    console.log(itemOffset)
 
-    const handleCreateCategory = () => {
-    }
+    useEffect(() => {
+        setFilterProducts([...products])
+        // if (!currentProducts?.length) {
+        //     setcurrentProducts(filterProducts.slice(0, itemsPerPage));
+        //     setItemOffset(0)
+        // }
+    }, [products, isNeedUpdateProducts]);
     
+    useEffect(() => {
+      const endOffset = itemOffset + itemsPerPage;
+      setcurrentProducts(filterProducts.slice(itemOffset, endOffset));
+      setPageCount(Math.ceil(filterProducts.length / itemsPerPage));
+    }, [itemOffset, itemsPerPage, products, isNeedUpdateProducts, filterProducts]);
+    
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % filterProducts.length;
+        setItemOffset(newOffset);
+    };
+    
+
+
+
+    // const handleSearchProduct = (e) => {
+    //     if(e.key === 'Enter'){
+    //     let res = products.filter(el => el.name.toUpperCase().includes(seachName.toUpperCase()))
+    //     console.log(res)
+    //     setFilterProducts(res)  
+    //     }
+    // }
+
+    useEffect(() => {
+        let res = products.filter(el => el.name.toUpperCase().includes(seachName.toUpperCase()))
+        setFilterProducts(res) 
+    }, [seachName]);
+    
+    useEffect(() => {
+    //    let res = products.filter(el => )            // ????????? доробити сортування по назві категорії
+    }, [selectedSort]);
+    
+    const handleChangeSort = (e) => {
+        setSelectedSort(e.target.value)
+    };
+
     const handleEditProduct = (obj) => {
         dispatch(setEditProduct(obj))
         navigate(`/auth/${user._id}/product/create`)
@@ -101,9 +151,49 @@ function UserProduct() {
                     <button className='user-product__sub-title-btn'><NavLink to='create'>Створити товар</NavLink></button>
                 </div>
 
+                <div className='user-product__filter-wrap'>
+                    <div className='user-product__filter'>
+                        <label className='user-product__filter-search-input-label' htmlFor="seachName">
+                            <b>Пошук товару</b>
+                        </label>
+                        <input
+                            id="seachName"
+                            name="seachName"
+                            type="search"
+                            required
+                            className='user-product__filter-search-input'
+                            onChange={(e) => setSeachName(e.target.value)}
+                            // onKeyPress={(e) => handleSearchProduct(e)}
+                            value={seachName}
+                            placeholder="Введіть назву..."
+                        />
+                    </div>
+
+                    <div className="user-product__sort-wrap">
+                        <span className="user-product__sort-label">Сортувати:</span>
+                        <select className="user-product__sort-select" onChange={handleChangeSort} value={selectedSort}>
+                            <option className="user-product__sort-option" value='allPpoducts'>Всі товари</option>
+                            {
+                                !!categories?.length && categories.map(category => (
+                                    <>
+                                        <option className="user-product__sort-option-wrap" value={category.name} key={category._id}>
+                                            <div className="user-product__sort-option-category">{category?.name}</div>
+                                        </option>
+                                        {
+                                            !!category?.sub_categories?.length  && category.sub_categories.map(el => (
+                                                    <option className="user-product__sort-option-sub-category" value={el.name} key={el._id}>{el?.name}</option>
+                                            ))
+                                        }
+                                    </>
+                                ))
+                            }
+                        </select>
+                    </div>
+                </div>                
+
                 <div className='user-product__cards'>
                     {
-                        !!products.length && products.map(el => (
+                        !!currentProducts?.length && currentProducts.map(el => (
                             <div className='user-product__card' key={el._id}>
                                 <div className='user-product__card-wrap'>
                                     <div className="user-product__card-swiper-wrap">
@@ -160,6 +250,28 @@ function UserProduct() {
                         ))
                     }
                 </div>
+
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="вперед >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< назад"
+                    // renderOnZeroPageCount={undefined}
+                    // renderOnZeroPageCount={handlePageClick1}
+                    // forcePage={itemOffset1}
+                    // initialPage={itemOffset1 ? 0 : 1}
+                    // renderOnZeroPageCount={handlePageClick1}
+                    previousClassName='user-product__paginate-previous-btn'
+                    nextClassName='user-product__paginate-next-btn'
+                    pageClassName='user-product__paginate-li-wrap'
+                    pageLinkClassName='user-product__paginate-li-link'
+                    activeClassName='user-product__paginate-item-active'
+                    containerClassName='user-product__container-paginate'
+                    nextLinkClassName='user-product__paginate-next-btn-link'
+                    previousLinkClassName='user-product__paginate-previous-btn-link'
+                />
             </div>
         </div>
     );

@@ -30,6 +30,7 @@ function UserShop() {
                             shop?.name && (
                                 <div className="user-shop">
                                     <div className="user-shop--wrap container">
+                                        <div className='user-shop__title'><b>Магазин</b>&nbsp;{shop.name}</div>
                                         <div className='user-shop__info-wrap'>
                                             <span  className='user-shop__info-title'>Назва магазин:&nbsp;</span>
                                             <span  className='user-shop__info-text'>{shop.name}</span>

@@ -140,6 +140,16 @@ function CreationProduct() {
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
                 .finally(() => {
                     dispatch(setEditProduct({}))
@@ -166,12 +176,23 @@ function CreationProduct() {
                             progress: undefined,
                             theme: "light",
                         })
+                        dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))
                     } else {
                         console.log('POST CreationProduct', res)
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
         }
 
@@ -183,7 +204,7 @@ function CreationProduct() {
         setDetails('')
         setColors([])
         setSizes([])
-        dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))
+        dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))   // ????
         navigate(`/auth/${user._id}/product`)
     }
 

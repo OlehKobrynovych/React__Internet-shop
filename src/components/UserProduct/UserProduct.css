@@ -43,6 +43,76 @@
     color: white;
 }
 
+.user-product__filter-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-product__filter-search-input-label {
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-product__filter-search-input {
+    padding: 10px 20px;
+    max-width: 35%;
+    width: 100%;
+    min-width: 200px;
+    /* margin-bottom: 10px; */
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.user-product__sort-wrap {
+
+}
+
+.user-product__sort-label {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-product__sort-select {
+    /* border: none; */
+    font-size: 19px;
+    padding: 4px;
+    border-radius: 7px;
+}
+
+.user-product__sort-select:focus-visible {
+    
+    /* border: none; */
+}
+
+.user-product__sort-option {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.user-product__sort-option-category {
+
+}
+
+.user-product__sort-option-sub-category {
+    font-size: 16px;
+    /* padding-left: 5px; */
+}
+
 .user-product__cards {
     display: flex;
     justify-content: center;
@@ -166,6 +236,57 @@
 
 .user-product__card-btn:hover {
     background-color: rgb(161, 157, 157);
+}
+
+.user-product__container-paginate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.user-product__paginate-li-wrap {
+    color: #264348;
+    float: left;
+    text-decoration: none;
+    border: 2px solid #d2d7d3;
+    margin: 0 3px;
+    cursor: pointer;
+}
+.user-product__paginate-li-link {
+    padding: 8px 16px;
+}
+
+.user-product__paginate-item-active {
+    background-color: #264348;
+    color: white;
+  }
+
+.user-product__paginate-next-btn {
+    color: #264348;
+    float: left;
+    text-decoration: none;
+    border: 2px solid #d2d7d3;
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.user-product__paginate-next-btn-link {
+    padding: 8px 16px;
+}
+
+.user-product__paginate-previous-btn {
+    color: #264348;
+    float: left;
+    text-decoration: none;
+    border: 2px solid #d2d7d3;
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.user-product__paginate-previous-btn-link {
+    padding: 8px 16px;
 }
     
 @media (min-width: 576px) {

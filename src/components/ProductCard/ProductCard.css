@@ -11,6 +11,16 @@
 
 .product-card__img {
     width: 100%;
+    height: 332px;
+    border: 1px solid #E4E4E5;
+}
+
+.product-card__img-none {
+    width: 100%;
+    height: 332px;
+    border: 1px solid #E4E4E5;
+    object-fit: contain;
+    padding: 10px;
 }
 
 .product-card__img:hover {

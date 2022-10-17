@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFavoriteProduct, setLastViewProduct, setShoppingProduct } from '../../store/homeSlice';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import noPhotos from '../../assets/images/noPhotos.svg';
 // import { useState, useRef, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
@@ -53,7 +54,10 @@ function ProductCard({product}) {
 
     return (
         <div className="product-card">
-            <img className="product-card__img" src={product.images[0]} alt='img' onClick={() => handleClick(product)}/>
+            {
+                product?.images.length ? <img className="product-card__img" src={product.images[0]} alt='img' onClick={() => handleClick(product)}/> 
+                    : <img className="product-card__img-none" src={noPhotos} alt='img' onClick={() => handleClick(product)}/>
+            }
             <div className="product-card__text-wrap">
                 <div className="product-card__title" onClick={() => handleClick(product)}>{product.name}</div>
                 <div className="product-card__bottom-wrap">

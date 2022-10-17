@@ -108,6 +108,16 @@ function CreationShop() {
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
                 .finally(() => {
                     dispatch(setIsNeedUpdateShop(!isNeedUpdateShop)) 
@@ -141,6 +151,16 @@ function CreationShop() {
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
                 .finally(() => {
                     dispatch(setIsNeedCreateShop(false)); 
