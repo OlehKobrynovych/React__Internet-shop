@@ -73,7 +73,7 @@ function UserCategories() {
                     .catch((error) => {
                         console.error('Error:', error);
                         toast.error('Сталася помилка', {
-                            position: "top-right",
+                            position: "bottom-left",
                             autoClose: 2500,
                             hideProgressBar: false,
                             closeOnClick: true,
@@ -133,7 +133,7 @@ function UserCategories() {
             .catch((error) => {
                 console.error('Error:', error);
                 toast.error('Сталася помилка', {
-                    position: "top-right",
+                    position: "bottom-left",
                     autoClose: 2500,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -231,7 +231,7 @@ function UserCategories() {
                     .catch((error) => {
                         console.error('Error:', error);
                         toast.error('Сталася помилка', {
-                            position: "top-right",
+                            position: "bottom-left",
                             autoClose: 2500,
                             hideProgressBar: false,
                             closeOnClick: true,
@@ -282,7 +282,7 @@ function UserCategories() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "top-right",
+                        position: "bottom-left",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -337,7 +337,7 @@ function UserCategories() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "top-right",
+                        position: "bottom-left",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,

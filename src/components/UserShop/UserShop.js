@@ -15,7 +15,7 @@ function UserShop() {
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const [notFilledText, setNotFilledText] = useState('дані не вказано');
     const dispatch = useDispatch();
-    // console.log('asdasd: ',shop)
+    console.log('asdasdxfxxxxddd: ',shop)
 
     const handleUpdate = () => {
         dispatch(setIsNeedUpdateShop(!isNeedUpdateShop)) 

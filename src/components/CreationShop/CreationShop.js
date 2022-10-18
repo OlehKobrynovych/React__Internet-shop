@@ -22,13 +22,13 @@ function CreationShop() {
     const [deliveryMethods, setDeliveryMethods] = useState('');
     const [paymentMethods, setPaymentMethods] = useState('');
     const [descriptionShop, setDescriptionShop] = useState('');
-    const [checkedLanguage, setCheckedLanguage] = useState('');
+    const [checkedLanguage, setCheckedLanguage] = useState('UA');
     const [currency, setCurrency] = useState('');
     const [logo, setLogo] = useState('');
     const dispatch = useDispatch();
     // const navigate = useNavigate();
 
-    // console.log(user)
+    // console.log(shop)
 
     useEffect(() => {
         if (isNeedUpdateShop) {
@@ -62,6 +62,7 @@ function CreationShop() {
     
     const handleSend = () => {
         let data = {
+            _id: shop._id,
             name: name,
             facebook_url: facebook_url,
             instagram_url: instagram_url,
@@ -79,6 +80,7 @@ function CreationShop() {
         }
 
         if (isNeedUpdateShop) {
+            console.log('data1111', shop._id)
             fetch(`http://localhost:3000/api/shops/${shop._id}`, {
                 method: 'PUT',
                 headers: {
@@ -89,7 +91,6 @@ function CreationShop() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        console.log('PUT CreationShop:', res)
                         dispatch(setShop(data));
                         toast.success('Дані оновлено', {
                             position: "bottom-right",
@@ -108,7 +109,7 @@ function CreationShop() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "top-right",
+                        position: "bottom-left",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -119,7 +120,7 @@ function CreationShop() {
                     });
                 })
                 .finally(() => {
-                    dispatch(setIsNeedUpdateShop(!isNeedUpdateShop)) 
+                    dispatch(setIsNeedUpdateShop(false)) 
                 });
         } else {
             fetch('http://localhost:3000/api/shops/', {
@@ -150,7 +151,7 @@ function CreationShop() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "top-right",
+                        position: "bottom-left",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -425,10 +426,10 @@ function CreationShop() {
                     <div className="creation-shop__section-input-wrap">
                         <b>Мова</b>
                         <label className="creation-shop__section-input-check-label">UA
-                            <input onChange={() => setCheckedLanguage('UA')} type="radio" checked="checked" name="radio"/>
+                            <input onChange={() => setCheckedLanguage('UA')} type="radio" checked={checkedLanguage == 'UA'} name="radio"/>
                         </label>
                         <label className="creation-shop__section-input-check-label">ENG
-                            <input onChange={() => setCheckedLanguage('ENG')} type="radio" name="radio"/>
+                            <input onChange={() => setCheckedLanguage('ENG')} type="radio" checked={checkedLanguage == 'ENG'} name="radio"/>
                         </label>
                     </div>
                     <div onClick={() => handleHelpOpen(11)} className='creation-shop__section-btn-wrap'>

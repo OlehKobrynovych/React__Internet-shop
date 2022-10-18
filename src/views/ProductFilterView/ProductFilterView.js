@@ -1,13 +1,12 @@
 import './ProductFilterView.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
-import PaginationProduct from '../../components/PaginationProduct/PaginationProduct';
 import { useEffect, useState } from 'react';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { useLocation } from 'react-router-dom';
 import PageNotFoundView from '../PageNotFoundView/PageNotFoundView';
 import LastProduct from '../../components/LastProduct/LastProduct';
 import Preloader from '../../components/Preloader/Preloader';
+import PaginationItems from '../../components/PaginationItems/PaginationItems';
 
 
 function ProductFilterView() {
@@ -19,17 +18,19 @@ function ProductFilterView() {
     const categories = useSelector(state => state.homeSlice.categories);
     const shop = useSelector(state => state.homeSlice.shop);
     const [categoryProducts, setCategoryProducts] = useState([]);
+    const [paginationProducts, setPaginationProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState({});
     const [parentCategories, setParentCategories] = useState({});
     const [isPageNotFound, setIsPageNotFound] = useState(false);
     const [selectedSort, setSelectedSort] = useState('priceUp');
-    const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(5);
     // console.log(parentCategories)
     // const dispatch = useDispatch();
-    // let location = useLocation();
     const [isLoading, setIsLoading] = useState(true);
     // debugger
+
+    useEffect(() => {
+        setCategoryProducts([...products])
+    }, [products])
 
     useEffect(() => {
         setIsLoading(true);
@@ -53,7 +54,6 @@ function ProductFilterView() {
     }, [id, categories])
 
     useEffect(() => {
-        
         if (selectedCategory?.parent_id && selectedCategory?.parent_id !== 'null') {
             setIsLoading(true);
             fetch(`http://localhost:3000/api/categories/${selectedCategory.parent_id}`)
@@ -132,7 +132,7 @@ function ProductFilterView() {
                                     (<>
                                         <div className="product-filter__filter-wrap">
                                             <div className="product-filter__filter">
-
+                                                {/* пошук товару по назві? */}
                                             </div>
                                             <div className="product-filter__sort-wrap">
                                                 <span className="product-filter__sort-label">{selectedLanguage?.categoriesPage?.categoriesSortTitle}</span>
@@ -147,7 +147,7 @@ function ProductFilterView() {
 
                                         <ul className='product-filter__item--wrap categories-product--wrap'>
                                             {
-                                                categoryProducts.map(el => (
+                                                paginationProducts.map(el => (
                                                     <li key={el._id} className='product-filter__item'>
                                                         <ProductCard product={el}/>
                                                     </li>
@@ -155,12 +155,8 @@ function ProductFilterView() {
                                             }
                                         </ul>
 
-                                        <PaginationProduct
-                                            productsPerPage={productsPerPage}
-                                            totalProducts={categoryProducts.length}
-                                            setCurrentPage={setCurrentPage} 
-                                            currentPage={currentPage}
-                                        />
+                                        <PaginationItems items={categoryProducts} setCurrentPaginationItems={setPaginationProducts} pageRangeDisplayed={5} itemsPerPage={5}/>
+
                                     </>) : <p className='product-filter__categories-error'>{selectedLanguage?.categoriesPage?.categoriesError}</p>
                             }
 

@@ -6,8 +6,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 
-import {datas} from '../../data.js'
-
 import { useState, useRef, useEffect } from 'react';
 
 import circle from '../../assets/images/circle.svg';

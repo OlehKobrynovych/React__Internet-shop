@@ -1,8 +1,11 @@
-.creation-product {
-
+.user-product {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.creation-product--wrap {
+.user-product--wrap {
 
 }
 

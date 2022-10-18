@@ -44,7 +44,6 @@ function LayoutUser() {
             if (res.success && res.data) {
                 let res1 = res.data.find(el => el.owner_id == user._id)
                 if (res1?.name) {
-                    console.log('asdasdasd', res1)
                     dispatch(setShop(res1));
                     dispatch(setIsNeedCreateShop(false));
                 } else {

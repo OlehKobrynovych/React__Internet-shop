@@ -45,14 +45,6 @@ function Layout() {
          .catch((error) => {
              console.error('Error:', error);
          })
-        
-        // fetch('http://localhost:3000/api/categories/', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data),
-        //   }).then(res => res.json()).then(res => console.log(res))
     }, [])
 
     useEffect(() => {
@@ -87,13 +79,13 @@ function Layout() {
     return (
         <>
             {
-                !!products?.length ? (
+                // !!products?.length ? (
                     <div className="layout">
                         <Header />
                         <Outlet />
                         <Footer />
                     </div>
-                ) : <Preloader />
+                // ) : <Preloader />
             }
         </>
     );

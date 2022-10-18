@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import UserMessage from './components/UserMessage/UserMessage';
 import ReadMessage from './components/ReadMessage/ReadMessage';
 import UserAnalytics from './components/UserAnalytics/UserAnalytics';
+import SearchProduct from './components/SearchProduct/SearchProduct';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -63,6 +64,7 @@ function App() {
                         <Route index element={<HomeView />}/>
                         <Route path="category/:id" element={<ProductFilterView />} />
                         <Route path="product/:id" element={<ProductInformationView />} />
+                        <Route path="search" element={<SearchProduct />} />
                         <Route path="wishlist" element={<WishListView />} />
                         <Route path="cart" element={<ShoppingCartView />} />
                         <Route path="about" element={<AboutUsView />} />

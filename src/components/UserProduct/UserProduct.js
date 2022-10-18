@@ -228,10 +228,9 @@ function UserProduct() {
                         )) : <div>Товар відсутній</div>
                     }
                 </div>
-
-                <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
-
             </div>
+            
+            <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
         </div>
     );
 }

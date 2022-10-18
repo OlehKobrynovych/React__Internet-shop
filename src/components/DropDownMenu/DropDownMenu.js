@@ -63,10 +63,6 @@ function DropDownMenu() {
                     }
                 </ul>
 
-                <NavLink className="drop-down-menu__btn-wrap" to='#' onClick={handleClick}>
-                    <img className="drop-down-menu__btn-img" src={login} alt='img'/>
-                    <span className="drop-down-menu__btn-text">Вхід</span>
-                </NavLink>
                 <NavLink className="drop-down-menu__btn-wrap" to={`/${shop.name}/cart`} onClick={handleClick}>
                     <img className="drop-down-menu__btn-img" src={cart} alt='img'/>
                     <span className="drop-down-menu__btn-text">Кошик</span>

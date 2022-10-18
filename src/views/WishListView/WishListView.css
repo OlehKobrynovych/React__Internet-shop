@@ -48,7 +48,7 @@
   
 @media (min-width: 768px) {
     .wish-list__product-wrap {
-        flex-wrap: nowrap;
+        /* flex-wrap: nowrap; */
     }
 }
   

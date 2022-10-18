@@ -140,8 +140,11 @@
     scale: 1.03;
 }
    */
-.header__menu-link-wrap:hover .header__menu-link-dropdown {display: block;}
-/* .header__menu-link-wrap:focus .header__menu-link-dropdown {display: none;} */
+   /* .header__menu-link-wrap:focus .header__menu-link-dropdown {display: none;} */
+   
+.header__menu-link-wrap:hover .header__menu-link-dropdown {
+    display: block;
+}
   
 .header__wrap-btn {
     display: flex;

@@ -1,9 +1,8 @@
+import { useEffect, useState } from 'react';
 import SwiperCards from '../../components/SwiperCards/SwiperCards';
+import Preloader from '../../components/Preloader/Preloader';
 import './HomeView.css';
-
 import man from '../../assets/images/man.webp';
-import woman from '../../assets/images/woman.webp';
-import kids from '../../assets/images/kids.webp';
 import poshta from '../../assets/images/poshta.jpg';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,8 +13,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay} from "swiper";
 
-import { useEffect, useState } from 'react';
-import Preloader from '../../components/Preloader/Preloader';
 
 
 function HomeView() {
@@ -25,10 +22,11 @@ function HomeView() {
     const categories = useSelector(state => state.homeSlice.categories);
     const [productsNew, setProductsNew] = useState([]);
     const [productsOld, setProductsOld] = useState([]);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // debugger
-    // console.log(categories)
-    // const [mainSliderImages, setMainSliderImages] = useState([]);
+    // console.log(products)
+    // console.log(productsNew)
+    // console.log(productsOld)
     
     useEffect(() => {
         if (products.length) {
@@ -38,10 +36,10 @@ function HomeView() {
     }, [products])
    
     return (
-        <>
-            {
-                productsOld?.length ?
-                    (<div className="home-view hidden">
+        // <>
+        //     {
+                // productsOld?.length ?
+                    <div className="home-view hidden">
                         {
                             !!categories?.length && (
                                 <Swiper
@@ -55,13 +53,15 @@ function HomeView() {
                                     className="mySwiper"
                                 >
                                     {
-                                       categories.map(el => (<SwiperSlide key={el._id}><img className="home-view__swiper-img" src={el.image_url} alt='img'/></SwiperSlide>))
+                                       categories.map(el => el.image_url ? (<SwiperSlide key={el._id}><img className="home-view__swiper-img" src={el.image_url} alt='img'/></SwiperSlide>) : "" )
                                     }
                                 </Swiper>
                             )
                         }
 
-                        <SwiperCards title={selectedLanguage?.homePage?.titleSwiperNew} products={productsOld}/>
+                        {
+                            !!productsOld.length && <SwiperCards title={selectedLanguage?.homePage?.titleSwiperNew} products={productsOld}/>
+                        }   
 
                         <div className="home-view__images-wrap container">
                             {
@@ -95,12 +95,13 @@ function HomeView() {
                         </div>
                         
                         {
-                            productsNew.length && (<SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} products={productsNew}/>)
+                            !!productsNew.length && (<SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} products={productsNew}/>)
                         }
                         
-                    </div>) : (<Preloader/>) 
-            }
-        </>
+                    </div>
+                    // : (<Preloader/>) 
+        //     }
+        // </>
     );
 }
 

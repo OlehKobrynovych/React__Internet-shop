@@ -177,25 +177,25 @@ function ProductInformationView() {
                             </div>
                             
                             <div className="product-information__wrap-info">
-                                <h2 className="product-information__title">{product?.name}</h2>
+                                <h2 className="product-information__title">Назва:&nbsp;{product?.name}</h2>
 
                                 <div className="product-information__price-wrap">
-                                    <span className={`product-information__price ${product.new_price ? "product-information__price-old" : ""}`}>{product?.price}{shop.currency}</span>
+                                    <span className={`product-information__price ${product.new_price ? "product-information__price-old" : ""}`}>Ціна:&nbsp;{product?.price}{shop.currency}</span>
                                     {
                                         product?.new_price !== 0 ? (<span className="product-information__new-price">{product.new_price}{shop.currency}</span>) : ""
                                     }
                                 </div>
                                 
                                 {
-                                    product?.sizes &&  (<p className="product-information__size"><b>{selectedLanguage?.productPage?.productSizeTitle}</b>(&nbsp;{product.sizes.join(' ')}&nbsp;)</p>)
+                                    !!product?.sizes.length &&  (<p className="product-information__size"><b>{selectedLanguage?.productPage?.productSizeTitle}</b>(&nbsp;{product.sizes.join(' ')}&nbsp;)</p>)
                                 }
                                 
                                 {
-                                    product?.colors &&  (<p className="product-information__size"><b>{selectedLanguage?.productPage?.productColorsTitle}</b>(&nbsp;{product.colors.join(' ')}&nbsp;)</p>)
+                                    !!product?.colors.length &&  (<p className="product-information__size"><b>{selectedLanguage?.productPage?.productColorsTitle}</b>(&nbsp;{product.colors.join(' ')}&nbsp;)</p>)
                                 }
                                 
                                 {
-                                    product?.details && (<div className="product-information__description"><p><b>{selectedLanguage?.productPage?.productDescriptionTitle}</b></p><p>{product.details}</p></div>)
+                                    !!product?.details.length && (<div className="product-information__description"><p><b>{selectedLanguage?.productPage?.productDescriptionTitle}</b></p><p>{product.details}</p></div>)
                                 }
 
                                 <button className="product-information__btn-cart" onClick={handleAddFavoriteProduct}>

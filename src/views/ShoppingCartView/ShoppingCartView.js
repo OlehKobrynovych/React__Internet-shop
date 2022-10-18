@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import QuantityProduct from '../../components/QuantityProduct/QuantityProduct';
 
 import deleteImg from '../../assets/images/deleteImg.svg';
+import noPhotos from '../../assets/images/noPhotos.svg';
 import { setShoppingProduct } from '../../store/homeSlice';
 
 
@@ -26,6 +27,7 @@ function ShoppingCartView() {
     const [checkboxForm, setCheckboxFor] = useState(false);
     const [isSubmitError, setIsSubmitError] = useState(false);
     // const datas = useSelector(state => state.homeSlice.datas);
+    
 
     useEffect(() => {
         setTotalPrice(shoppingProduct.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
@@ -78,7 +80,7 @@ function ShoppingCartView() {
                            shoppingProduct.map(el => (
                                 <div className="shopping-cart__pdoduct" key={el._id}>
                                     <div className="shopping-cart__pdoduct-info-wrap">
-                                        <img className="shopping-cart__pdoduct-img" onClick={() => handleClick(el._id)} src={el.images[0]} alt='img'/>
+                                        <img className="shopping-cart__pdoduct-img" onClick={() => handleClick(el._id)} src={el.images[0]?.length ? el.images[0] : noPhotos} alt='img'/>
                                         <div className="shopping-cart__pdoduct-info">
                                             <div className="shopping-cart__pdoduct-info-title">{el.name}</div>
                                         </div>

@@ -23,9 +23,9 @@ function Footer() {
     //     setIsOpen(!isOpen)
     // };
 
-    useEffect(() => {
-        setShopCategories(categories.filter(el => el.parent_id == 'null'))
-    }, [categories])
+    // useEffect(() => {
+    //     setShopCategories(categories.filter(el => el.parent_id == 'null'))
+    // }, [categories])
    
     return (
         <div className="footer hidden">
@@ -55,11 +55,13 @@ function Footer() {
                     <div className="footer__bottom container">
                         <div className="footer__bottom-info">
                             <div className="footer__bottom-social">
-                                <NavLink className="footer__bottom-social-logo" to={`/${shop.name}`}><img src={shop.logo} alt='img' /></NavLink>
+                                {
+                                    shop?.logo && <NavLink className="footer__bottom-social-logo" to={`/${shop.name}`}><img src={shop.logo} alt='img' /></NavLink>
+                                }
                                 <NavLink className="footer__bottom-social-about" to={`/${shop.name}/about`}>{selectedLanguage?.footer?.aboutMenuTitle}</NavLink>
                                 <div className="footer__bottom-social-link-wrap">
-                                    <a className="footer__bottom-social-link" href={datas.shopInfo.facebook} target='_blank'><img src={facebook} alt='img' /></a>
-                                    <a className="footer__bottom-social-link" href={datas.shopInfo.instagram} target='_blank'><img src={instagram} alt='img' /></a>
+                                    <a className="footer__bottom-social-link" href={shop?.facebook_url ? shop.facebook_url : '#'} target='_blank'><img src={facebook} alt='img' /></a>
+                                    <a className="footer__bottom-social-link" href={shop?.instagram_url ? shop.instagram_url : '#'} target='_blank'><img src={instagram} alt='img' /></a>
                                 </div>
                             </div>
 
@@ -67,16 +69,22 @@ function Footer() {
                                 <div className="footer__bottom-catalog-title">{selectedLanguage?.footer?.catalogTitle}</div>
                                     <ul className="footer__bottom-catalog-link-wrap">
                                         {
-                                            !!shopCategories.length && shopCategories.map(category => (<li key={category._id}><NavLink to={`/${shop.name}/category/${category._id}`}>{category.name}</NavLink></li>))  
+                                            !!categories.length && categories.map(category => (<li key={category._id}><NavLink to={`/${shop.name}/category/${category._id}`}>{category.name}</NavLink></li>))  
                                         }
                                     </ul>
                             </div>
 
                             <div className="footer__bottom-contact">
                                 <div className="footer__bottom-contact-title">{selectedLanguage?.footer?.contactTitle}</div>
-                                <p className="footer__bottom-contact-adres">{datas.shopInfo.location}</p>
-                                <a className='footer__bottom-contact-tel' href="tel:+380673804111">{datas.shopInfo.contact_number}</a>
-                                <a className='footer__bottom-contact-tel' href="tel:+380673804111">{datas.shopInfo.contact_number_two}</a>
+                                {
+                                    !!shop?.location?.length && <p className="footer__bottom-contact-adres">{shop.location}</p>
+                                }
+                                {
+                                    !!shop?.contact_number?.length && <a className='footer__bottom-contact-tel' href="tel:+380673804111">{shop.contact_number}</a>
+                                }
+                                {
+                                    !!shop?.contact_number_two?.length && <a className='footer__bottom-contact-tel' href="tel:+380673804111">{shop.contact_number_two}</a>
+                                }
                                 <button className='footer__bottom-contact-btn'>{selectedLanguage?.footer?.callMeBack}</button>
                             </div>
                         </div>

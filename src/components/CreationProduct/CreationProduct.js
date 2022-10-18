@@ -134,7 +134,7 @@ function CreationProduct() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "top-right",
+                        position: "bottom-left",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -177,7 +177,7 @@ function CreationProduct() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "top-right",
+                        position: "bottom-left",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -224,7 +224,7 @@ function CreationProduct() {
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(1) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Введіть ім'я товару.</p>
+                    <p>Введіть ім'я товару. Товар без назви, категорії і ціни не буде відображатись в Вашому магазині.</p>
                 </div>
 
                 <div className="creation-product__section">
