@@ -5,12 +5,231 @@
 .user-message--wrap {
     margin-top: 30px;
     margin-bottom: 30px;
+    height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.user-message__title {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
 
+.user-message__filter {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 15px;
+    padding:10px 15px;
+    margin-top: 15px;
+    margin-bottom: 15px; 
+    box-shadow: 5px 5px 30px rgb(0 0 0 / 26%);
+}
+
+.user-message__filter-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-message__filter-select-all-btn {
+    display: inline-block;
+    position: relative;
+    width: 17px;
+    height: 17px;
+    border: 2px solid #000;
+    flex: 0 0 auto;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.user-message__filter-select-all-btn-check {
+    width: 9px;
+    height: 5px;
+    border-bottom: 2px solid #000;
+    border-left: 2px solid #000;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transform: translate(-50%, -50%);
+    transform: rotate(-45deg);
+}
+
+.user-message__filter-select-all-btn:hover {
+    background-color: rgb(161, 157, 157);
+}
+
+.user-message__item-btn {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    flex: 0 0 auto;  
+    cursor: pointer;
+}
+
+.user-message__item-delete-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 3px;
+    transition: .3s;
+}
+
+.user-message__item-delete-btn:hover {
+    background-color: rgb(161, 157, 157);
+}
+
+.user-message__filter-sort-wrap {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ser-message__filter-sort-title {
+
+}
+
+.user-message__filter-sort-btn-wrap {
+    padding: 3px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+}
+
+.user-message__filter-sort-btn-wrap:hover {
+    background: #a9b5c2;
+}
+
+.user-message__filter-sort-btn {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    /* flex: 0 0 auto;   */
+    cursor: pointer;
+}
+
+.user-message__items {
+
+}
+
+.user-message__item {
+    padding:10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-shadow: 2px 1px 3px rgb(0 0 0 / 52%);
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.user-message__item:hover {
+    box-shadow: 5px 4px 6px rgb(0 0 0 / 92%);
+}
+
+.user-message__item-select-btn {
+    position: relative;
+    width: 17px;
+    height: 17px;
+    border: 2px solid #000;
+    flex: 0 0 auto;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.user-message__item-select-btn-check {
+    width: 9px;
+    height: 5px;
+    border-bottom: 2px solid #000;
+    border-left: 2px solid #000;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transform: translate(-50%, -50%);
+    transform: rotate(-45deg);
+}
+
+.user-message__item-select-btn:hover {
+    background-color: rgb(161, 157, 157);
+}
+
+.user-message__item-stars {
+    width: 25px;
+    height: 25px;
+    flex: 0 0 auto;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.user-message__item-stars-is-favorite {
+    fill: rgb(250, 15, 15);
+}
+
+.user-message__item-stars:hover {
+    fill: rgb(250, 15, 15);
+}
+
+.user-message__item-name-wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10px;
+    flex: 1 1 auto;
+    overflow: hidden;
+    width: 160px;
+}
+
+.user-message__item-name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    font-weight: 700;
+}
+
+.user-message__item-text-wrap {
+    display: none;
+    margin-right: 10px;
+    flex: 1 1 auto;
+    overflow: hidden;
+    width: 100%;
+}
+
+.user-message__item-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}
+
+@media (min-width: 400px) {
+    .user-message__filter {
+        flex-direction: row;
+        align-items: center;
+    } 
+    .user-message__filter-sort-wrap {
+        margin-left: 30px;
+    }
+}
 
 @media (min-width: 576px) {
+    .user-message__item-name-wrap {
+        flex: 0 0 auto;
+    }
 
+    .user-message__item-text-wrap {
+        display: block;
+    }
 }
 
 @media (min-width: 768px) {

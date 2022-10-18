@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 
 
 function CreationShop() {
-    // const [isOpenMenu, setIsOpenMenu] = useState(false);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
@@ -26,8 +25,8 @@ function CreationShop() {
     const [checkedLanguage, setCheckedLanguage] = useState('');
     const [currency, setCurrency] = useState('');
     const [logo, setLogo] = useState('');
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    // const navigate = useNavigate();
 
     // console.log(user)
 
@@ -90,8 +89,8 @@ function CreationShop() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        // localStorage.setItem('auth', JSON.stringify(res.data));
                         console.log('PUT CreationShop:', res)
+                        dispatch(setShop(data));
                         toast.success('Дані оновлено', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -144,7 +143,6 @@ function CreationShop() {
                             progress: undefined,
                             theme: "light",
                         })
-                        // localStorage.setItem('auth', JSON.stringify(res.data));
                     } else {
                         console.log('POST CreationShop', res)
                     }

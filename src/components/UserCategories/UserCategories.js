@@ -1,36 +1,34 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { setCategories, setIsCleanInput, setIsNeedUpdateCategories } from '../../store/userSlice';
+import { getCategories, setCategories, setIsCleanInput, setIsNeedUpdateCategories, setRemoveCategory, setRemoveSubCategory, setSubCategories, setUpdataCategory } from '../../store/userSlice';
 import './UserCategories.css';
 import man from '../../assets/images/man.webp';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import editIcon from '../../assets/images/editIcon.svg';
-import kids from '../../assets/images/kids.webp';
+// import kids from '../../assets/images/kids.webp';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import CardInput from '../CardInput/CardInput';
 import { toast } from 'react-toastify';
 import noPhotos from '../../assets/images/noPhotos.svg';
 
 function UserCategories() {
-    // let { userId } = useParams();
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
     const isCleanInput = useSelector(state => state.userSlice.isCleanInput);
-    const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
     const [isModalDelCategory, setIsModalDelCategory] = useState(false);
     const [isModalDelSubCategory, setIsModalDelSubCategory] = useState(false);
     const [isModalEditSubCategory, setIsModalEditSubCategory] = useState(false);
     const [isOpenInfo, setIsOpenInfo] = useState([]);
-    const [deleteId, setDeleteId] = useState('');
+    const [deleteId, setDeleteId] = useState({});
     const [deleteCategory, setDeleteCategory] = useState({});
-    const [editSubCategory, setEditSubCategory] = useState({});
+    const [editCategory, setEditCategory] = useState({});
     const [errorCreateText, setErrorCreateText] = useState('');
     const [name, setName] = useState('');
     const [image_url, setImage_url] = useState('');
     const [subCategory, setSubCategory] = useState('');
     const dispatch = useDispatch();
+    // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
     
     // console.log(categories)
 
@@ -56,8 +54,8 @@ function UserCategories() {
                     .then(res => res.json())
                     .then(res => {
                         if (res.success && res.data) {
-                            // console.log(res)
-                            dispatch(setCategories(res.data))
+                            // console.log('POST UserCategories:', res)
+                            dispatch(setCategories({...res.data, sub_categories: []}))
                             toast.success('Категорію створено', {
                                 position: "bottom-right",
                                 autoClose: 2500,
@@ -92,7 +90,6 @@ function UserCategories() {
             setErrorCreateText('Спершу потрібно створити магазин')
         }
         
-        
         setName('')
         setImage_url('')
     }
@@ -117,9 +114,8 @@ function UserCategories() {
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
-                    // console.log(res)
-                    dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
-                    dispatch(setIsCleanInput(!isCleanInput))
+                    console.log(res)
+                    dispatch(setSubCategories(res.data))
                     toast.success('Підкатегорію створено', {
                         position: "bottom-right",
                         autoClose: 2500,
@@ -149,6 +145,7 @@ function UserCategories() {
             })
         
         setSubCategory('')
+        dispatch(setIsCleanInput(!isCleanInput))
     }
 
     const handleHelpOpen = (num) => {
@@ -164,14 +161,17 @@ function UserCategories() {
         setDeleteCategory(obj)
     }
 
-    const handleDeleteSubCategories = (id) => {
+    const handleDeleteSubCategories = (categoryId, subCategoryId ) => {
         setIsModalDelSubCategory(true)
-        setDeleteId(id)
+        setDeleteId({
+            categoryId: categoryId,
+            subCategoryId: subCategoryId
+        })
     }
     
     const handleEditCategories = (obj) => {
         setIsModalEditSubCategory(true)
-        setEditSubCategory(obj)
+        setEditCategory(obj)
     }
    
     const handleIsDeleteCategory = (boolean) => {
@@ -180,7 +180,7 @@ function UserCategories() {
                 token: user.token,
             }
 
-            deleteCategory.sub_categories.map(el => {
+            deleteCategory?.sub_categories?.map(el => {
                 fetch(`http://localhost:3000/api/categories/${el._id}`, {
                     method: 'DELETE',
                     headers: {
@@ -213,6 +213,7 @@ function UserCategories() {
                     .then(res => {
                         if (res.success && res.data) {
                             console.log('del', res)
+                            dispatch(setRemoveCategory(deleteCategory._id))
                             toast.success('Категорія видалена', {
                                 position: "bottom-right",
                                 autoClose: 2500,
@@ -240,12 +241,10 @@ function UserCategories() {
                             theme: "light",
                         });
                     })
-
-            dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
         } 
-        
+                
         setIsModalDelCategory(false)
-        setDeleteCategory('')
+        setDeleteCategory({})
     }
 
     const handleIsDeleteSubCategory = (boolean) => {
@@ -254,7 +253,7 @@ function UserCategories() {
                 token: user.token,
             }
 
-            fetch(`http://localhost:3000/api/categories/${deleteId}`, {
+            fetch(`http://localhost:3000/api/categories/${deleteId.subCategoryId}`, {
                 method: 'DELETE',
                 headers: {
                 'Content-Type': 'application/json',
@@ -265,7 +264,7 @@ function UserCategories() {
                 .then(res => {
                     if (res.success && res.data) {
                         // console.log('del', res)
-                        dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
+                        dispatch(setRemoveSubCategory(deleteId))
                         toast.success('Підкатегорія видалена', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -296,21 +295,21 @@ function UserCategories() {
         } 
         
         setIsModalDelSubCategory(false)
-        setDeleteId('')
+        setDeleteId({})
     }
   
-    const handleIsEditSubCategory = (boolean) => {
+    const handleIsEditCategory = (boolean) => {
         if (boolean) {
             const data = {
-                id: new Date().toString(),
+                id: editCategory.id,     
                 name: subCategory,
-                image_url: '',
-                parent_id: editSubCategory.parent_id,
-                shop_id: shop._id,
+                image_url: editCategory.image_url,
+                parent_id: editCategory.parent_id,
+                shop_id: editCategory.shop_id,
                 token: user.token,
             }
 
-            fetch(`http://localhost:3000/api/categories/${editSubCategory._id}`, {
+            fetch(`http://localhost:3000/api/categories/${editCategory._id}`, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json',
@@ -320,8 +319,7 @@ function UserCategories() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        // console.log('edit', res)
-                        dispatch(setIsNeedUpdateCategories(!isNeedUpdateCategories))
+                        dispatch(setUpdataCategory({...editCategory, name: subCategory}))
                         toast.success('Назва змінена', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -352,7 +350,7 @@ function UserCategories() {
         } 
         
         setIsModalEditSubCategory(false)
-        setEditSubCategory({})
+        setEditCategory({})
         setSubCategory('')
     }
   
@@ -368,7 +366,7 @@ function UserCategories() {
             }
             
             {
-                isModalEditSubCategory && <ModalWindow title={'Редагувати категорію?'}  text={'Введіть нову назву'} handleClick={handleIsEditSubCategory} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
+                isModalEditSubCategory && <ModalWindow title={'Редагувати категорію?'}  text={'Введіть нову назву'} handleClick={handleIsEditCategory} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
                                             <CardInput handleChange={setSubCategory}/>
                                           </ ModalWindow>
             }
@@ -419,7 +417,7 @@ function UserCategories() {
                         <div className="user-categories__cards">
                             {
                                 categories.map(el => (
-                                    <div className="user-categories__card" key={el._id}>
+                                    <div className="user-categories__card" key={el?._id}>
                                         {
                                             // el?.image_url ? <img className="user-categories__card-img" src={el?.image_url} alt='img'/>
                                             el?.image_url ? <img className="user-categories__card-img" src={man} alt='img'/>
@@ -427,7 +425,7 @@ function UserCategories() {
                                         }
                                         <div className="user-categories__card-info">
                                             <div className="user-categories__card-title-wrap">
-                                                <div className="user-categories__card-title"><b>Назва категорії:</b> {el.name}</div>
+                                                <div className="user-categories__card-title"><b>Назва категорії:</b> {el?.name}</div>
                                                 <div className="user-categories__card-title-btn-wrap">
                                                     <img className="user-categories__card-title-btn" onClick={() => handleEditCategories(el)} src={editIcon} alt='img'/>
                                                     <img className="user-categories__card-title-btn" onClick={() => handleDeleteCategories(el)} src={deleteImg} alt='img'/>
@@ -448,7 +446,7 @@ function UserCategories() {
                                                             <div>{subCategories.name}</div>
                                                             <div className='user-categories__card-sub-category-btn-wrap'>
                                                                 <img className='user-categories__card-sub-category-btn' onClick={() => handleEditCategories(subCategories)} src={editIcon} alt='img'/>
-                                                                <img className='user-categories__card-sub-category-btn' onClick={() => handleDeleteSubCategories(subCategories._id)} src={deleteImg} alt='img'/>
+                                                                <img className='user-categories__card-sub-category-btn' onClick={() => handleDeleteSubCategories(el._id, subCategories._id)} src={deleteImg} alt='img'/>
                                                             </div>
                                                         </li>
                                                     ))

@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './CreationProduct.css';
-import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditProduct, setIsCleanInput, setIsNeedUpdateProducts, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
+import { setEditProduct, setIsCleanInput, setProduct, setUpdataProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
-import CreationShop from '../CreationShop/CreationShop';
-import Preloader from '../Preloader/Preloader';
 import CardInput from '../CardInput/CardInput';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -31,13 +28,8 @@ function CreationProduct() {
     const [userColors, setUserColors] = useState('');
     const [userSizes, setUserSizes] = useState('');
     const [userImages, setUserImages] = useState('');
-    // const [errorCreateText, setErrorCreateText] = useState('');
-    // const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
-    const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
-    const isNeedUpdateProducts = useSelector(state => state.userSlice.isNeedUpdateProducts);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     // console.log(categories)
 
     useEffect(() => {
@@ -123,7 +115,8 @@ function CreationProduct() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        // console.log(res)
+                        console.log(res)  
+                        dispatch(setUpdataProduct({...data, _id: editProduct._id}))
                         toast.success('Дані оновлено', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -165,7 +158,8 @@ function CreationProduct() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        // console.log(res)
+                        console.log(res)
+                        dispatch(setProduct(res.data))
                         toast.success('Товар створено', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -176,7 +170,6 @@ function CreationProduct() {
                             progress: undefined,
                             theme: "light",
                         })
-                        dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))
                     } else {
                         console.log('POST CreationProduct', res)
                     }
@@ -204,7 +197,6 @@ function CreationProduct() {
         setDetails('')
         setColors([])
         setSizes([])
-        dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))   // ????
         navigate(`/auth/${user._id}/product`)
     }
 

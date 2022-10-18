@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import './UserProduct.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditProduct, setIsCleanInput, setIsNeedUpdateProducts, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
+import { getProducts, setEditProduct, setRemoveProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
 
@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { toast } from 'react-toastify';
-import ReactPaginate from 'react-paginate';
+import PaginationItems from '../PaginationItems/PaginationItems';
 
 
 function UserProduct() {
@@ -22,49 +22,23 @@ function UserProduct() {
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
     const products = useSelector(state => state.userSlice.products);
-    const isNeedUpdateProducts = useSelector(state => state.userSlice.isNeedUpdateProducts);
     const [isModalDelProduct, setIsModalDelProduct] = useState(false);
     const [deleteId, setDeleteId] = useState('');
     const [seachName, setSeachName] = useState('');
     const [filterProducts, setFilterProducts] = useState([]);
     const [selectedSort, setSelectedSort] = useState('Всі товари');
-    // const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
-    // const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // console.log(categories)
+    
+    const [currentPaginationItems, setCurrentPaginationItems] = useState(null);
 
-    const itemsPerPage = 2;                            // кількість карток на сторінці 
-    const [currentProducts, setcurrentProducts] = useState(null);
-    const [pageCount, setPageCount] = useState(0);
-    const [itemOffset, setItemOffset] = useState(0);
-    // const [itemOffset1, setItemOffset1] = useState(0);
-    console.log(currentProducts)
-    console.log(pageCount)
-    console.log(itemOffset)
-
-    useEffect(() => {
+     useEffect(() => {
         setFilterProducts([...products])
-        // if (!currentProducts?.length) {
-        //     setcurrentProducts(filterProducts.slice(0, itemsPerPage));
-        //     setItemOffset(0)
-        // }
-    }, [products, isNeedUpdateProducts]);
-    
-    useEffect(() => {
-      const endOffset = itemOffset + itemsPerPage;
-      setcurrentProducts(filterProducts.slice(itemOffset, endOffset));
-      setPageCount(Math.ceil(filterProducts.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage, products, isNeedUpdateProducts, filterProducts]);
-    
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % filterProducts.length;
-        setItemOffset(newOffset);
-    };
-    
+    }, [products]);
 
-
-
+    
+    // фільтрація щоб працювала тільки після натиску на ентер
     // const handleSearchProduct = (e) => {
     //     if(e.key === 'Enter'){
     //     let res = products.filter(el => el.name.toUpperCase().includes(seachName.toUpperCase()))
@@ -74,8 +48,13 @@ function UserProduct() {
     // }
 
     useEffect(() => {
-        let res = products.filter(el => el.name.toUpperCase().includes(seachName.toUpperCase()))
-        setFilterProducts(res) 
+        if (!seachName.length) {
+            setFilterProducts(products) 
+        } else {
+            let res = products.filter(el => el.name.toUpperCase().includes(seachName.toUpperCase()))
+            console.log(res)
+            setFilterProducts(res) 
+        }
     }, [seachName]);
     
     useEffect(() => {
@@ -112,8 +91,8 @@ function UserProduct() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        // console.log('del', res)
-                        dispatch(setIsNeedUpdateProducts(!isNeedUpdateProducts))
+                        console.log('del', res)
+                        dispatch(setRemoveProduct(deleteId))
                         toast.success('Товар видалено', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -193,7 +172,7 @@ function UserProduct() {
 
                 <div className='user-product__cards'>
                     {
-                        !!currentProducts?.length && currentProducts.map(el => (
+                        currentPaginationItems?.length ? currentPaginationItems.map(el => (
                             <div className='user-product__card' key={el._id}>
                                 <div className='user-product__card-wrap'>
                                     <div className="user-product__card-swiper-wrap">
@@ -208,7 +187,6 @@ function UserProduct() {
                                             {
                                                 !!el?.images?.length ? el?.images.map(image => <SwiperSlide key={image}><img className="user-product__card-swiper-img" src={image} alt='img'/></SwiperSlide>)
                                                  : <img className="user-product__card-swiper-img-none" src={noPhotos} alt='img'/> 
-                                                
                                             }
                                         </Swiper>
                                     </div>
@@ -247,31 +225,12 @@ function UserProduct() {
                                     <img className='user-product__card-btn' onClick={() => handleDeleteProduct(el._id)} src={deleteImg} alt='img'/>
                                 </div>
                             </div>
-                        ))
+                        )) : <div>Товар відсутній</div>
                     }
                 </div>
 
-                <ReactPaginate
-                    breakLabel="..."
-                    nextLabel="вперед >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={pageCount}
-                    previousLabel="< назад"
-                    // renderOnZeroPageCount={undefined}
-                    // renderOnZeroPageCount={handlePageClick1}
-                    // forcePage={itemOffset1}
-                    // initialPage={itemOffset1 ? 0 : 1}
-                    // renderOnZeroPageCount={handlePageClick1}
-                    previousClassName='user-product__paginate-previous-btn'
-                    nextClassName='user-product__paginate-next-btn'
-                    pageClassName='user-product__paginate-li-wrap'
-                    pageLinkClassName='user-product__paginate-li-link'
-                    activeClassName='user-product__paginate-item-active'
-                    containerClassName='user-product__container-paginate'
-                    nextLinkClassName='user-product__paginate-next-btn-link'
-                    previousLinkClassName='user-product__paginate-previous-btn-link'
-                />
+                <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
+
             </div>
         </div>
     );

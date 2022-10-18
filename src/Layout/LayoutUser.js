@@ -15,28 +15,14 @@ function LayoutUser() {
     const [isModalWindow, setModalWindow] = useState(false);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
-    const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
-    const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
-    const isNeedUpdateProducts = useSelector(state => state.userSlice.isNeedUpdateProducts);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const navigate = useNavigate();
     // let { userId } = useParams();
+    // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
     // console.log(shop)
 
     useEffect(() => {
-        // fetch('http://localhost:3000/api/products/all')
-        // .then(res => res.json())
-        // .then(res => {
-        //     if (res.success && res.data.length) {
-        //         dispatch(getProducts(res.data));
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.error('Error:', error);
-        // })
-
-
         if (!user.email) {
             let auth = JSON.parse(localStorage.getItem('auth'));
             if (auth?.email) {
@@ -58,7 +44,7 @@ function LayoutUser() {
             if (res.success && res.data) {
                 let res1 = res.data.find(el => el.owner_id == user._id)
                 if (res1?.name) {
-                    // console.log(res1)
+                    console.log('asdasdasd', res1)
                     dispatch(setShop(res1));
                     dispatch(setIsNeedCreateShop(false));
                 } else {
@@ -71,10 +57,7 @@ function LayoutUser() {
         .catch((error) => {
             console.error('Error:', error);
         })
-        .finally(() => {
-            // setIsLoading(false);
-        });
-    }, [user, isNeedUpdateShop])
+    }, [user])
     
     useEffect(() => {
         fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
@@ -82,6 +65,7 @@ function LayoutUser() {
             .then(res => {
                 if (res.success && res.data) {
                     dispatch(getCategories(res.data));
+                    // console.log('GET LayoutUser:', res)
                 } else {
                     console.log('GET LayoutUser:', res)
                 }
@@ -89,7 +73,7 @@ function LayoutUser() {
             .catch((error) => {
                 console.error('Error:', error);
             })
-    }, [shop, isNeedUpdateCategories])
+    }, [shop])
    
     useEffect(() => {
         fetch(`http://localhost:3000/api/products/${shop._id}/all`)
@@ -105,7 +89,7 @@ function LayoutUser() {
             .catch((error) => {
                 console.error('Error:', error);
             })
-    }, [shop, isNeedUpdateProducts])
+    }, [shop])
 
     const handleResize = () => {
         if (window.innerWidth < 768) {
@@ -136,6 +120,7 @@ function LayoutUser() {
                 <div className={`layout-user__sidenav ${!isOpenMenu ? "layout-user__sidenav--open" : "layout-user__sidenav--close"}`}>
                     <div className="layout-user__sidenav-btn-wrap"><b onClick={() => openNav()} className="layout-user__sidenav-btn">&times;</b></div>
                     <h3 className='layout-user__sidenav-title'>Назва сайту</h3>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/`}>Аналітика</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false)) }>Магазин</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>Товар</NavLink>
@@ -153,8 +138,8 @@ function LayoutUser() {
 
                         <div className='layout-user__header-btn--wrap'>
                             <div className='layout-user__header-btn-message'>
-                                <img className='layout-user__header-btn-message-img' src={bell} alt='img' />
-                                <div className='layout-user__header-btn-message-circle'></div>
+                                <NavLink to={`/auth/${user._id}/message`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
+                                <div className='layout-user__header-btn-message-circle'>2</div>
                             </div>
 
                             <NavLink to={`/auth/${user._id}`} className='layout-user__header-avatar-wrap'>

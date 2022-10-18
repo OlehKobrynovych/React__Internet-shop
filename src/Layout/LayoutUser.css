@@ -157,12 +157,17 @@
 
 .layout-user__header-btn-message-circle {
     position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 13px;
-    height: 13px;
+    top: -15px;
+    right: -16px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background-color: #0d48ac;
+    font-size: 11px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .layout-user__header-avatar-wrap {
