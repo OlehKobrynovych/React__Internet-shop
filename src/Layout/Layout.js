@@ -16,35 +16,22 @@ function Layout() {
     let { shopName } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-// console.log(shopName)
+// console.log(shop)
     // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
     useEffect(() => {
-        
-         fetch('http://localhost:3000/api/shops/all')
-         .then(res => res.json())
-         .then(res => {
-             if (res.success && res.data.length) {
-                 let res1 = res.data.find(el => el.name == shopName)
-                if (res1?.name) {
-                    fetch(`http://localhost:3000/api/shops/${res1._id}`)
-                    .then(res2 => res2.json())
-                    .then(res2 => {
-                        if (res2.success && res2.data._id) {
-                            dispatch(setShop(res2.data));
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    })
+        fetch(`http://localhost:3000/api/shops/${shopName}/name`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data._id) {
+                    dispatch(setShop(res.data));
                 } else {
-                    navigate('/')
+                    navigate('/')           // ?????? не працює
                 }
-             }
-         })
-         .catch((error) => {
-             console.error('Error:', error);
-         })
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
     }, [])
 
     useEffect(() => {

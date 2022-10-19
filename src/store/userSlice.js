@@ -5,6 +5,7 @@ const initialState = {
   shop: {},
   categories: [],
   products: [],
+  purchases: [],
   editProduct: {},
   isNeedCreateShop: false,
   isNeedUpdateShop: false,
@@ -28,6 +29,9 @@ export const userSlice = createSlice({
     },
     getProducts: (state, action) => {
       state.products = action.payload;
+    },
+    getPurchases: (state, action) => {
+      state.purchases = action.payload;
     },
     setCategories: (state, action) => {
       state.categories = [...state.categories, action.payload];
@@ -103,6 +107,6 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setUser, setShop, getCategories, getProducts, setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput } = userSlice.actions
+export const { setUser, setShop, getCategories, getProducts, getPurchases, setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput } = userSlice.actions
 
 export default userSlice.reducer

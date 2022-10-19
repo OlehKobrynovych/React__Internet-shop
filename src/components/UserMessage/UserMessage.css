@@ -212,6 +212,13 @@
     width: 100%;
 }
 
+.user-message__error-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
 @media (min-width: 400px) {
     .user-message__filter {
         flex-direction: row;

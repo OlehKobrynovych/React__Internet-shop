@@ -13,6 +13,7 @@ function LayoutUser() {
 
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [isModalWindow, setModalWindow] = useState(false);
+    const [messageLength, setMessageLength] = useState(null);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const dispatch = useDispatch();
@@ -27,6 +28,25 @@ function LayoutUser() {
             let auth = JSON.parse(localStorage.getItem('auth'));
             if (auth?.email) {
                 dispatch(setUser(auth))
+
+                fetch('http://localhost:3000/api/shops/all')
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.success && res.data) {
+                            let res1 = res.data.find(el => el.owner_id == auth._id)
+                            if (res1?.name) {
+                                dispatch(setShop(res1));
+                                dispatch(setIsNeedCreateShop(false));
+                            } else {
+                                dispatch(setIsNeedCreateShop(true));
+                            } 
+                        } else {
+                            console.log('GET LayoutUser:', res)
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    })
             } else {
                 navigate('/auth/login')
             }
@@ -38,57 +58,37 @@ function LayoutUser() {
     }, [])
     
     useEffect(() => {
-        fetch('http://localhost:3000/api/shops/all')
-        .then(res => res.json())
-        .then(res => {
-            if (res.success && res.data) {
-                let res1 = res.data.find(el => el.owner_id == user._id)
-                if (res1?.name) {
-                    dispatch(setShop(res1));
-                    dispatch(setIsNeedCreateShop(false));
-                } else {
-                    dispatch(setIsNeedCreateShop(true));
-                } 
-            } else {
-                console.log('GET LayoutUser:', res)
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        })
-    }, [user])
-    
-    useEffect(() => {
-        fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    dispatch(getCategories(res.data));
-                    // console.log('GET LayoutUser:', res)
-                } else {
-                    console.log('GET LayoutUser:', res)
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+        if (shop._id) {
+            fetch(`http://localhost:3000/api/purchases/${shop._id}/number?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        setMessageLength(res.data)
+                    } else {
+                        console.log('GET LayoutUser:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        }
     }, [shop])
-   
-    useEffect(() => {
-        fetch(`http://localhost:3000/api/products/${shop._id}/all`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    // console.log(res)
-                    dispatch(getProducts(res.data));
-                } else {
-                    console.log('GET LayoutUser:', res)
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
-    }, [shop])
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:3000/api/products/${shop._id}/all`)
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             if (res.success && res.data) {
+    //                 // console.log(res)
+    //                 dispatch(getProducts(res.data));
+    //             } else {
+    //                 console.log('GET LayoutUser:', res)
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error:', error);
+    //         })
+    // }, [shop])
 
     const handleResize = () => {
         if (window.innerWidth < 768) {
@@ -138,7 +138,9 @@ function LayoutUser() {
                         <div className='layout-user__header-btn--wrap'>
                             <div className='layout-user__header-btn-message'>
                                 <NavLink to={`/auth/${user._id}/message`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
-                                <div className='layout-user__header-btn-message-circle'>2</div>
+                                {
+                                    messageLength && <div className='layout-user__header-btn-message-circle'>{messageLength}</div>
+                                }
                             </div>
 
                             <NavLink to={`/auth/${user._id}`} className='layout-user__header-avatar-wrap'>

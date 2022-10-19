@@ -32,6 +32,24 @@ function UserCategories() {
     
     // console.log(categories)
 
+     useEffect(() => {
+         if (shop._id) {
+            fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    dispatch(getCategories(res.data));
+                    // console.log('GET UserCategories:', res)
+                } else {
+                    console.log('GET UserCategories:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+         }
+    }, [shop])
+
     const handleCreateCategory = () => {
         if (shop.name) {
             if (categories.length < 5) {
@@ -73,7 +91,7 @@ function UserCategories() {
                     .catch((error) => {
                         console.error('Error:', error);
                         toast.error('Сталася помилка', {
-                            position: "bottom-left",
+                            position: "bottom-right",
                             autoClose: 2500,
                             hideProgressBar: false,
                             closeOnClick: true,
@@ -133,7 +151,7 @@ function UserCategories() {
             .catch((error) => {
                 console.error('Error:', error);
                 toast.error('Сталася помилка', {
-                    position: "bottom-left",
+                    position: "bottom-right",
                     autoClose: 2500,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -231,7 +249,7 @@ function UserCategories() {
                     .catch((error) => {
                         console.error('Error:', error);
                         toast.error('Сталася помилка', {
-                            position: "bottom-left",
+                            position: "bottom-right",
                             autoClose: 2500,
                             hideProgressBar: false,
                             closeOnClick: true,
@@ -282,7 +300,7 @@ function UserCategories() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "bottom-left",
+                        position: "bottom-right",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -337,7 +355,7 @@ function UserCategories() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "bottom-left",
+                        position: "bottom-right",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,

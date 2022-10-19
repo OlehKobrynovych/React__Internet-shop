@@ -29,9 +29,27 @@ function UserProduct() {
     const [selectedSort, setSelectedSort] = useState('Всі товари');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // console.log(categories)
+    console.log(shop)
     
     const [currentPaginationItems, setCurrentPaginationItems] = useState(null);
+
+     useEffect(() => {
+         if (shop?._id) {
+            fetch(`http://localhost:3000/api/products/${shop._id}/all`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    console.log(res)
+                    dispatch(getProducts(res.data));
+                } else {
+                    console.log('GET LayoutUser:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+        }
+    }, [])
 
      useEffect(() => {
         setFilterProducts([...products])

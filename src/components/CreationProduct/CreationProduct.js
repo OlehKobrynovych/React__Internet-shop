@@ -134,7 +134,7 @@ function CreationProduct() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "bottom-left",
+                        position: "bottom-right",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -177,7 +177,7 @@ function CreationProduct() {
                 .catch((error) => {
                     console.error('Error:', error);
                     toast.error('Сталася помилка', {
-                        position: "bottom-left",
+                        position: "bottom-right",
                         autoClose: 2500,
                         hideProgressBar: false,
                         closeOnClick: true,
