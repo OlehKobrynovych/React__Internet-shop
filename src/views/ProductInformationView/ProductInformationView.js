@@ -215,22 +215,22 @@ function ProductInformationView() {
                                 } */}
 
                                 {
-                                    shop?.deliveryMethods && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{shop.deliveryMethods}</p></div>)
+                                    !!shop?.deliveryMethods && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{shop.deliveryMethods}</p></div>)
                                 }
 
                                 {
-                                    shop?.paymentMethods && (<div className="product-information__payment-methods"><p><b>{selectedLanguage?.productPage?.productPaymentTitle}</b></p><p>{shop.paymentMethods}</p></div>)
+                                    !!shop?.paymentMethods && (<div className="product-information__payment-methods"><p><b>{selectedLanguage?.productPage?.productPaymentTitle}</b></p><p>{shop.paymentMethods}</p></div>)
                                 }
 
                             </div>
                         </div>
 
                         {
-                            similarProducts.length && <SwiperCards title={selectedLanguage?.productPage?.productSwiperTitle} products={similarProducts} />
+                            !!similarProducts.length && <SwiperCards title={selectedLanguage?.productPage?.productSwiperTitle} products={similarProducts} />
                         }
                         
                         {
-                            lastViewProduct.length && (<LastProduct />)
+                            !!lastViewProduct.length && (<LastProduct />)
                         }
                         
                     </div>) : (<PageNotFoundView />)
