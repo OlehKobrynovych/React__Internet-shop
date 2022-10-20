@@ -23,8 +23,6 @@ function UserProduct() {
     const categories = useSelector(state => state.userSlice.categories);
     const products = useSelector(state => state.userSlice.products);
     // const [products, setProducts] = useState([{ _id: "6333fc6d0bf95bb500ae55b8", shop_id: "6333055e19047777b333e42e", category_id: "633325415114eb6475794c8b", name: "Штани", price: "100", new_price: "80", images: ["/images/photo1.webp", "/images/photo1.webp", "/images/photo1.webp"], details: "Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.", colors: ["red", "yellow"], sizes: ["XL", "L", "XXL"],}])
-
-
     const [isModalDelProduct, setIsModalDelProduct] = useState(false);
     const [deleteId, setDeleteId] = useState('');
     const [seachName, setSeachName] = useState('');
@@ -52,7 +50,7 @@ function UserProduct() {
                 console.error('Error:', error);
             })
         }
-    }, [])
+    }, [shop])
 
      useEffect(() => {
         setFilterProducts([...products])
@@ -251,7 +249,8 @@ function UserProduct() {
                 </div>
             </div>
             
-            <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
+            {/* <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/> */}
+            <PaginationItems items={products} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
         </div>
     );
 }

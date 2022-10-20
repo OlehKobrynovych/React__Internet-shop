@@ -17,8 +17,6 @@ function ShoppingCartView() {
 
     // доробити при вдалій покупці обнуляти масив shoppingProduct
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
-    // const [shoppingProduct, setShoppingProduct] = useState([{ _id: "6333fc6d0bf95bb500ae55b8", shop_id: "6333055e19047777b333e42e", category_id: "633325415114eb6475794c8b", name: "Штани", price: "100", new_price: "80", images: ["/images/photo1.webp", "/images/photo1.webp", "/images/photo1.webp"], details: "Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.", colors: ["red", "yellow"], sizes: ["XL", "L", "XXL"],}])
-
     const shop = useSelector(state => state.homeSlice.shop);
     // const user = useSelector(state => state.userSlice.user);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
@@ -35,7 +33,7 @@ function ShoppingCartView() {
     const [isSubmitError, setIsSubmitError] = useState(false);
     const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
     // const datas = useSelector(state => state.homeSlice.datas);
-    // console.log(shoppingHistoryProducts)
+    console.log(shoppingProduct)
     
 
     useEffect(() => {
@@ -63,11 +61,13 @@ function ShoppingCartView() {
                 delivery_address: addressForm,
                 phone: phoneForm,
                 comment: commentForm,
-                product_id: shoppingProduct[0]._id,      // доробити можливість відправляти масив а не стрінгу
+                product_id: shoppingProduct,   
+                quantity: [...shoppingProduct.map(el => ({_id: el._id, count: el.count}))],   
                 isSeen: false,
-                status: 'В процесі',
+                status: 'InProcess',
+                favorite: false,
                 shop_id: shop._id,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjI0NjIwNSwiZXhwIjoxNjY2MjY0MjA1fQ.-xTMyMl88jlgtJXhX2UewfsYu3UEgyxLyj21mjkQhpE',                // відправка токена звідки брати для покупців?
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjI2MDA5OCwiZXhwIjoxNjY2Mjc4MDk4fQ.IctBCxDPEzFay7ymGltr3ZbnEj0K2YV7nMCsLvZ2m58',                // відправка токена звідки брати для покупців?
             }
 
             fetch(`http://localhost:3000/api/purchases/`, {
@@ -81,12 +81,15 @@ function ShoppingCartView() {
                 .then(res => {
                     // console.log(res)
                     if (res.success && res.data._id) {
-                        console.log('POST ShoppingCartView:', res)
+                        // console.log('POST ShoppingCartView:', res)
+                        dispatch(setShoppingProduct([]))
+
                         if (shoppingHistoryProducts?.length) {
                             localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingHistoryProducts, ...shoppingProduct]));
                         } else {
                             localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingProduct]));
                         }
+
                         toast.success('Покупка оформлена', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -233,7 +236,7 @@ function ShoppingCartView() {
             {
                 !!shoppingHistoryProducts?.length && <div className="shopping-cart__history">
                         <h5 className="shopping-cart__history-title">Історія покупок</h5>
-                        <div>Кількість покупок:&nbsp;{shoppingHistoryProducts.length}</div>  
+                        <div>Куплений товар:&nbsp;{shoppingHistoryProducts?.length}</div>  
                         <div className="shopping-cart__history-items">
                             {
                                 shoppingHistoryProducts.map(el => (<div className="shopping-cart__history-item" key={el._id}>

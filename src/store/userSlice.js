@@ -33,6 +33,30 @@ export const userSlice = createSlice({
     getPurchases: (state, action) => {
       state.purchases = action.payload;
     },
+    setStatusPurchases: (state, action) => {
+      state.purchases = state.purchases.map(el => {
+        if (el._id == action.payload._id) {
+          el.status = action.payload.status
+        } 
+        return el
+      });
+    },
+    setSeenPurchases: (state, action) => {
+      state.purchases = state.purchases.map(el => {
+        if (el._id == action.payload._id) {
+          el.isSeen = action.payload.isSeen
+        } 
+        return el
+      });
+    },
+    setFavoritePurchases: (state, action) => {
+      state.purchases = state.purchases.map(el => {
+        if (el._id == action.payload._id) {
+          el.favorite = action.payload.favorite
+        } 
+        return el
+      });
+    },
     setCategories: (state, action) => {
       state.categories = [...state.categories, action.payload];
     },
@@ -107,6 +131,6 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setUser, setShop, getCategories, getProducts, getPurchases, setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput } = userSlice.actions
+export const { setUser, setShop, getCategories, getProducts, getPurchases, setStatusPurchases, setFavoritePurchases, setSeenPurchases,  setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput } = userSlice.actions
 
 export default userSlice.reducer

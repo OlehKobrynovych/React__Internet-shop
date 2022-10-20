@@ -21,7 +21,7 @@ function LayoutUser() {
     // const navigate = useNavigate();
     // let { userId } = useParams();
     // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
-    console.log(user)
+    // console.log(user)
 
     useEffect(() => {
         if (!user.email) {

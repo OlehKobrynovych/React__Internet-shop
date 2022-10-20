@@ -29,57 +29,13 @@
     box-shadow: 5px 5px 30px rgb(0 0 0 / 26%);
 }
 
-.user-purchases__filter-select-wrap {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.user-purchases__sort-status-wrap {
+
 }
 
-.user-purchases__filter-select-all-btn {
+.user-purchases__sort-status-title {
+    margin-right: 8px;
     display: inline-block;
-    position: relative;
-    width: 17px;
-    height: 17px;
-    border: 2px solid #000;
-    flex: 0 0 auto;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.user-purchases__filter-select-all-btn-check {
-    width: 9px;
-    height: 5px;
-    border-bottom: 2px solid #000;
-    border-left: 2px solid #000;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    transform: translate(-50%, -50%);
-    transform: rotate(-45deg);
-}
-
-.user-purchases__filter-select-all-btn:hover {
-    background-color: rgb(161, 157, 157);
-}
-
-.user-purchases__item-btn {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    flex: 0 0 auto;  
-    cursor: pointer;
-}
-
-.user-purchases__item-delete-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    padding: 3px;
-    transition: .3s;
-}
-
-.user-purchases__item-delete-btn:hover {
-    background-color: rgb(161, 157, 157);
 }
 
 .user-purchases__filter-sort-wrap {
@@ -101,6 +57,10 @@
     justify-content: center;
     align-items: center;
     transition: .3s;
+}
+
+.user-purchases__filter-sort-btn-wrap--active {
+    background: #a9b5c2;
 }
 
 .user-purchases__filter-sort-btn-wrap:hover {
@@ -129,7 +89,7 @@
     gap: 10px;
     margin-top: 15px;
     margin-bottom: 15px;
-    cursor: pointer;
+    /* cursor: pointer; */
     transition: .3s;
 }
 
@@ -137,30 +97,14 @@
     box-shadow: 5px 4px 6px rgb(0 0 0 / 92%);
 }
 
-.user-purchases__item-select-btn {
-    position: relative;
-    width: 17px;
-    height: 17px;
-    border: 2px solid #000;
-    flex: 0 0 auto;
-    cursor: pointer;
-    transition: .3s;
+.user-purchases__item-status--InProcess {
+    background: #007aff36;
 }
-
-.user-purchases__item-select-btn-check {
-    width: 9px;
-    height: 5px;
-    border-bottom: 2px solid #000;
-    border-left: 2px solid #000;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    transform: translate(-50%, -50%);
-    transform: rotate(-45deg);
+.user-purchases__item-status--done {
+    background: rgb(7 158 27 / 25%);
 }
-
-.user-purchases__item-select-btn:hover {
-    background-color: rgb(161, 157, 157);
+.user-purchases__item-status--notDone {
+    background: #e72f0b3b;
 }
 
 .user-purchases__item-stars {
@@ -187,6 +131,7 @@
     flex: 1 1 auto;
     overflow: hidden;
     width: 160px;
+    cursor: pointer;
 }
 
 .user-purchases__item-name {
@@ -203,6 +148,7 @@
     flex: 1 1 auto;
     overflow: hidden;
     width: 100%;
+    cursor: pointer;
 }
 
 .user-purchases__item-text {
@@ -210,6 +156,14 @@
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
+}
+
+.user-purchases__item-seen {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    flex: 0 0 auto;  
+    /* cursor: pointer; */
 }
 
 .user-purchases__error-text {

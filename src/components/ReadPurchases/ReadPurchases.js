@@ -4,6 +4,7 @@ import './ReadPurchases.css';
 import stars from './../../assets/images/stars.svg';
 import envelopeOpen from './../../assets/images/envelopeOpen.svg';
 import { useDispatch, useSelector } from 'react-redux';
+import { setSeenPurchases } from '../../store/userSlice';
 
 
 
@@ -13,10 +14,10 @@ function ReadPurchases() {
     let { idPurchases } = useParams();
     const [purchases, setPurchases] = useState({});
     const [orderedProducts, setOrderedProducts] = useState([]);
+    const dispatch = useDispatch();
     // const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     // const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     // const navigate = useNavigate();
-    // const dispatch = useDispatch();
     // console.log('purchases: ',purchases)
 
     useEffect(() => {
@@ -36,6 +37,37 @@ function ReadPurchases() {
             })
         }
     }, [idPurchases])
+
+    useEffect(() => {
+        if (purchases._id) {
+            let data = {
+                ...purchases,
+                token: user.token,
+                isSeen: true,
+            }
+    
+            fetch(`http://localhost:3000/api/purchases/${purchases._id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        // console.log('PUT CardSelect:', res)
+                        dispatch(setSeenPurchases({...purchases, isSeen: true}));
+                    } else {
+                        console.log('PUT ReadPurchases:', res)
+                    }
+                })
+                .catch((error) => {
+                })
+        }
+    }, [purchases])
+
+   
    
     // useEffect(() => {
     //     if (purchases.product_id?.length) {
@@ -58,35 +90,24 @@ function ReadPurchases() {
     //     }
     // }, [purchases])
 
-    // зміна статусу повідомлення на прочитане
-    // useEffect(() => {
-    //     if (purchases._id) {
-    //         let data = {
-    //             ...purchases,
-    //             isSeen: true,
-    //             token: user.token,
-    //         }
-    
-    //         fetch(`http://localhost:3000/api/purchases/${purchases._id}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //             'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(data),
-    //         })
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             if (res.success && res.data) {
-    //                 // dispatch(getPurchases(res.data));
-    //             } else {
-    //                 console.log('GET ReadPurchases:', res)
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         })
+
+     // useEffect(() => {
+    //     if (shop?._id) {
+    //         fetch(`http://localhost:3000/api/purchases/${shop._id}/all?token=${user.token}`)
+    //             .then(res => res.json())
+    //             .then(res => {
+    //                 console.log('GET UserPurchases:', res)
+    //                 if (res.success && res.data?.length) {
+    //                     dispatch(getPurchases(res.data));
+    //                 } else {
+    //                     console.log('GET UserPurchases:', res)
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error:', error);
+    //             })
     //     }
-    // }, [purchases])
+    // }, [shop])
    
     const handleSort = () => {
         

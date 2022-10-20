@@ -80,7 +80,7 @@ function CreationShop() {
         }
 
         if (isNeedUpdateShop) {
-            console.log('data1111', shop._id)
+            // console.log('data1111', shop._id)
             fetch(`http://localhost:3000/api/shops/${shop._id}`, {
                 method: 'PUT',
                 headers: {

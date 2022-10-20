@@ -13,11 +13,14 @@ function ProductCard({product}) {
     const shop = useSelector(state => state.homeSlice.shop);
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
-    const [isFavoriteProduct, setIsFavoriteProduct] = useState([]);
-    const [isShoppingProduct, setIsShoppingProduct] = useState([]);
+    // const [isFavoriteProduct, setIsFavoriteProduct] = useState([]);
+    const [isFavoriteProduct, setIsFavoriteProduct] = useState(false);
+    const [isShoppingProduct, setIsShoppingProduct] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const datas = useSelector(state => state.homeSlice.datas);
+// console.log(isFavoriteProduct)
+// console.log(favoriteProduct)
 
     const handleClick = (product) => {
         navigate(`/${shop.name}/product/${product._id}`);
@@ -36,9 +39,11 @@ function ProductCard({product}) {
         if(favoriteProduct.some(el => el._id === product._id)) {
             let res = favoriteProduct.filter(el => el._id !== product._id)
             dispatch(setFavoriteProduct(res))
+            // setIsFavoriteProduct(false)
         } else {
             let res = [...favoriteProduct, product]
             dispatch(setFavoriteProduct(res))
+            // setIsFavoriteProduct(true)
         }
     };
    

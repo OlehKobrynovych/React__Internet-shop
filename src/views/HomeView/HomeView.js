@@ -24,7 +24,7 @@ function HomeView() {
     const [productsOld, setProductsOld] = useState([]);
     // const dispatch = useDispatch();
     // debugger
-    // console.log(products)
+    console.log(products)
     // console.log(productsNew)
     // console.log(productsOld)
     
