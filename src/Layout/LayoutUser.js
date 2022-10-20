@@ -13,7 +13,7 @@ function LayoutUser() {
 
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [isModalWindow, setModalWindow] = useState(false);
-    const [messageLength, setMessageLength] = useState(null);
+    const [purchasesLength, setPurchasesLength] = useState(null);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function LayoutUser() {
     // const navigate = useNavigate();
     // let { userId } = useParams();
     // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
-    // console.log(shop)
+    console.log(user)
 
     useEffect(() => {
         if (!user.email) {
@@ -63,7 +63,7 @@ function LayoutUser() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        setMessageLength(res.data)
+                        setPurchasesLength(res.data)
                     } else {
                         console.log('GET LayoutUser:', res)
                     }
@@ -123,7 +123,7 @@ function LayoutUser() {
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false)) }>Магазин</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>Товар</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/message`}>Повідомлення</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>Повідомлення</NavLink>
                     <button onClick={() => setModalWindow(!isModalWindow)} className='layout-user__sidenav-link'>Вихід</button>
                 </div>
 
@@ -139,7 +139,7 @@ function LayoutUser() {
                             <div className='layout-user__header-btn-message'>
                                 <NavLink to={`/auth/${user._id}/message`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
                                 {
-                                    messageLength && <div className='layout-user__header-btn-message-circle'>{messageLength}</div>
+                                    purchasesLength && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
                                 }
                             </div>
 

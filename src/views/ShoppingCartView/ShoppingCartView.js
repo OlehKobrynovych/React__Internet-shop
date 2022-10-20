@@ -9,47 +9,116 @@ import QuantityProduct from '../../components/QuantityProduct/QuantityProduct';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
 import { setShoppingProduct } from '../../store/homeSlice';
+import { toast } from 'react-toastify';
 
 
 
 function ShoppingCartView() {
+
+    // доробити при вдалій покупці обнуляти масив shoppingProduct
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
+    // const [shoppingProduct, setShoppingProduct] = useState([{ _id: "6333fc6d0bf95bb500ae55b8", shop_id: "6333055e19047777b333e42e", category_id: "633325415114eb6475794c8b", name: "Штани", price: "100", new_price: "80", images: ["/images/photo1.webp", "/images/photo1.webp", "/images/photo1.webp"], details: "Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.", colors: ["red", "yellow"], sizes: ["XL", "L", "XXL"],}])
+
     const shop = useSelector(state => state.homeSlice.shop);
+    // const user = useSelector(state => state.userSlice.user);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [totalPrice, setTotalPrice] = useState(null);
-
     const [nameForm, setNameForm] = useState('');
     const [phoneForm, setPhoneForm] = useState('');
     const [emailForm, setEmailForm] = useState('');
     const [commentForm, setCommentForm] = useState('');
+    const [addressForm, setAddressForm] = useState('');
+    const [deliveryMethod, setDeliveryMethod] = useState('');
     const [checkboxForm, setCheckboxFor] = useState(false);
     const [isSubmitError, setIsSubmitError] = useState(false);
+    const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
     // const datas = useSelector(state => state.homeSlice.datas);
+    // console.log(shoppingHistoryProducts)
     
 
     useEffect(() => {
         setTotalPrice(shoppingProduct.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
+        setShoppingHistoryProducts(JSON.parse(localStorage.getItem('shoppingHistoryProducts')));
     }, [])
     
     useEffect(() => {
         setTotalPrice(shoppingProduct.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
+        setShoppingHistoryProducts(JSON.parse(localStorage.getItem('shoppingHistoryProducts')));
     }, [shoppingProduct])
-
+    
     const handleClickDelete = (product) => {
        let res = shoppingProduct.filter(el => el._id !== product._id)
        dispatch(setShoppingProduct(res))
     };
    
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const handleSubmit = () => {
 
-        if(checkboxForm && phoneForm && nameForm) {
-            setIsSubmitError(false)
-        } else {
-            setIsSubmitError(true)
-        }
+        if(checkboxForm && phoneForm.length && nameForm.length && addressForm.length && deliveryMethod.length) {
+            let data = {
+                full_name: nameForm,
+                email: emailForm,
+                delivery_method: deliveryMethod,
+                delivery_address: addressForm,
+                phone: phoneForm,
+                comment: commentForm,
+                product_id: shoppingProduct[0]._id,      // доробити можливість відправляти масив а не стрінгу
+                isSeen: false,
+                status: 'В процесі',
+                shop_id: shop._id,
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjI0NjIwNSwiZXhwIjoxNjY2MjY0MjA1fQ.-xTMyMl88jlgtJXhX2UewfsYu3UEgyxLyj21mjkQhpE',                // відправка токена звідки брати для покупців?
+            }
+
+            fetch(`http://localhost:3000/api/purchases/`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    // console.log(res)
+                    if (res.success && res.data._id) {
+                        console.log('POST ShoppingCartView:', res)
+                        if (shoppingHistoryProducts?.length) {
+                            localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingHistoryProducts, ...shoppingProduct]));
+                        } else {
+                            localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingProduct]));
+                        }
+                        toast.success('Покупка оформлена', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
+                    } else {
+                        console.log('POST ShoppingCartView:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "bottom-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                })
+
+                setIsSubmitError(false)
+            } else {
+                setIsSubmitError(true)
+            }
     };
    
     const handleClose = () => {
@@ -110,23 +179,34 @@ function ShoppingCartView() {
                        <h3 className="shopping-cart__form-title">{selectedLanguage?.cartPage?.cartFormTitle}</h3>
                        <p className="shopping-cart__form-warning">{selectedLanguage?.cartPage?.cartFormWarning}</p>
 
-                       <form className="shopping-cart__form" action="">
+                       <div className="shopping-cart__form">
                            <div className="shopping-cart__form-input-wrap">
-                                <label className="shopping-cart__form-input-name-wrap" htmlFor="fname">
-                                    <span className="shopping-cart__form-input-name-title">{selectedLanguage?.cartPage?.cartFormName}</span>
+                                <label className="shopping-cart__form-input-label" htmlFor="fname">
+                                    <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormName}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setNameForm(e.target.value)} value={nameForm} type="text" id="fname" name="name" placeholder="Ваше прізвище та ім'я"/>
                                 </label>
-                                <label className="shopping-cart__form-input-phone-wrap" htmlFor="phone">
-                                    <span className="shopping-cart__form-input-phone-title">{selectedLanguage?.cartPage?.cartFormPhone}</span>
+                                <label className="shopping-cart__form-input-label" htmlFor="phone">
+                                    <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormPhone}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setPhoneForm(e.target.value)} value={phoneForm} type="tel" id="phone" name="phone" placeholder="1234567890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
                                 </label>
                                 <label className="shopping-cart__form-input-label" htmlFor="email">
                                     <span>{selectedLanguage?.cartPage?.cartFormMail}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setEmailForm(e.target.value)} value={emailForm} type="text" id="email" name="email" placeholder="Email"/>
                                 </label>
+                                <label className="shopping-cart__form-input-label" htmlFor="email">
+                                    {/* <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormMail}</span> */}
+                                    <span className="shopping-cart__form-input-title">Спосіб доставки:</span>
+                                    <input className="shopping-cart__form-input" onChange={(e) => setDeliveryMethod(e.target.value)} value={deliveryMethod} type="text" id="email" name="email" placeholder="Спосіб..."/>
+                                </label>
                            </div>
 
                             <div className="shopping-cart__form-textarea-wrap">
+                                <label className="shopping-cart__form-input-label" htmlFor="comment">
+                                    {/* <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormComment}</span> */}
+                                    <span className="shopping-cart__form-input-title">Адреса:</span>
+                                    <textarea className="shopping-cart__form-input" onChange={(e) => setAddressForm(e.target.value)} value={addressForm} type="text" id="comment" name="comment" placeholder="" rows="5" cols="33"/>
+                                </label>
+
                                 <label className="shopping-cart__form-input-label" htmlFor="comment">
                                     <span>{selectedLanguage?.cartPage?.cartFormComment}</span>
                                     <textarea className="shopping-cart__form-input" onChange={(e) => setCommentForm(e.target.value)} value={commentForm} type="text" id="comment" name="comment" placeholder="" rows="5" cols="33"/>
@@ -138,16 +218,31 @@ function ShoppingCartView() {
                                     <input className="shopping-cart__form-checkbox" checked={checkboxForm} onChange={() => setCheckboxFor(!checkboxForm)} type="checkbox" id="checkbox" name="checkbox" />
                                     <span className="shopping-cart__form-checkbox-title">{selectedLanguage?.cartPage?.cartFormCheckbox}</span>
                                 </label>
-                                <input className="shopping-cart__btn-buy" onClick={(e) => handleSubmit(e)} type="submit" value={selectedLanguage?.cartPage?.cartBtnBuy}/>
+                                <button className="shopping-cart__btn-buy" onClick={() => handleSubmit()}>{selectedLanguage?.cartPage?.cartBtnBuy}</button>
                             </div>
 
                             {
                                 isSubmitError && ( <div className="shopping-cart__submit-error">{selectedLanguage?.cartPage?.cartFormSubmitError}<button onClick={handleClose} className="shopping-cart__submit-error-close">x</button></div>)
                             }
-                        </form>
+                        </div>
 
                    </div>
                ) : (<p className="shopping-cart__pdoduct-error">{selectedLanguage?.cartPage?.cartError}</p>)
+            }
+
+            {
+                !!shoppingHistoryProducts?.length && <div className="shopping-cart__history">
+                        <h5 className="shopping-cart__history-title">Історія покупок</h5>
+                        <div>Кількість покупок:&nbsp;{shoppingHistoryProducts.length}</div>  
+                        <div className="shopping-cart__history-items">
+                            {
+                                shoppingHistoryProducts.map(el => (<div className="shopping-cart__history-item" key={el._id}>
+                                    <img className="shopping-cart__history-item-img" onClick={() => handleClick(el._id)} src={el.images[0]?.length ? el.images[0] : noPhotos} alt='img'/>
+                                    <div className="shopping-cart__history-item-name">{el.name}</div>
+                                </div>))
+                            }
+                        </div>
+                    </div>
             }
         </div>
      </div>

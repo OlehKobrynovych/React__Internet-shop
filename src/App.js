@@ -13,8 +13,8 @@ import LayoutUser from './Layout/LayoutUser';
 import UserProduct from './components/UserProduct/UserProduct';
 import CreationProduct from './components/CreationProduct/CreationProduct';
 import { ToastContainer } from 'react-toastify';
-import UserMessage from './components/UserMessage/UserMessage';
-import ReadMessage from './components/ReadMessage/ReadMessage';
+import UserPurchases from './components/UserPurchases/UserPurchases';
+import ReadPurchases from './components/ReadPurchases/ReadPurchases';
 import UserAnalytics from './components/UserAnalytics/UserAnalytics';
 import SearchProduct from './components/SearchProduct/SearchProduct';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
@@ -53,8 +53,8 @@ function App() {
                         <Route path="categories" element={<UserCategories />}/>
                         <Route path="product" element={<UserProduct />}/>
                         <Route path="product/create" element={<CreationProduct />}/>
-                        <Route path="message" element={<UserMessage />}/>
-                        <Route path="message/:idMessage" element={<ReadMessage />}/>
+                        <Route path="purchases" element={<UserPurchases />}/>
+                        <Route path="purchases/:idPurchases" element={<ReadPurchases />}/>
 
                     </Route>
                     <Route path="/auth/login" element={<SignInView />}/>

@@ -1,0 +1,25 @@
+.read-purchases {
+
+}
+
+.read-purchases--wrap {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.read-purchases__title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 1080px) {
+ 
+}

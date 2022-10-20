@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './UserMessage.css';
+import './UserPurchases.css';
 import stars from './../../assets/images/stars.svg';
 import deleteImg from './../../assets/images/deleteImg.svg';
 import envelope from './../../assets/images/envelope.svg';
@@ -12,35 +12,35 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import { toast } from 'react-toastify';
 
 
-function UserMessage() {
+function UserPurchases() {
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
-    // const purchases = useSelector(state => state.userSlice.purchases);
+    const purchases = useSelector(state => state.userSlice.purchases);
     // const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     // const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
-    // const [messages, setMessages] = useState([1,2,3,4,5,6,7]);
-    const [isModalDelMessage, setIsModalDelMessage] = useState(false);
-    const [isSelectMessageAll, setIsSelectMessageAll] = useState(false);
-    const [isSelectMessage, setIsSelectMessage] = useState([]);
-    const [isFavoriteMessage, setIsFavoriteMessage] = useState([]);
+    // const [purchasess, setPurchasess] = useState([1,2,3,4,5,6,7]);
+    const [isModalDelPurchases, setIsModalDelPurchases] = useState(false);
+    const [isSelectPurchasesAll, setIsSelectPurchasesAll] = useState(false);
+    const [isSelectPurchases, setIsSelectPurchases] = useState([]);
+    const [isFavoritePurchases, setIsFavoritePurchases] = useState([]);
     const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
     const [deleteId, setDeleteId] = useState(null);
-    const [purchases, setPurchases] = useState([{
-        _id: 1,
-        full_name: 'Oleh Kobrynovych',
-        email: 'asd@asd.asd',
-        delivery_method: 'NP',
-        delivery_address: 'asdsd ads afaffs s',
-        phone: '123324545484',
-        comment: '4dfsdf  55sd4f  dsf445df f ds',
-        product_id: '123222222233',
-        isSeen: false,
-        status: 'В процесі',
-        token: user.token,
-    }]);
+    // const [purchases, setPurchases] = useState([{
+    //     _id: 1,
+    //     full_name: 'Oleh Kobrynovych',
+    //     email: 'asd@asd.asd',
+    //     delivery_method: 'NP',
+    //     delivery_address: 'asdsd ads afaffs s',
+    //     phone: '123324545484',
+    //     comment: '4dfsdf  55sd4f  dsf445df f ds',
+    //     product_id: '123222222233',
+    //     isSeen: false,
+    //     status: 'В процесі',
+    //     token: user.token,
+    // }]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log('asdasd: ',isSelectMessage)
+    // console.log('asdasd: ',purchases)
 
 
     // useEffect(() => {
@@ -55,6 +55,7 @@ function UserMessage() {
     //         isSeen: false,
     //         status: 'В процесі',
     //         token: user.token,
+    //         shop_id: shop._id
     //     }
 
     //     fetch(`http://localhost:3000/api/purchases/`, {
@@ -68,9 +69,9 @@ function UserMessage() {
     //         .then(res => {
     //             console.log(res)
     //             if (res.success && res.data?.length) {
-    //                 console.log('GET UserMessage:', res)
+    //                 console.log('GET UserPurchases:', res)
     //             } else {
-    //                 console.log('GET UserMessage:', res)
+    //                 console.log('GET UserPurchases:', res)
     //             }
     //         })
     //         .catch((error) => {
@@ -79,36 +80,37 @@ function UserMessage() {
     // }, [])
 
     useEffect(() => {
-        if (user?.name) {
+        if (shop?._id) {
             fetch(`http://localhost:3000/api/purchases/${shop._id}/all?token=${user.token}`)
                 .then(res => res.json())
                 .then(res => {
+                    console.log('GET UserPurchases:', res)
                     if (res.success && res.data?.length) {
                         dispatch(getPurchases(res.data));
                     } else {
-                        console.log('GET UserMessage:', res)
+                        console.log('GET UserPurchases:', res)
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 })
         }
-    }, [user])
+    }, [shop])
 
     useEffect(() => {
-        if (isSelectMessageAll) {
-        setIsSelectMessage([...currentPaginationItems.map(el => el._id)])
+        if (isSelectPurchasesAll) {
+        setIsSelectPurchases([...currentPaginationItems.map(el => el._id)])
         } else {
-            setIsSelectMessage([])
+            setIsSelectPurchases([])
         }
-    }, [isSelectMessageAll])
+    }, [isSelectPurchasesAll])
 
     const handleSelect = (e, id) => {
         e.stopPropagation()
-        if (isSelectMessage.includes(id)) {
-            setIsSelectMessage([...isSelectMessage.filter(el => el !== id)])
+        if (isSelectPurchases.includes(id)) {
+            setIsSelectPurchases([...isSelectPurchases.filter(el => el !== id)])
         } else {
-            setIsSelectMessage([...isSelectMessage, id])
+            setIsSelectPurchases([...isSelectPurchases, id])
         }
     }
 
@@ -116,13 +118,13 @@ function UserMessage() {
         
     }
     
-    const handleDeleteMessage = (e, id) => {
+    const handleDeletePurchases = (e, id) => {
         e.stopPropagation()
-        setIsModalDelMessage(true)
+        setIsModalDelPurchases(true)
         setDeleteId(id)
     }
 
-    const handleIsDeleteMessage = (boolean) => {
+    const handleIsDeletePurchases = (boolean) => {
         if (boolean) {
             const data = {
                 token: user.token,
@@ -151,7 +153,7 @@ function UserMessage() {
                             theme: "light",
                         })
                     } else {
-                        console.log('DELETE UserMessage', res)
+                        console.log('DELETE UserPurchases', res)
                     }
                 })
                 .catch((error) => {
@@ -169,69 +171,69 @@ function UserMessage() {
                 })
         } 
         
-        setIsModalDelMessage(false)
+        setIsModalDelPurchases(false)
         setDeleteId(null)
     }
    
-    const handleReadMessage = (id) => {
-        navigate(`/auth/${user._id}/message/${id}`)
+    const handleReadPurchases = (id) => {
+        navigate(`/auth/${user._id}/purchases/${id}`)
     }
     
     const handleFavorite = (e, num) => {
         e.stopPropagation()
-        if (isFavoriteMessage.includes(num)) {
-            setIsFavoriteMessage([...isFavoriteMessage.filter(el => el !== num)])
+        if (isFavoritePurchases.includes(num)) {
+            setIsFavoritePurchases([...isFavoritePurchases.filter(el => el !== num)])
         } else {
-            setIsFavoriteMessage([...isFavoriteMessage, num])
+            setIsFavoritePurchases([...isFavoritePurchases, num])
         }
     }
 
     return (
-        <div className="user-message">
-            <div className="user-message--wrap container">
+        <div className="user-purchases">
+            <div className="user-purchases--wrap container">
 
                 {
-                    isModalDelMessage && <ModalWindow title={'Ви впевнені?'}  text={'Видалити дане повідомлення'} handleClick={handleIsDeleteMessage}/>
+                    isModalDelPurchases && <ModalWindow title={'Ви впевнені?'}  text={'Видалити дане повідомлення'} handleClick={handleIsDeletePurchases}/>
                 }
 
                 <div>
-                    <h4 className="user-message__title">Мої повідомлення</h4>
+                    <h4 className="user-purchases__title">Мої повідомлення</h4>
                     
-                    <div className="user-message__filter">
-                        <div className="user-message__filter-select-wrap">
-                            <div className="user-message__filter-select-all-btn" onClick={() => setIsSelectMessageAll(!isSelectMessageAll)}>
+                    <div className="user-purchases__filter">
+                        <div className="user-purchases__filter-select-wrap">
+                            <div className="user-purchases__filter-select-all-btn" onClick={() => setIsSelectPurchasesAll(!isSelectPurchasesAll)}>
                                 {
-                                    isSelectMessageAll && <div className="user-message__filter-select-all-btn-check"></div>
+                                    isSelectPurchasesAll && <div className="user-purchases__filter-select-all-btn-check"></div>
                                 }
                             </div>
-                            <img className="user-message__item-btn user-message__item-delete-btn" src={deleteImg} alt='img'/>
+                            <img className="user-purchases__item-btn user-purchases__item-delete-btn" src={deleteImg} alt='img'/>
                         </div>
 
-                        <div className="user-message__filter-sort-wrap">
-                            <div className="user-message__filter-sort-title">Вибрати всі:</div>
-                            <div className="user-message__filter-sort-btn-wrap">
-                                <img className="user-message__filter-sort-btn" onClick={() => handleSort()} src={envelope} alt='img'/>
+                        <div className="user-purchases__filter-sort-wrap">
+                            <div className="user-purchases__filter-sort-title">Вибрати всі:</div>
+                            <div className="user-purchases__filter-sort-btn-wrap">
+                                <img className="user-purchases__filter-sort-btn" onClick={() => handleSort()} src={envelope} alt='img'/>
                             </div>
-                            <div className="user-message__filter-sort-btn-wrap">
-                                <img className="user-message__filter-sort-btn" src={envelopeOpen} alt='img'/>
+                            <div className="user-purchases__filter-sort-btn-wrap">
+                                <img className="user-purchases__filter-sort-btn" src={envelopeOpen} alt='img'/>
                             </div>
-                            <div className="user-message__filter-sort-btn-wrap">
-                                <img className="user-message__filter-sort-btn" src={stars} alt='img'/>
+                            <div className="user-purchases__filter-sort-btn-wrap">
+                                <img className="user-purchases__filter-sort-btn" src={stars} alt='img'/>
                             </div>
                         </div>
                     </div>
 
-                    <div className="user-message__items">
+                    <div className="user-purchases__items">
                         {
                             !!currentPaginationItems?.length ? currentPaginationItems.map(el => (
-                                <div className="user-message__item" key={el._id} onClick={() => handleReadMessage(el._id)}>
-                                    <div className="user-message__item-select-btn" onClick={(e) => handleSelect(e, el._id)}>
+                                <div className="user-purchases__item" key={el._id} onClick={() => handleReadPurchases(el._id)}>
+                                    <div className="user-purchases__item-select-btn" onClick={(e) => handleSelect(e, el._id)}>
                                         {
-                                            !!isSelectMessage?.length && isSelectMessage.includes(el._id) && <div className="user-message__item-select-btn-check"></div>
+                                            !!isSelectPurchases?.length && isSelectPurchases.includes(el._id) && <div className="user-purchases__item-select-btn-check"></div>
                                         }
                                     </div>
 
-                                    <svg className={`user-message__item-stars ${isFavoriteMessage?.includes(el._id) ? 'user-message__item-stars-is-favorite' : ''}`} onClick={(e) => handleFavorite(e, el._id)} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    <svg className={`user-purchases__item-stars ${isFavoritePurchases?.includes(el._id) ? 'user-purchases__item-stars-is-favorite' : ''}`} onClick={(e) => handleFavorite(e, el._id)} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                         viewBox="0 0 404.204 404.204" xmlSpace="preserve">
                                         <g>
                                             <g>
@@ -248,12 +250,12 @@ function UserMessage() {
                                         </g>
                                     </svg>
 
-                                    <div className="user-message__item-name-wrap"><div className="user-message__item-name">{el.full_name}</div></div>
-                                    <div className="user-message__item-text-wrap"><div className="user-message__item-text">{el.comment}</div></div>
-                                    <img className="user-message__item-btn" src={el.isSeen ? envelopeOpen : envelope} alt='img'/>
-                                    <img className="user-message__item-btn user-message__item-delete-btn" onClick={(e) => handleDeleteMessage(e, el._id)} src={deleteImg} alt='img'/>
+                                    <div className="user-purchases__item-name-wrap"><div className="user-purchases__item-name">{el.full_name}</div></div>
+                                    <div className="user-purchases__item-text-wrap"><div className="user-purchases__item-text">{el.comment}</div></div>
+                                    <img className="user-purchases__item-btn" src={el.isSeen ? envelopeOpen : envelope} alt='img'/>
+                                    <img className="user-purchases__item-btn user-purchases__item-delete-btn" onClick={(e) => handleDeletePurchases(e, el._id)} src={deleteImg} alt='img'/>
                                 </div>
-                            )) : <div className="user-message__error-text">Список повідомлень пустий</div>
+                            )) : <div className="user-purchases__error-text">Список повідомлень пустий</div>
                         }
                     </div>
                 </div>
@@ -265,4 +267,4 @@ function UserMessage() {
     );
 }
 
-export default UserMessage;
+export default UserPurchases;

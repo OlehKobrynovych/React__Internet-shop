@@ -1,8 +1,8 @@
-.user-message {
+.user-purchases {
 
 }
 
-.user-message--wrap {
+.user-purchases--wrap {
     margin-top: 30px;
     margin-bottom: 30px;
     height: calc(100vh - 140px);
@@ -11,14 +11,14 @@
     justify-content: space-between;
 }
 
-.user-message__title {
+.user-purchases__title {
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: 20px;
 }
 
-.user-message__filter {
+.user-purchases__filter {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
@@ -29,13 +29,13 @@
     box-shadow: 5px 5px 30px rgb(0 0 0 / 26%);
 }
 
-.user-message__filter-select-wrap {
+.user-purchases__filter-select-wrap {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.user-message__filter-select-all-btn {
+.user-purchases__filter-select-all-btn {
     display: inline-block;
     position: relative;
     width: 17px;
@@ -46,7 +46,7 @@
     transition: .3s;
 }
 
-.user-message__filter-select-all-btn-check {
+.user-purchases__filter-select-all-btn-check {
     width: 9px;
     height: 5px;
     border-bottom: 2px solid #000;
@@ -58,11 +58,11 @@
     transform: rotate(-45deg);
 }
 
-.user-message__filter-select-all-btn:hover {
+.user-purchases__filter-select-all-btn:hover {
     background-color: rgb(161, 157, 157);
 }
 
-.user-message__item-btn {
+.user-purchases__item-btn {
     display: inline-block;
     width: 25px;
     height: 25px;
@@ -70,7 +70,7 @@
     cursor: pointer;
 }
 
-.user-message__item-delete-btn {
+.user-purchases__item-delete-btn {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -78,21 +78,21 @@
     transition: .3s;
 }
 
-.user-message__item-delete-btn:hover {
+.user-purchases__item-delete-btn:hover {
     background-color: rgb(161, 157, 157);
 }
 
-.user-message__filter-sort-wrap {
+.user-purchases__filter-sort-wrap {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.ser-message__filter-sort-title {
+.ser-purchases__filter-sort-title {
 
 }
 
-.user-message__filter-sort-btn-wrap {
+.user-purchases__filter-sort-btn-wrap {
     padding: 3px;
     width: 40px;
     height: 40px;
@@ -103,11 +103,11 @@
     transition: .3s;
 }
 
-.user-message__filter-sort-btn-wrap:hover {
+.user-purchases__filter-sort-btn-wrap:hover {
     background: #a9b5c2;
 }
 
-.user-message__filter-sort-btn {
+.user-purchases__filter-sort-btn {
     display: inline-block;
     width: 25px;
     height: 25px;
@@ -115,11 +115,11 @@
     cursor: pointer;
 }
 
-.user-message__items {
+.user-purchases__items {
 
 }
 
-.user-message__item {
+.user-purchases__item {
     padding:10px 15px;
     display: flex;
     justify-content: space-between;
@@ -133,11 +133,11 @@
     transition: .3s;
 }
 
-.user-message__item:hover {
+.user-purchases__item:hover {
     box-shadow: 5px 4px 6px rgb(0 0 0 / 92%);
 }
 
-.user-message__item-select-btn {
+.user-purchases__item-select-btn {
     position: relative;
     width: 17px;
     height: 17px;
@@ -147,7 +147,7 @@
     transition: .3s;
 }
 
-.user-message__item-select-btn-check {
+.user-purchases__item-select-btn-check {
     width: 9px;
     height: 5px;
     border-bottom: 2px solid #000;
@@ -159,11 +159,11 @@
     transform: rotate(-45deg);
 }
 
-.user-message__item-select-btn:hover {
+.user-purchases__item-select-btn:hover {
     background-color: rgb(161, 157, 157);
 }
 
-.user-message__item-stars {
+.user-purchases__item-stars {
     width: 25px;
     height: 25px;
     flex: 0 0 auto;
@@ -171,15 +171,15 @@
     transition: .3s;
 }
 
-.user-message__item-stars-is-favorite {
+.user-purchases__item-stars-is-favorite {
     fill: rgb(250, 15, 15);
 }
 
-.user-message__item-stars:hover {
+.user-purchases__item-stars:hover {
     fill: rgb(250, 15, 15);
 }
 
-.user-message__item-name-wrap {
+.user-purchases__item-name-wrap {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -189,7 +189,7 @@
     width: 160px;
 }
 
-.user-message__item-name {
+.user-purchases__item-name {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -197,7 +197,7 @@
     font-weight: 700;
 }
 
-.user-message__item-text-wrap {
+.user-purchases__item-text-wrap {
     display: none;
     margin-right: 10px;
     flex: 1 1 auto;
@@ -205,14 +205,14 @@
     width: 100%;
 }
 
-.user-message__item-text {
+.user-purchases__item-text {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
 }
 
-.user-message__error-text {
+.user-purchases__error-text {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -220,21 +220,21 @@
 }
 
 @media (min-width: 400px) {
-    .user-message__filter {
+    .user-purchases__filter {
         flex-direction: row;
         align-items: center;
     } 
-    .user-message__filter-sort-wrap {
+    .user-purchases__filter-sort-wrap {
         margin-left: 30px;
     }
 }
 
 @media (min-width: 576px) {
-    .user-message__item-name-wrap {
+    .user-purchases__item-name-wrap {
         flex: 0 0 auto;
     }
 
-    .user-message__item-text-wrap {
+    .user-purchases__item-text-wrap {
         display: block;
     }
 }
