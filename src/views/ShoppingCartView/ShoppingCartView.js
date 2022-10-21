@@ -61,13 +61,13 @@ function ShoppingCartView() {
                 delivery_address: addressForm,
                 phone: phoneForm,
                 comment: commentForm,
-                product_id: shoppingProduct,   
-                quantity: [...shoppingProduct.map(el => ({_id: el._id, count: el.count}))],   
+                product_id: [...shoppingProduct.map(el => ({_id: el._id, count: el.count}))],   
+                // quantity: [...shoppingProduct.map(el => ({_id: el._id, count: el.count}))],   
                 isSeen: false,
                 status: 'InProcess',
                 favorite: false,
                 shop_id: shop._id,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjI2MDA5OCwiZXhwIjoxNjY2Mjc4MDk4fQ.IctBCxDPEzFay7ymGltr3ZbnEj0K2YV7nMCsLvZ2m58',                // відправка токена звідки брати для покупців?
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjMzMzY2MSwiZXhwIjoxNjY2MzUxNjYxfQ.T3q9ejn9K8sN54339vpKTUAqmahKE5nJSLHF6GZONEk',                // відправка токена звідки брати для покупців?
             }
 
             fetch(`http://localhost:3000/api/purchases/`, {

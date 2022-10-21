@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import './UserProduct.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, setEditProduct, setRemoveProduct } from '../../store/userSlice';
+import { getCategories, getProducts, setEditProduct, setRemoveProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
 
@@ -22,7 +22,6 @@ function UserProduct() {
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
     const products = useSelector(state => state.userSlice.products);
-    // const [products, setProducts] = useState([{ _id: "6333fc6d0bf95bb500ae55b8", shop_id: "6333055e19047777b333e42e", category_id: "633325415114eb6475794c8b", name: "Штани", price: "100", new_price: "80", images: ["/images/photo1.webp", "/images/photo1.webp", "/images/photo1.webp"], details: "Худі чоловічий на замку, з капюшоном та з кишенею кенгуру.", colors: ["red", "yellow"], sizes: ["XL", "L", "XXL"],}])
     const [isModalDelProduct, setIsModalDelProduct] = useState(false);
     const [deleteId, setDeleteId] = useState('');
     const [seachName, setSeachName] = useState('');
@@ -30,12 +29,24 @@ function UserProduct() {
     const [selectedSort, setSelectedSort] = useState('Всі товари');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(shop)
+    console.log(selectedSort)
+    // console.log(selectedSort)
     
     const [currentPaginationItems, setCurrentPaginationItems] = useState(null);
+    
+    useEffect(() => {
+            setFilterProducts([...products])
+    }, []);
 
-     useEffect(() => {
-         if (shop?._id) {
+    useEffect(() => {
+        if (products?.length) {
+            setFilterProducts([...products])
+        }
+    }, [products]);
+     
+
+    useEffect(() => {
+        if (shop?._id) {
             fetch(`http://localhost:3000/api/products/${shop._id}/all`)
             .then(res => res.json())
             .then(res => {
@@ -49,13 +60,22 @@ function UserProduct() {
             .catch((error) => {
                 console.error('Error:', error);
             })
+
+            fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    dispatch(getCategories(res.data));
+                    // console.log('GET UserCategories:', res)
+                } else {
+                    console.log('GET UserCategories:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
         }
     }, [shop])
-
-     useEffect(() => {
-        setFilterProducts([...products])
-    }, [products]);
-
     
     // фільтрація щоб працювала тільки після натиску на ентер
     // const handleSearchProduct = (e) => {
@@ -80,9 +100,9 @@ function UserProduct() {
     //    let res = products.filter(el => )            // ????????? доробити сортування по назві категорії
     }, [selectedSort]);
     
-    const handleChangeSort = (e) => {
-        setSelectedSort(e.target.value)
-    };
+    // const handleChangeSort = (e) => {
+    //     setSelectedSort(e.target.value)
+    // };
 
     const handleEditProduct = (obj) => {
         dispatch(setEditProduct(obj))
@@ -169,7 +189,8 @@ function UserProduct() {
 
                     <div className="user-product__sort-wrap">
                         <span className="user-product__sort-label">Сортувати:</span>
-                        <select className="user-product__sort-select" onChange={handleChangeSort} value={selectedSort}>
+                        {/* <select className="user-product__sort-select" onChange={handleChangeSort} value={selectedSort}> */}
+                        <select className="user-product__sort-select" onChange={(e) => setSelectedSort(e.target.value)} value={selectedSort}>
                             <option className="user-product__sort-option" value='allPpoducts'>Всі товари</option>
                             {
                                 !!categories?.length && categories.map(category => (
@@ -216,7 +237,7 @@ function UserProduct() {
                                         </div>
                                         <div className='user-product__card-info-title-wrap'>
                                             <span className='user-product__card-info-title'>Категорія:</span>
-                                            <span className='user-product__card-info-text'>&nbsp;{el.category_id}</span>
+                                            <span className='user-product__card-info-text'>&nbsp;{el.category_name}</span>
                                         </div>
                                         <div className='user-product__card-info-title-wrap'>
                                             <span className='user-product__card-info-title'>Ціна товару:</span>
@@ -249,8 +270,8 @@ function UserProduct() {
                 </div>
             </div>
             
-            {/* <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/> */}
-            <PaginationItems items={products} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
+            <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
+            {/* <PaginationItems items={products} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/> */}
         </div>
     );
 }

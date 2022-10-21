@@ -58,7 +58,7 @@ function LayoutUser() {
     }, [])
     
     useEffect(() => {
-        if (shop._id) {
+        if (shop?._id && user?.token) {
             fetch(`http://localhost:3000/api/purchases/${shop._id}/number?token=${user.token}`)
                 .then(res => res.json())
                 .then(res => {
@@ -137,7 +137,7 @@ function LayoutUser() {
 
                         <div className='layout-user__header-btn--wrap'>
                             <div className='layout-user__header-btn-message'>
-                                <NavLink to={`/auth/${user._id}/message`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
+                                <NavLink to={`/auth/${user._id}/purchases`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
                                 {
                                     purchasesLength && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
                                 }

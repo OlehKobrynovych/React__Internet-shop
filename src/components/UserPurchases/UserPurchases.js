@@ -25,7 +25,7 @@ function UserPurchases() {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log('asdasd: ',sortStatus)
+    console.log('asdasd: ',sortPurchases)
 
     useEffect(() => {
         if (purchases?.length) {
@@ -51,7 +51,7 @@ function UserPurchases() {
         }
     }, [shop])
 
-    const handleSortStatus = (status) => {       /// доробити сортування
+    const handleSortStatus = (status) => {     
         setSortStatus(status) 
         setSortPurchases('')
         if (status == 'all') {
@@ -61,9 +61,8 @@ function UserPurchases() {
         }
     }
     
-    const handleSortPurchases = (str) => {  
-        if (sortPurchases == '' || sortPurchases !== str) {
-            setSortPurchases(str)   
+    const handleSortPurchases = (str) => { 
+        if (sortPurchases == '') {
             if (str == 'isNotSeen') {
                 setFilterPurchases([...filterPurchases.filter(el => el.isSeen == false)])
             } else if (str == 'isSeen') {
@@ -71,17 +70,34 @@ function UserPurchases() {
             } else if (str == 'favorite') {
                 setFilterPurchases([...filterPurchases.filter(el => el.favorite == true)])
             }
-        } else {
-            setSortPurchases('')   
-            if (sortStatus == 'InProcess') {
-                setFilterPurchases([...purchases.filter(el => el.status == 'InProcess')])
-            } else if (sortStatus == 'notDone') {
-                setFilterPurchases([...purchases.filter(el => el.status == 'notDone')])
-            } else if (sortStatus == 'done') {
-                setFilterPurchases([...purchases.filter(el => el.status == 'done')])
-            } else {
+            setSortPurchases(str)   
+        } else if (sortPurchases == str) {
+            if (sortStatus == 'all') {
                 setFilterPurchases([...purchases])
+            } else {
+                setFilterPurchases([...purchases.filter(el => el.status == sortStatus)])
             }
+            setSortPurchases('') 
+        } else {
+            if (sortStatus == 'all') {
+                if (str == 'isNotSeen') {
+                    setFilterPurchases([...purchases.filter(el => el.isSeen == false)])
+                } else if (str == 'isSeen') {
+                    setFilterPurchases([...purchases.filter(el => el.isSeen == true)])
+                } else if (str == 'favorite') {
+                    setFilterPurchases([...purchases.filter(el => el.favorite == true)])
+                }
+            } else {
+                let res = purchases.filter(el => el.status == sortStatus)
+                if (str == 'isNotSeen') {
+                    setFilterPurchases([...res.filter(el => el.isSeen == false)])
+                } else if (str == 'isSeen') {
+                    setFilterPurchases([...res.filter(el => el.isSeen == true)])
+                } else if (str == 'favorite') {
+                    setFilterPurchases([...res.filter(el => el.favorite == true)])
+                }
+            }
+            setSortPurchases(str)   
         }
     }
    

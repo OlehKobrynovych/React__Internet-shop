@@ -41,7 +41,19 @@ function CreationProduct() {
             setColors(editProduct.colors)
             setSizes(editProduct.sizes)
             setImages(editProduct.images)
-            // setSelectCategory()         //доробити щоб при редагуванні відображалась вибрана категорія
+
+            fetch(`http://localhost:3000/api/categories/${editProduct.category_id}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    setSelectCategory(res.data);
+                } else {
+                    setSelectCategory({})
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
         }
     }, [])
 
@@ -104,7 +116,7 @@ function CreationProduct() {
             token: user.token,
         }
 
-        if (editProduct._id) {
+        if (editProduct?._id) {
             fetch(`http://localhost:3000/api/products/${editProduct._id}`, {
                 method: 'PUT',
                 headers: {
@@ -115,7 +127,7 @@ function CreationProduct() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        console.log(res)  
+                        console.log('asd as', res)  
                         dispatch(setUpdataProduct({...data, _id: editProduct._id}))
                         toast.success('Дані оновлено', {
                             position: "bottom-right",
