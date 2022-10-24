@@ -27,6 +27,7 @@ function UserProduct() {
     const [seachName, setSeachName] = useState('');
     const [filterProducts, setFilterProducts] = useState([]);
     const [selectedSort, setSelectedSort] = useState('Всі товари');
+    const [isOpenSelect, setIsOpenSelect] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     console.log(selectedSort)
@@ -96,13 +97,30 @@ function UserProduct() {
         }
     }, [seachName]);
     
-    useEffect(() => {
-    //    let res = products.filter(el => )            // ????????? доробити сортування по назві категорії
-    }, [selectedSort]);
-    
-    // const handleChangeSort = (e) => {
-    //     setSelectedSort(e.target.value)
-    // };
+    const handleChangeSort = (category) => {
+        setIsOpenSelect(false)
+        if (category == "all") {
+            setFilterProducts([...products])
+            setSelectedSort('Всі товари')
+        } else {
+            setFilterProducts([...products.filter(el => el.category_id == category.id)])
+            setSelectedSort(category.name)
+
+            // fetch(`http://localhost:3000/api/products/${shop._id}/all`)
+            //     .then(res => res.json())
+            //     .then(res => {
+            //         if (res.success && res.data) {
+            //             console.log(res)
+            //             setFilterProducts([...res.data])
+            //         } else {
+            //             console.log('GET LayoutUser:', res)
+            //         }
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     })
+        }
+    };
 
     const handleEditProduct = (obj) => {
         dispatch(setEditProduct(obj))
@@ -189,24 +207,29 @@ function UserProduct() {
 
                     <div className="user-product__sort-wrap">
                         <span className="user-product__sort-label">Сортувати:</span>
-                        {/* <select className="user-product__sort-select" onChange={handleChangeSort} value={selectedSort}> */}
-                        <select className="user-product__sort-select" onChange={(e) => setSelectedSort(e.target.value)} value={selectedSort}>
-                            <option className="user-product__sort-option" value='allPpoducts'>Всі товари</option>
+                        <div className="user-product__sort-select-wrap">
+                            <div className="user-product__sort-select">
+                                {selectedSort}
+                                <div className='user-product__sort-select-btn-wrap' onClick={() => setIsOpenSelect(!isOpenSelect)}>
+                                    <div className={`user-product__sort-select-btn ${isOpenSelect ? 'user-product__sort-select-btn--active' : ''}`}></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`user-product__sort-option-wrap ${isOpenSelect ? 'user-product__sort-option-wrap--active' : ''}`}>
+                            <div className="user-product__sort-option-category" onClick={() => handleChangeSort('all')}>Всі товари</div>
                             {
                                 !!categories?.length && categories.map(category => (
-                                    <>
-                                        <option className="user-product__sort-option-wrap" value={category.name} key={category._id}>
-                                            <div className="user-product__sort-option-category">{category?.name}</div>
-                                        </option>
+                                    <div className="user-product__sort-option" key={category._id}>
+                                        <div className="user-product__sort-option-category" onClick={() => handleChangeSort(category)}>{category?.name}</div>
                                         {
                                             !!category?.sub_categories?.length  && category.sub_categories.map(el => (
-                                                    <option className="user-product__sort-option-sub-category" value={el.name} key={el._id}>{el?.name}</option>
+                                                    <div className="user-product__sort-option-sub-category" onClick={() => handleChangeSort(el)} key={el._id}>{el?.name}</div>
                                             ))
                                         }
-                                    </>
+                                    </div>
                                 ))
                             }
-                        </select>
+                        </div >
                     </div>
                 </div>                
 

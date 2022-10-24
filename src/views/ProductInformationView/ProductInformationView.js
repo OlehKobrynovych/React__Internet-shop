@@ -114,9 +114,11 @@ function ProductInformationView() {
         if(shoppingProduct.some(el => el._id === product._id)) {
             let res = shoppingProduct.filter(el => el._id !== product._id)
             dispatch(setShoppingProduct(res))
+            localStorage.setItem('shoppingProducts', JSON.stringify(res));
         } else {
             let res = [...shoppingProduct, product]
             dispatch(setShoppingProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
+            localStorage.setItem('shoppingProducts', JSON.stringify(res));
         }
 
         setIsShoppingProduct(!isShoppingProduct)
@@ -126,9 +128,11 @@ function ProductInformationView() {
         if(favoriteProduct.some(el => el._id === product._id)) {
             let res = favoriteProduct.filter(el => el._id !== product._id)
             dispatch(setFavoriteProduct(res))
+            localStorage.setItem('favoriteProduct', JSON.stringify(res));
         } else {
             let res = [...favoriteProduct, product]
             dispatch(setFavoriteProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
+            localStorage.setItem('favoriteProduct', JSON.stringify(res));
         }
 
         setIsFavoriteProduct(!isFavoriteProduct)

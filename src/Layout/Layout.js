@@ -5,7 +5,7 @@ import Footer from '../components/Footer/Footer';
 import Preloader from '../components/Preloader/Preloader';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, setCategories, setSelectedLanguage, setShop } from '../store/homeSlice';
+import { getProducts, setCategories, setFavoriteProduct, setSelectedLanguage, setShop, setShoppingProduct } from '../store/homeSlice';
 import { datasLanguage } from '../datasLanguage';
 
 
@@ -13,6 +13,7 @@ function Layout() {
  
     const shop = useSelector(state => state.homeSlice.shop);
     const products = useSelector(state => state.homeSlice.products);
+    const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     let { shopName } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -32,6 +33,16 @@ function Layout() {
             .catch((error) => {
                 console.error('Error:', error);
             })
+
+            let res = JSON.parse(localStorage.getItem('shoppingProducts'))
+            if (res?.length) {
+                dispatch(setShoppingProduct(res));
+            }
+            
+            let res2 = JSON.parse(localStorage.getItem('favoriteProduct'))
+            if (res2?.length) {
+                dispatch(setFavoriteProduct(res2));
+            }
     }, [])
 
     useEffect(() => {

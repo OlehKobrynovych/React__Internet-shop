@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './CartBtn.css';
@@ -7,7 +8,9 @@ function CartBtn() {
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const shop = useSelector(state => state.homeSlice.shop);
+    const [shoppingProductUser, setShoppingProductUser] = useState([]);   
     const navigate = useNavigate();
+    // console.log(shoppingProductUser)
 
     const handleClick = () => {
         navigate(`/${shop.name}/cart`)
@@ -30,7 +33,7 @@ function CartBtn() {
             <p className="cart-btn__text">{selectedLanguage?.header?.cartBtn}</p>
 
             {
-                shoppingProduct.length !== 0 && (<div className="cart-btn__count">{shoppingProduct.length}</div>) 
+                shoppingProduct?.length > 0 && (<div className="cart-btn__count">{shoppingProduct?.length}</div>) 
             }
         </div>
     );

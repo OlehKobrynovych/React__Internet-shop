@@ -33,22 +33,18 @@ function ShoppingCartView() {
     const [isSubmitError, setIsSubmitError] = useState(false);
     const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
     // const datas = useSelector(state => state.homeSlice.datas);
-    console.log(shoppingProduct)
+    // console.log(shoppingProduct)
     
 
     useEffect(() => {
-        setTotalPrice(shoppingProduct.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
-        setShoppingHistoryProducts(JSON.parse(localStorage.getItem('shoppingHistoryProducts')));
-    }, [])
-    
-    useEffect(() => {
-        setTotalPrice(shoppingProduct.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
+        setTotalPrice(shoppingProduct?.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
         setShoppingHistoryProducts(JSON.parse(localStorage.getItem('shoppingHistoryProducts')));
     }, [shoppingProduct])
     
     const handleClickDelete = (product) => {
-       let res = shoppingProduct.filter(el => el._id !== product._id)
+       let res = shoppingProduct?.filter(el => el._id !== product._id)
        dispatch(setShoppingProduct(res))
+       localStorage.setItem('shoppingProducts', JSON.stringify(res));
     };
    
     const handleSubmit = () => {
@@ -61,7 +57,7 @@ function ShoppingCartView() {
                 delivery_address: addressForm,
                 phone: phoneForm,
                 comment: commentForm,
-                product_id: [...shoppingProduct.map(el => ({_id: el._id, count: el.count}))],   
+                product_id: [...shoppingProduct?.map(el => ({_id: el._id, count: el.count}))],   
                 // quantity: [...shoppingProduct.map(el => ({_id: el._id, count: el.count}))],   
                 isSeen: false,
                 status: 'InProcess',
@@ -146,10 +142,10 @@ function ShoppingCartView() {
             <h2 className="shopping-cart__title">{selectedLanguage?.cartPage?.cartName}</h2>
 
             {
-               shoppingProduct.length ? (
+               shoppingProduct?.length ? (
                    <div className="shopping-cart__pdoduct-wrap">
                        {
-                           shoppingProduct.map(el => (
+                           shoppingProduct?.map(el => (
                                 <div className="shopping-cart__pdoduct" key={el._id}>
                                     <div className="shopping-cart__pdoduct-info-wrap">
                                         <img className="shopping-cart__pdoduct-img" onClick={() => handleClick(el._id)} src={el.images[0]?.length ? el.images[0] : noPhotos} alt='img'/>

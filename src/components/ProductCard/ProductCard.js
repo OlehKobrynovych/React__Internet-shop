@@ -19,8 +19,16 @@ function ProductCard({product}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const datas = useSelector(state => state.homeSlice.datas);
-// console.log(isFavoriteProduct)
-// console.log(favoriteProduct)
+// console.log(isShoppingProduct)
+console.log(shoppingProduct)
+
+    // useEffect(() => {
+    //     let res = (JSON.parse(localStorage.getItem('shoppingProducts')));
+    //     if (res?.length) {
+    //         let res2 = res.some(el => el._id == product._id)
+    //         setIsShoppingProduct(res2)
+    //         }
+    // }, [])
 
     const handleClick = (product) => {
         navigate(`/${shop.name}/product/${product._id}`);
@@ -28,32 +36,34 @@ function ProductCard({product}) {
     };
 
     useEffect(() => {
-        setIsFavoriteProduct(favoriteProduct.some(el => el._id == product._id))
+        setIsFavoriteProduct(favoriteProduct?.some(el => el._id == product._id))
     }, [favoriteProduct])
     
     useEffect(() => {
-        setIsShoppingProduct(shoppingProduct.some(el => el._id == product._id))
+        setIsShoppingProduct(shoppingProduct?.some(el => el._id == product._id))
     }, [shoppingProduct])
    
     const handleClickFavorite = (product) => {
         if(favoriteProduct.some(el => el._id === product._id)) {
-            let res = favoriteProduct.filter(el => el._id !== product._id)
+            let res = favoriteProduct?.filter(el => el._id !== product._id)
             dispatch(setFavoriteProduct(res))
-            // setIsFavoriteProduct(false)
+            localStorage.setItem('favoriteProduct', JSON.stringify(res));
         } else {
             let res = [...favoriteProduct, product]
             dispatch(setFavoriteProduct(res))
-            // setIsFavoriteProduct(true)
+            localStorage.setItem('favoriteProduct', JSON.stringify(res));
         }
     };
    
     const handleClickShopping = (product) => {
-        if(shoppingProduct.some(el => el._id === product._id)) {
-            let res = shoppingProduct.filter(el => el._id !== product._id)
+        if(shoppingProduct?.some(el => el._id === product._id)) {
+            let res = shoppingProduct?.filter(el => el._id !== product._id)
             dispatch(setShoppingProduct(res))
+            localStorage.setItem('shoppingProducts', JSON.stringify(res));
         } else {
             let res = [...shoppingProduct, product]
             dispatch(setShoppingProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
+            localStorage.setItem('shoppingProducts', JSON.stringify(res));
         }
     };
 

@@ -79,7 +79,7 @@
 }
 
 .user-product__sort-wrap {
-
+    position: relative;
 }
 
 .user-product__sort-label {
@@ -90,30 +90,92 @@
     margin-bottom: 10px;
 }
 
-.user-product__sort-select {
-    /* border: none; */
-    font-size: 19px;
-    padding: 4px;
-    border-radius: 7px;
+.user-product__sort-select-wrap {
+    display: inline-block;
 }
 
-.user-product__sort-select:focus-visible {
-    
-    /* border: none; */
+.user-product__sort-select {
+    display: flex;
+    margin-left: 5px;
+} 
+
+.user-product__sort-select-btn-wrap {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: .3s;
+}
+
+.user-product__sort-select-btn-wrap:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-product__sort-select-btn {
+    position: absolute;
+    top: 4px;
+    left: 7px;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(-45deg);
+}
+
+.user-product__sort-select-btn--active {
+    top: 9px;
+    transform: rotate(135deg);
+}
+
+.user-product__sort-option-wrap {
+    position: absolute;
+    background: #fff;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    right: 0;
+    opacity: 0;
+    text-align: end;
+    transition: .3s;
+}
+
+.user-product__sort-option-wrap--active {
+    opacity: 1;
+    height: 350px;
+    width: 129px;
+    overflow: auto;
+    z-index: 10;
 }
 
 .user-product__sort-option {
+}
+
+
+.user-product__sort-option-category {
+    cursor: pointer;
+    transition: .3s;
     margin-top: 3px;
+    font-weight: 700;
     margin-bottom: 3px;
 }
 
-.user-product__sort-option-category {
-
+.user-product__sort-option-category:hover {
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .user-product__sort-option-sub-category {
-    font-size: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    transition: .3s;
     /* padding-left: 5px; */
+}
+
+.user-product__sort-option-sub-category:hover {
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .user-product__cards {
