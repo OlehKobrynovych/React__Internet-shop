@@ -208,9 +208,9 @@ function UserProduct() {
                     <div className="user-product__sort-wrap">
                         <span className="user-product__sort-label">Сортувати:</span>
                         <div className="user-product__sort-select-wrap">
-                            <div className="user-product__sort-select">
+                            <div className="user-product__sort-select" onClick={() => setIsOpenSelect(!isOpenSelect)}>
                                 {selectedSort}
-                                <div className='user-product__sort-select-btn-wrap' onClick={() => setIsOpenSelect(!isOpenSelect)}>
+                                <div className='user-product__sort-select-btn-wrap'>
                                     <div className={`user-product__sort-select-btn ${isOpenSelect ? 'user-product__sort-select-btn--active' : ''}`}></div>
                                 </div>
                             </div>

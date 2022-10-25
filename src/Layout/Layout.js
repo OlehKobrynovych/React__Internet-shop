@@ -48,15 +48,15 @@ function Layout() {
     useEffect(() => {
         if (shop.name) {
             fetch(`http://localhost:3000/api/products/${shop._id}/all`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data.length) {
-                    dispatch(getProducts(res.data));
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data.length) {
+                        dispatch(getProducts(res.data));
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
             
             fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
                 .then(res => res.json())

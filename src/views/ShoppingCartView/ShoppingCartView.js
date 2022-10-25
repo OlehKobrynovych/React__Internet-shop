@@ -10,6 +10,7 @@ import deleteImg from '../../assets/images/deleteImg.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
 import { setShoppingProduct } from '../../store/homeSlice';
 import { toast } from 'react-toastify';
+import InputCheckbox from '../../components/InputCheckbox/InputCheckbox';
 
 
 
@@ -34,6 +35,7 @@ function ShoppingCartView() {
     const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
     // const datas = useSelector(state => state.homeSlice.datas);
     // console.log(shoppingProduct)
+    // console.log(selectColors)
     
 
     useEffect(() => {
@@ -57,13 +59,12 @@ function ShoppingCartView() {
                 delivery_address: addressForm,
                 phone: phoneForm,
                 comment: commentForm,
-                product_id: [...shoppingProduct?.map(el => ({_id: el._id, count: el.count}))],   
-                // quantity: [...shoppingProduct.map(el => ({_id: el._id, count: el.count}))],   
+                product_id: [...shoppingProduct?.map(el => ({_id: el._id, count: el.count, selectSizes: el.selectSizes, selectColors: el.selectColors}))],   
                 isSeen: false,
                 status: 'InProcess',
                 favorite: false,
                 shop_id: shop._id,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjMzMzY2MSwiZXhwIjoxNjY2MzUxNjYxfQ.T3q9ejn9K8sN54339vpKTUAqmahKE5nJSLHF6GZONEk',                // відправка токена звідки брати для покупців?
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjY3ODM3MCwiZXhwIjoxNjY2Njk2MzcwfQ.8moHzdcudvgEcIKW0OVhqOsROs6cB-GDDIlQPmAL5pQ',                // відправка токена звідки брати для покупців?
             }
 
             fetch(`http://localhost:3000/api/purchases/`, {
@@ -127,6 +128,25 @@ function ShoppingCartView() {
     const handleClick = (id) => {
         navigate(`/${shop.name}/product/${id}`);
     };
+  
+
+    const handleSelectSize = (obj) => {
+        dispatch(setShoppingProduct([...shoppingProduct.map(el => {
+            if (el._id == obj._id) {
+                el = {...el, selectSizes: obj.arr}
+            }
+            return el
+        })]))
+    };
+
+    const handleSelectColors = (obj) => {
+        dispatch(setShoppingProduct([...shoppingProduct.map(el => {
+            if (el._id == obj._id) {
+                el = {...el, selectColors: obj.arr}
+            }
+            return el
+        })]))
+    };
 
     return (
      <div className="shopping-cart">
@@ -149,19 +169,42 @@ function ShoppingCartView() {
                                 <div className="shopping-cart__pdoduct" key={el._id}>
                                     <div className="shopping-cart__pdoduct-info-wrap">
                                         <img className="shopping-cart__pdoduct-img" onClick={() => handleClick(el._id)} src={el.images[0]?.length ? el.images[0] : noPhotos} alt='img'/>
-                                        <div className="shopping-cart__pdoduct-info">
-                                            <div className="shopping-cart__pdoduct-info-title">{el.name}</div>
-                                        </div>
-                                        <div className="shopping-cart__pdoduct-price-wrap">
-                                            <p>{selectedLanguage?.cartPage?.cartPriceTitle}</p>
-                                            {
-                                                el.new_price ? (<><p className="shopping-cart__pdoduct-price-old">{el.price}{shop.currency}</p><p className="shopping-cart__pdoduct-price">{el.new_price}{shop.currency}</p></>)
-                                                : (<p className="shopping-cart__pdoduct-price">{el.price}{shop.currency}</p>)
-                                            }
+                                        <div className="shopping-cart__pdoduct-info-text">
+                                            <div className="shopping-cart__pdoduct-info">
+                                                <div className="shopping-cart__pdoduct-info-title">{el.name}</div>
+                                                {
+                                                    el?.sizes?.length !== 0 && (
+                                                        <>
+                                                            <p>Розміра:</p>
+                                                            <div className="shopping-cart__pdoduct-info-size-wrap">
+                                                                <InputCheckbox handleChange={handleSelectSize} checkboxArr={el?.sizes} id={el._id}/>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                }
+                                                
+                                                {
+                                                    el?.colors.length !== 0 && (
+                                                        <>
+                                                            <p>Кольори:</p>
+                                                            <div className="shopping-cart__pdoduct-info-colors-wrap">
+                                                            <InputCheckbox handleChange={handleSelectColors} checkboxArr={el?.colors} id={el._id}/>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+                                            <div className="shopping-cart__pdoduct-price-wrap">
+                                                <p>{selectedLanguage?.cartPage?.cartPriceTitle}</p>
+                                                {
+                                                    el.new_price ? (<><p className="shopping-cart__pdoduct-price-old">{el.price}{shop.currency}</p><p className="shopping-cart__pdoduct-price">{el.new_price}{shop.currency}</p></>)
+                                                    : (<p className="shopping-cart__pdoduct-price">{el.price}{shop.currency}</p>)
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="shopping-cart__pdoduct-count-wrap">
-                                        <QuantityProduct price={el.price} new_price={el.new_price} id={el._id} count={el.count}/>
+                                        <QuantityProduct price={el.price} new_price={el.new_price} id={el._id}/>
                                         <button onClick={() => handleClickDelete(el)}><img className="shopping-cart__delete-btn" src={deleteImg} alt='img'/></button>
                                     </div>
                                 </div>
@@ -193,7 +236,6 @@ function ShoppingCartView() {
                                     <input className="shopping-cart__form-input" onChange={(e) => setEmailForm(e.target.value)} value={emailForm} type="text" id="email" name="email" placeholder="Email"/>
                                 </label>
                                 <label className="shopping-cart__form-input-label" htmlFor="email">
-                                    {/* <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormMail}</span> */}
                                     <span className="shopping-cart__form-input-title">Спосіб доставки:</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setDeliveryMethod(e.target.value)} value={deliveryMethod} type="text" id="email" name="email" placeholder="Спосіб..."/>
                                 </label>
@@ -201,7 +243,6 @@ function ShoppingCartView() {
 
                             <div className="shopping-cart__form-textarea-wrap">
                                 <label className="shopping-cart__form-input-label" htmlFor="comment">
-                                    {/* <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormComment}</span> */}
                                     <span className="shopping-cart__form-input-title">Адреса:</span>
                                     <textarea className="shopping-cart__form-input" onChange={(e) => setAddressForm(e.target.value)} value={addressForm} type="text" id="comment" name="comment" placeholder="" rows="5" cols="33"/>
                                 </label>

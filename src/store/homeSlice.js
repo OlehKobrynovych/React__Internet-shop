@@ -11,7 +11,7 @@ const initialState = {
   favoriteProduct: [],
   shoppingProduct: [],
   isOpenMenu: false,
-  // totalPrice: {},
+  searchProductsName: '',
 }
 
 export const homeSlice = createSlice({
@@ -56,9 +56,9 @@ export const homeSlice = createSlice({
     setShoppingProduct: (state, action) => {
       state.shoppingProduct = action.payload;
     },
-    // setTotalPrice: (state, action) => {
-    //   state.totalPrice = action.payload;
-    // },
+    setSearchProductsName: (state, action) => {
+      state.searchProductsName = action.payload;
+    },
     // decrement: (state) => {
     //   state.value -= 1
     // },
@@ -68,6 +68,6 @@ export const homeSlice = createSlice({
   },
 })
 
-export const { getDatas, getProducts, setShop, setCategories, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct, setShoppingProduct, setSelectedLanguage } = homeSlice.actions
+export const { getDatas, getProducts, setShop, setCategories, setLastViewProduct, setSelectedSubCategories, setIsOpenMenu, setFavoriteProduct, setShoppingProduct, setSelectedLanguage, setSearchProductsName } = homeSlice.actions
 
 export default homeSlice.reducer

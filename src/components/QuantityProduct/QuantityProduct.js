@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { setShoppingProduct, setTotalPrice } from '../../store/homeSlice';
 import './QuantityProduct.css';
 
-function QuantityProduct({price, new_price, id, count}) {
+function QuantityProduct({price, new_price, id}) {
     const shop = useSelector(state => state.homeSlice.shop);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
-    const [quantity, setQuantity] = useState(count);
+    const [quantity, setQuantity] = useState(1);
     const [pdoductTotalPrice, setPdoductTotalPrice] = useState(null);
     const dispatch = useDispatch();
 

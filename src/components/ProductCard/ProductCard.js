@@ -20,7 +20,7 @@ function ProductCard({product}) {
     const navigate = useNavigate();
     // const datas = useSelector(state => state.homeSlice.datas);
 // console.log(isShoppingProduct)
-console.log(shoppingProduct)
+// console.log(shoppingProduct)
 
     // useEffect(() => {
     //     let res = (JSON.parse(localStorage.getItem('shoppingProducts')));

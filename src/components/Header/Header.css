@@ -159,6 +159,7 @@
 
 .header__search {
     display: none;
+    color: #fff;
 }
 
 .header__search:focus {
@@ -169,6 +170,7 @@
     width: 20px;
     height: 20px;
     position: static;
+    cursor: pointer;
 }
 
 @media (min-width: 576px) {

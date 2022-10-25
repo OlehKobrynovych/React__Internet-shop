@@ -92,6 +92,7 @@
 
 .user-product__sort-select-wrap {
     display: inline-block;
+    cursor: pointer;
 }
 
 .user-product__sort-select {

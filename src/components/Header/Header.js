@@ -11,6 +11,7 @@ import CartBtn from '../CartBtn/CartBtn';
 // import LoginBtn from '../LoginBtn/LoginBtn';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
+import { setSearchProducts, setSearchProductsName } from '../../store/homeSlice';
 
 
 function Header() {
@@ -18,7 +19,10 @@ function Header() {
     const categories = useSelector(state => state.homeSlice.categories);
     const searchInputRef = useRef(null);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
+    const [searchValue, setSearchValue] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     // console.log(categories)
 
     useEffect(() => {
@@ -27,10 +31,24 @@ function Header() {
 
     const handleClick = () => {
         searchInputRef.current.focus()
+        // setSearchValue(searchValue)
+        if (searchValue?.length) {
+            dispatch(setSearchProductsName(searchValue));
+            navigate(`/${shop.name}/search`)
+        } else {
+            navigate(`/${shop.name}`)
+        }
     };
     
-    const handleChangeSearch = () => {
-
+    const handleKeyDown = (e) => {
+        if(e.key == 'Enter') {
+            if (searchValue?.length) {
+                dispatch(setSearchProductsName(searchValue));
+                navigate(`/${shop.name}/search`)
+            } else {
+                navigate(`/${shop.name}`)
+            }
+        }
     };
     
     
@@ -72,7 +90,7 @@ function Header() {
                 
                 <div className="header__wrap-btn">
                     <div className="header__search-wrap">
-                        <input className="header__search" onChange={(e) => handleChangeSearch(e.target.value)} ref={searchInputRef} type="text" name="search" placeholder={selectedLanguage?.header?.placeholderSearch} />
+                        <input className="header__search" onChange={(e) => setSearchValue(e.target.value)} onKeyDown={(e) => handleKeyDown(e)} value={searchValue} ref={searchInputRef} type="text" name="search" placeholder={selectedLanguage?.header?.placeholderSearch} autoComplete='off' />
                         <img className="header__search-img" src={search} alt='img' onClick={() => handleClick()} />
                     </div>
                     <HeartBtn />

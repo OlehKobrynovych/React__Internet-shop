@@ -71,7 +71,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 270px;
-    height: 809px;
+    height: 881px;
     margin: 5px;
     border: 2px solid #0d48ac;
     aspect-ratio: 9 / 16;
@@ -143,7 +143,8 @@
     margin-top: 7px;
     margin-bottom: 7px;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    /* flex-wrap: wrap; */
 }
 
 .read-purchases__card-info-title {
@@ -169,6 +170,8 @@
 
 .read-purchases__count {
     color: #075ef2;
+    display: flex;
+    align-items: center;
 }
 
 .read-purchases__count-title {
@@ -181,6 +184,42 @@
 
 .read-purchases__count-price-title {
     margin-right: 4px;
+}
+
+.read-purchases__btn-edite {
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 3px;
+    transition: .3s;
+}
+
+.read-purchases__btn-edite:hover {
+    background-color: rgb(161, 157, 157);
+}
+
+
+.read-purchases__card-btn-delete-wrap {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.read-purchases__card-btn-delete {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 3px;
+    transition: .3s;
+}
+
+.read-purchases__card-btn-delete:hover {
+    background-color: rgb(161, 157, 157);
 }
 
 @media (min-width: 576px) {

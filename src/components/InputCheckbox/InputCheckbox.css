@@ -1,0 +1,23 @@
+.input-checkbox {
+    display: flex;
+    gap: 10px;
+}
+
+.input-checkbox__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 1080px) {
+
+}

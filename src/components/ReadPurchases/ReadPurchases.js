@@ -2,31 +2,40 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ReadPurchases.css';
 import noPhotos from './../../assets/images/noPhotos.svg';
-import envelopeOpen from './../../assets/images/envelopeOpen.svg';
+import editIcon from './../../assets/images/editIcon.svg';
+import deleteImg from './../../assets/images/deleteImg.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSeenPurchases, setStatusPurchases } from '../../store/userSlice';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from 'swiper';
 import { toast } from 'react-toastify';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import CardInput from '../CardInput/CardInput';
+import PurchasesEditeArr from '../PurchasesEditeArr/PurchasesEditeArr';
 
 
 
 
-function ReadPurchases() {
+function ReadPurchases () {
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const purchases = useSelector(state => state.userSlice.purchases);
     let { idPurchases } = useParams();
     const [status, setStatus] = useState('');
-    // const [purchaseContent, setPurchases] = useState({});
     const [purchaseContent, setPurchaseContent] = useState({});
     const [orderedProducts, setOrderedProducts] = useState([]);
+    const [editProduct, setEditProduct] = useState({});
+    const [newSize, setNewSize] = useState([]);
+    const [newColors, setNewColors] = useState([]);
+    const [newCount, setNewCount] = useState('');
     const [totalPrice, setTotalPrice] = useState('');
+    const [isModalDelProduct, setIsModalDelProduct] = useState(false);
+    const [isModalEditProductCount, setIsModalEditProductCount] = useState(false);
+    const [isModalEditProductSize, setIsModalEditProductSize] = useState(false);
+    const [isModalEditProductColors, setIsModalEditProductColors] = useState(false);
+    const [deleteId, setDeleteId] = useState('');
     const dispatch = useDispatch();
-    // const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
-    // const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
-    // const navigate = useNavigate();
-    console.log('purchases: ',purchaseContent)
+    console.log('purchases: ', purchaseContent)
     
     useEffect(() => {
         if (user?._id) {
@@ -75,7 +84,6 @@ function ReadPurchases() {
     }
 
     useEffect(() => {
-        
         if (purchaseContent._id) {
             if (!status?.length) {
                 setStatus(purchaseContent.status)
@@ -209,9 +217,218 @@ function ReadPurchases() {
             })
     }
 
+    const handleEditProductColors = (obj) => {
+        setIsModalEditProductColors(true)
+        setEditProduct(obj)
+    } 
+
+    const handleEditProductSize = (obj) => {
+        setIsModalEditProductSize(true)
+        setEditProduct(obj)
+    } 
+
+    const handleEditProductCount = (obj) => {
+        setIsModalEditProductCount(true)
+        setEditProduct(obj)
+    } 
+   
+    const handleIsEditProductColors = (boolean) => {
+        if (boolean) {
+            const data = {
+                ...purchaseContent,
+                // colors: newColors,
+                product_id: purchaseContent.product_id.map(el => {
+                    if (el._id == editProduct._id) {
+                        el.selectColors = [...newColors]
+                    }
+                    return el
+                }),
+                token: user.token,
+            }
+            
+            sendEdite(data)
+        } 
+
+        setIsModalEditProductColors(false)
+        setEditProduct({})
+    }
+
+    const handleIsEditProductSize = (boolean) => {
+        if (boolean) {
+            const data = {
+                ...purchaseContent,
+                // sizes: newSize,
+                product_id: purchaseContent.product_id.map(el => {
+                    if (el._id == editProduct._id) {
+                        el.selectSizes = [...newSize]
+                    }
+                    return el
+                }),
+                token: user.token,
+            }
+            
+            sendEdite(data)
+        } 
+
+        setIsModalEditProductSize(false)
+        setEditProduct({})
+    }
+
+    const handleIsEditProductCount = (boolean) => {
+        if (boolean) {
+            const data = {
+                ...purchaseContent,
+                product_id: purchaseContent.product_id.map(el => {
+                    if (el._id == editProduct._id) {
+                        el.count = newCount
+                    }
+                    return el
+                }),
+                token: user.token,
+            }
+            
+            sendEdite(data)
+        } 
+
+        setIsModalEditProductCount(false)
+        setEditProduct({})
+    }
+    
+
+
+
+
+
+    const sendEdite = (data) => {
+        fetch(`http://localhost:3000/api/purchases/${purchaseContent._id}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    console.log('PUT CardSelect:', res)
+                    // dispatch(setStatusPurchases({...purchaseContent, status: str}));
+                    setPurchaseContent({...data})
+                    toast.success('Дані оновлено', {
+                        position: "bottom-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                } else {
+                    console.log('PUT CardSelect:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                toast.error('Сталася помилка', {
+                    position: "bottom-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            })
+    } 
+
+    const handleDeleteProduct = (id) => {
+        setIsModalDelProduct(true)
+        setDeleteId(id)
+    } 
+
+    const handleIsDeleteSubProduct = (boolean) => {
+        if (boolean) {
+            const data = {
+                token: user.token,
+            }
+
+            fetch(`http://localhost:3000/api/products/${deleteId}`, {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        // console.log('del', res)
+                        setOrderedProducts([...orderedProducts.filter(el => el._id !== deleteId)])
+                        toast.success('Товар видалено', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        })
+                    } else {
+                        console.log('DELETE ReadPurchases', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    toast.error('Сталася помилка', {
+                        position: "bottom-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                })
+        } 
+        
+        setIsModalDelProduct(false)
+        setDeleteId('')
+    }
+
+    const selectedOrders = (id) => {
+        console.log( purchaseContent?.product_id?.filter(ell => ell._id == id)[0])
+      return purchaseContent?.product_id?.filter(ell => ell._id == id)[0]
+    }
+
     return (
-        // <div className={`read-purchases read-purchases__item-status--${purchaseContent?.status}`}>
         <div className={`read-purchases read-purchases__item-status--${status}`}>
+
+            {
+                isModalDelProduct && <ModalWindow title={'Ви впевнені?'}  text={'Видалити даний товар'} handleClick={handleIsDeleteSubProduct}/>
+            }
+
+            {
+                isModalEditProductCount && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductCount} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
+                                            <CardInput handleChange={setNewCount}/>
+                                          </ ModalWindow>
+            }
+           
+            {
+                isModalEditProductSize && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductSize} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
+                                            {/* <PurchasesEditeArr handleChange={setNewSize} purchaseArr={editProduct?.sizes}/> */}
+                                            <PurchasesEditeArr handleChange={setNewSize} purchaseArr={selectedOrders(editProduct._id)?.selectSizes}/>
+                                          </ ModalWindow>
+            }
+           
+            {
+                isModalEditProductColors && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductColors} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
+                                            <PurchasesEditeArr handleChange={setNewColors} purchaseArr={selectedOrders(editProduct._id)?.selectColors}/>
+                                          </ ModalWindow>
+            }
+
             <div className="read-purchases--wrap container">
                 <div className="read-purchases__status-wrap">
                     <div className="read-purchases__status-number">
@@ -275,12 +492,18 @@ function ReadPurchases() {
                                                 <span className='read-purchases__card-info-text read-purchases__card-info-text-red'>&nbsp;{el.new_price}{shop?.currency}</span>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
-                                                <span className='read-purchases__card-info-title'>Доступні кольори:</span>
-                                                <span className='read-purchases__card-info-text'>&nbsp;{el.colors.join(', ')}</span>
+                                                <div>
+                                                    <span className='read-purchases__card-info-title'>Замовлені кольори:</span>
+                                                    <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectColors.join(', ')}</span>
+                                                </div>
+                                                <img className='read-purchases__btn-edite' onClick={() => handleEditProductColors(el)} src={editIcon} alt='img'/>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
-                                                <span className='read-purchases__card-info-title'>Доступні розміра:</span>
-                                                <span className='read-purchases__card-info-text'>&nbsp;{el.sizes.join(', ')}</span>
+                                                <div>
+                                                    <span className='read-purchases__card-info-title'>Замовлені розміра:</span>
+                                                    <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectSizes.join(', ')}</span>
+                                                </div>
+                                                <img className='read-purchases__btn-edite' onClick={() => handleEditProductSize(el)} src={editIcon} alt='img'/>
                                             </div>
                                             <span className='read-purchases__card-info-title'>Опис:</span>
                                             <div className='read-purchases__card-info-details'>{el.details}</div>
@@ -291,13 +514,19 @@ function ReadPurchases() {
                                         <div className='read-purchases__count'>
                                             <span className='read-purchases__count-title'><b>Кількість:</b></span>
                                             {el.count}
+                                            <img className='read-purchases__btn-edite' onClick={() => handleEditProductCount(el)} src={editIcon} alt='img'/>
                                         </div>
                                         <div className='read-purchases__count-price'>
                                             <span className='read-purchases__count-price-title'><b>Сума:</b></span>
                                             {el.new_price == '0' ? el.price * el.count : el.new_price * el.count}
                                             {shop?.currency}
                                         </div>
+                                    
+                                        <div className='read-purchases__card-btn-delete-wrap'>
+                                            <img className='read-purchases__card-btn-delete' onClick={() => handleDeleteProduct(el._id)} src={deleteImg} alt='img'/>
+                                        </div>
                                     </div>
+
                                 </div>
                             ))
                     }
