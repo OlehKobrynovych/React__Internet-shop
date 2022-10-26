@@ -104,8 +104,13 @@ function UserPurchases() {
     const handleReadPurchases = (id) => {
         navigate(`/auth/${user._id}/purchases/${id}`)
     }
-    
-    const handleFavorite = (purchases) => {
+   
+    const handleClick = (e) => {
+        e.stopPropagation()
+    }
+
+    const handleFavorite = (e, purchases) => {
+        e.stopPropagation()
         let data = {
             ...purchases,
             token: user.token,
@@ -168,8 +173,8 @@ function UserPurchases() {
                     <div className="user-purchases__items">
                         {
                             !!currentPaginationItems?.length ? currentPaginationItems.map(el => (
-                                <div className={`user-purchases__item user-purchases__item-status--${el.status}`} key={el._id}>
-                                    <svg className={`user-purchases__item-stars ${el.favorite ? 'user-purchases__item-stars-is-favorite' : ''}`} onClick={() => handleFavorite(el)} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                <div className={`user-purchases__item user-purchases__item-status--${el.status}`} key={el._id} onClick={() => handleReadPurchases(el._id)}>
+                                    <svg className={`user-purchases__item-stars ${el.favorite ? 'user-purchases__item-stars-is-favorite' : ''}`} onClick={(e) => handleFavorite(e, el)} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                         viewBox="0 0 404.204 404.204" xmlSpace="preserve">
                                         <g>
                                             <g>
@@ -189,8 +194,10 @@ function UserPurchases() {
                                     <div className="user-purchases__item-name-wrap" onClick={() => handleReadPurchases(el._id)}><div className="user-purchases__item-name">{el.full_name}</div></div>
                                     <div className="user-purchases__item-text-wrap" onClick={() => handleReadPurchases(el._id)}><div className="user-purchases__item-text">{el.comment}</div></div>
 
-                                    <span>Статус</span>
-                                    <SelectStatus purchases={el} status={el.status}/>
+                                    <div onClick={(e) => handleClick(e)} className="user-purchases__item-status-wrap">
+                                        <span>Статус</span>
+                                        <SelectStatus purchases={el} status={el.status}/>
+                                    </div>
 
                                     <img className="user-purchases__item-seen" src={el.isSeen ? envelopeOpen : envelope} alt='img'/>
                                 </div>

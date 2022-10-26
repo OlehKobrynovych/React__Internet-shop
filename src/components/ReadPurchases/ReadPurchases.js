@@ -33,7 +33,7 @@ function ReadPurchases () {
     const [isModalEditProductCount, setIsModalEditProductCount] = useState(false);
     const [isModalEditProductSize, setIsModalEditProductSize] = useState(false);
     const [isModalEditProductColors, setIsModalEditProductColors] = useState(false);
-    const [deleteId, setDeleteId] = useState('');
+    const [newNote, setNewNote] = useState('');
     const dispatch = useDispatch();
     console.log('purchases: ', purchaseContent)
     
@@ -88,46 +88,24 @@ function ReadPurchases () {
             if (!status?.length) {
                 setStatus(purchaseContent.status)
             }
-            
-            // let data = {
-            //     ...purchaseContent,
-            //     token: user.token,
-            //     isSeen: true,
-            // }
-    
-            // fetch(`http://localhost:3000/api/purchases/${purchaseContent._id}`, {
-            //     method: 'PUT',
-            //     headers: {
-            //     'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data),
-            // })
-            //     .then(res => res.json())
-            //     .then(res => {
-            //         if (res.success && res.data) {
-            //             console.log('PUT CardSelect:', res)
-            //             dispatch(setSeenPurchases({...purchaseContent, isSeen: true}));
-            //         } else {
-            //             console.log('PUT ReadPurchases:', res)
-            //         }
-            //     })
-            //     .catch((error) => {
-            //     })
         }
 
         if (purchaseContent.product_id?.length) {
             setOrderedProducts([])
-            purchaseContent.product_id.map(el => {
+            purchaseContent?.product_id?.map(el => {
+                // fetch(`http://localhost:3000/api/products/${el._id}?token=${user.token}`)
+                console.log('1111111111111')
                 fetch(`http://localhost:3000/api/products/${el._id}`)
                     .then(res => res.json())
                     .then(res => {
+                        console.log('1111111111111', res)
                         if (res.success && res.data?._id) {
                             console.log('1111111111111')
                             setOrderedProducts((orderedProducts) => [...orderedProducts, {...res.data, count: el.count}])
                             // setOrderedProducts((prewValue) => [...prewValue, {...res.data, count: el.count}])
                             // dispatch(getProducts(res.data));
                         } else {
-                            console.log('GET LayoutUser:', res)
+                            console.log('GET ReadPurchases:', res)
                         }
                     })
                     .catch((error) => {
@@ -147,25 +125,6 @@ function ReadPurchases () {
         }
     }, [orderedProducts])
 
-
-     // useEffect(() => {
-    //     if (shop?._id) {
-    //         fetch(`http://localhost:3000/api/purchases/${shop._id}/all?token=${user.token}`)
-    //             .then(res => res.json())
-    //             .then(res => {
-    //                 console.log('GET UserPurchases:', res)
-    //                 if (res.success && res.data?.length) {
-    //                     dispatch(getPurchases(res.data));
-    //                 } else {
-    //                     console.log('GET UserPurchases:', res)
-    //                 }
-    //             })
-    //             .catch((error) => {
-    //                 console.error('Error:', error);
-    //             })
-    //     }
-    // }, [shop])
-   
     const handleChangeStatus = (str) => {
         setStatus(str)
 
@@ -231,12 +190,16 @@ function ReadPurchases () {
         setIsModalEditProductCount(true)
         setEditProduct(obj)
     } 
+
+    const handleDeleteProduct = (id) => {
+        setIsModalDelProduct(true)
+        setEditProduct(id)
+    } 
    
     const handleIsEditProductColors = (boolean) => {
         if (boolean) {
             const data = {
                 ...purchaseContent,
-                // colors: newColors,
                 product_id: purchaseContent.product_id.map(el => {
                     if (el._id == editProduct._id) {
                         el.selectColors = [...newColors]
@@ -257,7 +220,6 @@ function ReadPurchases () {
         if (boolean) {
             const data = {
                 ...purchaseContent,
-                // sizes: newSize,
                 product_id: purchaseContent.product_id.map(el => {
                     if (el._id == editProduct._id) {
                         el.selectSizes = [...newSize]
@@ -293,11 +255,26 @@ function ReadPurchases () {
         setIsModalEditProductCount(false)
         setEditProduct({})
     }
-    
 
+    const handleIsDeleteProduct = (boolean) => {
+        if (boolean) {
+            const data = {
+                ...purchaseContent,
+                product_id: purchaseContent.product_id.map(el => {
+                    if (el._id == editProduct._id) {
+                        el.removed = !el.removed
+                    }
+                    return el
+                }),
+                token: user.token,
+            }
+            
+            sendEdite(data)
+        } 
 
-
-
+        setIsModalDelProduct(false)
+        setEditProduct({})
+    }
 
     const sendEdite = (data) => {
         fetch(`http://localhost:3000/api/purchases/${purchaseContent._id}`, {
@@ -342,72 +319,40 @@ function ReadPurchases () {
             })
     } 
 
-    const handleDeleteProduct = (id) => {
-        setIsModalDelProduct(true)
-        setDeleteId(id)
-    } 
-
-    const handleIsDeleteSubProduct = (boolean) => {
-        if (boolean) {
+    const selectedOrders = (id) => {
+        // console.log( purchaseContent?.product_id?.filter(ell => ell._id == id)[0])
+      return purchaseContent?.product_id?.filter(ell => ell._id == id)[0]
+    }
+    
+    const handleAddNone = () => {
+        if (newNote?.length) {
             const data = {
+                ...purchaseContent,
+                notes: [...purchaseContent.notes, {_id: new Date().toString(), note: newNote}],
                 token: user.token,
             }
-
-            fetch(`http://localhost:3000/api/products/${deleteId}`, {
-                method: 'DELETE',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.success && res.data) {
-                        // console.log('del', res)
-                        setOrderedProducts([...orderedProducts.filter(el => el._id !== deleteId)])
-                        toast.success('Товар видалено', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        })
-                    } else {
-                        console.log('DELETE ReadPurchases', res)
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    toast.error('Сталася помилка', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
-                })
+            
+            sendEdite(data)
         } 
-        
-        setIsModalDelProduct(false)
-        setDeleteId('')
-    }
 
-    const selectedOrders = (id) => {
-        console.log( purchaseContent?.product_id?.filter(ell => ell._id == id)[0])
-      return purchaseContent?.product_id?.filter(ell => ell._id == id)[0]
+        setNewNote('')
+    }
+ 
+    const handleDeleteNone = (id) => {
+        const data = {
+            ...purchaseContent,
+            notes: [...purchaseContent.notes.filter(el => el._id !== id)],
+            token: user.token,
+        }
+        
+        sendEdite(data)
     }
 
     return (
         <div className={`read-purchases read-purchases__item-status--${status}`}>
 
             {
-                isModalDelProduct && <ModalWindow title={'Ви впевнені?'}  text={'Видалити даний товар'} handleClick={handleIsDeleteSubProduct}/>
+                isModalDelProduct && <ModalWindow title={'Ви впевнені?'}  text={purchaseContent?.product_id.filter(ell => ell._id == editProduct._id)[0].removed ? 'Відновити даний товар' : 'Видалити даний товар'} handleClick={handleIsDeleteProduct}/>
             }
 
             {
@@ -418,7 +363,6 @@ function ReadPurchases () {
            
             {
                 isModalEditProductSize && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductSize} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
-                                            {/* <PurchasesEditeArr handleChange={setNewSize} purchaseArr={editProduct?.sizes}/> */}
                                             <PurchasesEditeArr handleChange={setNewSize} purchaseArr={selectedOrders(editProduct._id)?.selectSizes}/>
                                           </ ModalWindow>
             }
@@ -449,6 +393,39 @@ function ReadPurchases () {
                 <div className="read-purchases__info"><b>Адреса:</b>&nbsp;{purchaseContent?.delivery_address}</div>
                 <div className="read-purchases__info"><b>Спосіб доставки:</b>&nbsp;{purchaseContent?.delivery_method}</div>
                 <div className="read-purchases__info"><b>Коментар:</b>&nbsp;{purchaseContent?.comment}</div>
+                <div className="read-purchases__info">
+                    <label className='read-purchases__info-notes-label' htmlFor="notes">
+                        <b>Зробити нотатки</b>
+                    </label>
+                    <div className='read-purchases__info-btn-wrap'>
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            type="text"
+                            className='read-purchases__info-notes'
+                            onChange={(e) => setNewNote(e.target.value)}
+                            value={newNote}
+                            placeholder="Нотатки..."
+                            rows="5" 
+                            cols="50"
+                            />
+                        <button onClick={handleAddNone} className='read-purchases__info-btn'>+</button>
+                    </div>
+
+                    {
+                       !!purchaseContent?.notes?.length && (
+                            <ul>
+                                <b>Важливо!!!</b>
+                                {
+                                    purchaseContent?.notes?.map((el, index) => (<div className='read-purchases__info-notes-li-wrap' key={el._id}>
+                                            <img onClick={() => handleDeleteNone(el._id)} className='read-purchases__info-notes-btn-del' src={deleteImg} alt='img'/>
+                                            <li className='read-purchases__info-notes-li'>{index + 1}&nbsp;{el.note}</li>
+                                        </div>))
+                                }
+                            </ul>
+                       ) 
+                    }
+                </div>
 
                 <h3 className="read-purchases__products-title">Замовлений товар</h3>
                 <div className="read-purchases__products-count"><b>Кількість товару:</b>&nbsp;{orderedProducts?.length}</div>
@@ -457,7 +434,7 @@ function ReadPurchases () {
                 <div className='read-purchases__cards'>
                     {
                         !!orderedProducts?.length &&  orderedProducts.map(el => (
-                                <div className='read-purchases__card' key={el._id}>
+                                <div className={`read-purchases__card ${purchaseContent?.product_id.filter(ell => ell._id == el._id)[0].removed ? 'read-purchases__card--removed' : ''}`} key={el._id}>
                                     <div className='read-purchases__card-wrap'>
                                         <div className="read-purchases__card-swiper-wrap">
                                             <Swiper
@@ -523,7 +500,7 @@ function ReadPurchases () {
                                         </div>
                                     
                                         <div className='read-purchases__card-btn-delete-wrap'>
-                                            <img className='read-purchases__card-btn-delete' onClick={() => handleDeleteProduct(el._id)} src={deleteImg} alt='img'/>
+                                            <img className='read-purchases__card-btn-delete' onClick={() => handleDeleteProduct(el)} src={deleteImg} alt='img'/>
                                         </div>
                                     </div>
 

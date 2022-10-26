@@ -18,6 +18,7 @@ function PaginationItems({items, setCurrentPaginationItems, pageRangeDisplayed, 
             setCurrentPaginationItems(items);
             setPageCount(1);
         }
+    // }, [itemOffset, itemsPerPage, items]);
     }, [itemOffset, itemsPerPage, items]);
     
     const handlePageClick = (event) => {

@@ -13,6 +13,7 @@
 }
 
 .read-purchases--wrap {
+    min-height: 100vh;
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -39,6 +40,80 @@
 .read-purchases__info {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.read-purchases__info-notes-label {
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.read-purchases__info-btn-wrap {
+    display: flex;
+    align-items: flex-start;
+}
+
+.read-purchases__info-notes {
+    padding: 10px 20px;
+    max-width: 280px;
+    /* width: 100%; */
+    min-width: 200px;
+    /* margin-bottom: 10px; */
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.read-purchases__info-btn {
+    border: 2px solid black;
+    background-color: white;
+    padding: 3px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-color: #0d48ac;
+    color: #0d48ac;
+    font-size: 25px;
+    margin-left: 12px;
+    transition: .3s;
+    border-radius: 12px;
+}
+
+.read-purchases__info-btn:hover {
+    background: #0d48ac;
+    color: white;
+}
+
+.read-purchases__info-notes-li-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.read-purchases__info-notes-btn-del {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 3px;
+    transition: .3s;
+}
+
+.read-purchases__info-notes-btn-del:hover {
+    background-color: rgb(161, 157, 157);
+}
+
+.read-purchases__info-notes-li {
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /* list-style: decimal; */
+    margin-left: 9px;
+    color: #0d48ac;
+    font-weight: 700;
 }
 
 .read-purchases__products-title {
@@ -77,6 +152,10 @@
     aspect-ratio: 9 / 16;
     box-shadow: rgb(0 0 0 / 20%) 0px 5px 15px -7px, rgb(0 0 0 / 14%) 0px 13px 13px 3px, rgb(0 0 0 / 12%) 0px 9px 30px 8px;
     background: #fff;
+}
+
+.read-purchases__card--removed {
+    background: #e49b9b;
 }
 
 .read-purchases__card-wrap {

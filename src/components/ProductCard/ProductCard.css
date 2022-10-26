@@ -30,8 +30,12 @@
 }
 
 .product-card__text-wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     padding: 16px;
     border: 1px solid #E4E4E5;
+    min-height: 129px;
 }
 
 .product-card__title {

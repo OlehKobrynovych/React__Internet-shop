@@ -89,7 +89,7 @@
     gap: 10px;
     margin-top: 15px;
     margin-bottom: 15px;
-    /* cursor: pointer; */
+    cursor: pointer;
     transition: .3s;
 }
 
@@ -156,6 +156,11 @@
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
+}
+
+.user-purchases__item-status-wrap {
+    display: flex;
+    gap: 9px;
 }
 
 .user-purchases__item-seen {

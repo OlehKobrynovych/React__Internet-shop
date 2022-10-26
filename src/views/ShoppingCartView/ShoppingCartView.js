@@ -11,6 +11,7 @@ import noPhotos from '../../assets/images/noPhotos.svg';
 import { setShoppingProduct } from '../../store/homeSlice';
 import { toast } from 'react-toastify';
 import InputCheckbox from '../../components/InputCheckbox/InputCheckbox';
+import PaginationItems from '../../components/PaginationItems/PaginationItems';
 
 
 
@@ -32,10 +33,11 @@ function ShoppingCartView() {
     const [deliveryMethod, setDeliveryMethod] = useState('');
     const [checkboxForm, setCheckboxFor] = useState(false);
     const [isSubmitError, setIsSubmitError] = useState(false);
+    const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
     const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
     // const datas = useSelector(state => state.homeSlice.datas);
     // console.log(shoppingProduct)
-    // console.log(selectColors)
+    console.log(shoppingHistoryProducts)
     
 
     useEffect(() => {
@@ -59,12 +61,12 @@ function ShoppingCartView() {
                 delivery_address: addressForm,
                 phone: phoneForm,
                 comment: commentForm,
-                product_id: [...shoppingProduct?.map(el => ({_id: el._id, count: el.count, selectSizes: el.selectSizes, selectColors: el.selectColors}))],   
+                product_id: [...shoppingProduct?.map(el => ({_id: el._id, count: el.count, selectSizes: el.selectSizes, selectColors: el.selectColors, removed: false}))],   
                 isSeen: false,
                 status: 'InProcess',
                 favorite: false,
                 shop_id: shop._id,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NjY3ODM3MCwiZXhwIjoxNjY2Njk2MzcwfQ.8moHzdcudvgEcIKW0OVhqOsROs6cB-GDDIlQPmAL5pQ',                // відправка токена звідки брати для покупців?
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2Njc2NTYwNiwiZXhwIjoxNjY2NzgzNjA2fQ.V3lACu3Yn5eyXfcW_2Ziz_6mrHeze0y-riaQBegBhJs',                // відправка токена звідки брати для покупців?
             }
 
             fetch(`http://localhost:3000/api/purchases/`, {
@@ -80,11 +82,12 @@ function ShoppingCartView() {
                     if (res.success && res.data._id) {
                         // console.log('POST ShoppingCartView:', res)
                         dispatch(setShoppingProduct([]))
+                        localStorage.removeItem('shoppingProducts');
 
                         if (shoppingHistoryProducts?.length) {
-                            localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingHistoryProducts, ...shoppingProduct]));
+                            localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingHistoryProducts, ...shoppingProduct.map(el => el = {...el, date: new Date().toLocaleString()})]));
                         } else {
-                            localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingProduct]));
+                            localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingProduct.map(el => el = {...el, date: new Date().toLocaleString()})]));
                         }
 
                         toast.success('Покупка оформлена', {
@@ -276,12 +279,15 @@ function ShoppingCartView() {
                         <div>Куплений товар:&nbsp;{shoppingHistoryProducts?.length}</div>  
                         <div className="shopping-cart__history-items">
                             {
-                                shoppingHistoryProducts.map(el => (<div className="shopping-cart__history-item" key={el._id}>
+                                currentPaginationItems?.map(el => (<div className="shopping-cart__history-item" key={el._id + el.date}>
                                     <img className="shopping-cart__history-item-img" onClick={() => handleClick(el._id)} src={el.images[0]?.length ? el.images[0] : noPhotos} alt='img'/>
-                                    <div className="shopping-cart__history-item-name">{el.name}</div>
+                                    <div className="shopping-cart__history-text">{el.name}</div>
+                                    <div className="shopping-cart__history-text">{el.date}</div>
                                 </div>))
                             }
                         </div>
+
+                        <PaginationItems items={shoppingHistoryProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={4}/>
                     </div>
             }
         </div>
