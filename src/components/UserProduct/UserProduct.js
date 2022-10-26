@@ -30,14 +30,14 @@ function UserProduct() {
     const [isOpenSelect, setIsOpenSelect] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(selectedSort)
+    console.log(products)
     // console.log(selectedSort)
     
-    const [currentPaginationItems, setCurrentPaginationItems] = useState(null);
+    const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
     
-    useEffect(() => {
-            setFilterProducts([...products])
-    }, []);
+    // useEffect(() => {
+    //     setFilterProducts([...products])
+    // }, []);
 
     useEffect(() => {
         if (products?.length) {
@@ -49,52 +49,59 @@ function UserProduct() {
     useEffect(() => {
         if (shop?._id) {
             fetch(`http://localhost:3000/api/products/${shop._id}/all`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    console.log(res)
-                    dispatch(getProducts(res.data));
-                } else {
-                    console.log('GET LayoutUser:', res)
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        console.log(res)
+                        dispatch(getProducts(res.data));
+                    } else {
+                        console.log('GET UserProduct:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
 
             fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    dispatch(getCategories(res.data));
-                    // console.log('GET UserCategories:', res)
-                } else {
-                    console.log('GET UserCategories:', res)
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        dispatch(getCategories(res.data));
+                        // console.log('GET UserCategories:', res)
+                    } else {
+                        console.log('GET UserProduct:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
         }
     }, [shop])
     
     // фільтрація щоб працювала тільки після натиску на ентер
-    // const handleSearchProduct = (e) => {
-    //     if(e.key === 'Enter'){
-    //     let res = products.filter(el => el.name.toUpperCase().includes(seachName.toUpperCase()))
-    //     console.log(res)
-    //     setFilterProducts(res)  
-    //     }
-    // }
+    const handleSearchProduct = (e) => {
+        if(e.key === 'Enter'){
+            fetch(`http://localhost:3000/api/products/${shop._id}/shop?name=${seachName}`)
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    if (res.success && res.data) {
+                        console.log(res)
+                        setFilterProducts([...res.data])
+                    } else {
+                        console.log('GET UserProduct:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        }
+    }
 
     useEffect(() => {
         if (!seachName.length) {
             setFilterProducts(products) 
-        } else {
-            let res = products.filter(el => el.name.toUpperCase().includes(seachName.toUpperCase()))
-            // console.log(res)
-            setFilterProducts(res) 
-        }
+        } 
     }, [seachName]);
     
     const handleChangeSort = (category) => {
@@ -103,22 +110,22 @@ function UserProduct() {
             setFilterProducts([...products])
             setSelectedSort('Всі товари')
         } else {
-            setFilterProducts([...products.filter(el => el.category_id == category.id)])
             setSelectedSort(category.name)
 
-            // fetch(`http://localhost:3000/api/products/${shop._id}/all`)
-            //     .then(res => res.json())
-            //     .then(res => {
-            //         if (res.success && res.data) {
-            //             console.log(res)
-            //             setFilterProducts([...res.data])
-            //         } else {
-            //             console.log('GET LayoutUser:', res)
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error:', error);
-            //     })
+            fetch(`http://localhost:3000/api/products/${category._id}/category`)
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    if (res.success && res.data) {
+                        console.log(res)
+                        setFilterProducts([...res.data])
+                    } else {
+                        console.log('GET UserProduct:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
         }
     };
 
@@ -161,7 +168,7 @@ function UserProduct() {
                             theme: "light",
                         })
                     } else {
-                        console.log('DELETE UserCategories', res)
+                        console.log('DELETE UserProduct', res)
                     }
                 })
                 .catch((error) => {
@@ -199,7 +206,7 @@ function UserProduct() {
                             required
                             className='user-product__filter-search-input'
                             onChange={(e) => setSeachName(e.target.value)}
-                            // onKeyPress={(e) => handleSearchProduct(e)}
+                            onKeyPress={(e) => handleSearchProduct(e)}
                             value={seachName}
                             placeholder="Введіть назву..."
                         />

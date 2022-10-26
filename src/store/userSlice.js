@@ -103,12 +103,12 @@ export const userSlice = createSlice({
       state.products = [...state.products, action.payload];
     },
     setUpdataProduct: (state, action) => {
-      state.products = state.products.map(el => {
+      state.products = [...state.products.map(el => {
         if (el._id == action.payload._id) {
           el = action.payload
         }
         return el
-      });
+      })];
     },
     setEditProduct: (state, action) => {
       state.editProduct = action.payload;

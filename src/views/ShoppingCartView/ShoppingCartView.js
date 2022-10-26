@@ -61,7 +61,7 @@ function ShoppingCartView() {
                 delivery_address: addressForm,
                 phone: phoneForm,
                 comment: commentForm,
-                product_id: [...shoppingProduct?.map(el => ({_id: el._id, count: el.count, selectSizes: el.selectSizes, selectColors: el.selectColors, removed: false}))],   
+                product_ids: [...shoppingProduct?.map(el => ({_id: el._id, count: el.count, selectSizes: el.selectSizes, selectColors: el.selectColors, removed: false}))],   
                 isSeen: false,
                 status: 'InProcess',
                 favorite: false,

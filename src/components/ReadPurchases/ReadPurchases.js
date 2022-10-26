@@ -40,19 +40,19 @@ function ReadPurchases () {
     useEffect(() => {
         if (user?._id) {
             fetch(`http://localhost:3000/api/purchases/${idPurchases}?token=${user.token}`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    setPurchaseContent(res.data)
-                    setIsSeen(res.data)
-                    // dispatch(getPurchases(res.data));
-                } else {
-                    console.log('GET ReadPurchases:', res)
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        setPurchaseContent(res.data)
+                        setIsSeen(res.data)
+                        // dispatch(getPurchases(res.data));
+                    } else {
+                        console.log('GET ReadPurchases:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
         }
     }, [user])
 
@@ -90,13 +90,13 @@ function ReadPurchases () {
             }
         }
 
-        if (purchaseContent.product_id?.length) {
+        if (purchaseContent.product_ids?.length) {
             setOrderedProducts([])
-            purchaseContent?.product_id?.map(el => {
-                // fetch(`http://localhost:3000/api/products/${el._id}?token=${user.token}`)
+            purchaseContent?.product_ids?.map(el => {
                 console.log('1111111111111')
+                // fetch(`http://localhost:3000/api/products/${el._id}?token=${user.token}`)
                 fetch(`http://localhost:3000/api/products/${el._id}`)
-                    .then(res => res.json())
+                .then(res => res.json())
                     .then(res => {
                         console.log('1111111111111', res)
                         if (res.success && res.data?._id) {
@@ -200,7 +200,7 @@ function ReadPurchases () {
         if (boolean) {
             const data = {
                 ...purchaseContent,
-                product_id: purchaseContent.product_id.map(el => {
+                product_ids: purchaseContent.product_ids.map(el => {
                     if (el._id == editProduct._id) {
                         el.selectColors = [...newColors]
                     }
@@ -220,7 +220,7 @@ function ReadPurchases () {
         if (boolean) {
             const data = {
                 ...purchaseContent,
-                product_id: purchaseContent.product_id.map(el => {
+                product_ids: purchaseContent.product_ids.map(el => {
                     if (el._id == editProduct._id) {
                         el.selectSizes = [...newSize]
                     }
@@ -240,7 +240,7 @@ function ReadPurchases () {
         if (boolean) {
             const data = {
                 ...purchaseContent,
-                product_id: purchaseContent.product_id.map(el => {
+                product_ids: purchaseContent.product_ids.map(el => {
                     if (el._id == editProduct._id) {
                         el.count = newCount
                     }
@@ -260,7 +260,7 @@ function ReadPurchases () {
         if (boolean) {
             const data = {
                 ...purchaseContent,
-                product_id: purchaseContent.product_id.map(el => {
+                product_ids: purchaseContent.product_ids.map(el => {
                     if (el._id == editProduct._id) {
                         el.removed = !el.removed
                     }
@@ -320,8 +320,8 @@ function ReadPurchases () {
     } 
 
     const selectedOrders = (id) => {
-        // console.log( purchaseContent?.product_id?.filter(ell => ell._id == id)[0])
-      return purchaseContent?.product_id?.filter(ell => ell._id == id)[0]
+        // console.log( purchaseContent?.product_ids?.filter(ell => ell._id == id)[0])
+      return purchaseContent?.product_ids?.filter(ell => ell._id == id)[0]
     }
     
     const handleAddNone = () => {
@@ -352,7 +352,7 @@ function ReadPurchases () {
         <div className={`read-purchases read-purchases__item-status--${status}`}>
 
             {
-                isModalDelProduct && <ModalWindow title={'Ви впевнені?'}  text={purchaseContent?.product_id.filter(ell => ell._id == editProduct._id)[0].removed ? 'Відновити даний товар' : 'Видалити даний товар'} handleClick={handleIsDeleteProduct}/>
+                isModalDelProduct && <ModalWindow title={'Ви впевнені?'}  text={purchaseContent?.product_ids.filter(ell => ell._id == editProduct._id)[0].removed ? 'Відновити даний товар' : 'Видалити даний товар'} handleClick={handleIsDeleteProduct}/>
             }
 
             {
@@ -434,7 +434,7 @@ function ReadPurchases () {
                 <div className='read-purchases__cards'>
                     {
                         !!orderedProducts?.length &&  orderedProducts.map(el => (
-                                <div className={`read-purchases__card ${purchaseContent?.product_id.filter(ell => ell._id == el._id)[0].removed ? 'read-purchases__card--removed' : ''}`} key={el._id}>
+                                <div className={`read-purchases__card ${purchaseContent?.product_ids.filter(ell => ell._id == el._id)[0].removed ? 'read-purchases__card--removed' : ''}`} key={el._id}>
                                     <div className='read-purchases__card-wrap'>
                                         <div className="read-purchases__card-swiper-wrap">
                                             <Swiper
@@ -471,14 +471,14 @@ function ReadPurchases () {
                                             <div className='read-purchases__card-info-title-wrap'>
                                                 <div>
                                                     <span className='read-purchases__card-info-title'>Замовлені кольори:</span>
-                                                    <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectColors.join(', ')}</span>
+                                                    <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectColors?.join(', ')}</span>
                                                 </div>
                                                 <img className='read-purchases__btn-edite' onClick={() => handleEditProductColors(el)} src={editIcon} alt='img'/>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
                                                 <div>
                                                     <span className='read-purchases__card-info-title'>Замовлені розміра:</span>
-                                                    <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectSizes.join(', ')}</span>
+                                                    <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectSizes?.join(', ')}</span>
                                                 </div>
                                                 <img className='read-purchases__btn-edite' onClick={() => handleEditProductSize(el)} src={editIcon} alt='img'/>
                                             </div>

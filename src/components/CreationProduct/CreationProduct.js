@@ -30,7 +30,7 @@ function CreationProduct() {
     const [userImages, setUserImages] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // console.log(categories)
+    console.log(editProduct)
 
     useEffect(() => {
         if (editProduct?.name) {
@@ -43,17 +43,17 @@ function CreationProduct() {
             setImages(editProduct.images)
 
             fetch(`http://localhost:3000/api/categories/${editProduct.category_id}`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    setSelectCategory(res.data);
-                } else {
-                    setSelectCategory({})
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        setSelectCategory(res.data);
+                    } else {
+                        setSelectCategory({})
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
         }
     }, [])
 
@@ -129,6 +129,7 @@ function CreationProduct() {
                     if (res.success && res.data) {
                         console.log('asd as', res)  
                         dispatch(setUpdataProduct({...data, _id: editProduct._id}))
+                        navigate(`/auth/${user._id}/product`)
                         toast.success('Дані оновлено', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -172,6 +173,7 @@ function CreationProduct() {
                     if (res.success && res.data) {
                         console.log(res)
                         dispatch(setProduct(res.data))
+                        navigate(`/auth/${user._id}/product`)
                         toast.success('Товар створено', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -209,7 +211,6 @@ function CreationProduct() {
         setDetails('')
         setColors([])
         setSizes([])
-        navigate(`/auth/${user._id}/product`)
     }
 
     return (

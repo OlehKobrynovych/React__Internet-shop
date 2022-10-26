@@ -29,10 +29,6 @@ function ProductFilterView() {
     // debugger
 
     useEffect(() => {
-        setCategoryProducts([...products])
-    }, [products])
-
-    useEffect(() => {
         setIsLoading(true);
         setIsPageNotFound(false);
 
@@ -41,6 +37,7 @@ function ProductFilterView() {
             .then(res => {
                 if (res.success && res.data) {
                     setSelectedCategory(res.data);
+                    productSearch(res.data)
                 } else {
                     setIsPageNotFound(true)
                 }
@@ -52,6 +49,22 @@ function ProductFilterView() {
                 setIsLoading(false);
             });
     }, [id, categories])
+
+    const productSearch = (data) => {
+        fetch(`http://localhost:3000/api/products/${data._id}/category`)
+        .then(res => res.json())
+        .then(res => {
+            if (res.success && res.data?.length) {
+                // console.log(res)
+                setCategoryProducts([...res.data])
+            } else {
+                console.log('GET ProductFilterView:', res)
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+    }
 
     useEffect(() => {
         if (selectedCategory?.parent_id && selectedCategory?.parent_id !== 'null') {
@@ -71,10 +84,6 @@ function ProductFilterView() {
                 });
         } 
 
-        if (products?.length && selectedCategory._id) {
-            let res = products.filter(el => el.category_id == selectedCategory._id)
-            setCategoryProducts(res)
-        } 
     }, [selectedCategory])
  
     useEffect(() => {
@@ -98,7 +107,6 @@ function ProductFilterView() {
     const handleChangeSort = (e) => {
         setSelectedSort(e.target.value)
     };
-    
 
     return (
         <>
