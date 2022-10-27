@@ -392,6 +392,7 @@ function ReadPurchases () {
                 <div className="read-purchases__info"><b>Емейл:</b>&nbsp;{purchaseContent?.email}</div>
                 <div className="read-purchases__info"><b>Адреса:</b>&nbsp;{purchaseContent?.delivery_address}</div>
                 <div className="read-purchases__info"><b>Спосіб доставки:</b>&nbsp;{purchaseContent?.delivery_method}</div>
+                <div className="read-purchases__info"><b>Спосіб оплати:</b>&nbsp;{purchaseContent?.payment_method}</div>
                 <div className="read-purchases__info"><b>Коментар:</b>&nbsp;{purchaseContent?.comment}</div>
                 <div className="read-purchases__info">
                     <label className='read-purchases__info-notes-label' htmlFor="notes">
@@ -419,7 +420,7 @@ function ReadPurchases () {
                                 {
                                     purchaseContent?.notes?.map((el, index) => (<div className='read-purchases__info-notes-li-wrap' key={el._id}>
                                             <img onClick={() => handleDeleteNone(el._id)} className='read-purchases__info-notes-btn-del' src={deleteImg} alt='img'/>
-                                            <li className='read-purchases__info-notes-li'>{index + 1}&nbsp;{el.note}</li>
+                                            <li className='read-purchases__info-notes-li'>{index + 1}.&nbsp;{el.note}</li>
                                         </div>))
                                 }
                             </ul>

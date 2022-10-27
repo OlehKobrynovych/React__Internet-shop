@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './CreationShop.css';
-import editIcon from './../../assets/images/editIcon.svg';
+import deleteImg from './../../assets/images/deleteImg.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsNeedCreateShop, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
 import { toast } from 'react-toastify';
@@ -19,8 +19,10 @@ function CreationShop() {
     const [contact_number, setContact_number] = useState('');
     const [contact_number_two, setContact_number_two] = useState('');
     const [location, setLocation] = useState('');
-    const [deliveryMethods, setDeliveryMethods] = useState('');
-    const [paymentMethods, setPaymentMethods] = useState('');
+    const [deliveryMethods, setDeliveryMethods] = useState([]);
+    const [newDeliveryMethods, setNewDeliveryMethods] = useState('');
+    const [paymentMethods, setPaymentMethods] = useState([]);
+    const [newPaymentMethods, setNewPaymentMethods] = useState('');
     const [descriptionShop, setDescriptionShop] = useState('');
     const [checkedLanguage, setCheckedLanguage] = useState('UA');
     const [currency, setCurrency] = useState('');
@@ -28,7 +30,7 @@ function CreationShop() {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
 
-    // console.log(shop)
+    console.log(shop)
 
     useEffect(() => {
         if (isNeedUpdateShop) {
@@ -42,8 +44,8 @@ function CreationShop() {
             setCurrency(shop.currency);
             setLogo(shop.logo);
             setCheckedLanguage(shop.language);
-            setDeliveryMethods(shop.deliveryMethods);
-            setPaymentMethods(shop.paymentMethods);
+            setDeliveryMethods([...shop.deliveryMethods]);
+            setPaymentMethods([...shop.paymentMethods]);
             setDescriptionShop(shop.descriptionShop);
         }
     }, [isNeedUpdateShop])
@@ -58,6 +60,28 @@ function CreationShop() {
 
     const handleReturn = () => {
         dispatch(setIsNeedUpdateShop(false))
+    }
+    
+    const handleSetDeliveryMethods = () => {
+        if (newDeliveryMethods?.length) {
+            setDeliveryMethods([...deliveryMethods, newDeliveryMethods])
+            setNewDeliveryMethods('')
+        }
+    }
+    
+    const handleSetPaymentMethods = () => {
+        if (newPaymentMethods?.length) {
+            setPaymentMethods([...paymentMethods, newPaymentMethods])
+            setNewPaymentMethods('')
+        }
+    }
+   
+    const handleDeleteMethod = (el) => {
+        setDeliveryMethods([...deliveryMethods.filter(ell => ell !== el)])
+    }
+    
+    const handleDeletePayment = (el) => {
+        setPaymentMethods([...paymentMethods.filter(ell => ell !== el)])
     }
     
     const handleSend = () => {
@@ -329,18 +353,33 @@ function CreationShop() {
                         <label className='creation-shop__section-input-label' htmlFor="deliveryMethods">
                             <b>Доставка</b>
                         </label>
-                        <textarea
-                            id="deliveryMethods"
-                            name="deliveryMethods"
-                            type="text"
-                            className='creation-shop__section-textarea'
-                            onChange={(e) => setDeliveryMethods(e.target.value)}
-                            value={deliveryMethods}
-                            placeholder="Доставка..."
-                            rows="5" 
-                            cols="50"
-                        />
+                        <div  className='creation-shop__section-textarea-wrap'>
+                            <textarea
+                                id="deliveryMethods"
+                                name="deliveryMethods"
+                                type="text"
+                                className='creation-shop__section-textarea'
+                                onChange={(e) => setNewDeliveryMethods(e.target.value)}
+                                value={newDeliveryMethods}
+                                placeholder="Доставка..."
+                                rows="1" 
+                                cols="50"
+                            />
+                            <button onClick={handleSetDeliveryMethods} className='creation-shop__create-btn'>+</button>
+                        </div>
+
+                        <ul className='creation-shop__delivery-methods'>
+                            {
+                                deliveryMethods?.length && deliveryMethods.map((el, index) => (
+                                    <li className='creation-shop__delivery-method' key={index + el}>
+                                        <img onClick={() => handleDeleteMethod(el)} className='creation-shop__btn-del' src={deleteImg} alt='img'/>
+                                        <span>{index + 1}.&nbsp;{el}</span>
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     </div>
+
                     <div onClick={() => handleHelpOpen(7)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${isOpenInfo.includes(7) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
@@ -354,18 +393,33 @@ function CreationShop() {
                         <label className='creation-shop__section-input-label' htmlFor="paymentMethods">
                             <b>Оплата</b>
                         </label>
-                        <textarea
-                            id="paymentMethods"
-                            name="paymentMethods"
-                            type="text"
-                            className='creation-shop__section-textarea'
-                            onChange={(e) => setPaymentMethods(e.target.value)}
-                            value={paymentMethods}
-                            placeholder="Оплата..."
-                            rows="5" 
-                            cols="50"
-                        />
+                        <div  className='creation-shop__section-textarea-wrap'>
+                            <textarea
+                                id="paymentMethods"
+                                name="paymentMethods"
+                                type="text"
+                                className='creation-shop__section-textarea'
+                                onChange={(e) => setNewPaymentMethods(e.target.value)}
+                                value={newPaymentMethods}
+                                placeholder="Оплата..."
+                                rows="1" 
+                                cols="50"
+                            />
+                           <button onClick={handleSetPaymentMethods} className='creation-shop__create-btn'>+</button>
+                        </div>
+
+                        <ul className='creation-shop__payment-methods'>
+                            {
+                                paymentMethods?.length && paymentMethods.map((el, index) => (
+                                    <li className='creation-shop__payment-method' key={index + el}>
+                                        <img onClick={() => handleDeletePayment(el)} className='creation-shop__btn-del' src={deleteImg} alt='img'/>
+                                        <span>{index + 1}.&nbsp;{el}</span>
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     </div>
+
                     <div onClick={() => handleHelpOpen(8)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${isOpenInfo.includes(8) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>

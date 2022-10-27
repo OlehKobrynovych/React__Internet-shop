@@ -133,10 +133,14 @@
 .user-product__sort-option-wrap {
     position: absolute;
     background: #fff;
+    height: 350px;
+    width: 129px;
+    overflow: auto;
     display: flex;
     gap: 5px;
     flex-direction: column;
     right: 0;
+    padding-right: 8px;
     opacity: 0;
     text-align: end;
     transition: .3s;
@@ -144,9 +148,6 @@
 
 .user-product__sort-option-wrap--active {
     opacity: 1;
-    height: 350px;
-    width: 129px;
-    overflow: auto;
     z-index: 10;
 }
 

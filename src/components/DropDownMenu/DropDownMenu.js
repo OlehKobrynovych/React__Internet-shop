@@ -86,6 +86,10 @@ function DropDownMenu() {
                         <a className="drop-down-menu__contact-social" href={shop?.instagram_url} target='_blank'><img src={instagram} alt='img' /></a>
                     </div>
                 </div>
+
+                {
+                    shop?.logo && <NavLink to={`/${shop.name}`}><img className='drop-down-menu__logo' src={shop.logo} alt='img'/></NavLink>
+                }
             </div>
         </div>
     );

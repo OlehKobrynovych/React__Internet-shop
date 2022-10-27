@@ -213,17 +213,17 @@ function ProductInformationView() {
                                         !isShoppingProduct ? selectedLanguage?.productPage?.productBtnCartAdd : selectedLanguage?.productPage?.productBtnCartNotAdd
                                     }
                                 </button>
-{/* 
+                                {/* 
                                 {
                                     datas?.shopInfo?.guarantee && (<div className="product-information__guarantee"><p><b>{selectedLanguage?.productPage?.productGuaranteeTitle}</b></p><p>{datas.shopInfo.guarantee}</p></div>)
                                 } */}
 
                                 {
-                                    !!shop?.deliveryMethods && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{shop.deliveryMethods}</p></div>)
+                                    !!shop?.deliveryMethods?.length && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{shop.deliveryMethods.map((el, index) => <div>{index + 1}.&nbsp;{el}</div>)}</p></div>)
                                 }
 
                                 {
-                                    !!shop?.paymentMethods && (<div className="product-information__payment-methods"><p><b>{selectedLanguage?.productPage?.productPaymentTitle}</b></p><p>{shop.paymentMethods}</p></div>)
+                                    !!shop?.paymentMethods?.length && (<div className="product-information__payment-methods"><p><b>{selectedLanguage?.productPage?.productPaymentTitle}</b></p><p>{shop.paymentMethods.map((el, index) => <div>{index + 1}.&nbsp;{el}</div>)}</p></div>)
                                 }
 
                             </div>

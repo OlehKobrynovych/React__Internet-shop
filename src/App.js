@@ -17,6 +17,7 @@ import UserPurchases from './components/UserPurchases/UserPurchases';
 import ReadPurchases from './components/ReadPurchases/ReadPurchases';
 import UserAnalytics from './components/UserAnalytics/UserAnalytics';
 import SearchProduct from './components/SearchProduct/SearchProduct';
+import UserMessages from './components/UserMessages/UserMessages';
 const Footer = React.lazy(() => import('./components/Footer/Footer'));
 const Header = React.lazy(() => import('./components/Header/Header'));
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
@@ -55,6 +56,7 @@ function App() {
                         <Route path="product/create" element={<CreationProduct />}/>
                         <Route path="purchases" element={<UserPurchases />}/>
                         <Route path="purchases/:idPurchases" element={<ReadPurchases />}/>
+                        <Route path="messages" element={<UserMessages />}/>
 
                     </Route>
                     <Route path="/auth/login" element={<SignInView />}/>

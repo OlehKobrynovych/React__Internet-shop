@@ -153,6 +153,10 @@
     width: 25px;
     height: 25px;
 }
+
+.drop-down-menu__logo {
+    width: 150px;
+}
   
 @media (min-width: 576px) {
 

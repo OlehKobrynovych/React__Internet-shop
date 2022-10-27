@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import './LayoutUser.css';
 import bell from '../assets/images/bell.svg';
+import cartUser from '../assets/images/cartUser.svg';
 import avatar from '../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCategories, getProducts, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setShop, setUser } from '../store/userSlice';
@@ -21,7 +22,7 @@ function LayoutUser() {
     // const navigate = useNavigate();
     // let { userId } = useParams();
     // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
-    console.log(user)
+    console.log(shop)
 
     useEffect(() => {
         if (!user.email) {
@@ -50,6 +51,25 @@ function LayoutUser() {
             } else {
                 navigate('/auth/login')
             }
+        } else {
+            fetch('http://localhost:3000/api/shops/all')
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        let res1 = res.data.find(el => el.owner_id == user._id)
+                        if (res1?.name) {
+                            dispatch(setShop(res1));
+                            dispatch(setIsNeedCreateShop(false));
+                        } else {
+                            dispatch(setIsNeedCreateShop(true));
+                        } 
+                    } else {
+                        console.log('GET LayoutUser:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
         }
 
         window.addEventListener("resize", handleResize);
@@ -66,6 +86,19 @@ function LayoutUser() {
                         setPurchasesLength(res.data)
                     } else {
                         console.log('GET LayoutUser:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+
+            fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        dispatch(getCategories(res.data));
+                    } else {
+                        console.log('GET UserCategories:', res)
                     }
                 })
                 .catch((error) => {
@@ -123,7 +156,8 @@ function LayoutUser() {
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false)) }>Магазин</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>Товар</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>Повідомлення</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>Зомовлення</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/messages`}>Повідомлення</NavLink>
                     <button onClick={() => setModalWindow(!isModalWindow)} className='layout-user__sidenav-link'>Вихід</button>
                 </div>
 
@@ -137,7 +171,14 @@ function LayoutUser() {
 
                         <div className='layout-user__header-btn--wrap'>
                             <div className='layout-user__header-btn-message'>
-                                <NavLink to={`/auth/${user._id}/purchases`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
+                                <NavLink to={`/auth/${user._id}/messages`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
+                                {
+                                    purchasesLength && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
+                                }
+                            </div>
+                            
+                            <div className='layout-user__header-btn-message'>
+                                <NavLink to={`/auth/${user._id}/purchases`}><img className='layout-user__header-btn-message-img' src={cartUser} alt='img' /></NavLink>
                                 {
                                     purchasesLength && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
                                 }

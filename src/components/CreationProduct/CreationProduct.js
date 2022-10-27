@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './CreationProduct.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +30,10 @@ function CreationProduct() {
     const [userImages, setUserImages] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const nameInputRef = useRef(null);
+    const priceInputRef = useRef(null);
+    const categoryInputRef = useRef(null);
+
     console.log(editProduct)
 
     useEffect(() => {
@@ -103,34 +107,51 @@ function CreationProduct() {
     }
 
     const handleSend = () => {
-        let data = {
-            shop_id: shop._id,
-            category_id: selectCategory._id,
-            name: name,
-            price: price,
-            new_price: new_price,
-            images: images,
-            details: details,
-            colors: colors,
-            sizes: sizes,
-            token: user.token,
-        }
-
-        if (editProduct?._id) {
-            fetch(`http://localhost:3000/api/products/${editProduct._id}`, {
-                method: 'PUT',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.success && res.data) {
-                        console.log('asd as', res)  
-                        dispatch(setUpdataProduct({...data, _id: editProduct._id}))
-                        navigate(`/auth/${user._id}/product`)
-                        toast.success('Дані оновлено', {
+        if (name?.length && price?.length && selectCategory?._id) {
+            let data = {
+                shop_id: shop._id,
+                category_id: selectCategory._id,
+                name: name,
+                price: price,
+                new_price: new_price,
+                images: images,
+                details: details,
+                colors: colors,
+                sizes: sizes,
+                token: user.token,
+            }
+    
+            if (editProduct?._id) {
+                fetch(`http://localhost:3000/api/products/${editProduct._id}`, {
+                    method: 'PUT',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.success && res.data) {
+                            console.log('asd as', res)  
+                            dispatch(setUpdataProduct({...data, _id: editProduct._id}))
+                            navigate(`/auth/${user._id}/product`)
+                            toast.success('Дані оновлено', {
+                                position: "bottom-right",
+                                autoClose: 2500,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            })
+                        } else {
+                            console.log('PUT CreationProduct', res)
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        toast.error('Сталася помилка', {
                             position: "bottom-right",
                             autoClose: 2500,
                             hideProgressBar: false,
@@ -139,78 +160,69 @@ function CreationProduct() {
                             draggable: true,
                             progress: undefined,
                             theme: "light",
-                        })
-                    } else {
-                        console.log('PUT CreationProduct', res)
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    toast.error('Сталася помилка', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
+                        });
+                    })
+                    .finally(() => {
+                        dispatch(setEditProduct({}))
                     });
+            } else {
+                fetch('http://localhost:3000/api/products/', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
                 })
-                .finally(() => {
-                    dispatch(setEditProduct({}))
-                });
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.success && res.data) {
+                            console.log(res)
+                            dispatch(setProduct(res.data))
+                            navigate(`/auth/${user._id}/product`)
+                            toast.success('Товар створено', {
+                                position: "bottom-right",
+                                autoClose: 2500,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            })
+                        } else {
+                            console.log('POST CreationProduct', res)
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        toast.error('Сталася помилка', {
+                            position: "bottom-right",
+                            autoClose: 2500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    })
+            }
+    
+            setName('')
+            setSelectCategory({})
+            setPrice(0)
+            setNew_price(0)
+            setImages([])
+            setDetails('')
+            setColors([])
+            setSizes([])
+        } else if (!name?.length) {
+            nameInputRef.current.focus()
+        } else if (!selectCategory?._id) {
+            categoryInputRef.current.focus()
         } else {
-            fetch('http://localhost:3000/api/products/', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.success && res.data) {
-                        console.log(res)
-                        dispatch(setProduct(res.data))
-                        navigate(`/auth/${user._id}/product`)
-                        toast.success('Товар створено', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        })
-                    } else {
-                        console.log('POST CreationProduct', res)
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    toast.error('Сталася помилка', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
-                })
+            priceInputRef.current.focus()
         }
-
-        setName('')
-        setSelectCategory({})
-        setPrice(0)
-        setNew_price(0)
-        setImages([])
-        setDetails('')
-        setColors([])
-        setSizes([])
     }
 
     return (
@@ -219,7 +231,7 @@ function CreationProduct() {
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
                         <label className='creation-product__section-input-label' htmlFor="name">
-                            <b>Назва товару</b>
+                            <span className='creation-product__section-input-label-text'>Назва товару</span>
                         </label>
                         <input
                             id="name"
@@ -230,6 +242,7 @@ function CreationProduct() {
                             onChange={(e) => setName(e.target.value)}
                             value={name}
                             placeholder="Введіть ім'я магазину..."
+                            ref={nameInputRef} 
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(1)} className='creation-product__section-btn-wrap'>
@@ -243,13 +256,20 @@ function CreationProduct() {
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
                         <div className="creation-product__section-title-wrap">
-                            <span className="creation-product__section-title"><b>Категорія:</b></span>
+                            <span className="creation-product__section-title">Категорія:</span>
                             <span className="creation-product__section-title-text">&nbsp;{selectCategory?.name}</span>
                         </div>
                         <label className='creation-product__section-input-label' htmlFor="category_id">
                             <b>Виберіть категорію товару</b>
                         </label>
-                        <input className='creation-product__section-seach-input' type="text" placeholder="Пошук ..." id="category_id" value={searchCategory} onChange={(e) => setSearchCategory(e.target.value)} />
+                        <input className='creation-product__section-seach-input' 
+                            type="text" 
+                            placeholder="Пошук ..." 
+                            id="category_id" 
+                            value={searchCategory} 
+                            onChange={(e) => setSearchCategory(e.target.value)} 
+                            ref={categoryInputRef}
+                        />
                         <div className="creation-product__section-seach-items">
                             {
                                !!categories.length && categories.map(category => (
@@ -287,7 +307,7 @@ function CreationProduct() {
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
                         <label className='creation-product__section-input-label' htmlFor="price">
-                            <b>Ціна</b>
+                            <span className='creation-product__section-input-label-text'>Ціна</span>
                         </label>
                         <input
                             id="price"
@@ -298,6 +318,7 @@ function CreationProduct() {
                             value={price}
                             min='0'
                             placeholder="Введіть ціну..."
+                            ref={priceInputRef} 
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(3)} className='creation-product__section-btn-wrap'>
@@ -440,6 +461,8 @@ function CreationProduct() {
                 <div className={`creation-product__section-info ${isOpenInfo.includes(8) ? 'creation-product__section-info--active' : ''}`}>
                     <p>Загрузіть картинки товару.</p>
                 </div>
+
+                <div className='creation-product__warning-text'>Ці поля обов'язкові для заповнення</div>
 
                 <div className='creation-product__btn-create-wrap'>
                     {

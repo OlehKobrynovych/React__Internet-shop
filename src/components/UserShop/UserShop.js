@@ -15,7 +15,7 @@ function UserShop() {
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
     const [notFilledText, setNotFilledText] = useState('дані не вказано');
     const dispatch = useDispatch();
-    console.log('asdasdxfxxxxddd: ',shop)
+    // console.log('asdasdxfxxxxddd: ',shop)
 
     const handleUpdate = () => {
         dispatch(setIsNeedUpdateShop(!isNeedUpdateShop)) 
@@ -65,11 +65,23 @@ function UserShop() {
                                         </div>
                                         <div className='user-shop__info-wrap'>
                                             <span  className='user-shop__info-title'>Способи доставки:&nbsp;</span>
-                                            <span  className='user-shop__info-text'>{shop.deliveryMethods ? shop.deliveryMethods : notFilledText}</span>
+                                            <span  className='user-shop__info-text'>
+                                                {
+                                                    shop.deliveryMethods?.length ? shop.deliveryMethods.map((el, index) => (
+                                                        <div>{index + 1}.&nbsp;{el}</div>
+                                                    )) : notFilledText
+                                                }
+                                            </span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
                                             <span  className='user-shop__info-title'>Способи оплати:&nbsp;</span>
-                                            <span  className='user-shop__info-text'>{shop.paymentMethods ? shop.paymentMethods : notFilledText}</span>
+                                            <span  className='user-shop__info-text'>
+                                                {
+                                                    shop.paymentMethods?.length ? shop.paymentMethods.map((el, index) => (
+                                                        <div>{index + 1}.&nbsp;{el}</div>
+                                                    )) : notFilledText
+                                                }
+                                            </span>
                                         </div>
                                         <div className='user-shop__info-wrap'>
                                             <span  className='user-shop__info-title'>Опис магазину:&nbsp;</span>

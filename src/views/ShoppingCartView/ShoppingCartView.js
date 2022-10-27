@@ -31,6 +31,9 @@ function ShoppingCartView() {
     const [commentForm, setCommentForm] = useState('');
     const [addressForm, setAddressForm] = useState('');
     const [deliveryMethod, setDeliveryMethod] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('');
+    const [isOpenSelectDelivery, setIsOpenSelectDelivery] = useState(false);
+    const [isOpenSelectPayment, setIsOpenSelectPayment] = useState(false);
     const [checkboxForm, setCheckboxFor] = useState(false);
     const [isSubmitError, setIsSubmitError] = useState(false);
     const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
@@ -39,6 +42,13 @@ function ShoppingCartView() {
     // console.log(shoppingProduct)
     console.log(shoppingHistoryProducts)
     
+
+    useEffect(() => {
+        if (shop.deliveryMethods?.length) {
+            setDeliveryMethod(shop.deliveryMethods[0])
+            setPaymentMethod(shop.paymentMethods[0])
+        }
+    }, [shop])
 
     useEffect(() => {
         setTotalPrice(shoppingProduct?.reduce((acc, el) => el.new_price ? acc += (el.new_price * el.count) : acc += (el.price * el.count), 0))
@@ -52,12 +62,12 @@ function ShoppingCartView() {
     };
    
     const handleSubmit = () => {
-
         if(checkboxForm && phoneForm.length && nameForm.length && addressForm.length && deliveryMethod.length) {
             let data = {
                 full_name: nameForm,
                 email: emailForm,
                 delivery_method: deliveryMethod,
+                payment_method: paymentMethod,
                 delivery_address: addressForm,
                 phone: phoneForm,
                 comment: commentForm,
@@ -81,14 +91,14 @@ function ShoppingCartView() {
                     // console.log(res)
                     if (res.success && res.data._id) {
                         // console.log('POST ShoppingCartView:', res)
-                        dispatch(setShoppingProduct([]))
-                        localStorage.removeItem('shoppingProducts');
-
                         if (shoppingHistoryProducts?.length) {
                             localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingHistoryProducts, ...shoppingProduct.map(el => el = {...el, date: new Date().toLocaleString()})]));
                         } else {
                             localStorage.setItem('shoppingHistoryProducts', JSON.stringify([...shoppingProduct.map(el => el = {...el, date: new Date().toLocaleString()})]));
                         }
+
+                        localStorage.removeItem('shoppingProducts');
+                        dispatch(setShoppingProduct([]))
 
                         toast.success('Покупка оформлена', {
                             position: "bottom-right",
@@ -149,6 +159,16 @@ function ShoppingCartView() {
             }
             return el
         })]))
+    };
+   
+    const handleDeliveryMethod = (str) => {
+        setDeliveryMethod(str)
+        setIsOpenSelectDelivery(false)
+    };
+   
+    const handlePaymentMethod = (str) => {
+        setPaymentMethod(str)
+        setIsOpenSelectPayment(false)
     };
 
     return (
@@ -238,9 +258,37 @@ function ShoppingCartView() {
                                     <span>{selectedLanguage?.cartPage?.cartFormMail}</span>
                                     <input className="shopping-cart__form-input" onChange={(e) => setEmailForm(e.target.value)} value={emailForm} type="text" id="email" name="email" placeholder="Email"/>
                                 </label>
-                                <label className="shopping-cart__form-input-label" htmlFor="email">
+                                <label className="shopping-cart__form-input-label">
                                     <span className="shopping-cart__form-input-title">Спосіб доставки:</span>
-                                    <input className="shopping-cart__form-input" onChange={(e) => setDeliveryMethod(e.target.value)} value={deliveryMethod} type="text" id="email" name="email" placeholder="Спосіб..."/>
+                                    <div className="shopping-cart__form-select-wrap">
+                                        <div className="shopping-cart__form-select" onClick={() => setIsOpenSelectDelivery(!isOpenSelectDelivery)}>
+                                            {deliveryMethod?.length && deliveryMethod}
+                                            <div className='shopping-cart__form-select-btn-wrap'>
+                                                <div className={`shopping-cart__form-select-btn ${isOpenSelectDelivery ? 'shopping-cart__form-select-btn--active' : ''}`}></div>
+                                            </div>
+                                        </div>
+                                        <div className={`shopping-cart__form-option-wrap ${isOpenSelectDelivery ? 'shopping-cart__form-option-wrap--active' : ''}`}>
+                                            {
+                                                shop?.deliveryMethods?.length && shop?.deliveryMethods.map(el => <div className='shopping-cart__form-option' onClick={() => handleDeliveryMethod(el)} key={el}>{el}</div>)
+                                            }
+                                        </div>
+                                    </div>
+                                </label>
+                                <label className="shopping-cart__form-input-label">
+                                    <span className="shopping-cart__form-input-title">Спосіб оплати:</span>
+                                    <div className="shopping-cart__form-select-wrap">
+                                        <div className="shopping-cart__form-select" onClick={() => setIsOpenSelectPayment(!isOpenSelectPayment)}>
+                                            {paymentMethod?.length && paymentMethod}
+                                            <div className='shopping-cart__form-select-btn-wrap'>
+                                                <div className={`shopping-cart__form-select-btn ${isOpenSelectPayment ? 'shopping-cart__form-select-btn--active' : ''}`}></div>
+                                            </div>
+                                        </div>
+                                        <div className={`shopping-cart__form-option-wrap ${isOpenSelectPayment ? 'shopping-cart__form-option-wrap--active' : ''}`}>
+                                            {
+                                                shop?.paymentMethods?.length && shop?.paymentMethods.map(el => <div className='shopping-cart__form-option' onClick={() => handlePaymentMethod(el)} key={el}>{el}</div>)
+                                            }
+                                        </div>
+                                    </div>
                                 </label>
                            </div>
 

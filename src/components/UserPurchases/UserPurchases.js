@@ -142,7 +142,7 @@ function UserPurchases() {
         <div className="user-purchases">
             <div className="user-purchases--wrap container">
                 <div>
-                    <h4 className="user-purchases__title">Мої повідомлення</h4>
+                    <h4 className="user-purchases__title">Мої замовлення</h4>
                     
                     <div className="user-purchases__filter">
                         
