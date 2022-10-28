@@ -9,7 +9,7 @@ function UserAnalytics() {
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
     // let { userId } = useParams();
     // const [categories, setCategories] = useState([]);
-    // console.log(categories)
+    console.log(shop)
 
     useEffect(() => {
      
@@ -19,7 +19,7 @@ function UserAnalytics() {
         <div className="user-analytics">
             <div className="user-analytics--wrpa container">
                 <h3 className="user-analytics__title">Ляскаво просимо {user.first_name} {user.last_name}</h3>
-                <NavLink className="user-analytics__shop-btn" to={`/${shop.name ? shop.name : `auth/${user._id}/shop`}`}>{shop.name ? 'Перейти до магазину' : 'Створити магазин'}</NavLink>
+                <NavLink className="user-analytics__shop-btn" to={`/${shop?.name ? shop.name : `auth/${user?._id}/shop`}`}>{shop?.name ? 'Перейти до магазину' : 'Створити магазин'}</NavLink>
             </div>
         </div>
     );

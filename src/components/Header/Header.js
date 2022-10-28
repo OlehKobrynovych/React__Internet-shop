@@ -24,18 +24,14 @@ function Header() {
     const navigate = useNavigate();
     // console.log(categories)
 
-    useEffect(() => {
-        if (!searchValue?.length) {
-            navigate(`/${shop.name}`)
-        }
-    }, [searchValue])
-
     const handleClick = () => {
         searchInputRef.current.focus()
         if (searchValue?.length) {
             dispatch(setSearchProductsName(searchValue));
             navigate(`/${shop.name}/search`)
-        } 
+        } else {
+            navigate(`/${shop?.name}`)
+        }
     };
     
     const handleKeyDown = (e) => {
@@ -43,7 +39,9 @@ function Header() {
             if (searchValue?.length) {
                 dispatch(setSearchProductsName(searchValue));
                 navigate(`/${shop.name}/search`)
-            } 
+            } else {
+                navigate(`/${shop?.name}`)
+            }
         }
     };
     

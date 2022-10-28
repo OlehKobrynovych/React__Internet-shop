@@ -17,32 +17,60 @@ function Layout() {
     let { shopName } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-// console.log(shop)
+
+// console.log()
     // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/shops/${shopName}/name`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data._id) {
-                    dispatch(setShop(res.data));
-                } else {
-                    navigate('/')           // ?????? не працює
+        if (shopName?.length) {
+            fetch(`http://localhost:3000/api/shops/${shopName}/name`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data._id) {
+                        dispatch(setShop(res.data));
+                    } else {
+                        navigate('/')           // ?????? не працює
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+    
+                let res = JSON.parse(localStorage.getItem('shoppingProducts'))
+                if (res?.length) {
+                    dispatch(setShoppingProduct(res));
                 }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+                
+                let res2 = JSON.parse(localStorage.getItem('favoriteProduct'))
+                if (res2?.length) {
+                    dispatch(setFavoriteProduct(res2));
+                }
+        }
 
-            let res = JSON.parse(localStorage.getItem('shoppingProducts'))
-            if (res?.length) {
-                dispatch(setShoppingProduct(res));
+        let res = JSON.parse(localStorage.getItem('visit'))
+        if (res?.length) {
+            let oldDay = res.split('.')
+            let day = oldDay[0]
+            let moon = oldDay[1]
+            let year = oldDay[2]
+            let date = new Date().toLocaleString().split('.')
+            let nowDay = date[0]
+            let nowMoon = date[1]
+            let nowYear = date[2]
+            if (nowYear - year > 0) { 
+                localStorage.setItem('visit', JSON.stringify(new Date().toLocaleString().split(',')[0]));
+                // +send +1 {shop_id: shop_id, day: nowDay}
+            } else if (nowMoon - moon > 0) { 
+                localStorage.setItem('visit', JSON.stringify(new Date().toLocaleString().split(',')[0]));
+                // +send +1
+            } else if (nowDay - day > 0) {
+                localStorage.setItem('visit', JSON.stringify(new Date().toLocaleString().split(',')[0]));
+                // +send +1
             }
-            
-            let res2 = JSON.parse(localStorage.getItem('favoriteProduct'))
-            if (res2?.length) {
-                dispatch(setFavoriteProduct(res2));
-            }
+        } else {
+            localStorage.setItem('visit', JSON.stringify(new Date().toLocaleString().split(',')[0]));
+            // +send +1
+        }
     }, [])
 
     useEffect(() => {
