@@ -39,7 +39,7 @@ function ReadPurchases () {
     
     useEffect(() => {
         if (user?._id) {
-            fetch(`http://localhost:3000/api/purchases/${idPurchases}?token=${user.token}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${idPurchases}?token=${user.token}`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -63,7 +63,7 @@ function ReadPurchases () {
             isSeen: true,
         }
 
-        fetch(`http://localhost:3000/api/purchases/${purchaseContent2._id}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${purchaseContent2._id}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',
@@ -94,8 +94,8 @@ function ReadPurchases () {
             setOrderedProducts([])
             purchaseContent?.product_ids?.map(el => {
                 console.log('1111111111111')
-                // fetch(`http://localhost:3000/api/products/${el._id}?token=${user.token}`)
-                fetch(`http://localhost:3000/api/products/${el._id}`)
+                // fetch(`${process.env.REACT_APP_BASE_URL}/products/${el._id}?token=${user.token}`)
+                fetch(`${process.env.REACT_APP_BASE_URL}/products/${el._id}`)
                 .then(res => res.json())
                     .then(res => {
                         console.log('1111111111111', res)
@@ -134,7 +134,7 @@ function ReadPurchases () {
             status: str,
         }
 
-        fetch(`http://localhost:3000/api/purchases/${purchaseContent._id}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${purchaseContent._id}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',
@@ -277,7 +277,7 @@ function ReadPurchases () {
     }
 
     const sendEdite = (data) => {
-        fetch(`http://localhost:3000/api/purchases/${purchaseContent._id}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${purchaseContent._id}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',

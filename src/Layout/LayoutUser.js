@@ -30,7 +30,7 @@ function LayoutUser() {
             if (auth?.email) {
                 dispatch(setUser(auth))
 
-                fetch('http://localhost:3000/api/shops/all')
+                fetch(`${process.env.REACT_APP_BASE_URL}/shops/all`)
                     .then(res => res.json())
                     .then(res => {
                         if (res.success && res.data) {
@@ -52,7 +52,7 @@ function LayoutUser() {
                 navigate('/auth/login')
             }
         } else {
-            fetch('http://localhost:3000/api/shops/all')
+            fetch(`${process.env.REACT_APP_BASE_URL}/shops/all`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -79,7 +79,7 @@ function LayoutUser() {
     
     useEffect(() => {
         if (shop?._id && user?.token) {
-            fetch(`http://localhost:3000/api/purchases/${shop._id}/number?token=${user.token}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${shop._id}/number?token=${user.token}`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -92,7 +92,7 @@ function LayoutUser() {
                     console.error('Error:', error);
                 })
 
-            fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${shop._id}/all`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -108,7 +108,7 @@ function LayoutUser() {
     }, [shop])
 
     // useEffect(() => {
-    //     fetch(`http://localhost:3000/api/products/${shop._id}/all`)
+    //     fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all`)
     //         .then(res => res.json())
     //         .then(res => {
     //             if (res.success && res.data) {

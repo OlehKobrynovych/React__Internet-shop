@@ -32,7 +32,7 @@ function ProductFilterView() {
         setIsLoading(true);
         setIsPageNotFound(false);
 
-        fetch(`http://localhost:3000/api/categories/${id}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/categories/${id}`)
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
@@ -51,7 +51,7 @@ function ProductFilterView() {
     }, [id, categories])
 
     const productSearch = (data) => {
-        fetch(`http://localhost:3000/api/products/${data._id}/category`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data._id}/category`)
         .then(res => res.json())
         .then(res => {
             if (res.success && res.data?.length) {
@@ -69,7 +69,7 @@ function ProductFilterView() {
     useEffect(() => {
         if (selectedCategory?.parent_id && selectedCategory?.parent_id !== 'null') {
             setIsLoading(true);
-            fetch(`http://localhost:3000/api/categories/${selectedCategory.parent_id}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${selectedCategory.parent_id}`)
                .then(res => res.json())
                .then(res => {
                    if (res.success && res.data) {

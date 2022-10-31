@@ -23,7 +23,7 @@ function SelectStatus({purchases, status}) {
                 status: option,
             }
     
-            fetch(`http://localhost:3000/api/purchases/${purchases._id}`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${purchases._id}`, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json',

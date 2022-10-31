@@ -21,7 +21,7 @@ function SearchProduct() {
 
     useEffect(() => {
         if (searchProductsName?.length) {
-            fetch(`http://localhost:3000/api/products/${shop._id}/shop?name=${searchProductsName}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/shop?name=${searchProductsName}`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res)

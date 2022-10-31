@@ -49,7 +49,7 @@ function SignUpView() {
                 lastName: lastName
             }
     
-             fetch('http://localhost:3000/api/auth/register', {
+             fetch(`${process.env.REACT_APP_BASE_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

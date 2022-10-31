@@ -48,7 +48,7 @@ function UserProduct() {
 
     useEffect(() => {
         if (shop?._id) {
-            fetch(`http://localhost:3000/api/products/${shop._id}/all`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -62,7 +62,7 @@ function UserProduct() {
                     console.error('Error:', error);
                 })
 
-            fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${shop._id}/all`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -81,7 +81,7 @@ function UserProduct() {
     // фільтрація щоб працювала тільки після натиску на ентер
     const handleSearchProduct = (e) => {
         if(e.key === 'Enter'){
-            fetch(`http://localhost:3000/api/products/${shop._id}/shop?name=${seachName}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/shop?name=${seachName}`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res)
@@ -112,7 +112,7 @@ function UserProduct() {
         } else {
             setSelectedSort(category.name)
 
-            fetch(`http://localhost:3000/api/products/${category._id}/category`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${category._id}/category`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res)
@@ -145,7 +145,7 @@ function UserProduct() {
                 token: user.token,
             }
     
-            fetch(`http://localhost:3000/api/products/${deleteId}`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${deleteId}`, {
                 method: 'DELETE',
                 headers: {
                 'Content-Type': 'application/json',

@@ -46,7 +46,7 @@ function CreationProduct() {
             setSizes(editProduct.sizes)
             setImages(editProduct.images)
 
-            fetch(`http://localhost:3000/api/categories/${editProduct.category_id}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${editProduct.category_id}`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -122,7 +122,7 @@ function CreationProduct() {
             }
     
             if (editProduct?._id) {
-                fetch(`http://localhost:3000/api/products/${editProduct._id}`, {
+                fetch(`${process.env.REACT_APP_BASE_URL}/products/${editProduct._id}`, {
                     method: 'PUT',
                     headers: {
                     'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ function CreationProduct() {
                         dispatch(setEditProduct({}))
                     });
             } else {
-                fetch('http://localhost:3000/api/products/', {
+                fetch(`${process.env.REACT_APP_BASE_URL}/products/`, {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json',

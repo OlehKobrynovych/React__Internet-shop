@@ -105,7 +105,7 @@ function CreationShop() {
 
         if (isNeedUpdateShop) {
             // console.log('data1111', shop._id)
-            fetch(`http://localhost:3000/api/shops/${shop._id}`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ function CreationShop() {
                     dispatch(setIsNeedUpdateShop(false)) 
                 });
         } else {
-            fetch('http://localhost:3000/api/shops/', {
+            fetch(`${process.env.REACT_APP_BASE_URL}/shops/`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

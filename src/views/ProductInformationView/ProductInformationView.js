@@ -40,7 +40,7 @@ function ProductInformationView() {
     useEffect(() => {
         setIsLoading(true);
 
-        fetch(`http://localhost:3000/api/products/${id}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${id}`)
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
@@ -63,7 +63,7 @@ function ProductInformationView() {
     useEffect(() => {
         setIsLoading(true);
 
-        fetch(`http://localhost:3000/api/products/${id}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${id}`)
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {

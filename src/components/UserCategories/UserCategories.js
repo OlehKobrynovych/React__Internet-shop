@@ -34,7 +34,7 @@ function UserCategories() {
 
     //  useEffect(() => {
     //      if (shop._id) {
-    //         fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
+    //         fetch(`${process.env.REACT_APP_BASE_URL}/categories/${shop._id}/all`)
     //         .then(res => res.json())
     //         .then(res => {
     //             if (res.success && res.data) {
@@ -61,7 +61,7 @@ function UserCategories() {
                     token: user.token,
                 }
         
-                fetch('http://localhost:3000/api/categories/', {
+                fetch(`${process.env.REACT_APP_BASE_URL}/categories/`, {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ function UserCategories() {
             token: user.token,
         }
     
-        fetch('http://localhost:3000/api/categories/', {
+        fetch(`${process.env.REACT_APP_BASE_URL}/categories/`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ function UserCategories() {
             }
 
             deleteCategory?.sub_categories?.map(el => {
-                fetch(`http://localhost:3000/api/categories/${el._id}`, {
+                fetch(`${process.env.REACT_APP_BASE_URL}/categories/${el._id}`, {
                     method: 'DELETE',
                     headers: {
                     'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ function UserCategories() {
                     }) 
             })
 
-            fetch(`http://localhost:3000/api/categories/${deleteCategory._id}`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${deleteCategory._id}`, {
                     method: 'DELETE',
                     headers: {
                     'Content-Type': 'application/json',
@@ -270,7 +270,7 @@ function UserCategories() {
                 token: user.token,
             }
 
-            fetch(`http://localhost:3000/api/categories/${deleteId.subCategoryId}`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${deleteId.subCategoryId}`, {
                 method: 'DELETE',
                 headers: {
                 'Content-Type': 'application/json',
@@ -326,7 +326,7 @@ function UserCategories() {
                 token: user.token,
             }
 
-            fetch(`http://localhost:3000/api/categories/${editCategory._id}`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${editCategory._id}`, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json',

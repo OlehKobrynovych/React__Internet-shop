@@ -79,7 +79,7 @@ function ShoppingCartView() {
                 token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2Njc2NTYwNiwiZXhwIjoxNjY2NzgzNjA2fQ.V3lACu3Yn5eyXfcW_2Ziz_6mrHeze0y-riaQBegBhJs',                // відправка токена звідки брати для покупців?
             }
 
-            fetch(`http://localhost:3000/api/purchases/`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

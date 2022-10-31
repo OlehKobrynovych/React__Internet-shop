@@ -23,7 +23,7 @@ function Layout() {
 
     useEffect(() => {
         if (shopName?.length) {
-            fetch(`http://localhost:3000/api/shops/${shopName}/name`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shopName}/name`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data._id) {
@@ -75,7 +75,7 @@ function Layout() {
 
     useEffect(() => {
         if (shop.name) {
-            fetch(`http://localhost:3000/api/products/${shop._id}/all`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data.length) {
@@ -86,7 +86,7 @@ function Layout() {
                     console.error('Error:', error);
                 })
             
-            fetch(`http://localhost:3000/api/categories/${shop._id}/all`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${shop._id}/all`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data.length) {

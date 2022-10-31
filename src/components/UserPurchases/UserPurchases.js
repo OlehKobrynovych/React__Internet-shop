@@ -35,7 +35,7 @@ function UserPurchases() {
 
     useEffect(() => {
         if (shop?._id) {
-            fetch(`http://localhost:3000/api/purchases/${shop._id}/all?token=${user.token}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${shop._id}/all?token=${user.token}`)
                 .then(res => res.json())
                 .then(res => {
                     console.log('GET UserPurchases:', res)
@@ -117,7 +117,7 @@ function UserPurchases() {
             favorite: !purchases.favorite,
         }
 
-        fetch(`http://localhost:3000/api/purchases/${purchases._id}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${purchases._id}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',
