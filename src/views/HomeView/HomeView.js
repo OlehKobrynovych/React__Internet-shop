@@ -3,7 +3,6 @@ import SwiperCards from '../../components/SwiperCards/SwiperCards';
 import Preloader from '../../components/Preloader/Preloader';
 import './HomeView.css';
 import man from '../../assets/images/man.webp';
-import poshta from '../../assets/images/poshta.jpg';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -78,21 +77,34 @@ function HomeView() {
                             }
                         </div>
 
-                        <div className="home-view__info container">
-                            <div className="home-view__info-delivery">
-                                <img className="home-view__info-delivery-img" src={poshta} alt='img'/>
-                                <p className="home-view__info-delivery-text">Безкоштовна доставка від 5 999 грн</p>
-                            </div>
+                        {
+                            shop?.name && (
+                                <div className="home-view__info container">
 
-                            {
-                                shop?.name && (
-                                    <>
-                                        <h2 className="home-view__info-title">{selectedLanguage?.homePage?.homeInfoTitle} {shop.name}</h2>
-                                        <p className="home-view__info-text">{shop.descriptionShop}</p>
-                                    </>
-                                )
-                            }
-                        </div>
+                                    {
+                                        !!shop?.informationBlock?.length && shop?.informationBlock.map(el => (
+                                            <div className='home-view__information-block' style={{background: `${el.colorBackground}`}}>
+                                                <div 
+                                                    className='home-view__information-block-title' 
+                                                    style={{color: `${el.colorTitle}`, fontSize: `${el.sizeTitle}px`, fontWeight: `${el.fontWeightTitle}`, textShadow: `${el.shadowTitleX}px ${el.shadowTitleY}px ${el.shadowTitleZ}px rgb(0 0 0 / ${el.shadowTitleTransparency}%)`}}
+                                                >
+                                                    {el.title}
+                                                </div>
+                                                <div 
+                                                    className='home-view__information-block-text' 
+                                                    style={{color: `${el.colorText}`, fontSize: `${el.sizeText}px`, textAlign: `${el.textAlign}`, fontWeight: `${el.fontWeightText}`, textShadow: `${el.shadowTextX}px ${el.shadowTextY}px ${el.shadowTextZ}px rgb(0 0 0 / ${el.shadowTextTransparency}%)`}}
+                                                >
+                                                    {el.text}
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+
+                                    <h2 className="home-view__info-title">{selectedLanguage?.homePage?.homeInfoTitle} {shop.name}</h2>
+                                    <p className="home-view__info-text">{shop.descriptionShop}</p>
+                                </div>
+                            )
+                        }
                         
                         {
                             !!productsNew.length && (<SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} products={productsNew}/>)

@@ -60,6 +60,222 @@
     color: white;
 }
 
+.user-shop__section-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.user-shop__section {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: #eee;
+    color: #444;
+    padding: 8px 16px;
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    box-shadow: 2px 1px 3px rgb(0 0 0 / 52%);
+}
+
+.user-shop__section-input-wrap {
+
+}
+  
+.user-shop__section-input-label {
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-shop__section-input {
+    padding: 10px 20px;
+    max-width: 45%;
+    width: 100%;
+    min-width: 200px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.user-shop__section-textarea {
+    padding: 10px 20px;
+    max-width: 400px;
+    min-width: 180px;
+    width: 100%;
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.user-shop__section-btn-wrap {
+    
+}
+
+.user-shop__section-btn-add {
+    border: 2px solid black;
+    background-color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    border-color: #0d48ac;
+    color: #0d48ac;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    display: block;
+    transition: .3s;
+}
+
+.user-shop__section-btn-add:hover {
+    background: #0d48ac;
+    color: white;
+}
+
+.user-shop__section-btn-info-wrap {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: auto;
+    transition: .3s;
+}
+
+.user-shop__section-btn-info {
+    position: absolute;
+    top: 4px;
+    left: 7px;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(-45deg);
+}
+
+.user-shop__section-btn-info-wrap:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-shop__section-btn-info--active {
+    top: 9px;
+    transform: rotate(135deg);
+}
+
+.user-shop__section-color-wrap {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-shop__section-number-wrap {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-shop__section-input-number-wrap {
+    display: flex;
+    gap: 5px;
+}
+
+.user-shop__section-input-number {
+    padding: 10px 20px;
+    max-width: 100px;
+    /* margin-bottom: 10px; */
+    font-size: 14px;
+    line-height: 17px;
+    color: #333;
+    outline: none;
+    height: fit-content;
+    border-radius: 8px;
+    background: #f6f7fa;
+    border: 1px solid #065bea;
+}
+
+.user-shop__section-checkbox-wrap {
+    display: flex;
+    /* gap: 15px; */
+}
+
+.user-shop__section-checkbox {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.user-shop__section-shadow-title {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.user-shop__section-shadow-wrap {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.user-shop__section-input-shadow-wrap {
+    display: flex;
+    gap: 5px;
+}
+
+.user-shop__section-info {
+    display: none;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.user-shop__section-info--active {
+    display: block;
+    max-height: 100%;
+}
+
+.user-shop__information-title {
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-shop__information-block {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.user-shop__information-block-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-shop__information-block-text {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
 
 @media (min-width: 576px) {
 

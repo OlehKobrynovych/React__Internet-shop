@@ -12,7 +12,7 @@ function CreationShop() {
     const shop = useSelector(state => state.userSlice.shop);
     const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
-    const [isOpenInfo, setisOpenInfo] = useState([]);
+    const [arrIsOpenInfo, setArrIsOpenInfo] = useState([]);
     const [name, setName] = useState('');
     const [facebook_url, setFacebook_url] = useState('');
     const [instagram_url, setInstagram_url] = useState('');
@@ -51,10 +51,10 @@ function CreationShop() {
     }, [isNeedUpdateShop])
 
     const handleHelpOpen = (num) => {
-        if (isOpenInfo.includes(num)) {
-            setisOpenInfo(isOpenInfo.filter(el => el !== num))
+        if (arrIsOpenInfo.includes(num)) {
+            setArrIsOpenInfo(arrIsOpenInfo.filter(el => el !== num))
         } else {
-            setisOpenInfo([...isOpenInfo, num])
+            setArrIsOpenInfo([...arrIsOpenInfo, num])
         }
     }
 
@@ -221,10 +221,10 @@ function CreationShop() {
                     </div> */}
 
                     <div onClick={() => handleHelpOpen(1)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(1) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(1) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(1) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(1) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть ім'я магазину.</p>
                 </div>
                 
@@ -244,10 +244,10 @@ function CreationShop() {
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(2)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(2) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(2) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(2) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(2) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть url адресу сторінки facebook, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.</p>
                 </div>
                 
@@ -267,10 +267,10 @@ function CreationShop() {
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(3)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(3) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(3) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(3) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(3) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть url адресу сторінки instagram, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.</p>
                 </div>
       
@@ -292,10 +292,10 @@ function CreationShop() {
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(4)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(4) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(4) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(4) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(4) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть телефон за яким клієнти зможуть з Вами звязатись. В форматі ХХХ-ХХХ-ХХХХ</p>
                 </div>
                 
@@ -316,10 +316,10 @@ function CreationShop() {
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(5)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(5) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(5) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(5) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(5) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть додатковий телефон за яким клієнти зможуть з Вами звязатись. В форматі ХХХ-ХХХ-ХХХХ</p>
                 </div>
                 
@@ -341,10 +341,10 @@ function CreationShop() {
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(6)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(6) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(6) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(6) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(6) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть адресу Вашого магазину</p>
                 </div>
                 
@@ -381,10 +381,10 @@ function CreationShop() {
                     </div>
 
                     <div onClick={() => handleHelpOpen(7)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(7) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(7) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(7) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(7) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть способи доставки товару у Вашому магазині</p>
                 </div>
                 
@@ -421,10 +421,10 @@ function CreationShop() {
                     </div>
 
                     <div onClick={() => handleHelpOpen(8)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(8) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(8) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(8) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(8) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть способи оплати товару у Вашому магазині</p>
                 </div>
         
@@ -446,10 +446,10 @@ function CreationShop() {
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(9)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(9) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(9) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(9) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(9) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть декілька слів про Ваш магазин.</p>
                 </div>
                
@@ -469,10 +469,10 @@ function CreationShop() {
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(10)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(10) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(10) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(10) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(10) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Введіть валюту в якій будуть зазначені ціни на товар, в форматі $ € ₴ ...</p>
                 </div>
                 
@@ -487,10 +487,10 @@ function CreationShop() {
                         </label>
                     </div>
                     <div onClick={() => handleHelpOpen(11)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(11) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(11) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(11) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(11) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Виберіть мову на якій буде Ваш магазин</p>
                 </div>
                 
@@ -500,10 +500,10 @@ function CreationShop() {
                         <input className="creation-shop__section-input-file" onChange={(e) => setLogo(e.target.value)} type="file" id="file1" />
                     </div>
                     <div onClick={() => handleHelpOpen(12)} className='creation-shop__section-btn-wrap'>
-                        <div className={`creation-shop__section-btn ${isOpenInfo.includes(12) ? 'creation-shop__section-btn--active' : ''}`}></div>
+                        <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(12) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${isOpenInfo.includes(12) ? 'creation-shop__section-info--active' : ''}`}>
+                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(12) ? 'creation-shop__section-info--active' : ''}`}>
                     <p>Виберіть логотип Вашого магазину</p>
                 </div>
 

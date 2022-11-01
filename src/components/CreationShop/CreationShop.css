@@ -55,41 +55,6 @@
     border: 1px solid #065bea;
 }
 
-/* .creation-shop__section-info-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-/* .creation-shop__section-info-title {
-    font-size: 16px;
-} */
-
-/* .creation-shop__section-info-text {
-
-} */
-/* 
-.creation-shop__input-btn-wrap {
-
-} 
-
-.creation-shop__input-btn {
-    display: inline-block;
-    text-align: center;
-    padding: 8px;
-    border-radius: 50%;
-    transition: .3s;
-}
-
-.creation-shop__input-btn:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.creation-shop__input-btn-img {
-    width: 25px;
-    height: 25px;
-} */
-
 .creation-shop__section-btn-wrap {
     position: relative;
     width: 25px;

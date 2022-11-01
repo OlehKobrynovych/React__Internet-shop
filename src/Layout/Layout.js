@@ -47,7 +47,7 @@ function Layout() {
                 }
         }
 
-        let res = JSON.parse(localStorage.getItem('visit'))
+        let res = JSON.parse(localStorage.getItem('visit'))  // доробити лічильник відвідувачів
         if (res?.length) {
             let oldDay = res.split('.')
             let day = oldDay[0]
