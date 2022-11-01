@@ -7,8 +7,6 @@ import Layout from './Layout/Layout';
 import SignUpView from './views/SignUpView/SignUpView';
 import LandingView from './views/LandingView/LandingView';
 import UserCategories from './components/UserCategories/UserCategories';
-import UserShop from './components/UserShop/UserShop';
-import UserHome from './components/UserAnalytics/UserAnalytics';
 import LayoutUser from './Layout/LayoutUser';
 import UserProduct from './components/UserProduct/UserProduct';
 import CreationProduct from './components/CreationProduct/CreationProduct';
@@ -16,10 +14,9 @@ import { ToastContainer } from 'react-toastify';
 import UserPurchases from './components/UserPurchases/UserPurchases';
 import ReadPurchases from './components/ReadPurchases/ReadPurchases';
 import UserAnalytics from './components/UserAnalytics/UserAnalytics';
-import SearchProduct from './components/SearchProduct/SearchProduct';
+import SearchProductView from './views/SearchProductView/SearchProductView';
 import UserMessages from './components/UserMessages/UserMessages';
-const Footer = React.lazy(() => import('./components/Footer/Footer'));
-const Header = React.lazy(() => import('./components/Header/Header'));
+import UserShopView from './views/UserShopView/UserShopView';
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
 const ProductFilterView = React.lazy(() => import('./views/ProductFilterView/ProductFilterView'));
 const AboutUsView = React.lazy(() => import('./views/AboutUsView/AboutUsView'));
@@ -50,7 +47,7 @@ function App() {
                     <Route path="/" element={<LandingView />}/>
                     <Route path="/auth/:userId" element={<LayoutUser />}>
                         <Route index element={<UserAnalytics />}/>
-                        <Route path="shop" element={<UserShop />}/>
+                        <Route path="shop" element={<UserShopView />}/>
                         <Route path="categories" element={<UserCategories />}/>
                         <Route path="product" element={<UserProduct />}/>
                         <Route path="product/create" element={<CreationProduct />}/>
@@ -66,7 +63,7 @@ function App() {
                         <Route index element={<HomeView />}/>
                         <Route path="category/:id" element={<ProductFilterView />} />
                         <Route path="product/:id" element={<ProductInformationView />} />
-                        <Route path="search" element={<SearchProduct />} />
+                        <Route path="search" element={<SearchProductView />} />
                         <Route path="wishlist" element={<WishListView />} />
                         <Route path="cart" element={<ShoppingCartView />} />
                         <Route path="about" element={<AboutUsView />} />

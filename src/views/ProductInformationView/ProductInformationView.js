@@ -55,10 +55,12 @@ function ProductInformationView() {
             .finally(() => {
                 setIsLoading(false);
             });
-
+    }, [])
+    
+    useEffect(() => {
         setIsShoppingProduct(shoppingProduct.some(el => el._id === id))
         setIsFavoriteProduct(favoriteProduct.some(el => el._id === id))
-    }, [])
+    }, [shoppingProduct, favoriteProduct])
 
     useEffect(() => {
         setIsLoading(true);
@@ -116,8 +118,9 @@ function ProductInformationView() {
             dispatch(setShoppingProduct(res))
             localStorage.setItem('shoppingProducts', JSON.stringify(res));
         } else {
-            let res = [...shoppingProduct, product]
-            dispatch(setShoppingProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
+            let res = [...shoppingProduct, {...product, count: 1}]
+            // dispatch(setShoppingProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
+            dispatch(setShoppingProduct(res))
             localStorage.setItem('shoppingProducts', JSON.stringify(res));
         }
 
@@ -181,10 +184,10 @@ function ProductInformationView() {
                             </div>
                             
                             <div className="product-information__wrap-info">
-                                <h2 className="product-information__title">Назва:&nbsp;{product?.name}</h2>
+                                <h2 className="product-information__title">{selectedLanguage?.productPage?.productNameTitle}&nbsp;{product?.name}</h2>
 
                                 <div className="product-information__price-wrap">
-                                    <span className={`product-information__price ${product.new_price ? "product-information__price-old" : ""}`}>Ціна:&nbsp;{product?.price}{shop.currency}</span>
+                                    <span className={`product-information__price ${product.new_price ? "product-information__price-old" : ""}`}>{selectedLanguage?.productPage?.productPriceTitle}&nbsp;{product?.price}{shop.currency}</span>
                                     {
                                         product?.new_price !== 0 ? (<span className="product-information__new-price">{product.new_price}{shop.currency}</span>) : ""
                                     }

@@ -5,13 +5,14 @@ import bell from '../assets/images/bell.svg';
 import cartUser from '../assets/images/cartUser.svg';
 import avatar from '../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCategories, getProducts, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setShop, setUser } from '../store/userSlice';
+import { getCategories, getProducts, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setSelectedLanguage, setShop, setUser } from '../store/userSlice';
 import LoginBtn from '../components/LoginBtn/LoginBtn';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
+import { languageUser } from '../languageUser';
 
 
 function LayoutUser() {
-
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [isModalWindow, setModalWindow] = useState(false);
     const [purchasesLength, setPurchasesLength] = useState(null);
@@ -22,7 +23,7 @@ function LayoutUser() {
     // const navigate = useNavigate();
     // let { userId } = useParams();
     // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
-    console.log(shop)
+    console.log(selectedLanguage)
 
     useEffect(() => {
         if (!user.email) {
@@ -72,6 +73,13 @@ function LayoutUser() {
                 })
         }
 
+        let res = (JSON.parse(localStorage.getItem('userLanguage')));
+        if (res?.length) {
+            dispatch(setSelectedLanguage(languageUser[res]));
+        } else {
+            dispatch(setSelectedLanguage(languageUser['ENG']));
+        }
+
         window.addEventListener("resize", handleResize);
 
         return () => window.removeEventListener("resize", handleResize);
@@ -107,22 +115,6 @@ function LayoutUser() {
         }
     }, [shop])
 
-    // useEffect(() => {
-    //     fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all`)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             if (res.success && res.data) {
-    //                 // console.log(res)
-    //                 dispatch(getProducts(res.data));
-    //             } else {
-    //                 console.log('GET LayoutUser:', res)
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         })
-    // }, [shop])
-
     const handleResize = () => {
         if (window.innerWidth < 768) {
             setIsOpenMenu(true)
@@ -151,14 +143,14 @@ function LayoutUser() {
             <div className='layout-user--wrpa'>
                 <div className={`layout-user__sidenav ${!isOpenMenu ? "layout-user__sidenav--open" : "layout-user__sidenav--close"}`}>
                     <div className="layout-user__sidenav-btn-wrap"><b onClick={() => openNav()} className="layout-user__sidenav-btn">&times;</b></div>
-                    <h3 className='layout-user__sidenav-title'>Назва сайту</h3>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/`}>Аналітика</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false)) }>Магазин</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>Категорії</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>Товар</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>Зомовлення</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/messages`}>Повідомлення</NavLink>
-                    <button onClick={() => setModalWindow(!isModalWindow)} className='layout-user__sidenav-link'>Вихід</button>
+                    <h3 className='layout-user__sidenav-title'>{selectedLanguage?.layoutUser?.layoutCompanyName}</h3>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/`}>{selectedLanguage?.layoutUser?.layoutLinkAnalytics}</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false))}>{selectedLanguage?.layoutUser?.layoutLinkShop}</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>{selectedLanguage?.layoutUser?.layoutLinkCategories}</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>{selectedLanguage?.layoutUser?.layoutLinkProducts}</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>{selectedLanguage?.layoutUser?.layoutLinkOrders}</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/messages`}>{selectedLanguage?.layoutUser?.layoutLinkMessage}</NavLink>
+                    <button onClick={() => setModalWindow(!isModalWindow)} className='layout-user__sidenav-link'>{selectedLanguage?.layoutUser?.layoutLinkExit}</button>
                 </div>
 
                 <div className={`layout-user__main ${!isOpenMenu ? "layout-user__main--open" : "layout-user__main--close"}`}>

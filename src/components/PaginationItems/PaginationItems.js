@@ -1,10 +1,12 @@
 import './PaginationItems.css';
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import { useSelector } from 'react-redux';
 
 // import cart from '../../assets/images/cart.svg';
 
 function PaginationItems({items, setCurrentPaginationItems, pageRangeDisplayed, itemsPerPage}) {
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
     // console.log(itemOffset)
@@ -30,11 +32,11 @@ function PaginationItems({items, setCurrentPaginationItems, pageRangeDisplayed, 
         <div className="pagination-items conteaner">
             <ReactPaginate
                     breakLabel="..."
-                    nextLabel="вперед >"
+                    nextLabel={selectedLanguage?.pagination?.paginationNextBtn}
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={pageRangeDisplayed}
                     pageCount={pageCount}
-                    previousLabel="< назад"
+                    previousLabel={selectedLanguage?.pagination?.paginationPrevBtn}
                     // renderOnZeroPageCount={undefined}
                     // renderOnZeroPageCount={handlePageClick1}
                     // forcePage={itemOffset1}

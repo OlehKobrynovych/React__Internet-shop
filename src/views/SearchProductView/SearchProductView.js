@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './SearchProduct.css';
+import './SearchProductView.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditProduct, setIsCleanInput, setProduct, setUpdataProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
-import CardInput from '../CardInput/CardInput';
+import CardInput from '../../components/CardInput/CardInput';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ProductCard from '../ProductCard/ProductCard';
-import PaginationItems from '../PaginationItems/PaginationItems';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import PaginationItems from '../../components/PaginationItems/PaginationItems';
 
 
-function SearchProduct() {
+function SearchProductView() {
+    const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const searchProductsName = useSelector(state => state.homeSlice.searchProductsName);
     const shop = useSelector(state => state.homeSlice.shop);
     const [searchProducts, setSearchProducts] = useState([]);
@@ -52,7 +53,7 @@ function SearchProduct() {
                         !!paginationProducts?.length && !searchNoResults ? paginationProducts.map(el => (
                                 <ProductCard product={el} key={el._id}/>    
                                 )) : <h3  className='search-product__error-text'>
-                                        Товару з такою назвою не знайдено
+                                        {selectedLanguage?.searchPage?.searchErrorText}
                                      </h3>
                     }
                 </div>
@@ -63,4 +64,4 @@ function SearchProduct() {
     );
 }
 
-export default SearchProduct;
+export default SearchProductView;

@@ -6,7 +6,7 @@ import Preloader from '../components/Preloader/Preloader';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, setCategories, setFavoriteProduct, setSelectedLanguage, setShop, setShoppingProduct } from '../store/homeSlice';
-import { datasLanguage } from '../datasLanguage';
+import { languageShop } from '../languageShop';
 
 
 function Layout() {
@@ -99,7 +99,7 @@ function Layout() {
                 })
         }
 
-        dispatch(setSelectedLanguage(datasLanguage[shop.language]));
+        dispatch(setSelectedLanguage(languageShop[shop.language]));
     }, [shop])
 
     return (

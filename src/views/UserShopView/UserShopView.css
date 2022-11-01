@@ -68,6 +68,7 @@
 
 .user-shop__section {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     justify-content: space-between;
     align-items: flex-end;
@@ -191,25 +192,6 @@
     margin-bottom: 10px;
 }
 
-.user-shop__section-input-number-wrap {
-    display: flex;
-    gap: 5px;
-}
-
-.user-shop__section-input-number {
-    padding: 10px 20px;
-    max-width: 100px;
-    /* margin-bottom: 10px; */
-    font-size: 14px;
-    line-height: 17px;
-    color: #333;
-    outline: none;
-    height: fit-content;
-    border-radius: 8px;
-    background: #f6f7fa;
-    border: 1px solid #065bea;
-}
-
 .user-shop__section-checkbox-wrap {
     display: flex;
     /* gap: 15px; */
@@ -230,11 +212,6 @@
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-}
-
-.user-shop__section-input-shadow-wrap {
-    display: flex;
-    gap: 5px;
 }
 
 .user-shop__section-info {
@@ -277,8 +254,10 @@
 }
 
 
-@media (min-width: 576px) {
-
+@media (min-width: 500px) {
+    .user-shop__section {
+        flex-direction: row;
+    }
 }
 
 @media (min-width: 768px) {

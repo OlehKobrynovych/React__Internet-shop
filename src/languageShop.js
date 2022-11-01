@@ -1,5 +1,5 @@
 
-export const datasLanguage = {
+export const languageShop = {
     'UA': {
         header: {
             heartBtn: 'Обрані',
@@ -32,6 +32,8 @@ export const datasLanguage = {
             categoriesError: 'В цій категорії не має товарів',
         },
         productPage: {
+            productNameTitle: 'Назва:',
+            productPriceTitle: 'Ціна:',
             productSizeTitle: 'Доступні розміра: ',
             productColorsTitle: 'Доступні кольори: ',
             productDescriptionTitle: 'Опис',
@@ -51,6 +53,8 @@ export const datasLanguage = {
         },
         cartPage: {
             cartName: 'Кошик',
+            cartSizes: 'Розміра:',
+            cartColors: 'Кольори:',
             cartPriceTitle: 'Ціна:',
             cartTotalPriceTitle: 'Загальна ціна:',
             cartQuantityTitle: 'Введіть кількість',
@@ -62,13 +66,25 @@ export const datasLanguage = {
             cartFormName: 'Прізвище та ім\'я',
             cartFormPhone: 'Телефон',
             cartFormMail: 'Ел. пошта',
+            cartFormDelivery: 'Спосіб доставки:',
+            cartFormPayment: 'Спосіб оплати:',
+            cartFormAddress: 'Адреса:',
             cartFormComment: 'Коментар:',
             cartFormCheckbox: 'Даю згоду на обробку даних',
             cartFormSubmitError: 'Обовязкові поля не заповнені!!!',
+            cartPurchaseHistory: 'Історія покупок',
+            cartPurchasedProduct: 'Куплений товар:',
         },
         notFoundPage: {
             notFoundTitle: 'Сторінка не знайдена',
             notFoundGetBackTitle: 'Повернутись на головну сторінку:',
+        },
+        pagination: {
+            paginationNextBtn: 'вперед >',
+            paginationPrevBtn: '< назад',
+        },
+        searchPage: {
+            searchErrorText: 'Товару з такою назвою не знайдено',
         },
     },
     'ENG': {
@@ -103,6 +119,8 @@ export const datasLanguage = {
             categoriesError: 'There are no products in this category',
         },
         productPage: {
+            productNameTitle: 'Name:',
+            productPriceTitle: 'Price:',
             productSizeTitle: 'Available sizes: ',
             productColorsTitle: 'Available colors: ',
             productDescriptionTitle: 'Description',
@@ -122,6 +140,8 @@ export const datasLanguage = {
         },
         cartPage: {
             cartName: 'Basket',
+            cartSizes: 'Sizes:',
+            cartColors: 'Colors:',
             cartPriceTitle: 'Price:',
             cartTotalPriceTitle: 'Total price:',
             cartQuantityTitle: 'Enter the quantity',
@@ -133,13 +153,25 @@ export const datasLanguage = {
             cartFormName: 'Name and surname',
             cartFormPhone: 'Phone',
             cartFormMail: 'E. mail',
+            cartFormDelivery: 'Delivery method:',
+            cartFormPayment: 'Payment method:',
+            cartFormAddress: 'Address:',
             cartFormComment: 'Comment:',
             cartFormCheckbox: 'I consent to data processing',
             cartFormSubmitError: 'Mandatory fields are not filled!!!',
+            cartPurchaseHistory: 'Purchase history',
+            cartPurchasedProduct: 'Purchased product:',
         },
         notFoundPage: {
             notFoundTitle: 'Page not found',
             notFoundGetBackTitle: 'Return to the main page:',
+        },
+        pagination: {
+            paginationNextBtn: 'go >',
+            paginationPrevBtn: '< back',
+        },
+        searchPage: {
+            searchErrorText: 'No product with this name was found',
         },
     },
   

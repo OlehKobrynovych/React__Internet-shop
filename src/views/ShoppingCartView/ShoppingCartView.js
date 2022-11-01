@@ -40,7 +40,7 @@ function ShoppingCartView() {
     const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
     // const datas = useSelector(state => state.homeSlice.datas);
     // console.log(shoppingProduct)
-    console.log(shoppingHistoryProducts)
+    console.log(shoppingProduct)
     
 
     useEffect(() => {
@@ -198,7 +198,7 @@ function ShoppingCartView() {
                                                 {
                                                     el?.sizes?.length !== 0 && (
                                                         <>
-                                                            <p>Розміра:</p>
+                                                            <p>{selectedLanguage?.cartPage?.cartSizes}</p>
                                                             <div className="shopping-cart__pdoduct-info-size-wrap">
                                                                 <InputCheckbox handleChange={handleSelectSize} checkboxArr={el?.sizes} id={el._id}/>
                                                             </div>
@@ -209,7 +209,7 @@ function ShoppingCartView() {
                                                 {
                                                     el?.colors.length !== 0 && (
                                                         <>
-                                                            <p>Кольори:</p>
+                                                            <p>{selectedLanguage?.cartPage?.cartColors}</p>
                                                             <div className="shopping-cart__pdoduct-info-colors-wrap">
                                                             <InputCheckbox handleChange={handleSelectColors} checkboxArr={el?.colors} id={el._id}/>
                                                             </div>
@@ -259,7 +259,7 @@ function ShoppingCartView() {
                                     <input className="shopping-cart__form-input" onChange={(e) => setEmailForm(e.target.value)} value={emailForm} type="text" id="email" name="email" placeholder="Email"/>
                                 </label>
                                 <label className="shopping-cart__form-input-label">
-                                    <span className="shopping-cart__form-input-title">Спосіб доставки:</span>
+                                    <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormDelivery}</span>
                                     <div className="shopping-cart__form-select-wrap">
                                         <div className="shopping-cart__form-select" onClick={() => setIsOpenSelectDelivery(!isOpenSelectDelivery)}>
                                             {deliveryMethod?.length && deliveryMethod}
@@ -275,7 +275,7 @@ function ShoppingCartView() {
                                     </div>
                                 </label>
                                 <label className="shopping-cart__form-input-label">
-                                    <span className="shopping-cart__form-input-title">Спосіб оплати:</span>
+                                    <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormPayment}</span>
                                     <div className="shopping-cart__form-select-wrap">
                                         <div className="shopping-cart__form-select" onClick={() => setIsOpenSelectPayment(!isOpenSelectPayment)}>
                                             {paymentMethod?.length && paymentMethod}
@@ -294,7 +294,7 @@ function ShoppingCartView() {
 
                             <div className="shopping-cart__form-textarea-wrap">
                                 <label className="shopping-cart__form-input-label" htmlFor="comment">
-                                    <span className="shopping-cart__form-input-title">Адреса:</span>
+                                    <span className="shopping-cart__form-input-title">{selectedLanguage?.cartPage?.cartFormAddress}</span>
                                     <textarea className="shopping-cart__form-input" onChange={(e) => setAddressForm(e.target.value)} value={addressForm} type="text" id="comment" name="comment" placeholder="" rows="5" cols="33"/>
                                 </label>
 
@@ -323,8 +323,8 @@ function ShoppingCartView() {
 
             {
                 !!shoppingHistoryProducts?.length && <div className="shopping-cart__history">
-                        <h5 className="shopping-cart__history-title">Історія покупок</h5>
-                        <div>Куплений товар:&nbsp;{shoppingHistoryProducts?.length}</div>  
+                        <h5 className="shopping-cart__history-title">{selectedLanguage?.cartPage?.cartPurchaseHistory}</h5>
+                        <div>{selectedLanguage?.cartPage?.cartPurchasedProduct}&nbsp;{shoppingHistoryProducts?.length}</div>  
                         <div className="shopping-cart__history-items">
                             {
                                 currentPaginationItems?.map(el => (<div className="shopping-cart__history-item" key={el._id + el.date}>

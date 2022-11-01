@@ -61,8 +61,9 @@ function ProductCard({product}) {
             dispatch(setShoppingProduct(res))
             localStorage.setItem('shoppingProducts', JSON.stringify(res));
         } else {
-            let res = [...shoppingProduct, product]
-            dispatch(setShoppingProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
+            let res = [...shoppingProduct, {...product, count: 1}]
+            // dispatch(setShoppingProduct(res.map(el => el._id == product._id ? {...el, count: 1} : el)))
+            dispatch(setShoppingProduct(res))
             localStorage.setItem('shoppingProducts', JSON.stringify(res));
         }
     };

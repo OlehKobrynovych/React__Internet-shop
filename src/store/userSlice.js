@@ -12,6 +12,8 @@ const initialState = {
   isNeedUpdateCategories: false,
   // isNeedUpdateProducts: false,
   isCleanInput: false,
+  // userLanguage: 'UA',
+  selectedLanguage: {}
 }
 
 export const userSlice = createSlice({
@@ -128,9 +130,15 @@ export const userSlice = createSlice({
     setIsCleanInput: (state, action) => {
       state.isCleanInput = action.payload;
     },
+    // setUserLanguage: (state, action) => {
+    //   state.userLanguage = action.payload;
+    // },
+    setSelectedLanguage: (state, action) => {
+      state.selectedLanguage = action.payload;
+    },
   },
 })
 
-export const { setUser, setShop, getCategories, getProducts, getPurchases, setStatusPurchases, setFavoritePurchases, setSeenPurchases,  setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput } = userSlice.actions
+export const { setUser, setShop, getCategories, getProducts, getPurchases, setStatusPurchases, setFavoritePurchases, setSeenPurchases,  setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput, setUserLanguage, setSelectedLanguage } = userSlice.actions
 
 export default userSlice.reducer
