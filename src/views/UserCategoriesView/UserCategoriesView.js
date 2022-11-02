@@ -7,7 +7,7 @@ import deleteImg from '../../assets/images/deleteImg.svg';
 import editIcon from '../../assets/images/editIcon.svg';
 // import kids from '../../assets/images/kids.webp';
 import ModalWindow from '../../components/ModalWindow/ModalWindow';
-import CardInput from '../../components/CardInput/CardInput';
+import InputText from '../../components/InputText/InputText';
 import { toast } from 'react-toastify';
 import noPhotos from '../../assets/images/noPhotos.svg';
 
@@ -304,7 +304,7 @@ function UserCategoriesView() {
             
             {
                 isModalEditSubCategory && <ModalWindow title={selectedLanguage?.userCategoriesView?.userCategoriesModalEditSubCatTitle}  text={selectedLanguage?.userCategoriesView?.userCategoriesModalEditSubCatText} handleClick={handleIsEditCategory} leftBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalEditCatLeftBtn} rightBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalEditCatRightBtn}>
-                                            <CardInput handleChange={setSubCategory}/>
+                                            <InputText setValue={setSubCategory} value={subCategory} id={'userCategoriesSubCategory'} name={'userCategoriesSubCategory'} label={''} />
                                           </ ModalWindow>
             }
            
@@ -320,19 +320,7 @@ function UserCategoriesView() {
 
                 <div className="user-categories__create">
                     <div className="user-categories__create-input-wrap">
-                        <label className='user-categories__create-label' htmlFor="name">
-                            <b>{selectedLanguage?.userCategoriesView?.userCategoriesCreateLabelName}</b>
-                        </label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            className='user-categories__create-input'
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            placeholder={selectedLanguage?.userCategoriesView?.userCategoriesCreateNamePlaceholder}
-                        />
-
+                        <InputText setValue={setName} value={name} id={'userCategoriesName'} name={'userCategoriesName'} label={selectedLanguage?.userCategoriesView?.userCategoriesCreateLabelName} placeholder={selectedLanguage?.userCategoriesView?.userCategoriesCreateNamePlaceholder}/>
                         <div><b>{selectedLanguage?.userCategoriesView?.userCategoriesCreateLabelImg}</b></div>
                         <input className="user-categories__create-input-file" onChange={(e) => setImage_url(e.target.value)} type="file" id="file1"/>
                     </div>
@@ -368,11 +356,8 @@ function UserCategoriesView() {
                                                     <img className="user-categories__card-title-btn" onClick={() => handleDeleteCategories(el)} src={deleteImg} alt='img'/>
                                                 </div>
                                             </div>
-                                            <label className='user-categories__card-label' htmlFor="setSubCategory">
-                                                <b>{selectedLanguage?.userCategoriesView?.userCategoriesCreateSub}</b>
-                                            </label>
                                             <div className='user-categories__card-input-wrap'>
-                                                <CardInput handleChange={setSubCategory}/>
+                                                <InputText setValue={setSubCategory} value={subCategory} id={'userCategoriesSubCategory'} name={'userCategoriesSubCategory'} label={selectedLanguage?.userCategoriesView?.userCategoriesCreateSub}/>
                                                 <button className='user-categories__card-btn' onClick={() => handleCreateSubCategory(el._id)}>+</button>
                                             </div>
                                             <p className='user-categories__card-sub-title'><b>{selectedLanguage?.userCategoriesView?.userCategoriesSubTitle}</b></p>

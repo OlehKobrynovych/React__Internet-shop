@@ -1,8 +1,14 @@
-.card-input--wrap {
-  
+.input-text--wrap {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
 }
 
-.card-input {
+.input-text__label {
+
+}
+
+.input-text {
     padding: 10px 20px;
     max-width: 45%;
     width: 100%;

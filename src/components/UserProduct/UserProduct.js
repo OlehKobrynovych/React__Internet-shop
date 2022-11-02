@@ -30,15 +30,10 @@ function UserProduct() {
     const [isOpenSelect, setIsOpenSelect] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(products)
+    const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
     // console.log(selectedSort)
     
-    const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
     
-    // useEffect(() => {
-    //     setFilterProducts([...products])
-    // }, []);
-
     useEffect(() => {
         if (products?.length) {
             setFilterProducts([...products])
@@ -54,20 +49,6 @@ function UserProduct() {
                     if (res.success && res.data) {
                         console.log(res)
                         dispatch(getProducts(res.data));
-                    } else {
-                        console.log('GET UserProduct:', res)
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                })
-
-            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${shop._id}/all`)
-                .then(res => res.json())
-                .then(res => {
-                    if (res.success && res.data) {
-                        dispatch(getCategories(res.data));
-                        // console.log('GET UserCategories:', res)
                     } else {
                         console.log('GET UserProduct:', res)
                     }

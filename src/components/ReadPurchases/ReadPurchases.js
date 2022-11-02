@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from 'swiper';
 import { toast } from 'react-toastify';
 import ModalWindow from '../ModalWindow/ModalWindow';
-import CardInput from '../CardInput/CardInput';
+import InputText from '../InputText/InputText';
 import PurchasesEditeArr from '../PurchasesEditeArr/PurchasesEditeArr';
 
 
@@ -357,7 +357,7 @@ function ReadPurchases () {
 
             {
                 isModalEditProductCount && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductCount} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
-                                            <CardInput handleChange={setNewCount}/>
+                                            <InputText handleChange={setNewCount}/>
                                           </ ModalWindow>
             }
            

@@ -4,9 +4,10 @@ import './CreationProduct.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditProduct, setIsCleanInput, setProduct, setUpdataProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
-import CardInput from '../CardInput/CardInput';
+import InputText from '../InputText/InputText';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import InputNumber from '../InputNumber/InputNumber';
 
 
 function CreationProduct() {
@@ -30,9 +31,9 @@ function CreationProduct() {
     const [userImages, setUserImages] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const nameInputRef = useRef(null);
-    const priceInputRef = useRef(null);
-    const categoryInputRef = useRef(null);
+    // const nameInputRef = useRef(null);
+    // const priceInputRef = useRef(null);
+    // const categoryInputRef = useRef(null);
 
     console.log(editProduct)
 
@@ -135,32 +136,14 @@ function CreationProduct() {
                             console.log('asd as', res)  
                             dispatch(setUpdataProduct({...data, _id: editProduct._id}))
                             navigate(`/auth/${user._id}/product`)
-                            toast.success('Дані оновлено', {
-                                position: "bottom-right",
-                                autoClose: 2500,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "light",
-                            })
+                            showMessage('success', 'Дані оновлено')
                         } else {
                             console.log('PUT CreationProduct', res)
                         }
                     })
                     .catch((error) => {
                         console.error('Error:', error);
-                        toast.error('Сталася помилка', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        });
+                        showMessage('error', 'Сталася помилка')
                     })
                     .finally(() => {
                         dispatch(setEditProduct({}))
@@ -179,32 +162,14 @@ function CreationProduct() {
                             console.log(res)
                             dispatch(setProduct(res.data))
                             navigate(`/auth/${user._id}/product`)
-                            toast.success('Товар створено', {
-                                position: "bottom-right",
-                                autoClose: 2500,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "light",
-                            })
+                            showMessage('success', 'Товар створено')
                         } else {
                             console.log('POST CreationProduct', res)
                         }
                     })
                     .catch((error) => {
                         console.error('Error:', error);
-                        toast.error('Сталася помилка', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        });
+                        showMessage('error', 'Сталася помилка')
                     })
             }
     
@@ -216,12 +181,39 @@ function CreationProduct() {
             setDetails('')
             setColors([])
             setSizes([])
-        } else if (!name?.length) {
-            nameInputRef.current.focus()
-        } else if (!selectCategory?._id) {
-            categoryInputRef.current.focus()
+        }
+        // } else if (!name?.length) {
+        //     nameInputRef.current.focus()
+        // } else if (!selectCategory?._id) {
+        //     categoryInputRef.current.focus()
+        // } else {
+        //     priceInputRef.current.focus()
+        // }
+    }
+
+    const showMessage = (event, message) => {
+        if (event == "success") {
+            toast.success(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         } else {
-            priceInputRef.current.focus()
+            toast.error(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
@@ -230,20 +222,7 @@ function CreationProduct() {
             <div className='creation-product--wrap container'>
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <label className='creation-product__section-input-label' htmlFor="name">
-                            <span className='creation-product__section-input-label-text'>Назва товару</span>
-                        </label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            required
-                            className='creation-product__section-input'
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            placeholder="Введіть ім'я магазину..."
-                            ref={nameInputRef} 
-                        />
+                        <InputText setValue={setName} value={name} id={'creationProductName'} name={'creationProductName'} label={'Назва товару'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(1)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(1) ? 'creation-product__section-btn--active' : ''}`}></div>
@@ -268,7 +247,6 @@ function CreationProduct() {
                             id="category_id" 
                             value={searchCategory} 
                             onChange={(e) => setSearchCategory(e.target.value)} 
-                            ref={categoryInputRef}
                         />
                         <div className="creation-product__section-seach-items">
                             {
@@ -306,20 +284,7 @@ function CreationProduct() {
 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <label className='creation-product__section-input-label' htmlFor="price">
-                            <span className='creation-product__section-input-label-text'>Ціна</span>
-                        </label>
-                        <input
-                            id="price"
-                            name="price"
-                            type="number"
-                            className='creation-product__section-input'
-                            onChange={(e) => setPrice(e.target.value)}
-                            value={price}
-                            min='0'
-                            placeholder="Введіть ціну..."
-                            ref={priceInputRef} 
-                        />
+                        <InputNumber label='Ціна' id={"creationProductPrice"} name={"creationProductPrice"} value={price} setValue={setPrice} min={'0'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(3)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(3) ? 'creation-product__section-btn--active' : ''}`}></div>
@@ -331,19 +296,7 @@ function CreationProduct() {
                 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <label className='creation-product__section-input-label' htmlFor="new_price">
-                            <b>Ціна на товар, якщо є знижка</b>
-                        </label>
-                        <input
-                            id="new_price"
-                            name="new_price"
-                            type="number"
-                            className='creation-product__section-input'
-                            onChange={(e) => setNew_price(e.target.value)}
-                            value={new_price}
-                            min='0'
-                            placeholder="Введіть ціну..."
-                        />
+                        <InputNumber label='Ціна на товар, якщо є знижка' id={"creationProductNew_price"} name={"creationProductNew_price"} value={new_price} setValue={setNew_price} min={'0'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(4)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(4) ? 'creation-product__section-btn--active' : ''}`}></div>
@@ -380,11 +333,8 @@ function CreationProduct() {
                 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <label className='creation-product__section-input-label' htmlFor="">
-                            <b>Доступні кольори</b>
-                        </label>
                         <div className='creation-product__create-btn-wrap'>
-                           <CardInput handleChange={setUserColors}/>
+                           <InputText setValue={setUserColors} value={userColors} id={'creationProductUserColors'} name={'creationProductUserColors'} label={'Доступні кольори'} />
                            <button onClick={handleSetColors} className='creation-product__create-btn'>+</button>
                         </div>
                         {
@@ -408,11 +358,8 @@ function CreationProduct() {
                 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <label className='creation-product__section-input-label' htmlFor="">
-                            <b>Доступні розміра</b>
-                        </label>
                         <div className='creation-product__create-btn-wrap'>
-                           <CardInput handleChange={setUserSizes}/>
+                           <InputText setValue={setUserSizes} value={userSizes} id={'creationProductUserSizes'} name={'creationProductUserSizes'} label={'Доступні розміра'} />
                            <button onClick={handleSetSizes} className='creation-product__create-btn'>+</button>
                         </div>
                         {

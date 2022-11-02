@@ -237,15 +237,10 @@
     background-color: rgb(161, 157, 157);
 }
 
-.user-categories__card-label {
-    display: block;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .user-categories__card-input-wrap {
     display: flex;
+    align-items: flex-end;
+    margin-top: 10px;
 }
 
 .user-categories__card-btn {

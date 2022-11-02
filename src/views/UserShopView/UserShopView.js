@@ -316,13 +316,13 @@ function UserShopView() {
                                                     </div>
 
                                                     <div className='user-shop__section-number-wrap'>
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockHeaderSize} id={"sizeTitle"} name={"sizeTitle"} value={sizeTitle} setValue={setSizeTitle} min={'1'}/>
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockHeaderSize} id={"userShopViewSizeTitle"} name={"userShopViewSizeTitle"} value={sizeTitle} setValue={setSizeTitle} min={'1'}/>
                                                       
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockHeaderThickness} id={"fontWeightTitle"} name={"fontWeightTitle"} value={fontWeightTitle} setValue={setFontWeightTitle} min={'100'} max={'900'} step={'100'}/>
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockHeaderThickness} id={"userShopViewFontWeightTitle"} name={"userShopViewFontWeightTitle"} value={fontWeightTitle} setValue={setFontWeightTitle} min={'100'} max={'900'} step={'100'}/>
 
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockTextSize} id={"sizeText"} name={"sizeText"} value={sizeText} setValue={setSizeText} min={'1'}/>
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockTextSize} id={"userShopViewSizeText"} name={"userShopViewSizeText"} value={sizeText} setValue={setSizeText} min={'1'}/>
 
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockTextThickness} id={"fontWeightText"} name={"fontWeightText"} value={fontWeightText} setValue={setFontWeightText} min={'100'} max={'900'} step={'100'}/>
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockTextThickness} id={"userShopViewFontWeightText"} name={"userShopViewFontWeightText"} value={fontWeightText} setValue={setFontWeightText} min={'100'} max={'900'} step={'100'}/>
 
                                                     </div>
 
@@ -338,25 +338,25 @@ function UserShopView() {
 
                                                     <p className="user-shop__section-shadow-title"><b>{selectedLanguage?.userShopView?.userShopBlockTitleShadow}</b></p>
                                                     <div className="user-shop__section-shadow-wrap">
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowX}  id={"shadowTitleX"} name={"shadowTitleX"} value={shadowTitleX} setValue={setShadowTitleX} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowX}  id={"userShopViewShadowTitleX"} name={"userShopViewShadowTitleX"} value={shadowTitleX} setValue={setShadowTitleX} />
 
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowY} id={"shadowTitleY"} name={"shadowTitleY"} value={shadowTitleY} setValue={setShadowTitleY} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowY} id={"userShopViewShadowTitleY"} name={"userShopViewShadowTitleY"} value={shadowTitleY} setValue={setShadowTitleY} />
 
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowZ} id={"shadowTitleZ"} name={"shadowTitleZ"} value={shadowTitleZ} setValue={setShadowTitleZ} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowZ} id={"userShopViewShadowTitleZ"} name={"userShopViewShadowTitleZ"} value={shadowTitleZ} setValue={setShadowTitleZ} />
                                                        
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowTransparency} id={"shadowTitleTransparency"} name={"shadowTitleTransparency"} value={shadowTitleTransparency} setValue={setShadowTitleTransparency} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowTransparency} id={"userShopViewShadowTitleTransparency"} name={"userShopViewShadowTitleTransparency"} value={shadowTitleTransparency} setValue={setShadowTitleTransparency} />
                                                     </div>
                                                    
                                                     <p className="user-shop__section-shadow-title"><b>{selectedLanguage?.userShopView?.userShopBlockTextShadow}</b></p>
 
                                                     <div className="user-shop__section-shadow-wrap">
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowX} id={"shadowTextX"} name={"shadowTextX"} value={shadowTextX} setValue={setShadowTextX} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowX} id={"userShopViewShadowTextX"} name={"userShopViewShadowTextX"} value={shadowTextX} setValue={setShadowTextX} />
                                                       
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowY} id={"shadowTextY"} name={"shadowTextY"} value={shadowTextY} setValue={setShadowTextY} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowY} id={"userShopViewShadowTextY"} name={"userShopViewShadowTextY"} value={shadowTextY} setValue={setShadowTextY} />
                                                       
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowZ} id={"shadowTextZ"} name={"shadowTextZ"} value={shadowTextZ} setValue={setShadowTextZ} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowZ} id={"userShopViewShadowTextZ"} name={"userShopViewShadowTextZ"} value={shadowTextZ} setValue={setShadowTextZ} />
                                                        
-                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowTransparency} id={"shadowTextTransparency"} name={"shadowTextTransparency"} value={shadowTextTransparency} setValue={setShadowTextTransparency} />
+                                                        <InputNumber label={selectedLanguage?.userShopView?.userShopBlockShadowTransparency} id={"userShopViewShadowTextTransparency"} name={"userShopViewShadowTextTransparency"} value={shadowTextTransparency} setValue={setShadowTextTransparency} />
                                                     </div>
                                                 </div>
 

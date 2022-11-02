@@ -211,7 +211,7 @@ function ShoppingCartView() {
                                                         <>
                                                             <p>{selectedLanguage?.cartPage?.cartColors}</p>
                                                             <div className="shopping-cart__pdoduct-info-colors-wrap">
-                                                            <InputCheckbox handleChange={handleSelectColors} checkboxArr={el?.colors} id={el._id}/>
+                                                                <InputCheckbox handleChange={handleSelectColors} checkboxArr={el?.colors} id={el._id}/>
                                                             </div>
                                                         </>
                                                     )

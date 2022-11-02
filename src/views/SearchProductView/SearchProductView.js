@@ -4,7 +4,7 @@ import './SearchProductView.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditProduct, setIsCleanInput, setProduct, setUpdataProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
-import CardInput from '../../components/CardInput/CardInput';
+import InputText from '../../components/InputText/InputText';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductCard from '../../components/ProductCard/ProductCard';

@@ -173,7 +173,7 @@
 .creation-product__create-btn-wrap {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .creation-product__create-btn {

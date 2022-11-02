@@ -5,9 +5,12 @@ import deleteImg from './../../assets/images/deleteImg.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsNeedCreateShop, setIsNeedUpdateShop, setShop } from '../../store/userSlice';
 import { toast } from 'react-toastify';
+import InputText from '../InputText/InputText';
+import InputTextarea from '../InputTextarea/InputTextarea';
 
 
 function CreationShop() {
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
@@ -104,7 +107,6 @@ function CreationShop() {
         }
 
         if (isNeedUpdateShop) {
-            // console.log('data1111', shop._id)
             fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
                 method: 'PUT',
                 headers: {
@@ -185,83 +187,49 @@ function CreationShop() {
         <div className="creation-shop">
             <div className="creation-shop--wrpa container">
                 {
-                    isNeedCreateShop ? <p className="creation-shop__title">Створення магазину</p> : <p className="creation-shop__title">Оновлення магазину</p>
+                    isNeedCreateShop ? <p className="creation-shop__title">{selectedLanguage?.creationShop?.creationShopTitle1}</p> : <p className="creation-shop__title">{selectedLanguage?.creationShop?.creationShopTitle2}</p>
                 }
 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="name">
-                            <b>Ім'я магазину</b>
-                        </label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            required
-                            className='creation-shop__section-input'
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            placeholder="Введіть ім'я магазину..."
-                        />
+                        <InputText setValue={setName} value={name} id={'creationShopName'} name={'creationShopName'} label={selectedLanguage?.creationShop?.creationShopInputNameLabel} placeholder={selectedLanguage?.creationShop?.creationShopInputNamePlaceholder}/>
                     </div>
                     <div onClick={() => handleHelpOpen(1)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(1) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(1) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть ім'я магазину.</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopNameInfo}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="facebook_url">
-                            <b>Facebook</b>
-                        </label>
-                        <input
-                            id="facebook_url"
-                            name="facebook_url"
-                            type="text"
-                            className='creation-shop__section-input'
-                            onChange={(e) => setFacebook_url(e.target.value)}
-                            value={facebook_url}
-                            placeholder="Введіть facebook url..."
-                        />
+                        <InputText setValue={setFacebook_url} value={facebook_url} id={'creationShopFacebook_url'} name={'creationShopFacebook_url'} label={'Facebook'} placeholder={selectedLanguage?.creationShop?.creationShopInputFacebookPlaceholder}/>
                     </div>
                     <div onClick={() => handleHelpOpen(2)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(2) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(2) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть url адресу сторінки facebook, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopFacebookInfo}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="instagram_url">
-                            <b>Instagram</b>
-                        </label>
-                        <input
-                            id="instagram_url"
-                            name="instagram_url"
-                            type="text"
-                            className='creation-shop__section-input'
-                            onChange={(e) => setInstagram_url(e.target.value)}
-                            value={instagram_url}
-                            placeholder="Введіть instagram url..."
-                        />
+                        <InputText setValue={setInstagram_url} value={instagram_url} id={'creationShopInstagram_url'} name={'creationShopInstagram_url'} label={'Instagram'} placeholder={selectedLanguage?.creationShop?.creationShopInputInstagramPlaceholder}/>
                     </div>
                     <div onClick={() => handleHelpOpen(3)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(3) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(3) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть url адресу сторінки instagram, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopInstagramInfo}</p>
                 </div>
       
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
                         <label className='creation-shop__section-input-label' htmlFor="contact_number">
-                            <b>Телефон для контакту</b>
+                            <b>{selectedLanguage?.creationShop?.creationShopInputTelLabel}</b>
                         </label>
                         <input
                             id="contact_number"
@@ -272,7 +240,7 @@ function CreationShop() {
                             className='creation-shop__section-input'
                             onChange={(e) => setContact_number(e.target.value)}
                             value={contact_number}
-                            placeholder="Телефон..."
+                            placeholder={selectedLanguage?.creationShop?.creationShopInputTelPlaceholder}
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(4)} className='creation-shop__section-btn-wrap'>
@@ -280,13 +248,13 @@ function CreationShop() {
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(4) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть телефон за яким клієнти зможуть з Вами звязатись. В форматі ХХХ-ХХХ-ХХХХ</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopTelInfo}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
                         <label className='creation-shop__section-input-label' htmlFor="contact_number_two">
-                            <b>Додатковий телефон для контакту</b>
+                            <b>{selectedLanguage?.creationShop?.creationShopInputTel2Label}</b>
                         </label>
                         <input
                             id="contact_number_two"
@@ -296,7 +264,7 @@ function CreationShop() {
                             className='creation-shop__section-input'
                             onChange={(e) => setContact_number_two(e.target.value)}
                             value={contact_number_two}
-                            placeholder="Телефон..."
+                            placeholder={selectedLanguage?.creationShop?.creationShopInputTel2Placeholder}
                         />
                     </div>
                     <div onClick={() => handleHelpOpen(5)} className='creation-shop__section-btn-wrap'>
@@ -304,51 +272,25 @@ function CreationShop() {
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(5) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть додатковий телефон за яким клієнти зможуть з Вами звязатись. В форматі ХХХ-ХХХ-ХХХХ</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopTel2Info}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="location">
-                            <b>Адреса магазину</b>
-                        </label>
-                        <textarea
-                            id="location"
-                            name="location"
-                            type="text"
-                            className='creation-shop__section-textarea'
-                            onChange={(e) => setLocation(e.target.value)}
-                            value={location}
-                            placeholder="Адрес..."
-                            rows="5" 
-                            cols="50"
-                        />
+                        <InputTextarea setValue={setLocation} value={location} id={'creationShopLocation'} name={'creationShopLocation'} label={selectedLanguage?.creationShop?.creationShopInputAddressLabel} placeholder={selectedLanguage?.creationShop?.creationShopInputAddressPlaceholder} rows={'5'} cols={'50'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(6)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(6) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(6) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть адресу Вашого магазину</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopAddressInfo}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="deliveryMethods">
-                            <b>Доставка</b>
-                        </label>
                         <div  className='creation-shop__section-textarea-wrap'>
-                            <textarea
-                                id="deliveryMethods"
-                                name="deliveryMethods"
-                                type="text"
-                                className='creation-shop__section-textarea'
-                                onChange={(e) => setNewDeliveryMethods(e.target.value)}
-                                value={newDeliveryMethods}
-                                placeholder="Доставка..."
-                                rows="1" 
-                                cols="50"
-                            />
+                            <InputTextarea setValue={setNewDeliveryMethods} value={newDeliveryMethods} id={'creationShopNewDeliveryMethods'} name={'creationShopNewDeliveryMethods'} label={selectedLanguage?.creationShop?.creationShopInputDeliveryLabel} placeholder={selectedLanguage?.creationShop?.creationShopInputDeliveryPlaceholder} rows={'1'} cols={'50'}/>
                             <button onClick={handleSetDeliveryMethods} className='creation-shop__create-btn'>+</button>
                         </div>
 
@@ -369,26 +311,13 @@ function CreationShop() {
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(7) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть способи доставки товару у Вашому магазині</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopDeliveryInfo}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="paymentMethods">
-                            <b>Оплата</b>
-                        </label>
                         <div  className='creation-shop__section-textarea-wrap'>
-                            <textarea
-                                id="paymentMethods"
-                                name="paymentMethods"
-                                type="text"
-                                className='creation-shop__section-textarea'
-                                onChange={(e) => setNewPaymentMethods(e.target.value)}
-                                value={newPaymentMethods}
-                                placeholder="Оплата..."
-                                rows="1" 
-                                cols="50"
-                            />
+                            <InputTextarea setValue={setNewPaymentMethods} value={newPaymentMethods} id={'creationShopNewPaymentMethods'} name={'creationShopNewPaymentMethods'} label={selectedLanguage?.creationShop?.creationShopInputPaymentLabel} placeholder={selectedLanguage?.creationShop?.creationShopInputPaymentPlaceholder} rows={'1'} cols={'50'}/>
                            <button onClick={handleSetPaymentMethods} className='creation-shop__create-btn'>+</button>
                         </div>
 
@@ -408,61 +337,37 @@ function CreationShop() {
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(8) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
-                <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(8) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть способи оплати товару у Вашому магазині</p>
+                <div className={`creation-shop__section-in{selectedLanguage?.creationShop?.creationShopPaymentInfo}fo ${arrIsOpenInfo.includes(8) ? 'creation-shop__section-info--active' : ''}`}>
+                    <p></p>
                 </div>
         
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="descriptionShop">
-                            <b>Опис</b>
-                        </label>
-                        <textarea
-                            id="descriptionShop"
-                            name="descriptionShop"
-                            type="text"
-                            className='creation-shop__section-textarea'
-                            onChange={(e) => setDescriptionShop(e.target.value)}
-                            value={descriptionShop}
-                            placeholder="Введіть опис..."
-                            rows="5" 
-                            cols="50"
-                        />
+                        <InputTextarea setValue={setDescriptionShop} value={descriptionShop} id={'creationShopDescriptionShop'} name={'creationShopDescriptionShop'} label={selectedLanguage?.creationShop?.creationShopInputDescriptionLabel} placeholder={selectedLanguage?.creationShop?.creationShopInputDescriptionPlaceholder} rows={'5'} cols={'50'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(9)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(9) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(9) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть декілька слів про Ваш магазин.</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopDescriptionInfo}</p>
                 </div>
                
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <label className='creation-shop__section-input-label' htmlFor="currency">
-                            <b>Валюта</b>
-                        </label>
-                        <input
-                            id="currency"
-                            name="currency"
-                            type="text"
-                            className='creation-shop__section-input'
-                            onChange={(e) => setCurrency(e.target.value)}
-                            value={currency}
-                            placeholder="Введіть опис..."
-                        />
+                        <InputText setValue={setCurrency} value={currency} id={'creationShopCurrency'} name={'creationShopInstagram_url'} label={selectedLanguage?.creationShop?.creationShopInputCurrencyLabel}/>
                     </div>
                     <div onClick={() => handleHelpOpen(10)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(10) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(10) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Введіть валюту в якій будуть зазначені ціни на товар, в форматі $ € ₴ ...</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopCurrencyInfo}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <b>Мова</b>
+                        <b>{selectedLanguage?.creationShop?.creationShopInputLanguageLabel}</b>
                         <label className="creation-shop__section-input-check-label">UA
                             <input onChange={() => setCheckedLanguage('UA')} type="radio" checked={checkedLanguage == 'UA'} name="radio"/>
                         </label>
@@ -475,12 +380,12 @@ function CreationShop() {
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(11) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Виберіть мову на якій буде Ваш магазин</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopLanguageInfo}</p>
                 </div>
                 
                 <div className="creation-shop__section">
                     <div className="creation-shop__section-input-wrap">
-                        <div><b>Логотип</b></div>
+                        <div><b>{selectedLanguage?.creationShop?.creationShopInputLogoLabel}</b></div>
                         <input className="creation-shop__section-input-file" onChange={(e) => setLogo(e.target.value)} type="file" id="file1" />
                     </div>
                     <div onClick={() => handleHelpOpen(12)} className='creation-shop__section-btn-wrap'>
@@ -488,17 +393,17 @@ function CreationShop() {
                     </div>
                 </div>
                 <div className={`creation-shop__section-info ${arrIsOpenInfo.includes(12) ? 'creation-shop__section-info--active' : ''}`}>
-                    <p>Виберіть логотип Вашого магазину</p>
+                    <p>{selectedLanguage?.creationShop?.creationShopLogoInfo}</p>
                 </div>
 
                 <div className='creation-shop__btn-wrap'>
                     {
-                         isNeedUpdateShop && <button className='creation-shop__btn' onClick={handleReturn}>Відмінити</button>
+                         isNeedUpdateShop && <button className='creation-shop__btn' onClick={handleReturn}>{selectedLanguage?.creationShop?.creationShopCancelBtn}</button>
                     }
                   
                     <button className='creation-shop__btn' onClick={handleSend}>
                         {
-                            isNeedUpdateShop ? 'Оновити' : 'Створити'
+                            isNeedUpdateShop ? selectedLanguage?.creationShop?.creationShopUpdateBtn : selectedLanguage?.creationShop?.creationShopCreateBtn
                         }
                     </button>
                 </div>

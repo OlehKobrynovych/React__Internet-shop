@@ -118,8 +118,51 @@ export const languageUser = {
             userCategoriesCreateSub: 'Створити підкатегорію',
             userCategoriesSubTitle: 'Підкатегорії:',
         },
-        cardInput: {
-            cardInputPlaceholder: 'Введіть назву...'
+        inputText: {
+            inputTextPlaceholder: 'Введіть...'
+        },
+        inputTextarea: {
+            inputTextareaPlaceholder: 'Введіть...'
+        },
+        creationShop: {
+            creationShopTitle1: 'Створення магазину',
+            creationShopTitle2: 'Оновлення магазину',
+            creationShopInputNameLabel: 'Ім\'я магазину',
+            creationShopInputNamePlaceholder: 'Введіть ім\'я магазину...',
+            creationShopNameInfo: 'Введіть ім\'я магазину.',
+            creationShopInputFacebookPlaceholder: 'Введіть facebook url...',
+            creationShopFacebookInfo: 'Введіть url адресу сторінки facebook, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.',
+            creationShopInputInstagramPlaceholder: 'Введіть instagram url...',
+            creationShopInstagramInfo: 'Введіть url адресу сторінки instagram, щоб Ваші клієнти мали змогу контактувати і стежити за Вашими публікаціями.',
+            creationShopInputTelLabel: 'Телефон для контакту',
+            creationShopInputTelPlaceholder: 'Телефон...',
+            creationShopTelInfo: 'Введіть телефон за яким клієнти зможуть з Вами звязатись. В форматі ХХХ-ХХХ-ХХХХ',
+            creationShopInputTel2Label: 'Додатковий телефон для контакту',
+            creationShopInputTel2Placeholder: 'Телефон...',
+            creationShopTel2Info: 'Введіть додатковий телефон за яким клієнти зможуть з Вами звязатись. В форматі ХХХ-ХХХ-ХХХХ',
+            creationShopInputAddressLabel: 'Адреса магазину',
+            creationShopInputAddressPlaceholder: 'Адрес...',
+            creationShopAddressInfo: 'Введіть адресу Вашого магазину',
+            creationShopInputDeliveryLabel: 'Доставка',
+            creationShopInputDeliveryPlaceholder: 'Доставка...',
+            creationShopDeliveryInfo: 'Введіть способи доставки товару у Вашому магазині',
+            creationShopInputPaymentLabel: 'Оплата',
+            creationShopInputPaymentPlaceholder: 'Оплата...',
+            creationShopPaymentInfo: 'Введіть способи оплати товару у Вашому магазині',
+            creationShopInputDescriptionLabel: 'Опис',
+            creationShopInputDescriptionPlaceholder: 'Введіть опис...',
+            creationShopDescriptionInfo: 'Введіть декілька слів про Ваш магазин.',
+            creationShopInputCurrencyLabel: 'Валюта',
+            creationShopCurrencyInfo: 'Введіть валюту в якій будуть зазначені ціни на товар, в форматі $ € ₴ ...',
+            creationShopInputLanguageLabel: 'Мова',
+            creationShopLanguageInfo: 'Виберіть мову на якій буде Ваш магазин',
+            creationShopInputLogoLabel: 'Логотип',
+            creationShopLogoInfo: 'Виберіть логотип Вашого магазину',
+            creationShopCancelBtn: 'Відмінити',
+            creationShopUpdateBtn: 'Оновити',
+            creationShopCreateBtn: 'Створити',
+            
+       
         },
     },
     'ENG': {
@@ -240,8 +283,51 @@ export const languageUser = {
             userCategoriesCreateSub: 'Create a subcategory',
             userCategoriesSubTitle: 'Subcategories:',
         },
-        cardInput: {
-            cardInputPlaceholder: 'Enter a name...'
+        inputText: {
+            inputTextPlaceholder: 'Enter...'
+        },
+        inputTextarea: {
+            inputTextareaPlaceholder: 'Enter...'
+        },
+        creationShop: {
+            creationShopTitle1: 'Creating a store',
+            creationShopTitle2: 'Store update',
+            creationShopInputNameLabel: 'Name of the store',
+            creationShopInputNamePlaceholder: 'Enter a store name...',
+            creationShopNameInfo: 'Enter a store name...',
+            creationShopInputFacebookPlaceholder: 'Enter facebook url...',
+            creationShopFacebookInfo: 'Enter the url address of the facebook page so that your customers can contact and follow your publications.',
+            creationShopInputInstagramPlaceholder: 'Enter instagram url...',
+            creationShopInstagramInfo: 'Enter the url address of the Instagram page so that your customers can contact and follow your posts.',
+            creationShopInputTelLabel: 'Phone number for contact',
+            creationShopInputTelPlaceholder: 'Phone...',
+            creationShopTelInfo: 'Enter the phone number by which customers can contact you. In the format XXX-XXX-XXXX',
+            creationShopInputTel2Label: 'Additional phone for communication',
+            creationShopInputTel2Placeholder: 'Phone...',
+            creationShopTel2Info: 'Enter an additional phone number where customers can contact you. In the format XXX-XXX-XXXX',
+            creationShopInputAddressLabel: 'Store address',
+            creationShopInputAddressPlaceholder: 'Address...',
+            creationShopAddressInfo: 'Enter the address of your store',
+            creationShopInputDeliveryLabel: 'Delivery',
+            creationShopInputDeliveryPlaceholder: 'Delivery...',
+            creationShopDeliveryInfo: 'Enter the methods of delivery of goods in your store',
+            creationShopInputPaymentLabel: 'Payment',
+            creationShopInputPaymentPlaceholder: 'Payment...',
+            creationShopPaymentInfo: 'Enter the payment methods for the goods in your store',
+            creationShopInputDescriptionLabel: 'Description',
+            creationShopInputDescriptionPlaceholder: 'Enter a description...',
+            creationShopDescriptionInfo: 'Enter a few words about your store.',
+            creationShopInputCurrencyLabel: 'Currency',
+            creationShopCurrencyInfo: 'Enter the currency in which product prices will be indicated, in the format $ € ₴ ...',
+            creationShopInputLanguageLabel: 'Language',
+            creationShopLanguageInfo: 'Choose the language in which your store will be',
+            creationShopInputLogoLabel: 'Logo',
+            creationShopLogoInfo: 'Choose your store logo',
+            creationShopCancelBtn: 'Cancel',
+            creationShopUpdateBtn: 'Update',
+            creationShopCreateBtn: 'Create',
+              
+            
         },
     },
   

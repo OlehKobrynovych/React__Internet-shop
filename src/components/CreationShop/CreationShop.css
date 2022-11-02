@@ -106,21 +106,7 @@
 
 .creation-shop__section-textarea-wrap {
     display: flex;
-}
-
-.creation-shop__section-textarea {
-    padding: 10px 20px;
-    /* max-width: 45%; */
-    width: 100%;
-    min-width: 180px;
-    /* margin-bottom: 10px; */
-    font-size: 14px;
-    line-height: 17px;
-    color: #333;
-    outline: none;
-    border-radius: 8px;
-    background: #f6f7fa;
-    border: 1px solid #065bea;
+    align-items: flex-end;
 }
 
 .creation-shop__create-btn {

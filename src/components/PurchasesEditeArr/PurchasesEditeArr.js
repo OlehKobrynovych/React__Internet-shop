@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './PurchasesEditeArr.css';
 import deleteImg from './../../assets/images/deleteImg.svg';
-import CardInput from '../CardInput/CardInput';
+import InputText from '../InputText/InputText';
 import { setIsCleanInput } from '../../store/userSlice';
 
 
@@ -52,7 +52,7 @@ function PurchasesEditeArr({handleChange, purchaseArr}) {
                 }
             </div>
             <div className='creation-product__create-btn-wrap'>
-                <CardInput handleChange={setName}/>
+                <InputText handleChange={setName}/>
                 <button onClick={handleSetValue} className='creation-product__create-btn'>+</button>
             </div>
         </div>
