@@ -78,6 +78,7 @@ function LayoutUser() {
             dispatch(setSelectedLanguage(languageUser[res]));
         } else {
             dispatch(setSelectedLanguage(languageUser['ENG']));
+            localStorage.setItem('userLanguage', JSON.stringify('ENG'));
         }
 
         window.addEventListener("resize", handleResize);

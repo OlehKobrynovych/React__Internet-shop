@@ -6,7 +6,7 @@ import SignInView from './views/SignInView/SignInView';
 import Layout from './Layout/Layout';
 import SignUpView from './views/SignUpView/SignUpView';
 import LandingView from './views/LandingView/LandingView';
-import UserCategories from './components/UserCategories/UserCategories';
+import UserCategoriesView from './views/UserCategoriesView/UserCategoriesView';
 import LayoutUser from './Layout/LayoutUser';
 import UserProduct from './components/UserProduct/UserProduct';
 import CreationProduct from './components/CreationProduct/CreationProduct';
@@ -48,7 +48,7 @@ function App() {
                     <Route path="/auth/:userId" element={<LayoutUser />}>
                         <Route index element={<UserAnalytics />}/>
                         <Route path="shop" element={<UserShopView />}/>
-                        <Route path="categories" element={<UserCategories />}/>
+                        <Route path="categories" element={<UserCategoriesView />}/>
                         <Route path="product" element={<UserProduct />}/>
                         <Route path="product/create" element={<CreationProduct />}/>
                         <Route path="purchases" element={<UserPurchases />}/>

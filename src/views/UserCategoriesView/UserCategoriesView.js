@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories, setCategories, setIsCleanInput, setIsNeedUpdateCategories, setRemoveCategory, setRemoveSubCategory, setSubCategories, setUpdataCategory } from '../../store/userSlice';
-import './UserCategories.css';
+import './UserCategoriesView.css';
 import man from '../../assets/images/man.webp';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import editIcon from '../../assets/images/editIcon.svg';
 // import kids from '../../assets/images/kids.webp';
-import ModalWindow from '../ModalWindow/ModalWindow';
-import CardInput from '../CardInput/CardInput';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
+import CardInput from '../../components/CardInput/CardInput';
 import { toast } from 'react-toastify';
 import noPhotos from '../../assets/images/noPhotos.svg';
 
-function UserCategories() {
+function UserCategoriesView() {
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
@@ -31,23 +32,6 @@ function UserCategories() {
     // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
     
     // console.log(categories)
-
-    //  useEffect(() => {
-    //      if (shop._id) {
-    //         fetch(`${process.env.REACT_APP_BASE_URL}/categories/${shop._id}/all`)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             if (res.success && res.data) {
-    //                 dispatch(getCategories(res.data));
-    //             } else {
-    //                 console.log('GET UserCategories:', res)
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         })
-    //      }
-    // }, [shop])
 
     const handleCreateCategory = () => {
         if (shop.name) {
@@ -73,38 +57,20 @@ function UserCategories() {
                         if (res.success && res.data) {
                             // console.log('POST UserCategories:', res)
                             dispatch(setCategories({...res.data, sub_categories: []}))
-                            toast.success('Категорію створено', {
-                                position: "bottom-right",
-                                autoClose: 2500,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "light",
-                            })
+                            showMessage('success', 'Категорію створено')
                         } else {
                             console.log('POST UserCategories:', res)
                         }
                     })
                     .catch((error) => {
                         console.error('Error:', error);
-                        toast.error('Сталася помилка', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        });
+                        showMessage('error', 'Сталася помилка')
                     })
             } else {
-                setErrorCreateText('Ви дасягнули ліміту категорій')
+                setErrorCreateText(selectedLanguage?.userCategoriesView?.userCategoriesErrorCreateLimit)
             }
         } else {
-            setErrorCreateText('Спершу потрібно створити магазин')
+            setErrorCreateText(selectedLanguage?.userCategoriesView?.userCategoriesErrorCreate)
         }
         
         setName('')
@@ -133,32 +99,14 @@ function UserCategories() {
                 if (res.success && res.data) {
                     console.log(res)
                     dispatch(setSubCategories(res.data))
-                    toast.success('Підкатегорію створено', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    })
+                    showMessage('success', 'Підкатегорію створено')
                 } else {
                     console.log('POST UserCategories:', res)
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
-                toast.error('Сталася помилка', {
-                    position: "bottom-right",
-                    autoClose: 2500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                showMessage('error', 'Сталася помилка')
             })
         
         setSubCategory('')
@@ -231,32 +179,14 @@ function UserCategories() {
                         if (res.success && res.data) {
                             console.log('del', res)
                             dispatch(setRemoveCategory(deleteCategory._id))
-                            toast.success('Категорія видалена', {
-                                position: "bottom-right",
-                                autoClose: 2500,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "light",
-                            })
+                            showMessage('success', 'Категорія видалена')
                         } else {
                             console.log('DELETE UserCategories', res)
                         }
                     })
                     .catch((error) => {
                         console.error('Error:', error);
-                        toast.error('Сталася помилка', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        });
+                        showMessage('error', 'Сталася помилка')
                     })
         } 
                 
@@ -282,32 +212,14 @@ function UserCategories() {
                     if (res.success && res.data) {
                         // console.log('del', res)
                         dispatch(setRemoveSubCategory(deleteId))
-                        toast.success('Підкатегорія видалена', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        })
+                        showMessage('success', 'Підкатегорія видалена')
                     } else {
                         console.log('DELETE UserCategories', res)
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    toast.error('Сталася помилка', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
+                    showMessage('error', 'Сталася помилка')
                 })
         } 
         
@@ -337,32 +249,14 @@ function UserCategories() {
                 .then(res => {
                     if (res.success && res.data) {
                         dispatch(setUpdataCategory({...editCategory, name: subCategory}))
-                        toast.success('Назва змінена', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        })
+                        showMessage('success', 'Назва змінена')
                     } else {
                         console.log('Edit UserCategories', res)
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    toast.error('Сталася помилка', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
+                    showMessage('error', 'Сталася помилка')
                 })
         } 
         
@@ -370,26 +264,52 @@ function UserCategories() {
         setEditCategory({})
         setSubCategory('')
     }
+
+    const showMessage = (event, message) => {
+        if (event == "success") {
+            toast.success(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        } else {
+            toast.error(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
   
     return (
         <div className="user-categories">
 
             {
-                isModalDelCategory && <ModalWindow title={'Ви впевнені?'}  text={'Всі підкатегорії даної категорії будуть видалені'} handleClick={handleIsDeleteCategory}/>
+                isModalDelCategory && <ModalWindow title={selectedLanguage?.userCategoriesView?.userCategoriesModalDelCatTitle} text={selectedLanguage?.userCategoriesView?.userCategoriesModalDelCatText} handleClick={handleIsDeleteCategory} leftBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalDelCatLeftBtn} rightBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalDelCatRightBtn}/>
             }
 
             {
-                isModalDelSubCategory && <ModalWindow title={'Ви впевнені?'}  text={'Видалити дану категорію'} handleClick={handleIsDeleteSubCategory}/>
+                isModalDelSubCategory && <ModalWindow title={selectedLanguage?.userCategoriesView?.userCategoriesModalDelSubCatTitle} text={selectedLanguage?.userCategoriesView?.userCategoriesModalDelSubCatText} handleClick={handleIsDeleteSubCategory} leftBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalDelSubCatLeftBtn} rightBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalDelSubCatRightBtn}/>
             }
             
             {
-                isModalEditSubCategory && <ModalWindow title={'Редагувати категорію?'}  text={'Введіть нову назву'} handleClick={handleIsEditCategory} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
+                isModalEditSubCategory && <ModalWindow title={selectedLanguage?.userCategoriesView?.userCategoriesModalEditSubCatTitle}  text={selectedLanguage?.userCategoriesView?.userCategoriesModalEditSubCatText} handleClick={handleIsEditCategory} leftBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalEditCatLeftBtn} rightBtn={selectedLanguage?.userCategoriesView?.userCategoriesModalEditCatRightBtn}>
                                             <CardInput handleChange={setSubCategory}/>
                                           </ ModalWindow>
             }
            
             <div className="user-categories--wrpa container">
-                <h4 className="user-categories__title">Мої категорії {categories.length}/5</h4>
+                <h4 className="user-categories__title">{selectedLanguage?.userCategoriesView?.userCategoriesTitle}&nbsp;{categories.length}/5</h4>
 
                 {
                     !!errorCreateText.length && (<div className="user-categories__error-create-text">
@@ -401,7 +321,7 @@ function UserCategories() {
                 <div className="user-categories__create">
                     <div className="user-categories__create-input-wrap">
                         <label className='user-categories__create-label' htmlFor="name">
-                            <b>Назва категорії</b>
+                            <b>{selectedLanguage?.userCategoriesView?.userCategoriesCreateLabelName}</b>
                         </label>
                         <input
                             id="name"
@@ -410,15 +330,15 @@ function UserCategories() {
                             className='user-categories__create-input'
                             onChange={(e) => setName(e.target.value)}
                             value={name}
-                            placeholder="Введіть назву..."
+                            placeholder={selectedLanguage?.userCategoriesView?.userCategoriesCreateNamePlaceholder}
                         />
 
-                        <div><b>Картинка</b></div>
-                        <input className="user-categories__create-input-file" onChange={(e) => setImage_url(e.target.value)} type="file" id="file1" />
+                        <div><b>{selectedLanguage?.userCategoriesView?.userCategoriesCreateLabelImg}</b></div>
+                        <input className="user-categories__create-input-file" onChange={(e) => setImage_url(e.target.value)} type="file" id="file1"/>
                     </div>
 
                     <div className="user-categories__create-btn-wrap">
-                        <button onClick={() => handleCreateCategory()} className="user-categories__create-btn">Створоти категорію</button>
+                        <button onClick={() => handleCreateCategory()} className="user-categories__create-btn">{selectedLanguage?.userCategoriesView?.userCategoriesCreateCatBtn}</button>
 
                         <div onClick={() => handleHelpOpen(1)} className='user-categories__create-btn-info-wrap'>
                             <div className={`user-categories__create-btn-info ${isOpenInfo.includes(1) ? 'user-categories__create-btn-info--active' : ''}`}></div>
@@ -426,7 +346,7 @@ function UserCategories() {
                     </div>
                 </div>
                 <div className={`user-categories__create-info ${isOpenInfo.includes(1) ? 'user-categories__create-info--active' : ''}`}>
-                    <p>Для створення категорії Впишіть її назву і нажміть на кнопку створити. Кількість категорій обмежена до "5". Для коректного відображення картинок, формат картинки повинен бути 16:9. Щоб створити категорію, спершу потрібно створити магазин. Після створення категорії зможете створювати підкатегорії.</p>
+                    <p>{selectedLanguage?.userCategoriesView?.userCategoriesCreateCatInfo}</p>
                 </div>
 
                 {
@@ -442,20 +362,20 @@ function UserCategories() {
                                         }
                                         <div className="user-categories__card-info">
                                             <div className="user-categories__card-title-wrap">
-                                                <div className="user-categories__card-title"><b>Назва категорії:</b> {el?.name}</div>
+                                                <div className="user-categories__card-title"><b>{selectedLanguage?.userCategoriesView?.userCategoriesCardTitle}&nbsp;</b>{el?.name}</div>
                                                 <div className="user-categories__card-title-btn-wrap">
                                                     <img className="user-categories__card-title-btn" onClick={() => handleEditCategories(el)} src={editIcon} alt='img'/>
                                                     <img className="user-categories__card-title-btn" onClick={() => handleDeleteCategories(el)} src={deleteImg} alt='img'/>
                                                 </div>
                                             </div>
                                             <label className='user-categories__card-label' htmlFor="setSubCategory">
-                                                <b>Створити підкатегорію</b>
+                                                <b>{selectedLanguage?.userCategoriesView?.userCategoriesCreateSub}</b>
                                             </label>
                                             <div className='user-categories__card-input-wrap'>
                                                 <CardInput handleChange={setSubCategory}/>
                                                 <button className='user-categories__card-btn' onClick={() => handleCreateSubCategory(el._id)}>+</button>
                                             </div>
-                                            <p className='user-categories__card-sub-title'><b>Підкатегорії:</b></p>
+                                            <p className='user-categories__card-sub-title'><b>{selectedLanguage?.userCategoriesView?.userCategoriesSubTitle}</b></p>
                                             <ul className='user-categories__card-sub-category'>
                                                 {
                                                     el?.sub_categories?.map(subCategories => (
@@ -482,4 +402,4 @@ function UserCategories() {
     );
 }
 
-export default UserCategories;
+export default UserCategoriesView;

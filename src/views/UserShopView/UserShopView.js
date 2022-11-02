@@ -42,15 +42,6 @@ function UserShopView() {
     // console.log('asdasdxfxxxxddd: ',informationBlockTitle)
 
     useEffect(() => {
-        let res = (JSON.parse(localStorage.getItem('userLanguage')));
-        if (res?.length) {
-            dispatch(setSelectedLanguage(languageUser[res]));
-        } else {
-            dispatch(setSelectedLanguage(languageUser['ENG']));
-        }
-    },[])
-
-    useEffect(() => {
         if (shop?.informationBlock?.length) {
             setInformationBlockTitle(shop.informationBlock[0].title) 
             setInformationBlockText(shop.informationBlock[0].text) 

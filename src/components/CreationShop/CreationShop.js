@@ -116,32 +116,14 @@ function CreationShop() {
                 .then(res => {
                     if (res.success && res.data) {
                         dispatch(setShop(data));
-                        toast.success('Дані оновлено', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        })
+                        showMessage('success', 'Дані оновлено')
                     } else {
                         console.log('PUT CreationShop:', res)
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    toast.error('Сталася помилка', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
+                    showMessage('error', 'Сталася помилка')
                 })
                 .finally(() => {
                     dispatch(setIsNeedUpdateShop(false)) 
@@ -158,36 +140,44 @@ function CreationShop() {
                 .then(res => {
                     if (res.success && res.data) {
                         dispatch(setShop(res.data))
-                        toast.success('Магазин створено', {
-                            position: "bottom-right",
-                            autoClose: 2500,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        })
+                        showMessage('success', 'Магазин створено')
                     } else {
                         console.log('POST CreationShop', res)
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    toast.error('Сталася помилка', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
+                    showMessage('error', 'Сталася помилка')
                 })
                 .finally(() => {
                     dispatch(setIsNeedCreateShop(false)); 
                 });
+        }
+    }
+
+    const showMessage = (event, message) => {
+        if (event == "success") {
+            toast.success(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        } else {
+            toast.error(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
@@ -214,12 +204,6 @@ function CreationShop() {
                             placeholder="Введіть ім'я магазину..."
                         />
                     </div>
-
-                    {/* <div className='creation-shop__section-info-wrap'>
-                        <b className='creation-shop__section-info-title'>Імя Вашого магазину:</b>
-                        <span className='creation-shop__section-info-text'>	&nbsp;{name}</span>
-                    </div> */}
-
                     <div onClick={() => handleHelpOpen(1)} className='creation-shop__section-btn-wrap'>
                         <div className={`creation-shop__section-btn ${arrIsOpenInfo.includes(1) ? 'creation-shop__section-btn--active' : ''}`}></div>
                     </div>
@@ -518,12 +502,6 @@ function CreationShop() {
                         }
                     </button>
                 </div>
-{/* 
-                <button onClick={handleSend}  className='creation-shop__btn'>
-                    {
-                        isNeedUpdateShop ? 'Оновити' : 'Створити'
-                    }
-                </button> */}
             </div>
         </div>
     );

@@ -92,9 +92,35 @@ export const languageUser = {
             userShopBlockCheckboxStart: 'Початок',
             userShopBlockCheckboxCenter: 'Центер',
             userShopBlockCheckboxEnd: 'Кінець',
-
         },
-       
+        userCategoriesView: {
+            userCategoriesModalDelCatTitle: 'Ви впевнені?',
+            userCategoriesModalDelCatText: 'Всі підкатегорії даної категорії будуть видалені',
+            userCategoriesModalDelCatLeftBtn: 'Ні',
+            userCategoriesModalDelCatRightBtn: 'Так',
+            userCategoriesModalDelSubCatTitle: 'Ви впевнені?',
+            userCategoriesModalDelSubCatText: 'Видалити дану категорію',
+            userCategoriesModalDelSubCatLeftBtn: 'Ні',
+            userCategoriesModalDelSubCatRightBtn: 'Так',
+            userCategoriesModalEditSubCatTitle: 'Редагувати категорію?',
+            userCategoriesModalEditSubCatText: 'Введіть нову назву',
+            userCategoriesModalEditCatLeftBtn: 'Відмінити',
+            userCategoriesModalEditCatRightBtn: 'Підтвердити',
+            userCategoriesTitle: 'Мої категорії',
+            userCategoriesErrorCreateLimit: 'Ви дасягнули ліміту категорій',
+            userCategoriesErrorCreate: 'Спершу потрібно створити магазин',
+            userCategoriesCreateLabelName: 'Назва категорії',
+            userCategoriesCreateNamePlaceholder: 'Введіть назву...',
+            userCategoriesCreateLabelImg: 'Картинка',
+            userCategoriesCreateCatBtn: 'Створоти категорію',
+            userCategoriesCreateCatInfo: 'Для створення категорії Впишіть її назву і нажміть на кнопку створити. Кількість категорій обмежена до "5". Для коректного відображення картинок, формат картинки повинен бути 16:9. Щоб створити категорію, спершу потрібно створити магазин. Після створення категорії зможете створювати підкатегорії.',
+            userCategoriesCardTitle: 'Назва категорії:',
+            userCategoriesCreateSub: 'Створити підкатегорію',
+            userCategoriesSubTitle: 'Підкатегорії:',
+        },
+        cardInput: {
+            cardInputPlaceholder: 'Введіть назву...'
+        },
     },
     'ENG': {
         signUpView: {
@@ -189,6 +215,34 @@ export const languageUser = {
             userShopBlockCheckboxCenter: 'Center',
             userShopBlockCheckboxEnd: 'End',
         },  
+        userCategoriesView: {
+            userCategoriesModalDelCatTitle: 'Are you sure?',
+            userCategoriesModalDelCatText: 'All subcategories of this category will be deleted',
+            userCategoriesModalDelCatLeftBtn: 'No',
+            userCategoriesModalDelCatRightBtn: 'Yes',
+            userCategoriesModalDelSubCatTitle: 'Are you sure?',
+            userCategoriesModalDelSubCatText: 'Delete this category',
+            userCategoriesModalDelSubCatLeftBtn: 'No',
+            userCategoriesModalDelSubCatRightBtn: 'Yes',
+            userCategoriesModalEditSubCatTitle: 'Edit category?',
+            userCategoriesModalEditSubCatText: 'Enter a new name',
+            userCategoriesModalEditCatLeftBtn: 'Cancel',
+            userCategoriesModalEditCatRightBtn: 'Confirm',
+            userCategoriesTitle: 'My categories',
+            userCategoriesErrorCreateLimit: 'You have reached the category limit',
+            userCategoriesErrorCreate: 'First you need to create a store',
+            userCategoriesCreateLabelName: 'Category name',
+            userCategoriesCreateNamePlaceholder: 'Enter a name...',
+            userCategoriesCreateLabelImg: 'Picture',
+            userCategoriesCreateCatBtn: 'Create a category',
+            userCategoriesCreateCatInfo: 'To create a category, enter its name and click the create button. The number of categories is limited to "5". For the correct display of pictures, the picture format should be 16:9. To create a category, you must first create a store. After creating a category, you can create subcategories.',
+            userCategoriesCardTitle: 'Category name:',
+            userCategoriesCreateSub: 'Create a subcategory',
+            userCategoriesSubTitle: 'Subcategories:',
+        },
+        cardInput: {
+            cardInputPlaceholder: 'Enter a name...'
+        },
     },
   
 }
