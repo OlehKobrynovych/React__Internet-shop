@@ -18,6 +18,7 @@ import PaginationItems from '../PaginationItems/PaginationItems';
 
 
 function UserProduct() {
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
@@ -26,7 +27,7 @@ function UserProduct() {
     const [deleteId, setDeleteId] = useState('');
     const [seachName, setSeachName] = useState('');
     const [filterProducts, setFilterProducts] = useState([]);
-    const [selectedSort, setSelectedSort] = useState('Всі товари');
+    const [selectedSort, setSelectedSort] = useState(selectedLanguage?.userProduct?.userProductSortOptionAll);
     const [isOpenSelect, setIsOpenSelect] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -89,7 +90,7 @@ function UserProduct() {
         setIsOpenSelect(false)
         if (category == "all") {
             setFilterProducts([...products])
-            setSelectedSort('Всі товари')
+            setSelectedSort(selectedLanguage?.userProduct?.userProductSortOptionAll)
         } else {
             setSelectedSort(category.name)
 
@@ -163,38 +164,37 @@ function UserProduct() {
 
     return (
         <div className='user-product'>
-
             {
-                isModalDelProduct && <ModalWindow title={'Ви впевнені?'}  text={'Видалити даний товар'} handleClick={handleIsDeleteProduct}/>
+                isModalDelProduct && <ModalWindow title={selectedLanguage?.userProduct?.userProductModalDelTitle}  text={selectedLanguage?.userProduct?.userProductModalDelText} handleClick={handleIsDeleteProduct} leftBtn={selectedLanguage?.userProduct?.userProductModalDelLeftBtn} rightBtn={selectedLanguage?.userProduct?.userProductModalDelRightBtn}/>
             }
 
             <div className='user-product--wrap container'>
-                <div className='user-product__title'><b>Мої товари</b></div>
+                <div className='user-product__title'><b>{selectedLanguage?.userProduct?.userProductTitle}</b></div>
                 <div className='user-product__sub-title-wrap'>
-                    <div className='user-product__sub-title'>Загальна кількість: {products?.length}</div>
-                    <button className='user-product__sub-title-btn'><NavLink to='create'>Створити товар</NavLink></button>
+                    <div className='user-product__sub-title'>{selectedLanguage?.userProduct?.userProductSubTitle}&nbsp;{products?.length}</div>
+                    <button className='user-product__sub-title-btn'><NavLink to='create'>{selectedLanguage?.userProduct?.userProductCreateBtn}</NavLink></button>
                 </div>
 
                 <div className='user-product__filter-wrap'>
                     <div className='user-product__filter'>
-                        <label className='user-product__filter-search-input-label' htmlFor="seachName">
-                            <b>Пошук товару</b>
+                        <label className='user-product__filter-search-input-label' htmlFor="userProductSeachName">
+                            <b>{selectedLanguage?.userProduct?.userProductSearchLabel}</b>
                         </label>
                         <input
-                            id="seachName"
-                            name="seachName"
+                            id="userProductSeachName"
+                            name="userProductSeachName"
                             type="search"
                             required
                             className='user-product__filter-search-input'
                             onChange={(e) => setSeachName(e.target.value)}
                             onKeyPress={(e) => handleSearchProduct(e)}
                             value={seachName}
-                            placeholder="Введіть назву..."
+                            placeholder={selectedLanguage?.userProduct?.userProductSearchPlaceholder}
                         />
                     </div>
 
                     <div className="user-product__sort-wrap">
-                        <span className="user-product__sort-label">Сортувати:</span>
+                        <span className="user-product__sort-label">{selectedLanguage?.userProduct?.userProductSortLabel}</span>
                         <div className="user-product__sort-select-wrap">
                             <div className="user-product__sort-select" onClick={() => setIsOpenSelect(!isOpenSelect)}>
                                 {selectedSort}
@@ -204,7 +204,7 @@ function UserProduct() {
                             </div>
                         </div>
                         <div className={`user-product__sort-option-wrap ${isOpenSelect ? 'user-product__sort-option-wrap--active' : ''}`}>
-                            <div className="user-product__sort-option-category" onClick={() => handleChangeSort('all')}>Всі товари</div>
+                            <div className="user-product__sort-option-category" onClick={() => handleChangeSort('all')}>{selectedLanguage?.userProduct?.userProductSortOptionAll}</div>
                             {
                                 !!categories?.length && categories.map(category => (
                                     <div className="user-product__sort-option" key={category._id}>
@@ -223,7 +223,7 @@ function UserProduct() {
 
                 <div className='user-product__cards'>
                     {
-                        currentPaginationItems?.length ? currentPaginationItems.map(el => (
+                        !!currentPaginationItems?.length ? currentPaginationItems.map(el => (
                             <div className='user-product__card' key={el._id}>
                                 <div className='user-product__card-wrap'>
                                     <div className="user-product__card-swiper-wrap">
@@ -243,30 +243,30 @@ function UserProduct() {
                                     </div>
                                     <div className='user-product__card-info'>
                                         <div className='user-product__card-info-title-wrap'>
-                                            <span className='user-product__card-info-title'>Назва товару:</span>
+                                            <span className='user-product__card-info-title'>{selectedLanguage?.userProduct?.userProductCardName}</span>
                                             <span className='user-product__card-info-text'>&nbsp;{el.name}</span>
                                         </div>
                                         <div className='user-product__card-info-title-wrap'>
-                                            <span className='user-product__card-info-title'>Категорія:</span>
+                                            <span className='user-product__card-info-title'>{selectedLanguage?.userProduct?.userProductCardCategory}</span>
                                             <span className='user-product__card-info-text'>&nbsp;{el.category_name}</span>
                                         </div>
                                         <div className='user-product__card-info-title-wrap'>
-                                            <span className='user-product__card-info-title'>Ціна товару:</span>
+                                            <span className='user-product__card-info-title'>{selectedLanguage?.userProduct?.userProductCardPrice}</span>
                                             <span className='user-product__card-info-text'>&nbsp;{el.price}{shop?.currency}</span>
                                         </div>
                                         <div className='user-product__card-info-title-wrap'>
-                                            <span className='user-product__card-info-title'>Ціна зі знижкою:</span>
+                                            <span className='user-product__card-info-title'>{selectedLanguage?.userProduct?.userProductCardNewPrice}</span>
                                             <span className='user-product__card-info-text user-product__card-info-text-red'>&nbsp;{el.new_price}{shop?.currency}</span>
                                         </div>
                                         <div className='user-product__card-info-title-wrap'>
-                                            <span className='user-product__card-info-title'>Доступні кольори:</span>
+                                            <span className='user-product__card-info-title'>{selectedLanguage?.userProduct?.userProductCardColors}</span>
                                             <span className='user-product__card-info-text'>&nbsp;{el.colors.join(', ')}</span>
                                         </div>
                                         <div className='user-product__card-info-title-wrap'>
-                                            <span className='user-product__card-info-title'>Доступні розміра:</span>
+                                            <span className='user-product__card-info-title'>{selectedLanguage?.userProduct?.userProductCardSizes}</span>
                                             <span className='user-product__card-info-text'>&nbsp;{el.sizes.join(', ')}</span>
                                         </div>
-                                        <span className='user-product__card-info-title'>Опис:</span>
+                                        <span className='user-product__card-info-title'>{selectedLanguage?.userProduct?.userProductCardDescription}</span>
                                         <div className='user-product__card-info-details'>{el.details}</div>
                                     </div>
                                 </div>
@@ -276,13 +276,12 @@ function UserProduct() {
                                     <img className='user-product__card-btn' onClick={() => handleDeleteProduct(el._id)} src={deleteImg} alt='img'/>
                                 </div>
                             </div>
-                        )) : <div>Товар відсутній</div>
+                        )) : <div>{selectedLanguage?.userProduct?.userProductProductMissing}</div>
                     }
                 </div>
             </div>
             
             <PaginationItems items={filterProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/>
-            {/* <PaginationItems items={products} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={2}/> */}
         </div>
     );
 }

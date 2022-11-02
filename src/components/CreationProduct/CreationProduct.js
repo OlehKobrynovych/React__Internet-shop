@@ -8,9 +8,11 @@ import InputText from '../InputText/InputText';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import InputNumber from '../InputNumber/InputNumber';
+import InputTextarea from '../InputTextarea/InputTextarea';
 
 
 function CreationProduct() {
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const categories = useSelector(state => state.userSlice.categories);
@@ -34,8 +36,8 @@ function CreationProduct() {
     // const nameInputRef = useRef(null);
     // const priceInputRef = useRef(null);
     // const categoryInputRef = useRef(null);
+    // console.log(editProduct)
 
-    console.log(editProduct)
 
     useEffect(() => {
         if (editProduct?.name) {
@@ -222,28 +224,28 @@ function CreationProduct() {
             <div className='creation-product--wrap container'>
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <InputText setValue={setName} value={name} id={'creationProductName'} name={'creationProductName'} label={'Назва товару'}/>
+                        <InputText setValue={setName} value={name} id={'creationProductName'} name={'creationProductName'} label={selectedLanguage?.creationProduct?.creationProductNameLabel}/>
                     </div>
                     <div onClick={() => handleHelpOpen(1)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(1) ? 'creation-product__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(1) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Введіть ім'я товару. Товар без назви, категорії і ціни не буде відображатись в Вашому магазині.</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductNameInfo}</p>
                 </div>
 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
                         <div className="creation-product__section-title-wrap">
-                            <span className="creation-product__section-title">Категорія:</span>
+                            <span className="creation-product__section-title">{selectedLanguage?.creationProduct?.creationProductCategoryTitle}</span>
                             <span className="creation-product__section-title-text">&nbsp;{selectCategory?.name}</span>
                         </div>
                         <label className='creation-product__section-input-label' htmlFor="category_id">
-                            <b>Виберіть категорію товару</b>
+                            <b>{selectedLanguage?.creationProduct?.creationProductCategoryLabel}</b>
                         </label>
                         <input className='creation-product__section-seach-input' 
                             type="text" 
-                            placeholder="Пошук ..." 
+                            placeholder={selectedLanguage?.creationProduct?.creationProductCategoryPlaceholder}
                             id="category_id" 
                             value={searchCategory} 
                             onChange={(e) => setSearchCategory(e.target.value)} 
@@ -279,62 +281,49 @@ function CreationProduct() {
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(2) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Виберіть категорію товару.</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductCategoryInfo}</p>
                 </div>
 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <InputNumber label='Ціна' id={"creationProductPrice"} name={"creationProductPrice"} value={price} setValue={setPrice} min={'0'}/>
+                        <InputNumber label={selectedLanguage?.creationProduct?.creationProductPriceLabel} id={"creationProductPrice"} name={"creationProductPrice"} value={price} setValue={setPrice} min={'0'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(3)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(3) ? 'creation-product__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(3) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Введіть ціну на товар</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductPriceInfo}</p>
                 </div>
                 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <InputNumber label='Ціна на товар, якщо є знижка' id={"creationProductNew_price"} name={"creationProductNew_price"} value={new_price} setValue={setNew_price} min={'0'}/>
+                        <InputNumber label={selectedLanguage?.creationProduct?.creationProductNewPriceLabel} id={"creationProductNew_price"} name={"creationProductNew_price"} value={new_price} setValue={setNew_price} min={'0'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(4)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(4) ? 'creation-product__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(4) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Якщо на товар є знижка введіь ціну з урахуванням знижки</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductNewPriceInfo}</p>
                 </div>
 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <label className='creation-product__section-input-label' htmlFor="details">
-                            <b>Опис товару</b>
-                        </label>
-                        <textarea
-                            id="details"
-                            name="details"
-                            type="text"
-                            className='creation-product__section-textarea'
-                            onChange={(e) => setDetails(e.target.value)}
-                            value={details}
-                            placeholder="Опис..."
-                            rows="5" 
-                            cols="50"
-                        />
+                        <InputTextarea setValue={setDetails} value={details} id={'creationProductDetails'} name={'creationProductDetails'} label={selectedLanguage?.creationProduct?.creationProductDescriptionLabel} placeholder={selectedLanguage?.creationProduct?.creationProductDescriptionPlaceholder} rows={'5'} cols={'50'}/>
                     </div>
                     <div onClick={() => handleHelpOpen(5)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(5) ? 'creation-product__section-btn--active' : ''}`}></div>
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(5) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Введіть опис товару</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductDescriptionInfo}</p>
                 </div>
                 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
                         <div className='creation-product__create-btn-wrap'>
-                           <InputText setValue={setUserColors} value={userColors} id={'creationProductUserColors'} name={'creationProductUserColors'} label={'Доступні кольори'} />
+                           <InputText setValue={setUserColors} value={userColors} id={'creationProductUserColors'} name={'creationProductUserColors'} label={selectedLanguage?.creationProduct?.creationProductColorsLabel} />
                            <button onClick={handleSetColors} className='creation-product__create-btn'>+</button>
                         </div>
                         {
@@ -353,13 +342,13 @@ function CreationProduct() {
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(6) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Введіть назви кольорів вашого товару</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductColorsInfo}</p>
                 </div>
                 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
                         <div className='creation-product__create-btn-wrap'>
-                           <InputText setValue={setUserSizes} value={userSizes} id={'creationProductUserSizes'} name={'creationProductUserSizes'} label={'Доступні розміра'} />
+                           <InputText setValue={setUserSizes} value={userSizes} id={'creationProductUserSizes'} name={'creationProductUserSizes'} label={selectedLanguage?.creationProduct?.creationProductSizesLabel} />
                            <button onClick={handleSetSizes} className='creation-product__create-btn'>+</button>
                         </div>
                         {
@@ -378,13 +367,13 @@ function CreationProduct() {
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(7) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Введіть доступні розміра вашого товару</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductSizesInfo}</p>
                 </div>
                
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
                         <label className='creation-product__section-input-label' htmlFor="">
-                            <b>Картинки</b>
+                            <b>{selectedLanguage?.creationProduct?.creationProductPicturesLabel}</b>
                         </label>
                         <div className='creation-product__create-btn-wrap'>
                             <input className="creation-product__create-input-file" onChange={(e) => setUserImages(e.target.value)} type="file" id="file1" />
@@ -406,19 +395,19 @@ function CreationProduct() {
                     </div>
                 </div>
                 <div className={`creation-product__section-info ${isOpenInfo.includes(8) ? 'creation-product__section-info--active' : ''}`}>
-                    <p>Загрузіть картинки товару.</p>
+                    <p>{selectedLanguage?.creationProduct?.creationProductPicturesInfo}</p>
                 </div>
 
-                <div className='creation-product__warning-text'>Ці поля обов'язкові для заповнення</div>
+                <div className='creation-product__warning-text'>{selectedLanguage?.creationProduct?.creationProductWarningText}</div>
 
                 <div className='creation-product__btn-create-wrap'>
                     {
-                         editProduct?._id && <button className='creation-product__btn-create' onClick={handleReturn}>Відмінити</button>
+                         editProduct?._id && <button className='creation-product__btn-create' onClick={handleReturn}>{selectedLanguage?.creationProduct?.creationProductCancelBtn}</button>
                     }
                   
                     <button className='creation-product__btn-create' onClick={handleSend}>
                         {
-                            editProduct?._id ? 'Оновити' : 'Створити'
+                            editProduct?._id ? selectedLanguage?.creationProduct?.creationProductUpdateBtn : selectedLanguage?.creationProduct?.creationProductCreateBtn
                         }
                     </button>
                 </div>
