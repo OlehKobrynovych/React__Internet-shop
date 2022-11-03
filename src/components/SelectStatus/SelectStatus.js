@@ -5,6 +5,7 @@ import { setStatusPurchases } from '../../store/userSlice';
 import './SelectStatus.css';
 
 function SelectStatus({purchases, status}) {
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const [option, setOption] = useState('');
     const dispatch = useDispatch();
@@ -68,9 +69,9 @@ function SelectStatus({purchases, status}) {
     return (
         <div className="select-status">
              <select onChange={(e) => setOption(e.target.value)} value={option}>
-                <option value='InProcess'>В процесі</option>
-                <option value='done'>Виконано</option>
-                <option value='notDone'>Відхилено</option>
+                <option value='InProcess'>{selectedLanguage?.selectStatus?.selectStatusOption1}</option>
+                <option value='done'>{selectedLanguage?.selectStatus?.selectStatusOption2}</option>
+                <option value='notDone'>{selectedLanguage?.selectStatus?.selectStatusOption3}</option>
             </select>
         </div>
     );

@@ -151,6 +151,7 @@ function LayoutUser() {
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>{selectedLanguage?.layoutUser?.layoutLinkProducts}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>{selectedLanguage?.layoutUser?.layoutLinkOrders}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/messages`}>{selectedLanguage?.layoutUser?.layoutLinkMessage}</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/settings`}>{selectedLanguage?.layoutUser?.layoutLinkSettings}</NavLink>
                     <button onClick={() => setModalWindow(!isModalWindow)} className='layout-user__sidenav-link'>{selectedLanguage?.layoutUser?.layoutLinkExit}</button>
                 </div>
 

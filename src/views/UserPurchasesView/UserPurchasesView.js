@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './UserPurchases.css';
+import './UserPurchasesView.css';
 import stars from './../../assets/images/stars.svg';
-import deleteImg from './../../assets/images/deleteImg.svg';
 import envelope from './../../assets/images/envelope.svg';
 import envelopeOpen from './../../assets/images/envelopeOpen.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import PaginationItems from '../PaginationItems/PaginationItems';
 import { getPurchases, setFavoritePurchases } from '../../store/userSlice';
-import ModalWindow from '../ModalWindow/ModalWindow';
-import { toast } from 'react-toastify';
-import CardSelect from '../SelectStatus/SelectStatus';
-import SelectStatus from '../SelectStatus/SelectStatus';
+import SelectStatus from '../../components/SelectStatus/SelectStatus';
+import PaginationItems from '../../components/PaginationItems/PaginationItems';
 
 
-function UserPurchases() {
+function UserPurchasesView() {
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const purchases = useSelector(state => state.userSlice.purchases);
@@ -25,7 +22,7 @@ function UserPurchases() {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log('asdasd: ',sortPurchases)
+    // console.log('asdasd: ',sortPurchases)
 
     useEffect(() => {
         if (purchases?.length) {
@@ -142,22 +139,22 @@ function UserPurchases() {
         <div className="user-purchases">
             <div className="user-purchases--wrap container">
                 <div>
-                    <h4 className="user-purchases__title">Мої замовлення</h4>
+                    <h4 className="user-purchases__title">{selectedLanguage?.userPurchases?.userPurchasesTitle}</h4>
                     
                     <div className="user-purchases__filter">
                         
                         <div className="user-purchases__sort-status-wrap">
-                            <span className="user-purchases__sort-status-title">Статус:</span>
+                            <span className="user-purchases__sort-status-title">{selectedLanguage?.userPurchases?.userPurchasesSortTitle}</span>
                             <select onChange={(e) => handleSortStatus(e.target.value)} value={sortStatus}>
-                                <option value='all'>Всі</option>
-                                <option value='InProcess'>В процесі</option>
-                                <option value='done'>Виконано</option>
-                                <option value='notDone'>Відхилено</option>
+                                <option value='all'>{selectedLanguage?.userPurchases?.userPurchasesSortOption1}</option>
+                                <option value='InProcess'>{selectedLanguage?.userPurchases?.userPurchasesSortOption2}</option>
+                                <option value='done'>{selectedLanguage?.userPurchases?.userPurchasesSortOption3}</option>
+                                <option value='notDone'>{selectedLanguage?.userPurchases?.userPurchasesSortOption4}</option>
                             </select>
                         </div>
 
                         <div className="user-purchases__filter-sort-wrap">
-                            <div className="user-purchases__filter-sort-title">Вибрати всі:</div>
+                            <div className="user-purchases__filter-sort-title">{selectedLanguage?.userPurchases?.userPurchasesFilterTitle}</div>
                             <div className={`user-purchases__filter-sort-btn-wrap ${sortPurchases === 'isNotSeen' ? 'user-purchases__filter-sort-btn-wrap--active' : ''}`}>
                                 <img className="user-purchases__filter-sort-btn" onClick={() => handleSortPurchases('isNotSeen')} src={envelope} alt='img'/>
                             </div>
@@ -195,13 +192,13 @@ function UserPurchases() {
                                     <div className="user-purchases__item-text-wrap" onClick={() => handleReadPurchases(el._id)}><div className="user-purchases__item-text">{el.comment}</div></div>
 
                                     <div onClick={(e) => handleClick(e)} className="user-purchases__item-status-wrap">
-                                        <span>Статус</span>
+                                        <span>{selectedLanguage?.userPurchases?.userPurchasesStatusTitle}</span>
                                         <SelectStatus purchases={el} status={el.status}/>
                                     </div>
 
                                     <img className="user-purchases__item-seen" src={el.isSeen ? envelopeOpen : envelope} alt='img'/>
                                 </div>
-                            )) : <div className="user-purchases__error-text">Список повідомлень пустий</div>
+                            )) : <div className="user-purchases__error-text">{selectedLanguage?.userPurchases?.userPurchasesErrorText}</div>
                         }
                     </div>
                 </div>
@@ -213,4 +210,4 @@ function UserPurchases() {
     );
 }
 
-export default UserPurchases;
+export default UserPurchasesView;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './ReadPurchases.css';
+import './ReadPurchasesView.css';
 import noPhotos from './../../assets/images/noPhotos.svg';
 import editIcon from './../../assets/images/editIcon.svg';
 import deleteImg from './../../assets/images/deleteImg.svg';
@@ -9,14 +9,14 @@ import { setSeenPurchases, setStatusPurchases } from '../../store/userSlice';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from 'swiper';
 import { toast } from 'react-toastify';
-import ModalWindow from '../ModalWindow/ModalWindow';
-import InputText from '../InputText/InputText';
-import PurchasesEditeArr from '../PurchasesEditeArr/PurchasesEditeArr';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
+import InputText from '../../components/InputText/InputText';
+import PurchasesEditeArr from '../../components/PurchasesEditeArr/PurchasesEditeArr';
+import InputTextarea from '../../components/InputTextarea/InputTextarea';
 
 
-
-
-function ReadPurchases () {
+function ReadPurchasesView () {
+    const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const purchases = useSelector(state => state.userSlice.purchases);
@@ -35,7 +35,7 @@ function ReadPurchases () {
     const [isModalEditProductColors, setIsModalEditProductColors] = useState(false);
     const [newNote, setNewNote] = useState('');
     const dispatch = useDispatch();
-    console.log('purchases: ', purchaseContent)
+    console.log('purchases: ', orderedProducts)
     
     useEffect(() => {
         if (user?._id) {
@@ -45,9 +45,19 @@ function ReadPurchases () {
                     if (res.success && res.data) {
                         setPurchaseContent(res.data)
                         setIsSeen(res.data)
+
+                        if (!orderedProducts?.length) {
+                            getOrderedProducts(res.data)
+                        }
+
+                        if (res.data?._id) {
+                            if (!status?.length) {
+                                setStatus(res.data.status)
+                            }
+                        }
                         // dispatch(getPurchases(res.data));
                     } else {
-                        console.log('GET ReadPurchases:', res)
+                        console.log('GET ReadPurchasesView:', res)
                     }
                 })
                 .catch((error) => {
@@ -76,36 +86,24 @@ function ReadPurchases () {
                     console.log('PUT CardSelect:', res)
                     dispatch(setSeenPurchases({...purchaseContent2, isSeen: true}));
                 } else {
-                    console.log('PUT ReadPurchases:', res)
+                    console.log('PUT ReadPurchasesView:', res)
                 }
             })
             .catch((error) => {
             })
     }
 
-    useEffect(() => {
-        if (purchaseContent._id) {
-            if (!status?.length) {
-                setStatus(purchaseContent.status)
-            }
-        }
-
-        if (purchaseContent.product_ids?.length) {
-            setOrderedProducts([])
-            purchaseContent?.product_ids?.map(el => {
-                console.log('1111111111111')
-                // fetch(`${process.env.REACT_APP_BASE_URL}/products/${el._id}?token=${user.token}`)
+    const getOrderedProducts = (data) => {
+        if (data.product_ids?.length) {
+            // setOrderedProducts([])
+            data?.product_ids?.map(el => {
                 fetch(`${process.env.REACT_APP_BASE_URL}/products/${el._id}`)
-                .then(res => res.json())
+                    .then(res => res.json())
                     .then(res => {
-                        console.log('1111111111111', res)
                         if (res.success && res.data?._id) {
-                            console.log('1111111111111')
                             setOrderedProducts((orderedProducts) => [...orderedProducts, {...res.data, count: el.count}])
-                            // setOrderedProducts((prewValue) => [...prewValue, {...res.data, count: el.count}])
-                            // dispatch(getProducts(res.data));
                         } else {
-                            console.log('GET ReadPurchases:', res)
+                            console.log('GET ReadPurchasesView:', res)
                         }
                     })
                     .catch((error) => {
@@ -113,7 +111,7 @@ function ReadPurchases () {
                     })
             })
         }
-    }, [purchaseContent])
+    }
 
     useEffect(() => {
         if (orderedProducts?.length) {
@@ -147,32 +145,14 @@ function ReadPurchases () {
                     // console.log('PUT CardSelect:', res)
                     dispatch(setStatusPurchases({...purchaseContent, status: str}));
                     setPurchaseContent({...purchaseContent, status: str})
-                    toast.success('Дані оновлено', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    })
+                    showMessage('success', 'Дані оновлено')
                 } else {
                     console.log('PUT CardSelect:', res)
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
-                toast.error('Сталася помилка', {
-                    position: "bottom-right",
-                    autoClose: 2500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                showMessage('error', 'Сталася помилка')
             })
     }
 
@@ -208,10 +188,8 @@ function ReadPurchases () {
                 }),
                 token: user.token,
             }
-            
             sendEdite(data)
         } 
-
         setIsModalEditProductColors(false)
         setEditProduct({})
     }
@@ -228,10 +206,8 @@ function ReadPurchases () {
                 }),
                 token: user.token,
             }
-            
             sendEdite(data)
         } 
-
         setIsModalEditProductSize(false)
         setEditProduct({})
     }
@@ -248,10 +224,14 @@ function ReadPurchases () {
                 }),
                 token: user.token,
             }
-            
             sendEdite(data)
+            setOrderedProducts([...orderedProducts.map(el => {
+                if (el._id == editProduct._id) {
+                    el.count = newCount
+                }
+                return el
+            })])
         } 
-
         setIsModalEditProductCount(false)
         setEditProduct({})
     }
@@ -268,10 +248,8 @@ function ReadPurchases () {
                 }),
                 token: user.token,
             }
-            
             sendEdite(data)
         } 
-
         setIsModalDelProduct(false)
         setEditProduct({})
     }
@@ -287,40 +265,22 @@ function ReadPurchases () {
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
-                    console.log('PUT CardSelect:', res)
+                    console.log('PUT ReadPurchasesView:', res)
                     // dispatch(setStatusPurchases({...purchaseContent, status: str}));
-                    setPurchaseContent({...data})
-                    toast.success('Дані оновлено', {
-                        position: "bottom-right",
-                        autoClose: 2500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    })
+                    setPurchaseContent(data)
+                    // getOrderedProducts(data)
+                    showMessage('success', 'Дані оновлено')
                 } else {
-                    console.log('PUT CardSelect:', res)
+                    console.log('PUT ReadPurchasesView:', res)
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
-                toast.error('Сталася помилка', {
-                    position: "bottom-right",
-                    autoClose: 2500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                showMessage('error', 'Сталася помилка')
             })
     } 
 
     const selectedOrders = (id) => {
-        // console.log( purchaseContent?.product_ids?.filter(ell => ell._id == id)[0])
       return purchaseContent?.product_ids?.filter(ell => ell._id == id)[0]
     }
     
@@ -331,10 +291,8 @@ function ReadPurchases () {
                 notes: [...purchaseContent.notes, {_id: new Date().toString(), note: newNote}],
                 token: user.token,
             }
-            
             sendEdite(data)
         } 
-
         setNewNote('')
     }
  
@@ -344,31 +302,56 @@ function ReadPurchases () {
             notes: [...purchaseContent.notes.filter(el => el._id !== id)],
             token: user.token,
         }
-        
         sendEdite(data)
+    }
+    
+    const showMessage = (event, message) => {
+        if (event == "success") {
+            toast.success(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        } else {
+            toast.error(message, {
+                position: "bottom-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     }
 
     return (
         <div className={`read-purchases read-purchases__item-status--${status}`}>
 
             {
-                isModalDelProduct && <ModalWindow title={'Ви впевнені?'}  text={purchaseContent?.product_ids.filter(ell => ell._id == editProduct._id)[0].removed ? 'Відновити даний товар' : 'Видалити даний товар'} handleClick={handleIsDeleteProduct}/>
+                isModalDelProduct && <ModalWindow title={selectedLanguage?.readPurchasesView?.readPurchasesModDelTitle} text={purchaseContent?.product_ids.filter(ell => ell._id == editProduct._id)[0].removed ? selectedLanguage?.readPurchasesView?.readPurchasesModDelText1 : selectedLanguage?.readPurchasesView?.readPurchasesModDelText2} handleClick={handleIsDeleteProduct}/>
             }
 
             {
-                isModalEditProductCount && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductCount} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
-                                            <InputText handleChange={setNewCount}/>
+                isModalEditProductCount && <ModalWindow title={selectedLanguage?.readPurchasesView?.readPurchasesModEditTitle} text={selectedLanguage?.readPurchasesView?.readPurchasesModEditText} handleClick={handleIsEditProductCount} leftBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditLeftBtn} rightBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditRightBtn}>
+                                            <InputText setValue={setNewCount} value={newCount} id={'readPurchasesnewCount'} name={'readPurchasesnewCount'} label={''} />
                                           </ ModalWindow>
             }
            
             {
-                isModalEditProductSize && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductSize} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
+                isModalEditProductSize && <ModalWindow title={selectedLanguage?.readPurchasesView?.readPurchasesModEditTitle} text={selectedLanguage?.readPurchasesView?.readPurchasesModEditText} handleClick={handleIsEditProductSize} leftBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditLeftBtn} rightBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditRightBtn}>
                                             <PurchasesEditeArr handleChange={setNewSize} purchaseArr={selectedOrders(editProduct._id)?.selectSizes}/>
                                           </ ModalWindow>
             }
            
             {
-                isModalEditProductColors && <ModalWindow title={'Редагувати'}  text={'Введіть нове значення'} handleClick={handleIsEditProductColors} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
+                isModalEditProductColors && <ModalWindow title={selectedLanguage?.readPurchasesView?.readPurchasesModEditTitle} text={selectedLanguage?.readPurchasesView?.readPurchasesModEditText} handleClick={handleIsEditProductColors} leftBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditLeftBtn} rightBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditRightBtn}>
                                             <PurchasesEditeArr handleChange={setNewColors} purchaseArr={selectedOrders(editProduct._id)?.selectColors}/>
                                           </ ModalWindow>
             }
@@ -376,47 +359,34 @@ function ReadPurchases () {
             <div className="read-purchases--wrap container">
                 <div className="read-purchases__status-wrap">
                     <div className="read-purchases__status-number">
-                        <b>Замовлення:</b>&nbsp;{purchaseContent?._id}
+                        <b>{selectedLanguage?.readPurchasesView?.readPurchasesOrderTitle}</b>&nbsp;{purchaseContent?._id}
                     </div>
                     <div className="read-purchases__status">
-                        <span className="read-purchases__status-title">Статус:</span>
+                        <span className="read-purchases__status-title">{selectedLanguage?.readPurchasesView?.readPurchasesStatusTitle}</span>
                         <select onChange={(e) => handleChangeStatus(e.target.value)} value={status}>
-                            <option value='InProcess'>В процесі</option>
-                            <option value='done'>Виконано</option>
-                            <option value='notDone'>Відхилено</option>
+                            <option value='InProcess'>{selectedLanguage?.readPurchasesView?.readPurchasesStatusOption1}</option>
+                            <option value='done'>{selectedLanguage?.readPurchasesView?.readPurchasesStatusOption2}</option>
+                            <option value='notDone'>{selectedLanguage?.readPurchasesView?.readPurchasesStatusOption3}</option>
                         </select>
                     </div>
                 </div>
-                <div className="read-purchases__info"><b>Замовник:</b>&nbsp;{purchaseContent?.full_name}</div>
-                <div className="read-purchases__info"><b>Телефон:</b>&nbsp;{purchaseContent?.phone}</div>
-                <div className="read-purchases__info"><b>Емейл:</b>&nbsp;{purchaseContent?.email}</div>
-                <div className="read-purchases__info"><b>Адреса:</b>&nbsp;{purchaseContent?.delivery_address}</div>
-                <div className="read-purchases__info"><b>Спосіб доставки:</b>&nbsp;{purchaseContent?.delivery_method}</div>
-                <div className="read-purchases__info"><b>Спосіб оплати:</b>&nbsp;{purchaseContent?.payment_method}</div>
-                <div className="read-purchases__info"><b>Коментар:</b>&nbsp;{purchaseContent?.comment}</div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoNameTitle}</b>&nbsp;{purchaseContent?.full_name}</div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoTelTitle}</b>&nbsp;{purchaseContent?.phone}</div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoEmailTitle}</b>&nbsp;{purchaseContent?.email}</div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoAddressTitle}</b>&nbsp;{purchaseContent?.delivery_address}</div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoDeliveryTitle}</b>&nbsp;{purchaseContent?.delivery_method}</div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoPaymentTitle}</b>&nbsp;{purchaseContent?.payment_method}</div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoCommentTitle}</b>&nbsp;{purchaseContent?.comment}</div>
                 <div className="read-purchases__info">
-                    <label className='read-purchases__info-notes-label' htmlFor="notes">
-                        <b>Зробити нотатки</b>
-                    </label>
                     <div className='read-purchases__info-btn-wrap'>
-                        <textarea
-                            id="notes"
-                            name="notes"
-                            type="text"
-                            className='read-purchases__info-notes'
-                            onChange={(e) => setNewNote(e.target.value)}
-                            value={newNote}
-                            placeholder="Нотатки..."
-                            rows="5" 
-                            cols="50"
-                            />
+                        <InputTextarea setValue={setNewNote} value={newNote} id={'ReadPurchasesViewNewNote'} name={'ReadPurchasesViewNewNote'} label={selectedLanguage?.readPurchasesView?.readPurchasesTextareaLabel} placeholder={selectedLanguage?.readPurchasesView?.readPurchasesTextareaPlaceholder} rows={'5'} cols={'50'}/>
                         <button onClick={handleAddNone} className='read-purchases__info-btn'>+</button>
                     </div>
 
                     {
                        !!purchaseContent?.notes?.length && (
                             <ul>
-                                <b>Важливо!!!</b>
+                                <b>{selectedLanguage?.readPurchasesView?.readPurchasesListNotesTitle}</b>
                                 {
                                     purchaseContent?.notes?.map((el, index) => (<div className='read-purchases__info-notes-li-wrap' key={el._id}>
                                             <img onClick={() => handleDeleteNone(el._id)} className='read-purchases__info-notes-btn-del' src={deleteImg} alt='img'/>
@@ -428,9 +398,9 @@ function ReadPurchases () {
                     }
                 </div>
 
-                <h3 className="read-purchases__products-title">Замовлений товар</h3>
-                <div className="read-purchases__products-count"><b>Кількість товару:</b>&nbsp;{orderedProducts?.length}</div>
-                <div className="read-purchases__products-all-price"><b>Сума замовлення:</b>&nbsp;{totalPrice}{shop?.currency}</div>
+                <h3 className="read-purchases__products-title">{selectedLanguage?.readPurchasesView?.readPurchasesProductsListTitle}</h3>
+                <div className="read-purchases__products-count"><b>{selectedLanguage?.readPurchasesView?.readPurchasesProductsCountTitle}</b>&nbsp;{orderedProducts?.length}</div>
+                <div className="read-purchases__products-all-price"><b>{selectedLanguage?.readPurchasesView?.readPurchasesProductsTotalTitle}</b>&nbsp;{totalPrice}{shop?.currency}</div>
                 
                 <div className='read-purchases__cards'>
                     {
@@ -454,48 +424,48 @@ function ReadPurchases () {
                                         </div>
                                         <div className='read-purchases__card-info'>
                                             <div className='read-purchases__card-info-title-wrap'>
-                                                <span className='read-purchases__card-info-title'>Назва товару:</span>
+                                                <span className='read-purchases__card-info-title'>{selectedLanguage?.readPurchasesView?.readPurchasesCardNameTitle}</span>
                                                 <span className='read-purchases__card-info-text'>&nbsp;{el.name}</span>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
-                                                <span className='read-purchases__card-info-title'>Категорія:</span>
+                                                <span className='read-purchases__card-info-title'>{selectedLanguage?.readPurchasesView?.readPurchasesCardCategoryTitle}</span>
                                                 <span className='read-purchases__card-info-text'>&nbsp;{el.category_name}</span>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
-                                                <span className='read-purchases__card-info-title'>Ціна товару:</span>
+                                                <span className='read-purchases__card-info-title'>{selectedLanguage?.readPurchasesView?.readPurchasesCardPriceTitle}</span>
                                                 <span className='read-purchases__card-info-text'>&nbsp;{el.price}{shop?.currency}</span>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
-                                                <span className='read-purchases__card-info-title'>Ціна зі знижкою:</span>
+                                                <span className='read-purchases__card-info-title'>{selectedLanguage?.readPurchasesView?.readPurchasesCardPrice2Title}</span>
                                                 <span className='read-purchases__card-info-text read-purchases__card-info-text-red'>&nbsp;{el.new_price}{shop?.currency}</span>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
                                                 <div>
-                                                    <span className='read-purchases__card-info-title'>Замовлені кольори:</span>
+                                                    <span className='read-purchases__card-info-title'>{selectedLanguage?.readPurchasesView?.readPurchasesCardColorsTitle}</span>
                                                     <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectColors?.join(', ')}</span>
                                                 </div>
                                                 <img className='read-purchases__btn-edite' onClick={() => handleEditProductColors(el)} src={editIcon} alt='img'/>
                                             </div>
                                             <div className='read-purchases__card-info-title-wrap'>
                                                 <div>
-                                                    <span className='read-purchases__card-info-title'>Замовлені розміра:</span>
+                                                    <span className='read-purchases__card-info-title'>{selectedLanguage?.readPurchasesView?.readPurchasesCardSizeTitle}</span>
                                                     <span className='read-purchases__card-info-text'>&nbsp;{selectedOrders(el._id).selectSizes?.join(', ')}</span>
                                                 </div>
                                                 <img className='read-purchases__btn-edite' onClick={() => handleEditProductSize(el)} src={editIcon} alt='img'/>
                                             </div>
-                                            <span className='read-purchases__card-info-title'>Опис:</span>
+                                            <span className='read-purchases__card-info-title'>{selectedLanguage?.readPurchasesView?.readPurchasesCardDescriptionTitle}</span>
                                             <div className='read-purchases__card-info-details'>{el.details}</div>
                                         </div>
                                     </div>
     
                                     <div className='read-purchases__count-wrap'>
                                         <div className='read-purchases__count'>
-                                            <span className='read-purchases__count-title'><b>Кількість:</b></span>
+                                            <span className='read-purchases__count-title'><b>{selectedLanguage?.readPurchasesView?.readPurchasesCardCountTitle}</b></span>
                                             {el.count}
                                             <img className='read-purchases__btn-edite' onClick={() => handleEditProductCount(el)} src={editIcon} alt='img'/>
                                         </div>
                                         <div className='read-purchases__count-price'>
-                                            <span className='read-purchases__count-price-title'><b>Сума:</b></span>
+                                            <span className='read-purchases__count-price-title'><b>{selectedLanguage?.readPurchasesView?.readPurchasesCardSumTitle}</b></span>
                                             {el.new_price == '0' ? el.price * el.count : el.new_price * el.count}
                                             {shop?.currency}
                                         </div>
@@ -514,4 +484,4 @@ function ReadPurchases () {
     );
 }
 
-export default ReadPurchases;
+export default ReadPurchasesView;

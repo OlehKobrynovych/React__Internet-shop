@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import './UserProduct.css';
+import './UserProductView.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories, getProducts, setEditProduct, setRemoveProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
+import PaginationItems from '../../components/PaginationItems/PaginationItems';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
+
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
-import ModalWindow from '../ModalWindow/ModalWindow';
 import { toast } from 'react-toastify';
-import PaginationItems from '../PaginationItems/PaginationItems';
 
 
-function UserProduct() {
+function UserProductView() {
     const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
@@ -286,4 +287,4 @@ function UserProduct() {
     );
 }
 
-export default UserProduct;
+export default UserProductView;

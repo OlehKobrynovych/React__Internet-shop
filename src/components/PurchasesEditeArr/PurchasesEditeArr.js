@@ -11,8 +11,7 @@ function PurchasesEditeArr({handleChange, purchaseArr}) {
     const [name, setName] = useState('');
     const [arr, setArr] = useState([]);
     const dispatch = useDispatch();
-
-    console.log(arr)
+    // console.log(arr)
 
     useEffect(() => {
         if (purchaseArr?.length) {
@@ -35,10 +34,6 @@ function PurchasesEditeArr({handleChange, purchaseArr}) {
         handleChange(arr)
     }, [arr])
    
-    // useEffect(() => {
-    //     handleChange(name)
-    // }, [name])
-
     return (
         <div className="purchases-edite-arr">
             <div className="purchases-edite-arr--wrap">
@@ -52,7 +47,7 @@ function PurchasesEditeArr({handleChange, purchaseArr}) {
                 }
             </div>
             <div className='creation-product__create-btn-wrap'>
-                <InputText handleChange={setName}/>
+                <InputText setValue={setName} value={name} id={'PurchasesEditeArrName'} name={'PurchasesEditeArrName'} label={''} />
                 <button onClick={handleSetValue} className='creation-product__create-btn'>+</button>
             </div>
         </div>

@@ -42,31 +42,9 @@
     margin-bottom: 10px;
 }
 
-.read-purchases__info-notes-label {
-    display: block;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .read-purchases__info-btn-wrap {
     display: flex;
-    align-items: flex-start;
-}
-
-.read-purchases__info-notes {
-    padding: 10px 20px;
-    max-width: 280px;
-    /* width: 100%; */
-    min-width: 200px;
-    /* margin-bottom: 10px; */
-    font-size: 14px;
-    line-height: 17px;
-    color: #333;
-    outline: none;
-    border-radius: 8px;
-    background: #f6f7fa;
-    border: 1px solid #065bea;
+    align-items: center;
 }
 
 .read-purchases__info-btn {

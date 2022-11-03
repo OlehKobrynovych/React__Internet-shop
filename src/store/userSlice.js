@@ -46,7 +46,7 @@ export const userSlice = createSlice({
     setSeenPurchases: (state, action) => {
       state.purchases = state.purchases.map(el => {
         if (el._id == action.payload._id) {
-          el.isSeen = action.payload.isSeen
+          el.isSeen = true
         } 
         return el
       });

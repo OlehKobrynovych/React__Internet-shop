@@ -8,15 +8,16 @@ import SignUpView from './views/SignUpView/SignUpView';
 import LandingView from './views/LandingView/LandingView';
 import UserCategoriesView from './views/UserCategoriesView/UserCategoriesView';
 import LayoutUser from './Layout/LayoutUser';
-import UserProduct from './components/UserProduct/UserProduct';
+import UserProductView from './views/UserProductView/UserProductView';
 import CreationProduct from './components/CreationProduct/CreationProduct';
 import { ToastContainer } from 'react-toastify';
-import UserPurchases from './components/UserPurchases/UserPurchases';
-import ReadPurchases from './components/ReadPurchases/ReadPurchases';
+import UserPurchasesView from './views/UserPurchasesView/UserPurchasesView';
+import ReadPurchasesView from './views/ReadPurchasesView/ReadPurchasesView';
 import UserAnalytics from './components/UserAnalytics/UserAnalytics';
 import SearchProductView from './views/SearchProductView/SearchProductView';
 import UserMessages from './components/UserMessages/UserMessages';
 import UserShopView from './views/UserShopView/UserShopView';
+import UserSettingsView from './views/UserSettingsView/UserSettingsView';
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
 const ProductFilterView = React.lazy(() => import('./views/ProductFilterView/ProductFilterView'));
 const AboutUsView = React.lazy(() => import('./views/AboutUsView/AboutUsView'));
@@ -49,11 +50,12 @@ function App() {
                         <Route index element={<UserAnalytics />}/>
                         <Route path="shop" element={<UserShopView />}/>
                         <Route path="categories" element={<UserCategoriesView />}/>
-                        <Route path="product" element={<UserProduct />}/>
+                        <Route path="product" element={<UserProductView />}/>
                         <Route path="product/create" element={<CreationProduct />}/>
-                        <Route path="purchases" element={<UserPurchases />}/>
-                        <Route path="purchases/:idPurchases" element={<ReadPurchases />}/>
+                        <Route path="purchases" element={<UserPurchasesView />}/>
+                        <Route path="purchases/:idPurchases" element={<ReadPurchasesView />}/>
                         <Route path="messages" element={<UserMessages />}/>
+                        <Route path="settings" element={<UserSettingsView />}/>
 
                     </Route>
                     <Route path="/auth/login" element={<SignInView />}/>
