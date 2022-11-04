@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import CreationShop from '../../components/CreationShop/CreationShop';
 import { languageUser } from '../../languageUser';
 import InputNumber from '../../components/InputNumber/InputNumber';
+import AdvertisingBlock from '../../components/AdvertisingBlock/AdvertisingBlock';
 
 
 
@@ -18,7 +19,9 @@ function UserShopView() {
     const shop = useSelector(state => state.userSlice.shop);
     const isNeedCreateShop = useSelector(state => state.userSlice.isNeedCreateShop);
     const isNeedUpdateShop = useSelector(state => state.userSlice.isNeedUpdateShop);
-    const [notFilledText, setNotFilledText] = useState('дані не вказано');
+    const [isInformationBlock, setIsInformationBlock] = useState(false);
+    // const [isAdvertisingBlock, setIsAdvertisingBlock] = useState(false);
+    const [notFilledText, setNotFilledText] = useState('');
     const [informationBlockTitle, setInformationBlockTitle] = useState('');
     const [informationBlockText, setInformationBlockText] = useState('');
     const [colorTitle, setColorTitle] = useState('');
@@ -39,7 +42,85 @@ function UserShopView() {
     const [shadowTextZ, setShadowTextZ] = useState('');
     const [shadowTextTransparency, setShadowTextTransparency] = useState('100');
     const dispatch = useDispatch();
-    // console.log('asdasdxfxxxxddd: ',informationBlockTitle)
+    const [filterTypeStore, setFilterTypeStore] = useState('');
+    const [otherTypeStore, setOtherTypeStore] = useState([]);
+    const [selectTypeStore, setSelectTypeStore] = useState([]);
+    const [typeStore, setTypeStore] = useState([
+        {id: 1, name: 'Ноутбуки и компьютеры'},
+        {id: 2, name: 'Компьютерные комплектующие і аксесуари'},
+        {id: 3, name: 'Оргтехніка'},
+        {id: 4, name: 'Смартфоны'},
+        // 'Ноутбуки и компьютеры',
+        // 'Компьютерные комплектующие і аксесуари', 
+        // 'Оргтехніка', 
+        // 'Смартфоны', 
+        // 'Планшети', 
+        // 'Телевізори',  
+        // 'Годиники',  
+        // 'Товари для геймерів',  
+        // 'Побутова техніка',  
+        // 'Електро техніка',  
+        // 'Електро інструменти',  
+        // 'Сантехніка',  
+        // 'Будівельні матеріали',  
+        // 'Дача, сад, огород',  
+        // 'Спортивні товари',  
+        // 'Рибалка',  
+        // 'Домашній текстиль',  
+        // 'Посуда',  
+        // 'Побутова хімія',  
+        // 'Мебель',  
+        // 'Освітлення',  
+        // 'Тренажери і фітнес',  
+        // 'Інвентарь для дому і офісу',  
+        // 'Зоотовари',  
+        // 'Ковані вироби',  
+        // 'Сувенірна продукція',  
+        // 'Хоббі, ручна робота',  
+        // 'Автотовари',  
+        // 'Одяг',  
+        // 'Жіночий одяг',  
+        // 'Чоловічий одяг',  
+        // 'Дитячий одяг',  
+        // 'Дитячі товари',  
+        // 'Дитяче харчування',  
+        // 'Взуття',  
+        // 'Рукзаки',  
+        // 'Товари для офісу, школи',  
+        // 'Книжки',  
+        // 'Косметика',  
+        // 'Товари гігієни',  
+        // 'Алкогольні напої і продукти',  
+        // 'Тютюнові вироби',  
+        // 'Електронні сигарети і аксесуари',  
+        // 'Бакалія',  
+        // 'Спортивна і здорова їжа',  
+        // 'Товари для бізнесу',  
+        // 'Складське обладнання',  
+        // 'Торгівельне обладнання',  
+    ]);
+    const [testShop, setTestShop] = useState([
+        {
+            id: 1,
+            name: 'Dnipro',
+            logo: shop?.logo,
+            productCount: '1540',
+            time: '2022',
+            typeStore: [1, 2],
+        },
+        {
+            id: 2,
+            name: 'Dnipro2',
+            logo: shop?.logo,
+            productCount: '8000',
+            time: '2021',
+            typeStore: [1, 2],
+        }
+    ]);
+
+    console.log('asdasdxfxxxxddd: ', shop)
+
+
 
     useEffect(() => {
         if (shop?.informationBlock?.length) {
@@ -61,8 +142,22 @@ function UserShopView() {
             setShadowTextZ(shop.informationBlock[0].shadowTextZ)
             setCheckTextAlign(shop.informationBlock[0].textAlign) 
             setShadowTextTransparency(shop.informationBlock[0].shadowTextTransparency) 
+
+            setIsInformationBlock(true)
+        }
+
+        if (shop?.typeStore?.length) {
+            // зробити запит на список фірм для реклами
+
+            setOtherTypeStore(typeStore.filter(el => !shop?.typeStore.includes(el.id)))
         }
     }, [shop])
+    
+    useEffect(() => {
+        if (selectedLanguage?.length) {
+            setNotFilledText(selectedLanguage?.userShopView?.userShopNotFilledText)
+        }
+    }, [selectedLanguage])
 
     const handleUpdate = () => {
         dispatch(setIsNeedUpdateShop(!isNeedUpdateShop)) 
@@ -76,7 +171,7 @@ function UserShopView() {
         }
     }
     
-    const handleCreateBlock = () => {
+    const handleCreateBlockInfo = () => {
         let data = {
             ...shop,
             informationBlock: [{
@@ -101,11 +196,12 @@ function UserShopView() {
             }],
             token: user.token,
         }
-
-       sendUpdateInformationBlock(data)
+        
+        sendUpdateShop(data)
+        setIsInformationBlock(true)
     }
     
-    const handleCleanBlock = () => {
+    const handleCleanBlockInfo = () => {
         setInformationBlockTitle('') 
         setInformationBlockText('') 
         setColorTitle('') 
@@ -130,10 +226,44 @@ function UserShopView() {
             token: user.token,
         }
 
-        sendUpdateInformationBlock(data)
+        sendUpdateShop(data)
+        setIsInformationBlock(false)
+    }
+
+    const handleCreateBlockAdvertising = () => {
+        // setIsAdvertisingBlock(true) 
+        if (selectTypeStore?.length) {
+            let data = {
+                ...shop,
+                typeStore: selectTypeStore,
+                token: user.token,
+            }
+
+            sendUpdateShop(data)
+        }
     }
     
-    const sendUpdateInformationBlock = (data) => {
+    const handleCleanBlockAdvertising = () => {
+        // setIsAdvertisingBlock(false) 
+        let data = {
+            ...shop,
+            typeStore: [],
+            token: user.token,
+        }
+
+        sendUpdateShop(data)
+        setSelectTypeStore([])
+    }
+   
+    const handleSelectTypeStore = (id) => {
+        if (selectTypeStore.includes(id)) {
+            setSelectTypeStore([...selectTypeStore.filter(el => el !== id)])
+        } else {
+            setSelectTypeStore([...selectTypeStore, id])
+        }
+    }
+    
+    const sendUpdateShop = (data) => {
         fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
             method: 'PUT',
             headers: {
@@ -144,7 +274,7 @@ function UserShopView() {
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
-                    // dispatch(setShop(data));
+                    dispatch(setShop(data));
                     toast.success('Дані оновлено', {
                         position: "bottom-right",
                         autoClose: 2500,
@@ -248,7 +378,7 @@ function UserShopView() {
                                         <button className='user-shop__btn' onClick={() => handleUpdate()}>{selectedLanguage?.userShopView?.userShopEditBtn}</button>
 
 
-                                        <div>
+                                        <div className="user-shop__section-wrap">
                                             <div className="user-shop__section-title">{selectedLanguage?.userShopView?.userShopBlockMainTitle}</div>
                                             
                                             <div className="user-shop__section">
@@ -361,9 +491,8 @@ function UserShopView() {
                                                 </div>
 
                                                 <div className='user-shop__section-btn-wrap'>
-                                                    <button className='user-shop__section-btn-add' onClick={() => handleCleanBlock()}>{selectedLanguage?.userShopView?.userShopBlockRemoveBtn}</button>
-                                                    {/* <button className='user-shop__section-btn-add' onClick={() => handleUpdate()}>{informationBlockTitle?.length || informationBlockTitle?.length ? 'Оновити' : 'Створити'}</button> */}
-                                                    <button className='user-shop__section-btn-add' onClick={() => handleCreateBlock()}>{selectedLanguage?.userShopView?.userShopBlockCreateBtn}</button>
+                                                    <button className='user-shop__section-btn' onClick={() => handleCleanBlockInfo()}>{selectedLanguage?.userShopView?.userShopBlockRemoveBtn}</button>
+                                                    <button className='user-shop__section-btn' onClick={() => handleCreateBlockInfo()}>{isInformationBlock ? selectedLanguage?.userShopView?.userShopBlockUpdateBtn : selectedLanguage?.userShopView?.userShopBlockCreateBtn}</button>
                                                     <div onClick={() => handleHelpOpen(1)} className='user-shop__section-btn-info-wrap'>
                                                         <div className={`user-shop__section-btn-info ${arrIsOpenInfo.includes(1) ? 'user-shop__section-btn-info--active' : ''}`}></div>
                                                     </div>
@@ -393,6 +522,77 @@ function UserShopView() {
                                                     </div>
                                                 </div> : ''
                                             }
+                                        </div>
+
+                                        <div className="user-shop__section-wrap">
+                                            <div className="user-shop__section-title">Блок реклами</div>
+                                            
+                                            <div className="user-shop__section user-shop__section-advertising">
+                                                <div className="user-shop__section-advertising-checkbox-wrap">
+                                                    {
+                                                        !!typeStore?.length &&  typeStore?.map(el => (
+                                                            <div className="user-shop__section-checkbox" key={el.id}><input onChange={() => handleSelectTypeStore(el.id)} checked={shop?.typeStore.includes(el.id) ? true : false} type="checkbox" name={el.name} id={el.id + el.name}/><label className="user-shop__section-checkbox-label" htmlFor={el.id + el.name}>{el.name}{el.id}</label></div>
+                                                        ))
+                                                    }
+                                                </div>
+
+                                                <div className='user-shop__section-btn-wrap'>
+                                                    <div className='user-shop__section-btn-add-wrap'>
+                                                        <button className='user-shop__section-btn' onClick={() => handleCleanBlockAdvertising()}>{selectedLanguage?.userShopView?.userShopBlockRemoveBtn}</button>
+                                                        <button className='user-shop__section-btn' onClick={() => handleCreateBlockAdvertising()}>{shop?.typeStore?.length ? selectedLanguage?.userShopView?.userShopBlockUpdateBtn : selectedLanguage?.userShopView?.userShopBlockCreateBtn}</button>
+                                                    </div>
+                                                    <div onClick={() => handleHelpOpen(2)} className='user-shop__section-btn-info-wrap'>
+                                                        <div className={`user-shop__section-btn-info ${arrIsOpenInfo.includes(2) ? 'user-shop__section-btn-info--active' : ''}`}></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className={`user-shop__section-info ${arrIsOpenInfo.includes(2) ? 'user-shop__section-info--active' : ''}`}>
+                                                <p>Виберіть ті категорії до яких відноситься ваш магазин. Відповідно в блоці реклами будуть тільки ті магазини, які не мають вибраної такоїж категорії. Чим більше вибраних категорій, тим менше магазинів відображатиметься. Менше магазинів - значить менше конкурентів, но і менше шансів залучити нових клієнтів з інших магазинів.</p>
+                                            </div>
+
+                                            {
+                                                !!shop?.typeStore?.length && <AdvertisingBlock />
+                                                    // <div>
+                                                    //     <div className='user-shop__advertising-title'>Вигляд блоку реклами</div>
+                                                    //     <div className='user-shop__advertising'>
+                                                    //         <div className='user-shop__advertising-filter-wrap'>
+                                                    //             <div className='user-shop__advertising-filter'>
+                                                    //                 <span className='user-shop__advertising-filter-title'>Вибрати категорію&nbsp;</span>
+                                                    //                 <select onChange={(e) => setFilterTypeStore(e.target.value)} value={filterTypeStore}>
+                                                    //                     {
+                                                    //                         otherTypeStore?.length && otherTypeStore.map(el => (
+                                                    //                             <option value={el.id} key={el.id}>{el.name}</option>
+                                                    //                         ))
+                                                    //                     }
+                                                    //                 </select>
+                                                    //             </div>
+                                                    //         </div>
+                                                    //         <div className='user-shop__advertising-items'>
+                                                    //             <div className='user-shop__advertising-items-title'>
+                                                    //                 <span className='user-shop__advertising-items-title-name'>Назва магазину</span>
+                                                    //                 <span className='user-shop__advertising-items-title-logo'>Логотип</span>
+                                                    //                 <span className='user-shop__advertising-items-title-time-wrap'>
+                                                    //                     <span className='user-shop__advertising-items-title-time'>Дата створення</span>
+                                                    //                     <span className='user-shop__advertising-items-title-count'>Кількість товарів</span>
+                                                    //                 </span>
+                                                    //             </div>
+                                                    //             {
+                                                    //                 !!testShop?.length && testShop.map((el, index) => (
+                                                    //                     <div className='user-shop__advertising-item' key={el.id}>
+                                                    //                         <span className='user-shop__advertising-item-name-wrap'>{index + 1}&nbsp;<span className='user-shop__advertising-item-name'>{el.name}</span></span>
+                                                    //                         <img className='user-shop__advertising-item-img' src={shop?.logo} alt='img'/>
+                                                    //                         <span className='user-shop__advertising-item-info'>
+                                                    //                             <span>{el.time}</span>
+                                                    //                             <span>{el.productCount}</span>
+                                                    //                         </span>
+                                                    //                     </div>
+                                                    //                 ))
+                                                    //             }
+                                                    //         </div>
+                                                    //     </div>
+                                                    // </div>
+                                            }
+                                            
                                         </div>
 
                                     </div>

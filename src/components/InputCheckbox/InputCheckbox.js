@@ -20,7 +20,7 @@ function InputCheckbox({handleChange, checkboxArr, id}) {
     return (
         <div className="input-checkbox">
             {
-                checkboxArr?.map(el => (<div className="input-checkbox__item"><input onChange={() => handleSelect(el)} type="checkbox" key={el} name={el} id={id+el}/><label htmlFor={id+el}>{el}</label></div>))
+                checkboxArr?.map(el => (<div className="input-checkbox__item" key={el} ><input onChange={() => handleSelect(el)} type="checkbox" name={el} id={id+el}/><label htmlFor={id+el}>{el}</label></div>))
             }
         </div>
     );
