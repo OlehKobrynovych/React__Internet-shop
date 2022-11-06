@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay} from "swiper";
+import AdvertisingBlock from '../../components/AdvertisingBlock/AdvertisingBlock';
 
 
 
@@ -23,7 +24,7 @@ function HomeView() {
     const [productsOld, setProductsOld] = useState([]);
     // const dispatch = useDispatch();
     // debugger
-    // console.log(products)
+    console.log(shop)
     // console.log(productsNew)
     // console.log(productsOld)
     
@@ -83,7 +84,11 @@ function HomeView() {
 
                                     {
                                         !!shop?.informationBlock?.length && shop?.informationBlock.map(el => (
-                                            <div className='home-view__information-block' style={{background: `${el.colorBackground}`}}>
+                                            <NavLink
+                                                to={el.description?.length ? `/${shop.name}/advertisement` : ''}
+                                                className={`home-view__information-block ${shop?.informationBlock[0]?.description?.length ? '' : 'home-view__information-block-not-active'}`} 
+                                                style={{background: `${el.colorBackground}`}}
+                                            >
                                                 <div 
                                                     className='home-view__information-block-title' 
                                                     style={{color: `${el.colorTitle}`, fontSize: `${el.sizeTitle}px`, fontWeight: `${el.fontWeightTitle}`, textShadow: `${el.shadowTitleX}px ${el.shadowTitleY}px ${el.shadowTitleZ}px rgb(0 0 0 / ${el.shadowTitleTransparency}%)`}}
@@ -96,7 +101,7 @@ function HomeView() {
                                                 >
                                                     {el.text}
                                                 </div>
-                                            </div>
+                                            </NavLink>
                                         ))
                                     }
 
@@ -108,6 +113,10 @@ function HomeView() {
                         
                         {
                             !!productsNew.length && (<SwiperCards title={selectedLanguage?.homePage?.titleSwiperDiscounts} products={productsNew}/>)
+                        }
+
+                        {
+                            shop?.typeStore?.length && <AdvertisingBlock />
                         }
                         
                     </div>

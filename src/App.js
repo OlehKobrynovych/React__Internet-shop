@@ -18,6 +18,7 @@ import SearchProductView from './views/SearchProductView/SearchProductView';
 import UserMessages from './components/UserMessages/UserMessages';
 import UserShopView from './views/UserShopView/UserShopView';
 import UserSettingsView from './views/UserSettingsView/UserSettingsView';
+import AdvertisementShopView from './views/AdvertisementShopView/AdvertisementShopView';
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
 const ProductFilterView = React.lazy(() => import('./views/ProductFilterView/ProductFilterView'));
 const AboutUsView = React.lazy(() => import('./views/AboutUsView/AboutUsView'));
@@ -69,6 +70,7 @@ function App() {
                         <Route path="wishlist" element={<WishListView />} />
                         <Route path="cart" element={<ShoppingCartView />} />
                         <Route path="about" element={<AboutUsView />} />
+                        <Route path="advertisement" element={<AdvertisementShopView />} />
                         <Route path="*" element={<PageNotFoundView />} />
                     </Route>
                 </Routes>

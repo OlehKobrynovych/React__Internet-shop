@@ -28,10 +28,20 @@
 }
 
 .home-view__information-block {
+    width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    transition: .3s;
+}
+
+.home-view__information-block:hover {
+    box-shadow: 5px 5px 30px rgb(0 0 0 / 50%);
+}
+
+.home-view__information-block-not-active {
+    cursor: auto;
 }
 
 .home-view__information-block-title {

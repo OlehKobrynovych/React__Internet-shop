@@ -13,6 +13,7 @@ import ModalWindow from '../../components/ModalWindow/ModalWindow';
 import InputText from '../../components/InputText/InputText';
 import PurchasesEditeArr from '../../components/PurchasesEditeArr/PurchasesEditeArr';
 import InputTextarea from '../../components/InputTextarea/InputTextarea';
+import InputNumber from '../../components/InputNumber/InputNumber';
 
 
 function ReadPurchasesView () {
@@ -340,7 +341,8 @@ function ReadPurchasesView () {
 
             {
                 isModalEditProductCount && <ModalWindow title={selectedLanguage?.readPurchasesView?.readPurchasesModEditTitle} text={selectedLanguage?.readPurchasesView?.readPurchasesModEditText} handleClick={handleIsEditProductCount} leftBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditLeftBtn} rightBtn={selectedLanguage?.readPurchasesView?.readPurchasesModEditRightBtn}>
-                                            <InputText setValue={setNewCount} value={newCount} id={'readPurchasesnewCount'} name={'readPurchasesnewCount'} label={''} />
+                                            {/* <InputText setValue={setNewCount} value={newCount} id={'readPurchasesnewCount'} name={'readPurchasesnewCount'} label={''} /> */}
+                                            <InputNumber label={''} id={"readPurchasesnewCount"} name={"readPurchasesnewCount"} value={newCount} setValue={setNewCount} min={'1'}/>
                                           </ ModalWindow>
             }
            

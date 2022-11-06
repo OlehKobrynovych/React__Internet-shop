@@ -1,4 +1,113 @@
+.advertising-block {
+    max-height: 500px;
+    overflow: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+.advertising-block--wrap {
+    border-top: 1px solid rgb(151 153 157);
+    border-left: 1px solid rgb(151 153 157);
+    border-right: 1px solid rgb(151 153 157);
+}
+
+.advertising-block__filter-wrap {
+}
+
+.advertising-block__filter {
+    padding: 10px 15px;
+    background: #e8e9e1;
+}
+
+.advertising-block__filter-title {
+    font-weight: 700;
+}
+
+.advertising-block__items {
+    border-top: 1px solid rgb(151 153 157);
+}
+
+.advertising-block__items-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 3px 4px 10px;
+    background: #e8e9e1;
+    border-bottom: 1px solid rgb(151 153 157);
+    font-weight: 700;
+}
+
+.advertising-block__items-title-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 177px;
+}
+
+.advertising-block__items-title-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.advertising-block__items-title-time-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 170px;
+}
+
+.advertising-block__items-title-time {
+
+}
+
+.advertising-block__items-title-count {
+    text-align: center;
+}
+
+
+.advertising-block__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid rgb(151 153 157);
+    background: #e8e9e1;
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    transition: .3s;
+}
+
+.advertising-block__item:hover {
+    box-shadow: 5px 4px 6px rgb(0 0 0 / 92%);
+}
+
+.advertising-block__item-name-wrap {
+    width: 170px;
+    overflow: auto;
+}
+
+.advertising-block__item-name {
+    font-weight: 700;
+}
+
+.advertising-block__item-img {
+    max-width: 150px;
+}
+
+.advertising-block__item-info {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+}
+
+.advertising-block__text-error {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #e8e9e1;
+}
 
 @media (min-width: 576px) {
 
