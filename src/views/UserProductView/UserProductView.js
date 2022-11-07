@@ -28,20 +28,27 @@ function UserProductView() {
     const [deleteId, setDeleteId] = useState('');
     const [seachName, setSeachName] = useState('');
     const [filterProducts, setFilterProducts] = useState([]);
-    const [selectedSort, setSelectedSort] = useState(selectedLanguage?.userProduct?.userProductSortOptionAll);
+    const [selectedSort, setSelectedSort] = useState('');
+    const [isWithoutCategory, setIsWithoutCategory] = useState(false);
     const [isOpenSelect, setIsOpenSelect] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
+    // console.log(selectedLanguage)
     // console.log(selectedSort)
     
     
+    useEffect(() => {
+        if (selectedLanguage?.userProduct) {
+            setSelectedSort(selectedLanguage.userProduct.userProductSortOptionAll)
+        }
+    }, [selectedLanguage]);
+
     useEffect(() => {
         if (products?.length) {
             setFilterProducts([...products])
         }
     }, [products]);
-     
 
     useEffect(() => {
         if (shop?._id) {
@@ -94,6 +101,7 @@ function UserProductView() {
             setSelectedSort(selectedLanguage?.userProduct?.userProductSortOptionAll)
         } else {
             setSelectedSort(category.name)
+            setIsWithoutCategory(false)
 
             fetch(`${process.env.REACT_APP_BASE_URL}/products/${category._id}/category`)
                 .then(res => res.json())
@@ -188,6 +196,28 @@ function UserProductView() {
         setDeleteId('')
     }
 
+    const handleWithoutCategory = () => {
+
+        // доробити
+        setSelectedSort(selectedLanguage.userProduct.userProductSortOptionAll)
+        setIsWithoutCategory(!isWithoutCategory)
+        // :id/shop/non-category
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/shop/non-category`)
+        .then(res => res.json())
+        // console.log('asdasd111 ')
+        .then(res => {
+            // console.log('asdasd111 ', res)
+            if (res.success && res.data.length) {
+                console.log('asdasd222 ', res)
+                // setFilterProducts(res.data)
+                // dispatch(getProducts(res.data));
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+    }
+
     return (
         <div className='user-product'>
             {
@@ -218,6 +248,12 @@ function UserProductView() {
                             placeholder={selectedLanguage?.userProduct?.userProductSearchPlaceholder}
                         />
                     </div>
+
+                    <button className='user-product__sub-title-btn' onClick={handleWithoutCategory}>
+                        {
+                            isWithoutCategory ? 'Вибрати все товари' : 'Вибрати товар без категорії' 
+                        }
+                    </button>
 
                     <div className="user-product__sort-wrap">
                         <span className="user-product__sort-label">{selectedLanguage?.userProduct?.userProductSortLabel}</span>

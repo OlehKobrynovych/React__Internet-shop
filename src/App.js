@@ -15,10 +15,11 @@ import UserPurchasesView from './views/UserPurchasesView/UserPurchasesView';
 import ReadPurchasesView from './views/ReadPurchasesView/ReadPurchasesView';
 import UserAnalytics from './components/UserAnalytics/UserAnalytics';
 import SearchProductView from './views/SearchProductView/SearchProductView';
-import UserMessages from './components/UserMessages/UserMessages';
+import UserNotifications from './components/UserNotifications/UserNotifications';
 import UserShopView from './views/UserShopView/UserShopView';
 import UserSettingsView from './views/UserSettingsView/UserSettingsView';
 import AdvertisementShopView from './views/AdvertisementShopView/AdvertisementShopView';
+import ReadNotificationsView from './views/ReadNotificationsView/ReadNotificationsView';
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
 const ProductFilterView = React.lazy(() => import('./views/ProductFilterView/ProductFilterView'));
 const AboutUsView = React.lazy(() => import('./views/AboutUsView/AboutUsView'));
@@ -55,7 +56,8 @@ function App() {
                         <Route path="product/create" element={<CreationProduct />}/>
                         <Route path="purchases" element={<UserPurchasesView />}/>
                         <Route path="purchases/:idPurchases" element={<ReadPurchasesView />}/>
-                        <Route path="messages" element={<UserMessages />}/>
+                        <Route path="notifications" element={<UserNotifications />}/>
+                        <Route path="notifications/:idNotifications" element={<ReadNotificationsView />}/>
                         <Route path="settings" element={<UserSettingsView />}/>
 
                     </Route>

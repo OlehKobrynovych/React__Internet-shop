@@ -6,6 +6,7 @@ const initialState = {
   categories: [],
   products: [],
   purchases: [],
+  notifications: [],
   editProduct: {},
   isNeedCreateShop: false,
   isNeedUpdateShop: false,
@@ -35,6 +36,9 @@ export const userSlice = createSlice({
     getPurchases: (state, action) => {
       state.purchases = action.payload;
     },
+    getNotifications: (state, action) => {
+      state.notifications = action.payload;
+    },
     setStatusPurchases: (state, action) => {
       state.purchases = state.purchases.map(el => {
         if (el._id == action.payload._id) {
@@ -51,8 +55,24 @@ export const userSlice = createSlice({
         return el
       });
     },
+    setSeenNotifications: (state, action) => {
+      state.notifications = state.notifications.map(el => {
+        if (el._id == action.payload._id) {
+          el.isSeen = true
+        } 
+        return el
+      });
+    },
     setFavoritePurchases: (state, action) => {
       state.purchases = state.purchases.map(el => {
+        if (el._id == action.payload._id) {
+          el.favorite = action.payload.favorite
+        } 
+        return el
+      });
+    },
+    setFavoriteNotifications: (state, action) => {
+      state.notifications = state.notifications.map(el => {
         if (el._id == action.payload._id) {
           el.favorite = action.payload.favorite
         } 
@@ -139,6 +159,6 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setUser, setShop, getCategories, getProducts, getPurchases, setStatusPurchases, setFavoritePurchases, setSeenPurchases,  setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput, setUserLanguage, setSelectedLanguage } = userSlice.actions
+export const { setUser, setShop, getCategories, getProducts, getPurchases, getNotifications, setStatusPurchases, setFavoritePurchases, setFavoriteNotifications, setSeenPurchases, setSeenNotifications,  setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput, setUserLanguage, setSelectedLanguage } = userSlice.actions
 
 export default userSlice.reducer

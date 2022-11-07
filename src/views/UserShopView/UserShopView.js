@@ -469,7 +469,7 @@ function UserShopView() {
                                                 <div className="user-shop__section-advertising-checkbox-wrap">
                                                     {
                                                         !!userTypeStore[shop?.language]?.length &&  userTypeStore[shop?.language]?.map(el => (
-                                                            <div className="user-shop__section-checkbox" key={el.id}><input onChange={() => handleSelectTypeStore(el.id)} checked={shop?.typeStore.includes(el.id) || selectTypeStore.includes(el.id) ? true : false} type="checkbox" name={el.name} id={el.id + el.name}/><label className="user-shop__section-checkbox-label" htmlFor={el.id + el.name}>{el.name}</label></div>
+                                                            <div className="user-shop__section-checkbox" key={el.id}><input onChange={() => handleSelectTypeStore(el.id)} checked={shop?.typeStore?.includes(el.id) || selectTypeStore.includes(el.id) ? true : false} type="checkbox" name={el.name} id={el.id + el.name}/><label className="user-shop__section-checkbox-label" htmlFor={el.id + el.name}>{el.name}</label></div>
                                                         ))
                                                     }
                                                 </div>

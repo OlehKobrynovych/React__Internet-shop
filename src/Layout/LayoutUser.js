@@ -16,6 +16,7 @@ function LayoutUser() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [isModalWindow, setModalWindow] = useState(false);
     const [purchasesLength, setPurchasesLength] = useState(null);
+    const [notificationsLength, setNotificationsLength] = useState(null);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function LayoutUser() {
     // const navigate = useNavigate();
     // let { userId } = useParams();
     // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
-    console.log(selectedLanguage)
+    console.log(user)
 
     useEffect(() => {
         if (!user.email) {
@@ -100,6 +101,19 @@ function LayoutUser() {
                 .catch((error) => {
                     console.error('Error:', error);
                 })
+            
+            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/number?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        setNotificationsLength(res.data)
+                    } else {
+                        console.log('GET LayoutUser:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
 
             fetch(`${process.env.REACT_APP_BASE_URL}/categories/${shop._id}/all`)
                 .then(res => res.json())
@@ -150,7 +164,7 @@ function LayoutUser() {
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>{selectedLanguage?.layoutUser?.layoutLinkCategories}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>{selectedLanguage?.layoutUser?.layoutLinkProducts}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>{selectedLanguage?.layoutUser?.layoutLinkOrders}</NavLink>
-                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/messages`}>{selectedLanguage?.layoutUser?.layoutLinkMessage}</NavLink>
+                    <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/notifications`}>{selectedLanguage?.layoutUser?.layoutLinkMessage}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/settings`}>{selectedLanguage?.layoutUser?.layoutLinkSettings}</NavLink>
                     <button onClick={() => setModalWindow(!isModalWindow)} className='layout-user__sidenav-link'>{selectedLanguage?.layoutUser?.layoutLinkExit}</button>
                 </div>
@@ -165,9 +179,9 @@ function LayoutUser() {
 
                         <div className='layout-user__header-btn--wrap'>
                             <div className='layout-user__header-btn-message'>
-                                <NavLink to={`/auth/${user._id}/messages`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
+                                <NavLink to={`/auth/${user._id}/notifications`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
                                 {
-                                    purchasesLength && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
+                                    notificationsLength && <div className='layout-user__header-btn-message-circle'>{notificationsLength}</div>
                                 }
                             </div>
                             

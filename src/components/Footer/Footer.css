@@ -7,10 +7,24 @@
 }
 
 .footer__modal-input-label {
+    position: relative;
     display: block;
     font-size: 16px;
+    font-weight: 700;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.footer__modal-input-label-tel {
+
+}
+
+.footer__modal-input-label-tel::after {
+    content: '*';
+    position: absolute;
+    top: 0;
+    right: 147px;
+    color: #E31E24;
 }
 
 .footer__modal-input {

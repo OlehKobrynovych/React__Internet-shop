@@ -10,6 +10,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import ModalWindow from '../ModalWindow/ModalWindow';
+import { toast } from 'react-toastify';
 
 function Footer() {
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
@@ -17,9 +18,10 @@ function Footer() {
     const categories = useSelector(state => state.homeSlice.categories);
     const [isModalCallMe, setIsModalCallMe] = useState(false);
     const [contactNumber, setContactNumber] = useState('');
-    const [comentar, setComentar] = useState('');
+    const [comment, setcomment] = useState('');
     const [mail, setMail] = useState('');
     const mailRef = useRef(null);
+    const telRef = useRef(null);
 
     // const [isOpen, setIsOpen] = useState(false);
     // const navigate = useNavigate();
@@ -27,22 +29,94 @@ function Footer() {
 
     const handleIsCallMe = (boolean) => {
         if (boolean) {
-            // відправка повідомлення доробити
-        }   else {
+            if (contactNumber?.length) {
+                let data = {
+                    shop_id: shop._id,
+                    phone: contactNumber,
+                    comment: comment,
+                    isSeen: false,
+                    favorite: false,
+                    status: 'callBack',
+                    email: '',
+                    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NzgxNDIyNCwiZXhwIjoxNjY3ODMyMjI0fQ.kk_HRTyNvASZUrJtaOMxUVA1msGtAt0h5IHnc514zfk',                // відправка токена звідки брати для покупців?
+                }
+    
+                sendCreation(data)
+
+                setContactNumber('')
+                setcomment('')
+                setIsModalCallMe(!isModalCallMe)
+            } else {
+                telRef.current.focus()
+            }
+        } else {
             setContactNumber('')
-            setComentar('')
-            setIsModalCallMe(!isModalCallMe)
-        }
+            setcomment('')
+            setIsModalCallMe(!isModalCallMe) 
+        } 
     };
    
     const handleSendMail = () => {
         if (mail?.length) {
             // відправка повідомлення доробити
+            let data = {
+                shop_id: shop._id,
+                phone: '',
+                comment: '',
+                isSeen: false,
+                favorite: false,
+                status: 'subscription',
+                email: mail,
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NzgxNDIyNCwiZXhwIjoxNjY3ODMyMjI0fQ.kk_HRTyNvASZUrJtaOMxUVA1msGtAt0h5IHnc514zfk',                // відправка токена звідки брати для покупців?
+            }
+
+            sendCreation(data)
             setMail('')
         }   else {
             mailRef.current.focus()
         }
     };
+
+    const sendCreation = (data) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/notifications/`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data._id) {
+                    // console.log('POST Footer:', res)
+                    toast.success('Повідомлення відправлено', {
+                        position: "bottom-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                } else {
+                    console.log('POST Footer:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                toast.error('Сталася помилка', {
+                    position: "bottom-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            })
+    }
 
     // useEffect(() => {
     //     setShopCategories(categories.filter(el => el.parent_id == 'null'))
@@ -53,8 +127,8 @@ function Footer() {
 
             {
                 isModalCallMe && <ModalWindow title={'Вкажіть свій телефон'}  text={'Ми обов\'язково передзвонимо'} handleClick={handleIsCallMe} leftBtn={"Відмінити"} rightBtn={"Підтвердити"}>
-                                        <label className='footer__modal-input-label' htmlFor="contactNumber">
-                                            <b>Телефон для контакту</b>
+                                        <label className='footer__modal-input-label footer__modal-input-label-tel' htmlFor="contactNumber">
+                                            Телефон для контакту
                                         </label>
                                         <input
                                             id="contactNumber"
@@ -66,17 +140,18 @@ function Footer() {
                                             onChange={(e) => setContactNumber(e.target.value)}
                                             value={contactNumber}
                                             placeholder="Телефон..."
+                                            ref={telRef}
                                         />
-                                        <label className='footer__modal-input-label' htmlFor="comentar">
-                                            <b>Залиште коментар</b>
+                                        <label className='footer__modal-input-label' htmlFor="comment">
+                                            Залиште коментар
                                         </label>
                                         <textarea
-                                            id="comentar"
-                                            name="comentar"
+                                            id="comment"
+                                            name="comment"
                                             type="text"
                                             className='footer__modal-textarea'
-                                            onChange={(e) => setComentar(e.target.value)}
-                                            value={comentar}
+                                            onChange={(e) => setcomment(e.target.value)}
+                                            value={comment}
                                             placeholder="Коментар..."
                                             rows="5" 
                                             cols="40"

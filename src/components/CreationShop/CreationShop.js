@@ -103,6 +103,7 @@ function CreationShop() {
             deliveryMethods: deliveryMethods,
             paymentMethods: paymentMethods,
             descriptionShop: descriptionShop,
+            typeStore: shop.typeStore,
             token: user.token,
         }
 

@@ -80,14 +80,14 @@
 
 .user-product__sort-wrap {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .user-product__sort-label {
     display: inline-block;
     margin-right: 10px;
     font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .user-product__sort-select-wrap {
@@ -140,9 +140,11 @@
     gap: 5px;
     flex-direction: column;
     right: 0;
+    top: 30px;
     padding-right: 8px;
     opacity: 0;
     text-align: end;
+    z-index: -1;
     transition: .3s;
 }
 
