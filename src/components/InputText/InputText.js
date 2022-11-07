@@ -18,7 +18,7 @@ function InputText({setValue, value, id, label, name, placeholder=''}) {
     return (
         <div className="input-text--wrap">
             <label className='input-text__label' htmlFor={id}>
-                <b>{label}</b>
+                {label}
             </label>
             <input
                 id={id}

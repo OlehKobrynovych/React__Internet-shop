@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './UserSettingsView.css';
 import { languageUser } from '../../languageUser';
-import { useDispatch } from 'react-redux';
-import { setSelectedLanguage } from '../../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedLanguage, setShop } from '../../store/userSlice';
 
 
 
 function UserSettingsView() {
+    const shop = useSelector(state => state.userSlice.shop);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isOpenSelect, setIsOpenSelect] = useState(false);
@@ -27,6 +28,7 @@ function UserSettingsView() {
     const handleClick = (str) => {
         setLanguage(str)
         dispatch(setSelectedLanguage(languageUser[str]));
+        dispatch(setShop({...shop, language: str}));
         localStorage.setItem('userLanguage', JSON.stringify(str));
         setIsOpenSelect(false)
     }

@@ -51,8 +51,10 @@
 
 .advertising-block__items-title-time-wrap {
     display: flex;
+    gap: 10px;
     justify-content: space-between;
     width: 170px;
+    margin-right: 15px;
 }
 
 .advertising-block__items-title-time {
@@ -60,9 +62,23 @@
 }
 
 .advertising-block__items-title-count {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+    align-items: center;
 }
 
+.advertising-block__items-count-btn {
+    width: 25px;
+    height: 25px;
+    transform: rotate(90deg);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.advertising-block__items-count-btn-down {
+    transform: rotate(-90deg);
+}
 
 .advertising-block__item {
     display: flex;

@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './AdvertisingBlock.css';
 // import { userTypeStore } from '../userTypeStore';
+import arrow from '../../assets/images/arrow.svg';
+
 import { userTypeStore } from '../../userTypeStore';
 
 
@@ -14,10 +16,10 @@ function AdvertisingBlock() {
     const [otherTypeStore, setOtherTypeStore] = useState([]);
     const navigate = useNavigate();
     const [filterShop, setFilterShop] = useState([])
+    const [isSort, setIsSort] = useState(true)
 
     // console.log(filterShop)
     // console.log(filterTypeStore)
-    // console.log(otherTypeStore)
 
     const [testShop, setTestShop] = useState([
         {
@@ -45,29 +47,34 @@ function AdvertisingBlock() {
                 setFilterShop([...testShop])
             }
 
+            setFilterTypeStore('0')
+
             if (shopUser?._id) {
                 setShop(shopUser)
-                setOtherTypeStore(userTypeStore[shopUser.language].filter(el => !shopUser?.typeStore?.includes(el.id)))
+                setOtherTypeStore(userTypeStore[shopUser?.language].filter(el => !shopUser?.typeStore?.includes(el.id)))
             } else {
                 setShop(shopStore)
-                setOtherTypeStore(userTypeStore[shopStore.language].filter(el => !shopStore?.typeStore?.includes(el.id)))
+                setOtherTypeStore(userTypeStore[shopStore?.language].filter(el => !shopStore?.typeStore?.includes(el.id)))
             }
 
     }, [])
    
     useEffect(() => {
-        if (filterTypeStore) {
-            let res = testShop.filter(el => el.typeStore.includes(filterTypeStore))
-            setFilterShop(res)
-        } else {
-            setFilterShop([...testShop])
-        }
+            if (filterTypeStore == '0') {
+                setFilterShop([...testShop])
+            } else {
+                let res = testShop.filter(el => el.typeStore.includes(filterTypeStore))
+                setFilterShop(res)
+            }
     }, [filterTypeStore])
-
-
-    // const handleClick = () => {
-    //     navigate(`/${shop.name}/cart`)
-    // };
+   
+    useEffect(() => {
+        if (isSort) {
+            setFilterShop([...filterShop.sort((a, b) => a.productCount - b.productCount)])
+        } else {
+            setFilterShop([...filterShop.sort((a, b) => b.productCount - a.productCount)])
+        }
+    }, [isSort])
 
     return (
         <>
@@ -79,6 +86,7 @@ function AdvertisingBlock() {
                                 <div className='advertising-block__filter'>
                                     <span className='advertising-block__filter-title'>Вибрати категорію&nbsp;</span>
                                     <select onChange={(e) => setFilterTypeStore(Number(e.target.value))} value={filterTypeStore}>
+                                        <option value='0'>Вибрати всі</option> 
                                         {
                                             otherTypeStore?.length && otherTypeStore.map(el => (
                                                 <option value={el.id} key={el.id}>{el.name}</option>
@@ -93,7 +101,10 @@ function AdvertisingBlock() {
                                     <span className='advertising-block__items-title-logo'>Логотип</span>
                                     <span className='advertising-block__items-title-time-wrap'>
                                         <span className='advertising-block__items-title-time'>Дата створення</span>
-                                        <span className='advertising-block__items-title-count'>Кількість товарів</span>
+                                        <span className='advertising-block__items-title-count'>
+                                            <span>Кількість товарів</span>
+                                            <img className={`advertising-block__items-count-btn ${isSort ? '' : 'advertising-block__items-count-btn-down'}`} onClick={() => setIsSort(!isSort)} src={arrow} alt='img'/>
+                                        </span>
                                     </span>
                                 </div>
                                 {
@@ -107,6 +118,7 @@ function AdvertisingBlock() {
                                             <img className='advertising-block__item-img' src={shop?.logo} alt='img'/>
                                             <span className='advertising-block__item-info'>
                                                 <span>{el.time}</span>
+                                                {/* <span>{el.quantityProducts}</span> */}
                                                 <span>{el.productCount}</span>
                                             </span>
                                         </NavLink>

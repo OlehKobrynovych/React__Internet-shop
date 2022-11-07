@@ -4,6 +4,10 @@
     gap: 5px;
 }
 
+.input-number__label {
+    font-weight: 700;
+}
+
 .input-number__input {
     padding: 10px 20px;
     max-width: 100px;

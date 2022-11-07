@@ -136,7 +136,7 @@ function CreationShop() {
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({...data, creationTime: new Date().toLocaleString()}),
+                body: JSON.stringify({...data, creationTime: new Date().toLocaleString(), quantityProducts: 0}),
             })
                 .then(res => res.json())
                 .then(res => {

@@ -24,6 +24,30 @@
 .creation-product__section-input-wrap {
 
 }
+
+.creation-product__section-input-name {
+    position: relative;
+}
+
+.creation-product__section-input-price {
+    position: relative;
+}
+
+.creation-product__section-input-name .input-text__label::after {
+    content: '*';
+    position: absolute;
+    top: 0;
+    right: 102px;
+    color: #E31E24;
+}
+
+.creation-product__section-input-price .input-number__label::after {
+    content: '*';
+    position: absolute;
+    top: 0;
+    right: 56px;
+    color: #E31E24;
+}
   
 .creation-product__section-input-label {
     display: block;
@@ -124,6 +148,7 @@
 
 .creation-product__section-title-text {
     font-size: 23px;
+    margin-left: 10px;
 }
 
 .creation-product__section-seach-input {

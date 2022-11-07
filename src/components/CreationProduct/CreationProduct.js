@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './CreationProduct.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditProduct, setIsCleanInput, setProduct, setUpdataProduct } from '../../store/userSlice';
+import { setEditProduct, setIsCleanInput, setProduct, setShop, setUpdataProduct } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import InputText from '../InputText/InputText';
 import {  toast } from 'react-toastify';
@@ -173,6 +173,32 @@ function CreationProduct() {
                         console.error('Error:', error);
                         showMessage('error', 'Сталася помилка')
                     })
+
+
+                    let data2 = {
+                        ...shop,
+                        quantityProducts: shop?.quantityProducts + 1,
+                        token: user.token,
+                    }
+
+                    fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
+                        method: 'PUT',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data2),
+                    })
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res.success && res.data) {
+                                dispatch(setShop(data2));
+                            } else {
+                                console.log('PUT CreationProduct:', res)
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        })
             }
     
             setName('')
@@ -224,7 +250,9 @@ function CreationProduct() {
             <div className='creation-product--wrap container'>
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <InputText setValue={setName} value={name} id={'creationProductName'} name={'creationProductName'} label={selectedLanguage?.creationProduct?.creationProductNameLabel}/>
+                        <div className="creation-product__section-input-name">
+                            <InputText setValue={setName} value={name} id={'creationProductName'} name={'creationProductName'} label={selectedLanguage?.creationProduct?.creationProductNameLabel}/>
+                        </div>
                     </div>
                     <div onClick={() => handleHelpOpen(1)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(1) ? 'creation-product__section-btn--active' : ''}`}></div>
@@ -286,7 +314,9 @@ function CreationProduct() {
 
                 <div className="creation-product__section">
                     <div className="creation-product__section-input-wrap">
-                        <InputNumber label={selectedLanguage?.creationProduct?.creationProductPriceLabel} id={"creationProductPrice"} name={"creationProductPrice"} value={price} setValue={setPrice} min={'0'}/>
+                        <div className="creation-product__section-input-price">
+                            <InputNumber label={selectedLanguage?.creationProduct?.creationProductPriceLabel} id={"creationProductPrice"} name={"creationProductPrice"} value={price} setValue={setPrice} min={'0'}/>
+                        </div>
                     </div>
                     <div onClick={() => handleHelpOpen(3)} className='creation-product__section-btn-wrap'>
                         <div className={`creation-product__section-btn ${isOpenInfo.includes(3) ? 'creation-product__section-btn--active' : ''}`}></div>

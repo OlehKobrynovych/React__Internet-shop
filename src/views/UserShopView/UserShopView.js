@@ -46,7 +46,7 @@ function UserShopView() {
     const [shadowTextTransparency, setShadowTextTransparency] = useState('100');
     const dispatch = useDispatch();
     const [selectTypeStore, setSelectTypeStore] = useState([]);
-    // console.log('asdasdxfxxxxddd: ', shop)
+    console.log('asdasdxfxxxxddd: ', shop)
 
 
     useEffect(() => {
@@ -334,8 +334,7 @@ function UserShopView() {
                                                     />
                                                     
                                                     <label className='user-shop__section-input-label' htmlFor="informationBlockDescription">
-                                                        {/* <b>{selectedLanguage?.userShopView?.userShopBlockText}</b> */}
-                                                        <b>Опис акції</b>
+                                                        <b>{selectedLanguage?.userShopView?.userShopBlockDescription}</b>
                                                     </label>
                                                     <textarea
                                                         id="informationBlockDescription"
@@ -469,7 +468,7 @@ function UserShopView() {
                                             <div className="user-shop__section user-shop__section-advertising">
                                                 <div className="user-shop__section-advertising-checkbox-wrap">
                                                     {
-                                                        !!userTypeStore[shop.language]?.length &&  userTypeStore[shop.language]?.map(el => (
+                                                        !!userTypeStore[shop?.language]?.length &&  userTypeStore[shop?.language]?.map(el => (
                                                             <div className="user-shop__section-checkbox" key={el.id}><input onChange={() => handleSelectTypeStore(el.id)} checked={shop?.typeStore.includes(el.id) || selectTypeStore.includes(el.id) ? true : false} type="checkbox" name={el.name} id={el.id + el.name}/><label className="user-shop__section-checkbox-label" htmlFor={el.id + el.name}>{el.name}</label></div>
                                                         ))
                                                     }

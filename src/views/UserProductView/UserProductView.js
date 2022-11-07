@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import './UserProductView.css';
 import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, getProducts, setEditProduct, setRemoveProduct } from '../../store/userSlice';
+import { getCategories, getProducts, setEditProduct, setRemoveProduct, setShop } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
 import PaginationItems from '../../components/PaginationItems/PaginationItems';
@@ -152,6 +152,31 @@ function UserProductView() {
                         })
                     } else {
                         console.log('DELETE UserProduct', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+
+            let data2 = {
+                ...shop,
+                quantityProducts: shop?.quantityProducts - 1,
+                token: user.token,
+            }
+
+            fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data2),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        dispatch(setShop(data2));
+                    } else {
+                        console.log('PUT UserProduct:', res)
                     }
                 })
                 .catch((error) => {

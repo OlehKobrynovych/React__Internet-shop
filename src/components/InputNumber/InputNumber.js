@@ -12,7 +12,7 @@ function InputNumber({label, id, name, value, setValue, min='', max='', step=''}
     return (
         <div className="input-number">
             <label className='input-number__label' htmlFor={id}>
-                <b>{label}</b>
+                {label}
             </label>
             <input
                 id={id}
