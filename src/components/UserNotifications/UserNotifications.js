@@ -24,6 +24,8 @@ function UserNotifications() {
     const [sortStatus, setSortStatus] = useState('all');
     const [selectedPaget, setSelectedPaget] = useState('0');
     const [quantityAllProducts, setQuantityAllProducts] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -150,6 +152,23 @@ function UserNotifications() {
             })
     }
 
+    const handleSortDate = () => {
+        if (startDate.length || endDate.length) {
+            let data = {
+                start_date: startDate,
+                end_date: endDate,
+                token: user.token,
+            }
+
+            // доробити відправку 
+        }
+    }
+
+    const handleSortCleanDate = () => {
+        setStartDate('')
+        setEndDate('')
+    }
+    
     return (
         <div className="user-notifications">
             <div className="user-notifications--wrap container">
@@ -177,6 +196,38 @@ function UserNotifications() {
                             </div>
                             <div className={`user-notifications__filter-sort-btn-wrap ${sortNotifications === 'favorite' ? 'user-notifications__filter-sort-btn-wrap--active' : ''}`}>
                                 <img className="user-notifications__filter-sort-btn" onClick={() => handlesortNotifications('favorite')} src={stars} alt='img'/>
+                            </div>
+                        </div>
+
+                        <div className="user-notifications__filter-date-wrap">
+                            <div className="user-notifications__filter-date">
+                                <label className="user-notifications__filter-date-label" for="userNotificationsStartDate">Початок:&nbsp;</label>
+                                <input
+                                    className="user-notifications__filter-date-input"
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    type="date" 
+                                    id="userNotificationsStartDate" 
+                                    name="userNotificationsStartDate"
+                                    value={startDate}
+                                    min="2022-01-01" 
+                                />
+                            </div>
+                            <div className="user-notifications__filter-date">
+                                <label className="user-notifications__filter-date-label" for="userNotificationsEndDate">Кінець:&nbsp;</label>
+                                <input
+                                    className="user-notifications__filter-date-input"
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                    type="date" 
+                                    id="userNotificationsEndDate" 
+                                    name="userNotificationsEndDate"
+                                    value={endDate}
+                                    min="2022-01-01" 
+                                />
+                            </div>
+
+                            <div className='user-notifications__filter-date-btn-wrap'>
+                                <button className='user-notifications__filter-date-btn' onClick={handleSortCleanDate}>Очистити</button>
+                                <button className='user-notifications__filter-date-btn' onClick={handleSortDate}>Сортувати</button>
                             </div>
                         </div>
                     </div>

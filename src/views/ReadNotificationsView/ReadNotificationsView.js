@@ -80,7 +80,7 @@ function ReadNotificationsView () {
                 {
                     notificationsContent?.status == 'callBack' ? <div>
                             <h4 className='read-notifications__title'>Прохання пердзвонити</h4>
-                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{notificationsContent?.creation_time}</div>
+                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{new Date(notificationsContent?.creation_time).toLocaleString()}</div>
                             <div className='read-notifications__text'>
                                 Власник телефонного номера
                                 &nbsp;<a className='read-notifications__text-link' href={`tel:${notificationsContent?.phone}`}>{notificationsContent?.phone}</a>&nbsp;
@@ -89,7 +89,7 @@ function ReadNotificationsView () {
                             <div className='read-notifications__comment'><b>Залишиний коментар:</b>&nbsp;{notificationsContent?.comment}</div>
                         </div> : <div>
                             <h4 className='read-notifications__title'>Підписка</h4>
-                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{notificationsContent?.creation_time}</div>
+                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{new Date(notificationsContent?.creation_time).toLocaleString()}</div>
                             <div className='read-notifications__text'>
                                 Власник електронної пошти 
                                 &nbsp;<a className='read-notifications__text-link' href={`mailto:${notificationsContent?.email}`}>{notificationsContent?.email}</a>&nbsp;

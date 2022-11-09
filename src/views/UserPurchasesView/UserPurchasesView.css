@@ -1,14 +1,13 @@
 .user-purchases {
+    height: calc(100vh - 80px);
 
 }
 
 .user-purchases--wrap {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    height: calc(100vh - 140px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
 }
 
 .user-purchases__title {
@@ -20,7 +19,9 @@
 
 .user-purchases__filter {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: 15px;
     padding:10px 15px;
@@ -73,6 +74,62 @@
     height: 25px;
     /* flex: 0 0 auto;   */
     cursor: pointer;
+}
+
+
+.user-purchases__filter-date-wrap {
+    /* margin-left: auto; */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.user-purchases__filter-date {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.user-purchases__filter-date-label {
+    cursor: pointer;
+}
+
+.user-purchases__filter-date-input::-webkit-calendar-picker-indicator  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    color: transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+.user-purchases__filter-date-btn-wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.user-purchases__filter-date-btn {
+    border: 2px solid black;
+    background-color: white;
+    padding: 4px 3px;
+    font-size: 14px;
+    cursor: pointer;
+    border-color: #0d48ac;
+    color: #0d48ac;
+    margin-top: 3px;
+    display: block;
+    transition: .3s;
+}
+
+.user-purchases__filter-date-btn:hover {
+    background: #0d48ac;
+    color: white;
 }
 
 .user-purchases__items {
@@ -183,9 +240,6 @@
         flex-direction: row;
         align-items: center;
     } 
-    .user-purchases__filter-sort-wrap {
-        margin-left: 30px;
-    }
 }
 
 @media (min-width: 576px) {
