@@ -38,7 +38,8 @@ function Footer() {
                     favorite: false,
                     status: 'callBack',
                     email: '',
-                    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NzgxNDIyNCwiZXhwIjoxNjY3ODMyMjI0fQ.kk_HRTyNvASZUrJtaOMxUVA1msGtAt0h5IHnc514zfk',                // відправка токена звідки брати для покупців?
+                    creation_time: new Date().toLocaleString(),
+                    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2Nzk4OTY3MCwiZXhwIjoxNjY4MDA3NjcwfQ.mvdCSC937La0TSaW20u2mDHNRVssLdiUzk3IbAyGYzA',                // відправка токена звідки брати для покупців?
                 }
     
                 sendCreation(data)
@@ -67,7 +68,8 @@ function Footer() {
                 favorite: false,
                 status: 'subscription',
                 email: mail,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2NzgxNDIyNCwiZXhwIjoxNjY3ODMyMjI0fQ.kk_HRTyNvASZUrJtaOMxUVA1msGtAt0h5IHnc514zfk',                // відправка токена звідки брати для покупців?
+                creation_time: new Date().toLocaleString(),
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2Nzk4OTY3MCwiZXhwIjoxNjY4MDA3NjcwfQ.mvdCSC937La0TSaW20u2mDHNRVssLdiUzk3IbAyGYzA',                // відправка токена звідки брати для покупців?
             }
 
             sendCreation(data)

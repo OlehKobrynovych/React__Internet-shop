@@ -1,9 +1,8 @@
 .advertisement-shop {
     padding: 30px 15px;
-    text-align: center;
+    text-align: start;
+    font-size: 18px;
 }
-
-
 
 @media (min-width: 576px) {
 

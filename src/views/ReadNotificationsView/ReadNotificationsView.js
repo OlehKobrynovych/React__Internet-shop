@@ -23,22 +23,10 @@ function ReadNotificationsView () {
     const purchases = useSelector(state => state.userSlice.purchases);
     // let { idPurchases } = useParams();
     let { idNotifications } = useParams();
-    const [status, setStatus] = useState('');
     // const [purchaseContent, setPurchaseContent] = useState({});
     const [notificationsContent, setNotificationsContent] = useState({});
-    const [orderedProducts, setOrderedProducts] = useState([]);
-    const [editProduct, setEditProduct] = useState({});
-    const [newSize, setNewSize] = useState([]);
-    const [newColors, setNewColors] = useState([]);
-    const [newCount, setNewCount] = useState('');
-    const [totalPrice, setTotalPrice] = useState('');
-    const [isModalDelProduct, setIsModalDelProduct] = useState(false);
-    const [isModalEditProductCount, setIsModalEditProductCount] = useState(false);
-    const [isModalEditProductSize, setIsModalEditProductSize] = useState(false);
-    const [isModalEditProductColors, setIsModalEditProductColors] = useState(false);
-    const [newNote, setNewNote] = useState('');
     const dispatch = useDispatch();
-    console.log('purchases: ', notificationsContent)
+    // console.log('purchases: ', notificationsContent)
     
     useEffect(() => {
         if (user?._id) {
@@ -90,22 +78,24 @@ function ReadNotificationsView () {
         <div className={`read-notifications read-notifications--${notificationsContent?.status}`}>
             <div className='read-notifications--wrap container'>
                 {
-                        notificationsContent?.status == 'callBack' ? <div>
-                                <h4 className='read-notifications__title'>Прохання пердзвонити</h4>
-                                <div className='read-notifications__text'>
-                                    Власник телефонного номера
-                                    &nbsp;<a className='read-notifications__text-link' href={`tel:${notificationsContent?.phone}`}>{notificationsContent?.phone}</a>&nbsp;
-                                    чекає на дзвінок
-                                </div>
-                                <div>Залишиний коментар:{notificationsContent?.comment}</div>
-                            </div> : <div>
-                                <h4 className='read-notifications__title'>Підписка</h4>
-                                <div className='read-notifications__text'>
-                                    Власник електронної пошти 
-                                    &nbsp;<a className='read-notifications__text-link' href={`mailto:${notificationsContent?.email}`}>{notificationsContent?.email}</a>&nbsp;
-                                    готовий отримувати повідомлення з акціями, знижками і іншою важливою інформацією.
-                                </div>
-                            </div> 
+                    notificationsContent?.status == 'callBack' ? <div>
+                            <h4 className='read-notifications__title'>Прохання пердзвонити</h4>
+                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{notificationsContent?.creation_time}</div>
+                            <div className='read-notifications__text'>
+                                Власник телефонного номера
+                                &nbsp;<a className='read-notifications__text-link' href={`tel:${notificationsContent?.phone}`}>{notificationsContent?.phone}</a>&nbsp;
+                                чекає на дзвінок
+                            </div>
+                            <div className='read-notifications__comment'><b>Залишиний коментар:</b>&nbsp;{notificationsContent?.comment}</div>
+                        </div> : <div>
+                            <h4 className='read-notifications__title'>Підписка</h4>
+                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{notificationsContent?.creation_time}</div>
+                            <div className='read-notifications__text'>
+                                Власник електронної пошти 
+                                &nbsp;<a className='read-notifications__text-link' href={`mailto:${notificationsContent?.email}`}>{notificationsContent?.email}</a>&nbsp;
+                                готовий отримувати повідомлення з акціями, знижками і іншою важливою інформацією.
+                            </div>
+                        </div> 
                 }
             </div>
         </div>

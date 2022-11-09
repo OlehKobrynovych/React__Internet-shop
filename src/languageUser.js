@@ -263,6 +263,9 @@ export const languageUser = {
             readPurchasesCardDescriptionTitle: 'Опис:',
             readPurchasesCardCountTitle: 'Кількість:',
             readPurchasesCardSumTitle: 'Сума:',
+            readPurchasesCardOrderProductTitle: 'Кількість замовленого товару',
+            readPurchasesCardDelProductTitle: 'Кількість видаленого товару',
+            readPurchasesCardDelAllProductTitle: 'Замовлений товар видалений. Кількість замовленого товару складала',
         },
 
     },
@@ -529,6 +532,9 @@ export const languageUser = {
             readPurchasesCardDescriptionTitle: 'Description:',
             readPurchasesCardCountTitle: 'Quantity:',
             readPurchasesCardSumTitle: 'Sum:',
+            readPurchasesCardOrderProductTitle: 'Quantity of ordered product',
+            readPurchasesCardDelProductTitle: 'The number of removed products',
+            readPurchasesCardDelAllProductTitle: 'The ordered product has been removed. The quantity of ordered goods was',
         },
     },
   

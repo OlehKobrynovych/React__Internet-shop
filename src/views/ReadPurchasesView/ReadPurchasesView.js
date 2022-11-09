@@ -36,7 +36,7 @@ function ReadPurchasesView () {
     const [isModalEditProductColors, setIsModalEditProductColors] = useState(false);
     const [newNote, setNewNote] = useState('');
     const dispatch = useDispatch();
-    console.log('purchases: ', orderedProducts)
+    console.log('purchases: ', purchaseContent)
     
     useEffect(() => {
         if (user?._id) {
@@ -84,7 +84,6 @@ function ReadPurchasesView () {
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
-                    console.log('PUT CardSelect:', res)
                     dispatch(setSeenPurchases({...purchaseContent2, isSeen: true}));
                 } else {
                     console.log('PUT ReadPurchasesView:', res)
@@ -405,7 +404,13 @@ function ReadPurchasesView () {
                 
                 <div className='read-purchases__cards'>
                     {
-                        !!orderedProducts?.length &&  orderedProducts.map(el => (
+                        !!orderedProducts?.length && orderedProducts?.length < purchaseContent.product_ids?.length && <div>
+                            <div>{selectedLanguage?.readPurchasesView?.readPurchasesCardOrderProductTitle}&nbsp;{purchaseContent.product_ids?.length}</div>
+                            <div>{selectedLanguage?.readPurchasesView?.readPurchasesCardDelProductTitle}&nbsp;{purchaseContent.product_ids?.length - orderedProducts?.length}</div>
+                        </div>
+                    }
+                    {
+                        !!orderedProducts?.length ? orderedProducts.map(el => (
                                 <div className={`read-purchases__card ${purchaseContent?.product_ids.filter(ell => ell._id == el._id)[0].removed ? 'read-purchases__card--removed' : ''}`} key={el._id}>
                                     <div className='read-purchases__card-wrap'>
                                         <div className="read-purchases__card-swiper-wrap">
@@ -477,7 +482,7 @@ function ReadPurchasesView () {
                                     </div>
 
                                 </div>
-                            ))
+                            )) : <div>{selectedLanguage?.readPurchasesView?.readPurchasesCardDelAllProductTitle}&nbsp;{purchaseContent.product_ids?.length}</div>
                     }
                 </div>
             </div>

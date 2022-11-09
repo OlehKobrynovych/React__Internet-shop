@@ -53,6 +53,7 @@ function App() {
                         <Route path="shop" element={<UserShopView />}/>
                         <Route path="categories" element={<UserCategoriesView />}/>
                         <Route path="product" element={<UserProductView />}/>
+                        {/* <Route path="productPage/:productPage" element={<UserProductView />}/> */}
                         <Route path="product/create" element={<CreationProduct />}/>
                         <Route path="purchases" element={<UserPurchasesView />}/>
                         <Route path="purchases/:idPurchases" element={<ReadPurchasesView />}/>

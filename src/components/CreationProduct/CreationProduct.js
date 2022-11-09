@@ -161,9 +161,33 @@ function CreationProduct() {
                     .then(res => res.json())
                     .then(res => {
                         if (res.success && res.data) {
-                            console.log(res)
+                            console.log('11111', res)
                             dispatch(setProduct(res.data))
                             navigate(`/auth/${user._id}/product`)
+                            let data2 = {
+                                ...shop,
+                                quantityProducts: shop?.quantityProducts + 1,
+                                token: user.token,
+                            }
+        
+                            fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
+                                method: 'PUT',
+                                headers: {
+                                'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(data2),
+                            })
+                                .then(res => res.json())
+                                .then(res => {
+                                    if (res.success && res.data) {
+                                        dispatch(setShop(data2));
+                                    } else {
+                                        console.log('PUT CreationProduct:', res)
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error('Error:', error);
+                                })
                             showMessage('success', 'Товар створено')
                         } else {
                             console.log('POST CreationProduct', res)
@@ -173,32 +197,6 @@ function CreationProduct() {
                         console.error('Error:', error);
                         showMessage('error', 'Сталася помилка')
                     })
-
-
-                    let data2 = {
-                        ...shop,
-                        quantityProducts: shop?.quantityProducts + 1,
-                        token: user.token,
-                    }
-
-                    fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
-                        method: 'PUT',
-                        headers: {
-                        'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data2),
-                    })
-                        .then(res => res.json())
-                        .then(res => {
-                            if (res.success && res.data) {
-                                dispatch(setShop(data2));
-                            } else {
-                                console.log('PUT CreationProduct:', res)
-                            }
-                        })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                        })
             }
     
             setName('')

@@ -29,23 +29,6 @@
     /* text-align: center; */
 }
 
-.user-product__sub-title-btn {
-    border: 2px solid black;
-    background-color: white;
-    padding: 3px 15px;
-    cursor: pointer;
-    border-color: #0d48ac;
-    color: #0d48ac;
-    font-size: 16px;
-    /* margin-left: 12px; */
-    transition: .3s;
-}
-
-.user-product__sub-title-btn:hover {
-    background: #0d48ac;
-    color: white;
-}
-
 .user-product__filter-wrap {
     display: flex;
     justify-content: space-between;
@@ -134,7 +117,7 @@
     position: absolute;
     background: #fff;
     height: 350px;
-    width: 129px;
+    width: 141px;
     overflow: auto;
     display: flex;
     gap: 5px;

@@ -22,6 +22,8 @@ function UserNotifications() {
     const [sortNotifications, setSortNotifications] = useState('');
     const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
     const [sortStatus, setSortStatus] = useState('all');
+    const [selectedPaget, setSelectedPaget] = useState('0');
+    const [quantityAllProducts, setQuantityAllProducts] = useState('');
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -30,6 +32,20 @@ function UserNotifications() {
     
     useEffect(() => {
         if (shop?._id) {
+            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/number/all?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        console.log(res)
+                        setQuantityAllProducts(res.data)
+                    } else {
+                        console.log('GET UserProduct:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+
             fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/all?token=${user.token}`)
                 .then(res => res.json())
                 .then(res => {
@@ -167,7 +183,7 @@ function UserNotifications() {
 
                     <div className="user-notifications__items">
                         {
-                            !!currentPaginationItems?.length ? currentPaginationItems.map(el => (
+                            !!filterNotifications?.length ? filterNotifications.map(el => (
                                 <div className={`user-notifications__item user-notifications__item-status--${el.status}`} key={el._id} onClick={() => handleReadNotifications(el._id)}>
                                     <svg className={`user-notifications__item-stars ${el.favorite ? 'user-notifications__item-stars-is-favorite' : ''}`} onClick={(e) => handleFavorite(e, el)} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                         viewBox="0 0 404.204 404.204" xmlSpace="preserve">
@@ -196,7 +212,7 @@ function UserNotifications() {
                     </div>
                 </div>
 
-                <PaginationItems items={filterNotifications} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={9}/>
+                <PaginationItems selectedPaget={selectedPaget} setSelectedPaget={setSelectedPaget} pageRangeDisplayed={5} itemsPerPage={10} quantityAllProducts={quantityAllProducts}/>
 
             </div>
         </div>

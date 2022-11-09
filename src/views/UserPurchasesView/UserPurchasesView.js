@@ -19,6 +19,9 @@ function UserPurchasesView() {
     const [sortPurchases, setSortPurchases] = useState('');
     const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
     const [sortStatus, setSortStatus] = useState('all');
+    const [selectedPaget, setSelectedPaget] = useState('0');
+    const [quantityAllProducts, setQuantityAllProducts] = useState('');
+
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -32,7 +35,21 @@ function UserPurchasesView() {
 
     useEffect(() => {
         if (shop?._id) {
-            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${shop._id}/all?token=${user.token}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${shop._id}/number/all?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        console.log(res)
+                        setQuantityAllProducts(res.data)
+                    } else {
+                        console.log('GET UserProduct:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${shop._id}/all?page=${selectedPaget}&token=${user.token}`)
                 .then(res => res.json())
                 .then(res => {
                     console.log('GET UserPurchases:', res)
@@ -46,7 +63,7 @@ function UserPurchasesView() {
                     console.error('Error:', error);
                 })
         }
-    }, [shop])
+    }, [shop, selectedPaget])
 
     const handleSortStatus = (status) => {     
         setSortStatus(status) 
@@ -169,7 +186,7 @@ function UserPurchasesView() {
 
                     <div className="user-purchases__items">
                         {
-                            !!currentPaginationItems?.length ? currentPaginationItems.map(el => (
+                            !!filterPurchases?.length ? filterPurchases.map(el => (
                                 <div className={`user-purchases__item user-purchases__item-status--${el.status}`} key={el._id} onClick={() => handleReadPurchases(el._id)}>
                                     <svg className={`user-purchases__item-stars ${el.favorite ? 'user-purchases__item-stars-is-favorite' : ''}`} onClick={(e) => handleFavorite(e, el)} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                         viewBox="0 0 404.204 404.204" xmlSpace="preserve">
@@ -203,7 +220,7 @@ function UserPurchasesView() {
                     </div>
                 </div>
 
-                <PaginationItems items={filterPurchases} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={9}/>
+                <PaginationItems selectedPaget={selectedPaget} setSelectedPaget={setSelectedPaget} pageRangeDisplayed={5} itemsPerPage={10} quantityAllProducts={quantityAllProducts}/>
 
             </div>
         </div>

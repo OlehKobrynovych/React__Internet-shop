@@ -5,7 +5,7 @@ import bell from '../assets/images/bell.svg';
 import cartUser from '../assets/images/cartUser.svg';
 import avatar from '../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCategories, getProducts, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setSelectedLanguage, setShop, setUser } from '../store/userSlice';
+import { getCategories, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setSelectedLanguage, setShop, setUser } from '../store/userSlice';
 import LoginBtn from '../components/LoginBtn/LoginBtn';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
 import { languageUser } from '../languageUser';
@@ -25,6 +25,7 @@ function LayoutUser() {
     // let { userId } = useParams();
     // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
     console.log(user)
+    console.log(purchasesLength)
 
     useEffect(() => {
         if (!user.email) {
@@ -93,6 +94,7 @@ function LayoutUser() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
+                        console.log('GET LayoutUser:', res)
                         setPurchasesLength(res.data)
                     } else {
                         console.log('GET LayoutUser:', res)
@@ -163,6 +165,7 @@ function LayoutUser() {
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/shop`} onClick={() => dispatch(setIsNeedUpdateShop(false))}>{selectedLanguage?.layoutUser?.layoutLinkShop}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/categories`}>{selectedLanguage?.layoutUser?.layoutLinkCategories}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product`}>{selectedLanguage?.layoutUser?.layoutLinkProducts}</NavLink>
+                    {/* <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/product?page=0`}>{selectedLanguage?.layoutUser?.layoutLinkProducts}</NavLink> */}
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/purchases`}>{selectedLanguage?.layoutUser?.layoutLinkOrders}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/notifications`}>{selectedLanguage?.layoutUser?.layoutLinkMessage}</NavLink>
                     <NavLink className='layout-user__sidenav-link' to={`/auth/${user._id}/settings`}>{selectedLanguage?.layoutUser?.layoutLinkSettings}</NavLink>
