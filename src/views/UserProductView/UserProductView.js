@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import './UserProductView.css';
-import editIcon from './../../assets/images/editIcon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories, getProducts, setEditProduct, setRemoveProduct, setShop } from '../../store/userSlice';
 import deleteImg from '../../assets/images/deleteImg.svg';
+import editIcon from './../../assets/images/editIcon.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
 import PaginationItems from '../../components/PaginationItems/PaginationItems';
 import ModalWindow from '../../components/ModalWindow/ModalWindow';
@@ -29,11 +29,13 @@ function UserProductView() {
     const [seachName, setSeachName] = useState('');
     const [filterProducts, setFilterProducts] = useState([]);
     const [selectedSort, setSelectedSort] = useState('');
+    const [selectedSortPrice, setSelectedSortPrice] = useState('');
     const [selectedCategorySort, setSelectedCategorySort] = useState({});
     const [selectedPaget, setSelectedPaget] = useState('0');
     const [quantityAllProducts, setQuantityAllProducts] = useState('');
     const [countProducts, setCountProducts] = useState('');
-    const [isOpenSelect, setIsOpenSelect] = useState(false);
+    const [isOpenSelectCategory, setIsOpenSelectCategory] = useState(false);
+    const [isOpenSelectSort, setIsOpenSelectSort] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
@@ -49,6 +51,7 @@ function UserProductView() {
     useEffect(() => {
         if (selectedLanguage?.userProduct) {
             setSelectedSort(selectedLanguage.userProduct.userProductSortOptionAll)
+            setSelectedSortPrice('Всі товари')
         }
     }, [selectedLanguage]);
 
@@ -60,14 +63,14 @@ function UserProductView() {
         if (shop?._id) {
             if (selectedSort == selectedLanguage.userProduct.userProductSortOptionAll) {
                 // переробити коли запрацює запит на кількість товару
-                fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all`)
+                fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/number/all?token=${user.token}`)
                     .then(res => res.json())
                     .then(res => {
                         if (res.success && res.data) {
                             console.log(res)
-                            setQuantityAllProducts(res.data.length)
+                            setQuantityAllProducts(res.data)
                             if (!countProducts?.length) {
-                                setCountProducts(res.data.length)
+                                setCountProducts(res.data)
                             }
                         } else {
                             console.log('GET UserProduct:', res)
@@ -167,8 +170,9 @@ function UserProductView() {
         } 
     }, [seachName]);
     
-    const handleChangeSort = (category) => {
-        setIsOpenSelect(false)
+    const handleChangeSort = (e, category) => {
+        e.stopPropagation()
+        setIsOpenSelectCategory(false)
         setSelectedPaget('0')
         if (category == "all") {
             setSelectedCategorySort({})
@@ -181,6 +185,19 @@ function UserProductView() {
             setSelectedSort(category.name)
         }
     };
+   
+    const handleChangeSortPrice = (e, str) => {
+        e.stopPropagation()
+        setIsOpenSelectSort(false)
+        setSelectedPaget('0')
+        if (str == "all") {
+            setSelectedSortPrice('Всі товари')
+        } else if (str == "1") {
+            setSelectedSortPrice('По зростанню ціни')
+        } else {
+            setSelectedSortPrice('По спаданню ціни')
+        }
+    };
 
     const handleEditProduct = (obj) => {
         dispatch(setEditProduct(obj))
@@ -190,6 +207,23 @@ function UserProductView() {
     const handleDeleteProduct = (id) => {
         setIsModalDelProduct(true)
         setDeleteId(id)
+    }
+   
+    const handleClose = () => {
+        if (isOpenSelectSort || isOpenSelectCategory) {
+            setIsOpenSelectSort(false)
+            setIsOpenSelectCategory(false)
+        }
+    }
+    
+    const handleOpenSelectCategory = (e) => {
+        e.stopPropagation()
+        setIsOpenSelectCategory(true)
+    }
+   
+    const handleOpenSelectSort = (e) => {
+        e.stopPropagation()
+        setIsOpenSelectSort(true)
     }
     
     const handleIsDeleteProduct = (boolean) => {
@@ -268,7 +302,7 @@ function UserProductView() {
     }
 
     return (
-        <div className='user-product'>
+        <div className='user-product' onClick={handleClose}>
             {
                 isModalDelProduct && <ModalWindow title={selectedLanguage?.userProduct?.userProductModalDelTitle}  text={selectedLanguage?.userProduct?.userProductModalDelText} handleClick={handleIsDeleteProduct} leftBtn={selectedLanguage?.userProduct?.userProductModalDelLeftBtn} rightBtn={selectedLanguage?.userProduct?.userProductModalDelRightBtn}/>
             }
@@ -285,39 +319,61 @@ function UserProductView() {
                         <label className='user-product__filter-search-input-label' htmlFor="userProductSeachName">
                             <b>{selectedLanguage?.userProduct?.userProductSearchLabel}</b>
                         </label>
-                        <input
-                            id="userProductSeachName"
-                            name="userProductSeachName"
-                            type="search"
-                            required
-                            className='user-product__filter-search-input'
-                            onChange={(e) => setSeachName(e.target.value)}
-                            onKeyPress={(e) => handleSearchProduct(e)}
-                            value={seachName}
-                            placeholder={selectedLanguage?.userProduct?.userProductSearchPlaceholder}
-                        />
+                        <div className='user-product__filter-search-input-wrap'>
+                            <input
+                                id="userProductSeachName"
+                                name="userProductSeachName"
+                                type="search"
+                                required
+                                className='user-product__filter-search-input'
+                                onChange={(e) => setSeachName(e.target.value)}
+                                onKeyPress={(e) => handleSearchProduct(e)}
+                                value={seachName}
+                                placeholder={selectedLanguage?.userProduct?.userProductSearchPlaceholder}
+                            />
+                            <button className='user-product__filter-search-btn'>Пошук</button>
+                        </div>
                     </div>
 
-                    <div className="user-product__sort-wrap">
-                        <span className="user-product__sort-label">{selectedLanguage?.userProduct?.userProductSortLabel}</span>
-                        <div className="user-product__sort-select-wrap">
-                            <div className="user-product__sort-select" onClick={() => setIsOpenSelect(!isOpenSelect)}>
-                                {selectedSort}
-                                <div className='user-product__sort-select-btn-wrap'>
-                                    <div className={`user-product__sort-select-btn ${isOpenSelect ? 'user-product__sort-select-btn--active' : ''}`}></div>
+                    <div className='user-product__price-wrap'>
+                        <span className='user-product__price-label'>Сортувати:</span>
+                        <div className="user-product__price-select-wrap">
+                            <div className="user-product__price-select" onClick={(e) => handleOpenSelectSort(e)}>
+                            {/* <div className="user-product__price-select" onClick={() => setIsOpenSelectSort(!isOpenSelectSort)}> */}
+                                {selectedSortPrice}
+                                <div className='user-product__price-select-btn-wrap'>
+                                    <div className={`user-product__price-select-btn ${isOpenSelectSort ? 'user-product__price-select-btn--active' : ''}`}></div>
                                 </div>
                             </div>
                         </div>
-                        <div className={`user-product__sort-option-wrap ${isOpenSelect ? 'user-product__sort-option-wrap--active' : ''}`}>
-                            <div className="user-product__sort-option-category" onClick={() => handleChangeSort('all')}>{selectedLanguage?.userProduct?.userProductSortOptionAll}</div>
-                            <div className="user-product__sort-option-category" onClick={() => handleChangeSort('withOutCategory')}>Без категорій</div>
+                        <div className={`user-product__price-option-wrap ${isOpenSelectSort ? 'user-product__price-option-wrap--active' : ''}`}>
+                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e,'all')}>Всі товари</div>
+                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e, '1')}>По зростанню ціни</div>
+                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e, '-1')}>По спадання ціни</div>
+                        </div >
+                    </div>
+
+                    <div className="user-product__category-wrap">
+                        <span className="user-product__category-label">{selectedLanguage?.userProduct?.userProductSortLabel}</span>
+                        <div className="user-product__category-select-wrap">
+                            {/* <div className="user-product__category-select" onClick={() => setIsOpenSelectCategory(!isOpenSelectCategory)}> */}
+                            <div className="user-product__category-select" onClick={(e) => handleOpenSelectCategory(e)}>
+                                {selectedSort}
+                                <div className='user-product__category-select-btn-wrap'>
+                                    <div className={`user-product__category-select-btn ${isOpenSelectCategory ? 'user-product__category-select-btn--active' : ''}`}></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`user-product__category-option-wrap ${isOpenSelectCategory ? 'user-product__category-option-wrap--active' : ''}`}>
+                            <div className="user-product__category-option-category" onClick={(e) => handleChangeSort(e, 'all')}>{selectedLanguage?.userProduct?.userProductSortOptionAll}</div>
+                            <div className="user-product__category-option-category" onClick={(e) => handleChangeSort(e, 'withOutCategory')}>Без категорій</div>
                             {
                                 !!categories?.length && categories.map(category => (
-                                    <div className="user-product__sort-option" key={category._id}>
-                                        <div className="user-product__sort-option-category" onClick={() => handleChangeSort(category)}>{category?.name}</div>
+                                    <div className="user-product__category-option" key={category._id}>
+                                        <div className="user-product__category-option-category" onClick={(e) => handleChangeSort(e, category)}>{category?.name}</div>
                                         {
                                             !!category?.sub_categories?.length  && category.sub_categories.map(el => (
-                                                    <div className="user-product__sort-option-sub-category" onClick={() => handleChangeSort(el)} key={el._id}>{el?.name}</div>
+                                                    <div className="user-product__category-option-sub-category" onClick={(e) => handleChangeSort(e, el)} key={el._id}>{el?.name}</div>
                                             ))
                                         }
                                     </div>

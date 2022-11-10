@@ -46,7 +46,7 @@ function SwiperCards({title, products}) {
                     navigation={true}
                     initialSlide='1'
                     modules={[Navigation]}
-                    className="mySwiper swiper-cards__visible"
+                    className="mySwiper"
                 >
                     {
                         products.map(product => (

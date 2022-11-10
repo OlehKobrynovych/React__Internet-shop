@@ -39,6 +39,12 @@
     object-position: center;
 }
 
+.product-information__swiper-img-none {
+    padding: 15px;
+    height: 372px;
+    object-fit: contain;
+}
+
 .product-information__swiper-wrap .swiper-button-next {
     
 } 

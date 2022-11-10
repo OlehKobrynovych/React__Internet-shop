@@ -23,7 +23,9 @@ function ProductFilterView() {
     const [parentCategories, setParentCategories] = useState({});
     const [isPageNotFound, setIsPageNotFound] = useState(false);
     const [selectedSort, setSelectedSort] = useState('priceUp');
-    // console.log(parentCategories)
+    const [selectedPaget, setSelectedPaget] = useState('0');
+    const [quantityAllProducts, setQuantityAllProducts] = useState('');
+    // console.log(selectedLanguage)
     // const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     // debugger
@@ -48,22 +50,37 @@ function ProductFilterView() {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [id, categories])
+    }, [id, categories, selectedPaget])
 
     const productSearch = (data) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data._id}/category`)
-        .then(res => res.json())
-        .then(res => {
-            if (res.success && res.data?.length) {
-                // console.log(res)
-                setCategoryProducts([...res.data])
-            } else {
-                console.log('GET ProductFilterView:', res)
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        })
+        // fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/number/all?token=${user.token}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/number/all?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2ODA4NDI1MSwiZXhwIjoxNjY4MTAyMjUxfQ.MDGKlBWE4JKIHafHTmcQq38mAyftZlBfel_dAOLnTLE`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    console.log(res)
+                    setQuantityAllProducts(res.data)
+                } else {
+                    console.log('GET ProductFilterView:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all?page=${selectedPaget}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    console.log(res)
+                    setCategoryProducts([...res.data])
+                } else {
+                    console.log('GET ProductFilterView:', res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
     }
 
     useEffect(() => {
@@ -155,7 +172,7 @@ function ProductFilterView() {
 
                                         <ul className='product-filter__item--wrap categories-product--wrap'>
                                             {
-                                                paginationProducts.map(el => (
+                                                categoryProducts.map(el => (
                                                     <li key={el._id} className='product-filter__item'>
                                                         <ProductCard product={el}/>
                                                     </li>
@@ -163,8 +180,9 @@ function ProductFilterView() {
                                             }
                                         </ul>
 
-                                        <PaginationItems items={categoryProducts} setCurrentPaginationItems={setPaginationProducts} pageRangeDisplayed={5} itemsPerPage={5}/>
-
+                                        {/* <PaginationItems items={categoryProducts} setCurrentPaginationItems={setPaginationProducts} pageRangeDisplayed={5} itemsPerPage={5}/> */}
+                                        <PaginationItems selectedPaget={selectedPaget} setSelectedPaget={setSelectedPaget} pageRangeDisplayed={5} itemsPerPage={10} quantityAllProducts={quantityAllProducts}/>
+                                        
                                     </>) : <p className='product-filter__categories-error'>{selectedLanguage?.categoriesPage?.categoriesError}</p>
                             }
 

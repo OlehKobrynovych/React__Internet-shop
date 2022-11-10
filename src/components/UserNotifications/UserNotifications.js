@@ -201,7 +201,7 @@ function UserNotifications() {
 
                         <div className="user-notifications__filter-date-wrap">
                             <div className="user-notifications__filter-date">
-                                <label className="user-notifications__filter-date-label" for="userNotificationsStartDate">Початок:&nbsp;</label>
+                                <label className="user-notifications__filter-date-label" htmlFor="userNotificationsStartDate">Початок:&nbsp;</label>
                                 <input
                                     className="user-notifications__filter-date-input"
                                     onChange={(e) => setStartDate(e.target.value)}
@@ -213,7 +213,7 @@ function UserNotifications() {
                                 />
                             </div>
                             <div className="user-notifications__filter-date">
-                                <label className="user-notifications__filter-date-label" for="userNotificationsEndDate">Кінець:&nbsp;</label>
+                                <label className="user-notifications__filter-date-label" htmlFor="userNotificationsEndDate">Кінець:&nbsp;</label>
                                 <input
                                     className="user-notifications__filter-date-input"
                                     onChange={(e) => setEndDate(e.target.value)}

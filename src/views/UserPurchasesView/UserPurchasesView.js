@@ -204,7 +204,7 @@ function UserPurchasesView() {
 
                         <div className="user-purchases__filter-date-wrap">
                             <div className="user-purchases__filter-date">
-                                <label className="user-purchases__filter-date-label" for="userNotificationsStartDate">Початок:&nbsp;</label>
+                                <label className="user-purchases__filter-date-label" htmlFor="userNotificationsStartDate">Початок:&nbsp;</label>
                                 <input
                                     className="user-purchases__filter-date-input"
                                     onChange={(e) => setStartDate(e.target.value)}
@@ -216,7 +216,7 @@ function UserPurchasesView() {
                                 />
                             </div>
                             <div className="user-purchases__filter-date">
-                                <label className="user-purchases__filter-date-label" for="userNotificationsEndDate">Кінець:&nbsp;</label>
+                                <label className="user-purchases__filter-date-label" htmlFor="userNotificationsEndDate">Кінець:&nbsp;</label>
                                 <input
                                     className="user-purchases__filter-date-input"
                                     onChange={(e) => setEndDate(e.target.value)}

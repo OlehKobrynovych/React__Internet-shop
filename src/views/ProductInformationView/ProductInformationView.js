@@ -13,6 +13,8 @@ import PageNotFoundView from '../PageNotFoundView/PageNotFoundView';
 import LastProduct from '../../components/LastProduct/LastProduct';
 import { setFavoriteProduct, setShoppingProduct } from '../../store/homeSlice';
 import Preloader from '../../components/Preloader/Preloader';
+import noPhotos from '../../assets/images/noPhotos.svg';
+
 
 
 function ProductInformationView() {
@@ -178,7 +180,8 @@ function ProductInformationView() {
                                     className="mySwiper"
                                     >
                                     {
-                                        product?.images?.map(image => <SwiperSlide key={image}><img className="product-information__swiper-img" src={image} alt='img'/></SwiperSlide>)
+                                       !!product?.images?.length ? product?.images?.map(image => <SwiperSlide key={image}><img className="product-information__swiper-img" src={image} alt='img'/></SwiperSlide>) 
+                                        : <img className="product-information__swiper-img-none" src={noPhotos} alt='img'/> 
                                     }
                                 </Swiper>
                             </div>

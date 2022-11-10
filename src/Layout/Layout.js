@@ -99,7 +99,7 @@ function Layout() {
                 })
         }
 
-        dispatch(setSelectedLanguage(languageShop[shop.language]));
+        dispatch(setSelectedLanguage(languageShop[shop?.language]));
     }, [shop])
 
     return (
