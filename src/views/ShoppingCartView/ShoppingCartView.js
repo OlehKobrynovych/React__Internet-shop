@@ -37,6 +37,8 @@ function ShoppingCartView() {
     const [checkboxForm, setCheckboxFor] = useState(false);
     const [isSubmitError, setIsSubmitError] = useState(false);
     const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
+    const [selectedPaget, setSelectedPaget] = useState('0');
+    const [quantityAllProducts, setQuantityAllProducts] = useState('');
     const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
     // const datas = useSelector(state => state.homeSlice.datas);
     // console.log(shoppingProduct)
@@ -76,7 +78,7 @@ function ShoppingCartView() {
                 status: 'InProcess',
                 favorite: false,
                 shop_id: shop._id,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2Njc2NTYwNiwiZXhwIjoxNjY2NzgzNjA2fQ.V3lACu3Yn5eyXfcW_2Ziz_6mrHeze0y-riaQBegBhJs',                // відправка токена звідки брати для покупців?
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2ODE1MjE5NSwiZXhwIjoxNjY4MTcwMTk1fQ.aLrH0gRqkhaS0DS2DtLGfmOLfOVPtzsnZBGfL6_D2j8',                // відправка токена звідки брати для покупців?
             }
 
             fetch(`${process.env.REACT_APP_BASE_URL}/purchases/`, {
@@ -327,7 +329,7 @@ function ShoppingCartView() {
                         <div>{selectedLanguage?.cartPage?.cartPurchasedProduct}&nbsp;{shoppingHistoryProducts?.length}</div>  
                         <div className="shopping-cart__history-items">
                             {
-                                currentPaginationItems?.map(el => (<div className="shopping-cart__history-item" key={el._id + el.date}>
+                                shoppingHistoryProducts?.map(el => (<div className="shopping-cart__history-item" key={el._id + el.date}>
                                     <img className="shopping-cart__history-item-img" onClick={() => handleClick(el._id)} src={el.images[0]?.length ? el.images[0] : noPhotos} alt='img'/>
                                     <div className="shopping-cart__history-text">{el.name}</div>
                                     <div className="shopping-cart__history-text">{el.date}</div>
@@ -335,7 +337,9 @@ function ShoppingCartView() {
                             }
                         </div>
 
-                        <PaginationItems items={shoppingHistoryProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={4}/>
+                        {/* <PaginationItems items={shoppingHistoryProducts} setCurrentPaginationItems={setCurrentPaginationItems} pageRangeDisplayed={5} itemsPerPage={4}/> */}
+                        {/* <PaginationItems selectedPaget={selectedPaget} setSelectedPaget={setSelectedPaget} pageRangeDisplayed={5} itemsPerPage={10} quantityAllProducts={quantityAllProducts}/> */}
+                         
                     </div>
             }
         </div>

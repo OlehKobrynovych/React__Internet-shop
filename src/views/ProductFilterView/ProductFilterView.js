@@ -54,11 +54,10 @@ function ProductFilterView() {
 
     const productSearch = (data) => {
         // fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/number/all?token=${user.token}`)
-        fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/number/all?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2ODA4NDI1MSwiZXhwIjoxNjY4MTAyMjUxfQ.MDGKlBWE4JKIHafHTmcQq38mAyftZlBfel_dAOLnTLE`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data.shop_id}/number/all?`)
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
-                    console.log(res)
                     setQuantityAllProducts(res.data)
                 } else {
                     console.log('GET ProductFilterView:', res)
@@ -68,11 +67,10 @@ function ProductFilterView() {
                 console.error('Error:', error);
             })
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all?page=${selectedPaget}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data._id}/category?page=${selectedPaget}`)
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
-                    console.log(res)
                     setCategoryProducts([...res.data])
                 } else {
                     console.log('GET ProductFilterView:', res)

@@ -29,7 +29,7 @@ function UserProductView() {
     const [seachName, setSeachName] = useState('');
     const [filterProducts, setFilterProducts] = useState([]);
     const [selectedSort, setSelectedSort] = useState('');
-    const [selectedSortPrice, setSelectedSortPrice] = useState('');
+    const [selectedSortPrice, setSelectedSortPrice] = useState({});
     const [selectedCategorySort, setSelectedCategorySort] = useState({});
     const [selectedPaget, setSelectedPaget] = useState('0');
     const [quantityAllProducts, setQuantityAllProducts] = useState('');
@@ -43,15 +43,15 @@ function UserProductView() {
     // const location = useLocation();
     // let numberPage = new URLSearchParams(location.search).get('page') || 0;
     
-    console.log("selectedSort",selectedSort)
-    console.log('shop',selectedCategorySort)
+    // console.log("selectedSort",selectedSort)
+    // console.log('shop',selectedCategorySort)
     console.log(user)
-    console.log(shop)
+    // console.log(shop)
     
     useEffect(() => {
         if (selectedLanguage?.userProduct) {
             setSelectedSort(selectedLanguage.userProduct.userProductSortOptionAll)
-            setSelectedSortPrice('Всі товари')
+            setSelectedSortPrice({title: 'Всі товари', value: 'all'})
         }
     }, [selectedLanguage]);
 
@@ -80,7 +80,7 @@ function UserProductView() {
                         console.error('Error:', error);
                     })
 
-                fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all?page=${selectedPaget}`)
+                fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all?page=${selectedPaget}&price_filter=${selectedSortPrice.value == 'all' ? "" : selectedSortPrice.value}`)
                     .then(res => res.json())
                     .then(res => {
                         if (res.success && res.data) {
@@ -94,15 +94,28 @@ function UserProductView() {
                         console.error('Error:', error);
                     })
                 
-            } else if ( selectedSort == "withOutCategory") {
-                  // доробити
+            } else if ( selectedSort == "Без категорії") {
+                fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/number/all?category_id=none&token=${user.token}`)
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res)
+                        if (res.success && res.data) {
+                            console.log(res)
+                            setQuantityAllProducts(res.data)
+                        } else {
+                            console.log('GET UserProduct:', res)
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    })
+                  
                 fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/shop/non-category`)
                     .then(res => res.json())
                     .then(res => {
-                        if (res.success && res.data.length) {
-                            console.log('asdasd222 ', res)
+                        if (res.success && res.data) {
                             // setFilterProducts(res.data)
-                            // dispatch(getProducts(res.data));
+                            dispatch(getProducts(res.data));
                         }
                     })
                     .catch((error) => {
@@ -124,7 +137,7 @@ function UserProductView() {
                         console.error('Error:', error);
                     })
 
-                fetch(`${process.env.REACT_APP_BASE_URL}/products/${selectedCategorySort._id}/category?page=${selectedPaget}`)
+                fetch(`${process.env.REACT_APP_BASE_URL}/products/${selectedCategorySort._id}/category?page=${selectedPaget}&price_filter=${selectedSortPrice.value == 'all' ? "" : selectedSortPrice.value}`)
                     .then(res => res.json())
                     .then(res => {
                         if (res.success && res.data) {
@@ -140,13 +153,13 @@ function UserProductView() {
                     })
             }
         }
-    }, [shop, selectedPaget, selectedSort])
+    }, [shop, selectedPaget, selectedSort, selectedSortPrice, ])
     
     // фільтрація щоб працювала тільки після натиску на ентер
     // доробити ендпоінт на отримання 10 товарів і загальної кількості
     const handleSearchProduct = (e) => {
-        if(e.key === 'Enter'){
-            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/shop?name=${seachName}`)
+        if(e.key === 'Enter' || e.type == "click"){
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/shop?name=${seachName}&price_filter=${selectedSortPrice.value == 'all' ? "" : selectedSortPrice.value}`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res)
@@ -186,17 +199,11 @@ function UserProductView() {
         }
     };
    
-    const handleChangeSortPrice = (e, str) => {
+    const handleChangeSortPrice = (e, obj) => {
         e.stopPropagation()
         setIsOpenSelectSort(false)
         setSelectedPaget('0')
-        if (str == "all") {
-            setSelectedSortPrice('Всі товари')
-        } else if (str == "1") {
-            setSelectedSortPrice('По зростанню ціни')
-        } else {
-            setSelectedSortPrice('По спаданню ціни')
-        }
+        setSelectedSortPrice(obj)
     };
 
     const handleEditProduct = (obj) => {
@@ -244,30 +251,6 @@ function UserProductView() {
                     if (res.success && res.data) {
                         console.log('del', res)
                         dispatch(setRemoveProduct(deleteId))
-                        let data2 = {
-                            ...shop,
-                            quantityProducts: shop?.quantityProducts - 1,
-                            token: user.token,
-                        }
-            
-                        fetch(`${process.env.REACT_APP_BASE_URL}/shops/${shop._id}`, {
-                            method: 'PUT',
-                            headers: {
-                            'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(data2),
-                        })
-                            .then(res => res.json())
-                            .then(res => {
-                                if (res.success && res.data) {
-                                    dispatch(setShop(data2));
-                                } else {
-                                    console.log('PUT UserProduct:', res)
-                                }
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error);
-                            })
                         toast.success('Товар видалено', {
                             position: "bottom-right",
                             autoClose: 2500,
@@ -331,7 +314,7 @@ function UserProductView() {
                                 value={seachName}
                                 placeholder={selectedLanguage?.userProduct?.userProductSearchPlaceholder}
                             />
-                            <button className='user-product__filter-search-btn'>Пошук</button>
+                            <button className='user-product__filter-search-btn' onClick={(e) => handleSearchProduct(e)}>Пошук</button>
                         </div>
                     </div>
 
@@ -340,16 +323,16 @@ function UserProductView() {
                         <div className="user-product__price-select-wrap">
                             <div className="user-product__price-select" onClick={(e) => handleOpenSelectSort(e)}>
                             {/* <div className="user-product__price-select" onClick={() => setIsOpenSelectSort(!isOpenSelectSort)}> */}
-                                {selectedSortPrice}
+                                {selectedSortPrice?.title}
                                 <div className='user-product__price-select-btn-wrap'>
                                     <div className={`user-product__price-select-btn ${isOpenSelectSort ? 'user-product__price-select-btn--active' : ''}`}></div>
                                 </div>
                             </div>
                         </div>
                         <div className={`user-product__price-option-wrap ${isOpenSelectSort ? 'user-product__price-option-wrap--active' : ''}`}>
-                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e,'all')}>Всі товари</div>
-                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e, '1')}>По зростанню ціни</div>
-                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e, '-1')}>По спадання ціни</div>
+                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e, {title: 'Всі товари', value: 'all'})}>Всі товари</div>
+                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e, {title: 'По зростанню ціни', value: '1'})}>По зростанню ціни</div>
+                            <div className="user-product__price-option" onClick={(e) => handleChangeSortPrice(e, {title: 'По спадання ціни', value: '-1'})}>По спадання ціни</div>
                         </div >
                     </div>
 

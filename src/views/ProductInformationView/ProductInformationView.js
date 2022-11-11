@@ -52,6 +52,7 @@ function ProductInformationView() {
                 }
             })
             .catch((error) => {
+                setProduct(null)
                 console.error('Error:', error);
             })
             .finally(() => {
@@ -77,6 +78,7 @@ function ProductInformationView() {
                 }
             })
             .catch((error) => {
+                setProduct(null)
                 console.error('Error:', error);
             })
             .finally(() => {
@@ -146,7 +148,7 @@ function ProductInformationView() {
     return (
         <>
             {
-                isLoading ? (<Preloader/>) : !!product.name ? (
+                isLoading ? (<Preloader/>) : !!product?.name ? (
                     <div className="product-information">
                         {
                            selectedCategories?.name && (

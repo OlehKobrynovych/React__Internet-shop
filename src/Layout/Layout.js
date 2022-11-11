@@ -74,8 +74,8 @@ function Layout() {
     }, [])
 
     useEffect(() => {
-        if (shop.name) {
-            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all`)
+        if (shop?.name) {
+            fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/all?page=0`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data.length) {
