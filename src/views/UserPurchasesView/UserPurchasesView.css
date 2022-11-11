@@ -79,33 +79,10 @@
 
 .user-purchases__filter-date-wrap {
     /* margin-left: auto; */
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 6px;
-}
-
-.user-purchases__filter-date {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    gap: 4px;
-}
-
-.user-purchases__filter-date-label {
-    cursor: pointer;
-}
-
-.user-purchases__filter-date-input::-webkit-calendar-picker-indicator  {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: auto;
-    height: auto;
-    color: transparent;
-    background: transparent;
-    cursor: pointer;
 }
 
 .user-purchases__filter-date-btn-wrap {
@@ -117,7 +94,7 @@
 .user-purchases__filter-date-btn {
     border: 2px solid black;
     background-color: white;
-    padding: 4px 3px;
+    padding: 4px 8px;
     font-size: 14px;
     cursor: pointer;
     border-color: #0d48ac;
@@ -130,6 +107,40 @@
 .user-purchases__filter-date-btn:hover {
     background: #0d48ac;
     color: white;
+}
+
+
+
+.user-purchases__filter-date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    min-width: 185px;
+    cursor: pointer;
+}
+
+.user-purchases__filter-date-title {
+    
+}
+
+.user-purchases__filter-date-select {
+
+}
+
+.user-purchases__filter-date-drop {
+    position: absolute;
+    top: -1000%;
+    right: 0;
+    z-index: -2;
+    border: 1px solid;
+}
+
+.user-purchases__filter-date-drop-active {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 5;
 }
 
 .user-purchases__items {

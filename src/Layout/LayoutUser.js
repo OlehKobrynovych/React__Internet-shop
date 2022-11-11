@@ -5,7 +5,7 @@ import bell from '../assets/images/bell.svg';
 import cartUser from '../assets/images/cartUser.svg';
 import avatar from '../assets/images/avatar.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCategories, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setSelectedLanguage, setShop, setUser } from '../store/userSlice';
+import { getCategories, setCategories, setIsNeedCreateShop, setIsNeedUpdateShop, setNotificationsLength, setPurchasesLength, setSelectedLanguage, setShop, setUser } from '../store/userSlice';
 import LoginBtn from '../components/LoginBtn/LoginBtn';
 import ModalWindow from '../components/ModalWindow/ModalWindow';
 import { languageUser } from '../languageUser';
@@ -13,10 +13,12 @@ import { languageUser } from '../languageUser';
 
 function LayoutUser() {
     const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
+    const purchasesLength = useSelector(state => state.userSlice.purchasesLength);
+    const notificationsLength = useSelector(state => state.userSlice.notificationsLength);
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [isModalWindow, setModalWindow] = useState(false);
-    const [purchasesLength, setPurchasesLength] = useState(null);
-    const [notificationsLength, setNotificationsLength] = useState(null);
+    // const [purchasesLength, setPurchasesLength] = useState(null);
+    // const [notificationsLength, setNotificationsLength] = useState(null);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const dispatch = useDispatch();
@@ -94,8 +96,7 @@ function LayoutUser() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        console.log('GET LayoutUser:', res)
-                        setPurchasesLength(res.data)
+                        dispatch(setPurchasesLength(res.data));
                     } else {
                         console.log('GET LayoutUser:', res)
                     }
@@ -108,7 +109,7 @@ function LayoutUser() {
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
-                        setNotificationsLength(res.data)
+                        dispatch(setNotificationsLength(res.data));
                     } else {
                         console.log('GET LayoutUser:', res)
                     }
@@ -184,14 +185,14 @@ function LayoutUser() {
                             <div className='layout-user__header-btn-message'>
                                 <NavLink to={`/auth/${user._id}/notifications`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
                                 {
-                                    notificationsLength && <div className='layout-user__header-btn-message-circle'>{notificationsLength}</div>
+                                    !!notificationsLength?.length && <div className='layout-user__header-btn-message-circle'>{notificationsLength}</div>
                                 }
                             </div>
                             
                             <div className='layout-user__header-btn-message'>
                                 <NavLink to={`/auth/${user._id}/purchases`}><img className='layout-user__header-btn-message-img' src={cartUser} alt='img' /></NavLink>
                                 {
-                                    purchasesLength && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
+                                    !!purchasesLength?.length && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
                                 }
                             </div>
 

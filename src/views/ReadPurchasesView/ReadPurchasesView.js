@@ -178,17 +178,21 @@ function ReadPurchasesView () {
    
     const handleIsEditProductColors = (boolean) => {
         if (boolean) {
-            const data = {
-                ...purchaseContent,
-                product_ids: purchaseContent.product_ids.map(el => {
-                    if (el._id == editProduct._id) {
-                        el.selectColors = [...newColors]
+            purchaseContent.product_ids.map(el => {
+                if (el._id == editProduct._id && el.selectColors.toString() !== newColors.toString()) {
+                    const data = {
+                        ...purchaseContent,
+                        product_ids: purchaseContent.product_ids.map(el => {
+                            if (el._id == editProduct._id) {
+                                el.selectColors = [...newColors]
+                            }
+                            return el
+                        }),
+                        token: user.token,
                     }
-                    return el
-                }),
-                token: user.token,
-            }
-            sendEdite(data)
+                    sendEdite(data)
+                }
+            })
         } 
         setIsModalEditProductColors(false)
         setEditProduct({})
@@ -196,17 +200,21 @@ function ReadPurchasesView () {
 
     const handleIsEditProductSize = (boolean) => {
         if (boolean) {
-            const data = {
-                ...purchaseContent,
-                product_ids: purchaseContent.product_ids.map(el => {
-                    if (el._id == editProduct._id) {
-                        el.selectSizes = [...newSize]
+            purchaseContent.product_ids.map(el => {
+                if (el._id == editProduct._id && el.selectSizes.toString() !== newSize.toString()) {
+                    const data = {
+                        ...purchaseContent,
+                        product_ids: purchaseContent.product_ids.map(el => {
+                            if (el._id == editProduct._id) {
+                                el.selectSizes = [...newSize]
+                            }
+                            return el
+                        }),
+                        token: user.token,
                     }
-                    return el
-                }),
-                token: user.token,
-            }
-            sendEdite(data)
+                    sendEdite(data)
+                }
+            })
         } 
         setIsModalEditProductSize(false)
         setEditProduct({})

@@ -78,7 +78,7 @@ function ShoppingCartView() {
                 status: 'InProcess',
                 favorite: false,
                 shop_id: shop._id,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2ODE1MjE5NSwiZXhwIjoxNjY4MTcwMTk1fQ.aLrH0gRqkhaS0DS2DtLGfmOLfOVPtzsnZBGfL6_D2j8',                // відправка токена звідки брати для покупців?
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2ODE3MDU2MywiZXhwIjoxNjY4MTg4NTYzfQ.ShC2EKHQIXEhiWKCwsFVYasufKfNqKqYVkHQYrbbVbQ',                // відправка токена звідки брати для покупців?
             }
 
             fetch(`${process.env.REACT_APP_BASE_URL}/purchases/`, {

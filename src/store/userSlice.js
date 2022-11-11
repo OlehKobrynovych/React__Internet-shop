@@ -8,6 +8,8 @@ const initialState = {
   purchases: [],
   notifications: [],
   editProduct: {},
+  purchasesLength: '',
+  notificationsLength: '',
   isNeedCreateShop: false,
   isNeedUpdateShop: false,
   isNeedUpdateCategories: false,
@@ -35,6 +37,12 @@ export const userSlice = createSlice({
     },
     getPurchases: (state, action) => {
       state.purchases = action.payload;
+    },
+    setPurchasesLength: (state, action) => {
+      state.purchasesLength = action.payload;
+    },
+    setNotificationsLength: (state, action) => {
+      state.notificationsLength = action.payload;
     },
     getNotifications: (state, action) => {
       state.notifications = action.payload;
@@ -159,6 +167,6 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setUser, setShop, getCategories, getProducts, getPurchases, getNotifications, setStatusPurchases, setFavoritePurchases, setFavoriteNotifications, setSeenPurchases, setSeenNotifications,  setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput, setUserLanguage, setSelectedLanguage } = userSlice.actions
+export const { setPurchasesLength, setNotificationsLength, setUser, setShop, getCategories, getProducts, getPurchases, getNotifications, setStatusPurchases, setFavoritePurchases, setFavoriteNotifications, setSeenPurchases, setSeenNotifications,  setProduct, setUpdataProduct, setCategories, setUpdataCategory, setRemoveCategory, setSubCategories, setRemoveSubCategory, setEditProduct, setRemoveProduct, setIsNeedCreateShop, setIsNeedUpdateShop, setIsNeedUpdateCategories, setIsCleanInput, setUserLanguage, setSelectedLanguage } = userSlice.actions
 
 export default userSlice.reducer

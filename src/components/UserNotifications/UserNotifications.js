@@ -7,9 +7,13 @@ import stars from './../../assets/images/stars.svg';
 import envelope from './../../assets/images/envelope.svg';
 import envelopeOpen from './../../assets/images/envelopeOpen.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPurchases, setFavoritePurchases, getNotifications, setFavoriteNotifications } from '../../store/userSlice';
+import { getPurchases, setFavoritePurchases, getNotifications, setFavoriteNotifications, setPurchasesLength, setNotificationsLength } from '../../store/userSlice';
 import SelectStatus from '../SelectStatus/SelectStatus';
 import PaginationItems from '../PaginationItems/PaginationItems';
+
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; 
+import 'react-date-range/dist/theme/default.css'; 
 
 
 function UserNotifications() {
@@ -26,6 +30,16 @@ function UserNotifications() {
     const [quantityAllProducts, setQuantityAllProducts] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [isSelectDate, setIsSelectDate] = useState(false);
+    const [isSortByDate, setIsSortByDate] = useState(false);
+    const [stateDate, setStateDate] = useState([
+        {
+          startDate: null,
+        //   endDate: new Date(),
+          endDate: null,
+          key: 'selection'
+        }
+      ]);
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -34,7 +48,7 @@ function UserNotifications() {
     
     useEffect(() => {
         if (shop?._id) {
-            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/number/all?token=${user.token}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/number/all?token=${user.token}&min_date=${stateDate[0].startDate ? stateDate[0].startDate : ''}&max_date=${stateDate[0].endDate ? stateDate[0].endDate : ''}`)
                 .then(res => res.json())
                 .then(res => {
                     if (res.success && res.data) {
@@ -48,10 +62,10 @@ function UserNotifications() {
                     console.error('Error:', error);
                 })
 
-            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/all?token=${user.token}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/all?page=${selectedPaget}&token=${user.token}&min_date=${stateDate[0].startDate ? stateDate[0].startDate : ''}&max_date=${stateDate[0].endDate ? stateDate[0].endDate : ''}`)
                 .then(res => res.json())
                 .then(res => {
-                    if (res.success && res.data?.length) {
+                    if (res.success && res.data) {
                         dispatch(getNotifications(res.data));
                     } else {
                         console.log('GET UserNotifications:', res)
@@ -60,13 +74,37 @@ function UserNotifications() {
                 .catch((error) => {
                     console.error('Error:', error);
                 })
+
+            fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${shop._id}/number?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        dispatch(setPurchasesLength(res.data));
+                    } else {
+                        console.log('GET UserNotifications:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error UserNotifications:', error);
+                })
+            
+            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/number?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        dispatch(setNotificationsLength(res.data));
+                    } else {
+                        console.log('GET UserNotifications:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error UserNotifications:', error);
+                })
         }
-    }, [shop])
+    }, [shop, isSortByDate])
 
     useEffect(() => {
-        if (notifications?.length) {
-            setFilterNotifications([...notifications])  
-        }
+        setFilterNotifications([...notifications])  
     }, [notifications])
 
     const handleSortStatus = (status) => {     
@@ -153,20 +191,22 @@ function UserNotifications() {
     }
 
     const handleSortDate = () => {
-        if (startDate.length || endDate.length) {
-            let data = {
-                start_date: startDate,
-                end_date: endDate,
-                token: user.token,
-            }
-
-            // доробити відправку 
+        if (stateDate[0].startDate) {
+            setIsSelectDate(false)
+            setIsSortByDate(!isSortByDate)
         }
     }
-
+   
     const handleSortCleanDate = () => {
-        setStartDate('')
-        setEndDate('')
+        setIsSelectDate(false)
+        if (stateDate[0].startDate !== null) {
+            setIsSortByDate(!isSortByDate)
+            setStateDate([{
+                startDate: null,
+                endDate: null,
+                key: 'selection'
+              }])
+        }
     }
     
     return (
@@ -200,7 +240,7 @@ function UserNotifications() {
                         </div>
 
                         <div className="user-notifications__filter-date-wrap">
-                            <div className="user-notifications__filter-date">
+                            {/* <div className="user-notifications__filter-date">
                                 <label className="user-notifications__filter-date-label" htmlFor="userNotificationsStartDate">Початок:&nbsp;</label>
                                 <input
                                     className="user-notifications__filter-date-input"
@@ -223,12 +263,26 @@ function UserNotifications() {
                                     value={endDate}
                                     min="2022-01-01" 
                                 />
-                            </div>
+                            </div> */}
 
                             <div className='user-notifications__filter-date-btn-wrap'>
                                 <button className='user-notifications__filter-date-btn' onClick={handleSortCleanDate}>Очистити</button>
                                 <button className='user-notifications__filter-date-btn' onClick={handleSortDate}>Сортувати</button>
                             </div>
+                            <div className='user-notifications__filter-date' onClick={() => setIsSelectDate(!isSelectDate)}>
+                                <div className='user-notifications__filter-date-title'>Вибрати дні:&nbsp;</div>
+                                <div className='user-notifications__filter-date-select'>
+                                    <div>{stateDate[0]?.startDate ? new Date(stateDate[0]?.startDate).toLocaleString().split(',')[0] : 'дд.мм.рррр'}</div>
+                                    <div>{stateDate[0]?.endDate ? new Date(stateDate[0]?.endDate).toLocaleString().split(',')[0] : 'дд.мм.рррр'}</div>
+                                </div>
+                            </div>
+                            <DateRange
+                                className={`user-notifications__filter-date-drop ${isSelectDate ? 'user-notifications__filter-date-drop-active' : ''}`}
+                                editableDateInputs={true}
+                                onChange={item => setStateDate([item.selection])}
+                                moveRangeOnFirstSelection={false}
+                                ranges={stateDate}
+                            />
                         </div>
                     </div>
 
