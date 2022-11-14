@@ -36,36 +36,38 @@ function UserCategoriesView() {
     const handleCreateCategory = () => {
         if (shop.name) {
             if (categories.length < 5) {
-                let data = {
-                    id: new Date().toString(),
-                    name: name,
-                    image_url: image_url,
-                    parent_id: 'null',
-                    shop_id: shop._id,
-                    token: user.token,
+                if (name.length) {
+                    let data = {
+                        id: new Date().toString(),
+                        name: name,
+                        image_url: image_url,
+                        parent_id: 'null',
+                        shop_id: shop._id,
+                        token: user.token,
+                    }
+            
+                    fetch(`${process.env.REACT_APP_BASE_URL}/categories/`, {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res.success && res.data) {
+                                // console.log('POST UserCategories:', res)
+                                dispatch(setCategories({...res.data, sub_categories: []}))
+                                showMessage('success', 'Категорію створено')
+                            } else {
+                                console.log('POST UserCategories:', res)
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            showMessage('error', 'Сталася помилка')
+                        })
                 }
-        
-                fetch(`${process.env.REACT_APP_BASE_URL}/categories/`, {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                    .then(res => res.json())
-                    .then(res => {
-                        if (res.success && res.data) {
-                            // console.log('POST UserCategories:', res)
-                            dispatch(setCategories({...res.data, sub_categories: []}))
-                            showMessage('success', 'Категорію створено')
-                        } else {
-                            console.log('POST UserCategories:', res)
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        showMessage('error', 'Сталася помилка')
-                    })
             } else {
                 setErrorCreateText(selectedLanguage?.userCategoriesView?.userCategoriesErrorCreateLimit)
             }
@@ -78,39 +80,41 @@ function UserCategoriesView() {
     }
     
     const handleCreateSubCategory = (id) => {
-        let data = {
-            id: new Date().toString(),
-            name: subCategory,
-            image_url: '',
-            parent_id: id,
-            shop_id: shop._id,
-            token: user.token,
-        }
-    
-        fetch(`${process.env.REACT_APP_BASE_URL}/categories/`, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.data) {
-                    console.log(res)
-                    dispatch(setSubCategories(res.data))
-                    showMessage('success', 'Підкатегорію створено')
-                } else {
-                    console.log('POST UserCategories:', res)
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                showMessage('error', 'Сталася помилка')
-            })
+        if (subCategory.length) {
+            let data = {
+                id: new Date().toString(),
+                name: subCategory,
+                image_url: '',
+                parent_id: id,
+                shop_id: shop._id,
+                token: user.token,
+            }
         
-        setSubCategory('')
-        dispatch(setIsCleanInput(!isCleanInput))
+            fetch(`${process.env.REACT_APP_BASE_URL}/categories/`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        console.log(res)
+                        dispatch(setSubCategories(res.data))
+                        showMessage('success', 'Підкатегорію створено')
+                    } else {
+                        console.log('POST UserCategories:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    showMessage('error', 'Сталася помилка')
+                })
+            
+            setSubCategory('')
+            dispatch(setIsCleanInput(!isCleanInput))
+        }
     }
 
     const handleHelpOpen = (num) => {

@@ -29,6 +29,8 @@ function UserAnalytics() {
     const navigate = useNavigate();
     // let { userId } = useParams();
 
+
+    // --------------------------------------------------
     let orderedProducts = [
       {_id: "636a942156d16c168f514cfc", shop_id:"6333055e19047777b333e42e", category_id:"633325415114eb6475794c8b", name:"sdfs", price:"1", new_price:null, images:[], details:"", colors:[], sizes:[]}
     ]
@@ -57,7 +59,38 @@ function UserAnalytics() {
       };
 
 
+    //   {
+    //       shop_id: '21212121',
+    //       visitors: [
+    //           {
+    //             moon: '1',  //від 1 до 12
+    //             days: [
+    //                 {day: 1, quantity: 15},   // дені і кількість відвідувачів
+    //                 {day: 2, quantity: 15},
+    //                 // ................//
+    //                 {day: 30, quantity: 55},
+    //                 {day: 31, quantity: 5},
+    //             ]
+    //           }
+    //       ],
+    //       top_products: [id1, id2, id3],  // топ 10 товарів
+    //       purchases: [
+    //           {
+    //             moon: '1',  //від 1 до 12
+    //             data:  {
+    //                 total_purchases: 450,
+    //                 inProcess: 350,
+    //                 done: 50,
+    //                 rejected: 50,
+    //               }
+    //           }
+    //       ]
+    //     }
+
       // const labels = Utils.months({count: 7});
+
+
+      // ------------------------------------------------------------
       let res = [
         {day: 1, visitors: 65},
         {day: 2, visitors: 65},
@@ -181,8 +214,96 @@ function UserAnalytics() {
 
     //   console.log(shop)
 
+
+    // -------------------------------------------------
+    let res2 = [
+      {moon: 1, allOrder: 92, inProcess: 40, done: 42, rejected: 10 },
+      {moon: 2, allOrder: 95, inProcess: 40, done: 42, rejected: 10 },
+      {moon: 3, allOrder: 102, inProcess: 40, done: 42, rejected: 10 },
+      {moon: 4, allOrder: 92, inProcess: 40, done: 42, rejected: 10 },
+      {moon: 5, allOrder: 96, inProcess: 40, done: 42, rejected: 10 },
+      {moon: 6, allOrder: 92, inProcess: 40, done: 42, rejected: 10 },
+      {moon: 7, allOrder: 0, inProcess: 0, done: 0, rejected: 0 },
+      {moon: 8, allOrder: 0, inProcess: 0, done: 0, rejected: 0 },
+      {moon: 9, allOrder: 0, inProcess: 0, done: 0, rejected: 0 },
+      {moon: 10, allOrder: 0, inProcess: 0, done: 0, rejected: 0 },
+      {moon: 11, allOrder: 0, inProcess: 0, done: 0, rejected: 0 },
+      {moon: 12, allOrder: 0, inProcess: 0, done: 0, rejected: 0 },
+    ]
+
+    let barChartData = {
+      labels: [
+        "Січень",
+        "Лютий",
+        "Березень",
+        "Квітень",
+        "Травень",
+        "Червень",
+        "Липень",
+        "Серпень",
+        "Вересень",
+        "Жовтень",
+        "Листопад",
+        "Грудень",
+      ],
+      datasets: [
+        {
+          label: "Всіх",
+          backgroundColor: "yellow",
+          borderColor: "orange",
+          borderWidth: 1,
+          data: [60,70,70,30,70,70,40,60]
+        },
+        {
+          label: "В процесі",
+          backgroundColor: "lightblue",
+          borderColor: "blue",
+          borderWidth: 1,
+          data: [20, 25, 30, 10, 10, 7, 5, 10]
+        },
+        {
+          label: "Виконаних",
+          backgroundColor: "lightgreen",
+          borderColor: "green",
+          borderWidth: 1,
+          data: [30, 30, 20, 60, 25, 27 ,30,10]
+        },
+        {
+          label: "Відхилених",
+          backgroundColor: "pink",
+          borderColor: "red",
+          borderWidth: 1,
+          data: [3, 5, 10, 15, 13, 5, 6, 7]
+        },
+      ]
+    };
+    
+    let chartOptions = {
+      // responsive: true,
+      legend: {
+        position: "top"
+      },
+      // indexAxis: 'y',
+      aspectRatio: vw < 500 ? 1 / 1 : 2 / 1,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
     
     useEffect(() => {
+      const completedOrder = new Chart(
+        document.getElementById('userAnalyticsCompletedOrdersGraph'),
+        {
+          type: "bar",
+          data: barChartData,
+          options: chartOptions
+        }
+      );
+
       const orderStatus = new Chart(
         document.getElementById('userAnalyticsOrderStatusGraph'),
         configOrderStatus
@@ -274,8 +395,30 @@ function UserAnalytics() {
                 <h3 className="user-analytics__title">Ляскаво просимо {user.first_name} {user.last_name}</h3>
                 <NavLink className="user-analytics__shop-btn" to={`/${shop?.name ? shop.name : `auth/${user?._id}/shop`}`}>{shop?.name ? 'Перейти до магазину' : 'Створити магазин'}</NavLink>
             
+                <div className="user-analytics__completed-wrap">
+                    <h4 className="user-analytics__completed-title">Графік виконаних замовлень</h4>
+                    <div className="user-analytics__completed-sub-title">Рік: 2022р</div>
+                    <div className="user-analytics__completed">
+                        <div className="user-analytics__completed-graph">
+                            <canvas  className="user-analytics__completed-graph-canvas" id="userAnalyticsCompletedOrdersGraph"></canvas>
+                        </div>
+                        <div className="user-analytics__completed-tabl">
+                          {
+                            res2.map(el => (<div className="user-analytics__completed-tabl-item" key={el.moon}>
+                              <div className="user-analytics__completed-tabl-item-info"><b>Місяць</b> {el.moon}</div> 
+                              <div className="user-analytics__completed-tabl-item-info"><b>всіх:</b> {el.allOrder}</div> 
+                              <div className="user-analytics__completed-tabl-item-info"><b>в процесі:</b> {el.inProcess}</div> 
+                              <div className="user-analytics__completed-tabl-item-info"><b>виконаних:</b> {el.done}</div> 
+                              <div className="user-analytics__completed-tabl-item-info"><b>відхилених:</b> {el.rejected} </div> 
+                            </div>))
+                          }
+                        </div>
+                    </div>
+                </div>
+
                 <div className="user-analytics__order-status-wrap">
                     <h4 className="user-analytics__order-status-title">Графік статусів замовлень</h4>
+                    <h3 className="user-analytics__order-status-sub-title">Місяць: Листопад 2022р</h3>
                     <div className="user-analytics__order-status">
                         <div className="user-analytics__order-status-info">
                             <div className="user-analytics__order-status-info-title">Всіх замовлень: 450</div>

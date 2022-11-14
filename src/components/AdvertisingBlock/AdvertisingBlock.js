@@ -57,7 +57,7 @@ function AdvertisingBlock() {
                 setOtherTypeStore(userTypeStore[shopStore?.language].filter(el => !shopStore?.typeStore?.includes(el.id)))
             }
 
-    }, [])
+    }, [shopUser, shopStore])
    
     useEffect(() => {
             if (filterTypeStore == '0') {

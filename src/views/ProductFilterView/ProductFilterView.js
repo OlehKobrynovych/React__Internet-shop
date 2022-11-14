@@ -22,10 +22,16 @@ function ProductFilterView() {
     const [selectedCategory, setSelectedCategory] = useState({});
     const [parentCategories, setParentCategories] = useState({});
     const [isPageNotFound, setIsPageNotFound] = useState(false);
-    const [selectedSort, setSelectedSort] = useState('priceUp');
+    const [selectedSort, setSelectedSort] = useState('1');
+    const [selectedSortTitle, setSelectedSortTitle] = useState('');
     const [selectedPaget, setSelectedPaget] = useState('0');
     const [quantityAllProducts, setQuantityAllProducts] = useState('');
-    // console.log(selectedLanguage)
+    const [selectedSortPrice, setSelectedSortPrice] = useState({title: 'Всі товари', value: 'all'});
+    const [isOpenSelectSort, setIsOpenSelectSort] = useState(false);
+
+
+    console.log(selectedSortPrice)
+    // console.log(selectedSort)
     // const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     // debugger
@@ -40,6 +46,7 @@ function ProductFilterView() {
                 if (res.success && res.data) {
                     setSelectedCategory(res.data);
                     productSearch(res.data)
+                    console.log('Error:', res);
                 } else {
                     setIsPageNotFound(true)
                 }
@@ -50,30 +57,32 @@ function ProductFilterView() {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [id, categories, selectedPaget])
+    }, [id, selectedSortPrice, selectedPaget])
 
     const productSearch = (data) => {
-        // fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/number/all?token=${user.token}`)
-        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data.shop_id}/number/all?`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data.shop_id}/number/all?category_id=${data._id}`)
             .then(res => res.json())
             .then(res => {
+                console.log(res)
                 if (res.success && res.data) {
                     setQuantityAllProducts(res.data)
                 } else {
-                    console.log('GET ProductFilterView:', res)
+                    console.log('GET UserProduct:', res)
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
             })
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data._id}/category?page=${selectedPaget}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/products/${data._id}/category?page=${selectedPaget}&price_filter=${selectedSortPrice.value == 'all' || selectedSortPrice.value == 'new' || selectedSortPrice.value == 'newPrice' ? "" : selectedSortPrice.value}`)
+        // fetch(`${process.env.REACT_APP_BASE_URL}/products/${data.shop_id}/all?category=${data._id}&page=${selectedPaget}&price_filter=${selectedSortPrice.value == 'all' ? "" : selectedSortPrice.value}`)
             .then(res => res.json())
             .then(res => {
                 if (res.success && res.data) {
+                    console.log(res)
                     setCategoryProducts([...res.data])
                 } else {
-                    console.log('GET ProductFilterView:', res)
+                    console.log('GET UserProduct:', res)
                 }
             })
             .catch((error) => {
@@ -100,27 +109,17 @@ function ProductFilterView() {
         } 
 
     }, [selectedCategory])
- 
-    useEffect(() => {
-            if (selectedSort == 'priceUp') {
-                let arr = [...categoryProducts]
-                let res = arr.sort((a, b) => a.price - b.price)
-                setCategoryProducts(res);
-            } else if (selectedSort == 'priceDown') {
-                let arr = [...categoryProducts]
-                let res = arr.sort((a, b) => b.price - a.price)
-                setCategoryProducts(res);
-            } else if (selectedSort == 'newPrice') {
-                let res = [...categoryProducts.filter(el => el.new_price !== 0), ...categoryProducts.filter(el => el.new_price == 0)]
-                setCategoryProducts(res);
-            } else if (selectedSort == 'new') {
-                let res = [...categoryProducts.filter(el => el.new_price == 0), ...categoryProducts.filter(el => el.new_price !== 0)]
-                setCategoryProducts(res);
-            }
-    }, [selectedSort])
 
-    const handleChangeSort = (e) => {
-        setSelectedSort(e.target.value)
+    const handleOpenSelectSort = (e) => {
+        e.stopPropagation()
+        setIsOpenSelectSort(true)
+    }
+
+    const handleChangeSortPrice = (e, obj) => {
+        e.stopPropagation()
+        setIsOpenSelectSort(false)
+        setSelectedPaget('0')
+        setSelectedSortPrice(obj)
     };
 
     return (
@@ -128,7 +127,7 @@ function ProductFilterView() {
             {
                 isLoading ? <Preloader /> :
                 isPageNotFound ? (<PageNotFoundView />) :
-                    (<div className="product-filter">
+                    (<div className="product-filter" onClick={() => setIsOpenSelectSort(false)}>
                         <div className="product-filter--wrap container">
 
                             {
@@ -157,14 +156,24 @@ function ProductFilterView() {
                                             <div className="product-filter__filter">
                                                 {/* пошук товару по назві? */}
                                             </div>
-                                            <div className="product-filter__sort-wrap">
-                                                <span className="product-filter__sort-label">{selectedLanguage?.categoriesPage?.categoriesSortTitle}</span>
-                                                <select className="product-filter__sort-select" onChange={handleChangeSort} value={selectedSort}>
-                                                    <option className="product-filter__sort-option" value="priceUp">{selectedLanguage?.categoriesPage?.categoriesSortOption1}</option>
-                                                    <option className="product-filter__sort-option" value="priceDown">{selectedLanguage?.categoriesPage?.categoriesSortOption2}</option>
-                                                    <option className="product-filter__sort-option" value="newPrice">{selectedLanguage?.categoriesPage?.categoriesSortOption3}</option>
-                                                    <option className="product-filter__sort-option" value="new">{selectedLanguage?.categoriesPage?.categoriesSortOption4}</option>
-                                                </select>
+
+                                            <div className='product-filter__price-wrap'>
+                                                <span className='product-filter__price-label'>Сортувати:</span>
+                                                <div className="product-filter__price-select-wrap">
+                                                    <div className="product-filter__price-select" onClick={(e) => handleOpenSelectSort(e)}>
+                                                        {selectedSortPrice?.title}
+                                                        <div className='product-filter__price-select-btn-wrap'>
+                                                            <div className={`product-filter__price-select-btn ${isOpenSelectSort ? 'product-filter__price-select-btn--active' : ''}`}></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className={`product-filter__price-option-wrap ${isOpenSelectSort ? 'product-filter__price-option-wrap--active' : ''}`}>
+                                                    <div className="product-filter__price-option" onClick={(e) => handleChangeSortPrice(e, {title: 'Всі товари', value: 'all'})}>Всі товари</div>
+                                                    <div className="product-filter__price-option" onClick={(e) => handleChangeSortPrice(e, {title: selectedLanguage?.categoriesPage?.categoriesSortOption1, value: '1'})}>{selectedLanguage?.categoriesPage?.categoriesSortOption1}</div>
+                                                    <div className="product-filter__price-option" onClick={(e) => handleChangeSortPrice(e, {title: selectedLanguage?.categoriesPage?.categoriesSortOption2, value: '-1'})}>{selectedLanguage?.categoriesPage?.categoriesSortOption2}</div>
+                                                    <div className="product-filter__price-option" onClick={(e) => handleChangeSortPrice(e, {title: selectedLanguage?.categoriesPage?.categoriesSortOption3, value: 'newPrice'})}>{selectedLanguage?.categoriesPage?.categoriesSortOption3}</div>
+                                                    <div className="product-filter__price-option" onClick={(e) => handleChangeSortPrice(e, {title: selectedLanguage?.categoriesPage?.categoriesSortOption4, value: 'new'})}>{selectedLanguage?.categoriesPage?.categoriesSortOption4}</div>
+                                                </div >
                                             </div>
                                         </div>
 
@@ -178,7 +187,6 @@ function ProductFilterView() {
                                             }
                                         </ul>
 
-                                        {/* <PaginationItems items={categoryProducts} setCurrentPaginationItems={setPaginationProducts} pageRangeDisplayed={5} itemsPerPage={5}/> */}
                                         <PaginationItems selectedPaget={selectedPaget} setSelectedPaget={setSelectedPaget} pageRangeDisplayed={5} itemsPerPage={10} quantityAllProducts={quantityAllProducts}/>
                                         
                                     </>) : <p className='product-filter__categories-error'>{selectedLanguage?.categoriesPage?.categoriesError}</p>

@@ -18,6 +18,8 @@ function SearchProductView() {
     const [searchProducts, setSearchProducts] = useState([]);
     const [paginationProducts, setPaginationProducts] = useState([]);
     const [searchNoResults, setSearchNoResults] = useState(false);
+    const [selectedPaget, setSelectedPaget] = useState('0');
+    const [quantityAllProducts, setQuantityAllProducts] = useState('');
     // console.log(searchProductsName)
 
     useEffect(() => {
@@ -25,9 +27,7 @@ function SearchProductView() {
             fetch(`${process.env.REACT_APP_BASE_URL}/products/${shop._id}/shop?name=${searchProductsName}`)
                 .then(res => res.json())
                 .then(res => {
-                    console.log(res)
                     if (res.success && res.data) {
-                        console.log(res)
                         if (res.data?.length) {
                             setSearchProducts([...res.data])
                             setSearchNoResults(false)
@@ -50,7 +50,7 @@ function SearchProductView() {
             <div className='search-product--wrap container'>
                 <div className='search-product__cards'>
                     {
-                        !!paginationProducts?.length && !searchNoResults ? paginationProducts.map(el => (
+                        !!searchProducts?.length && !searchNoResults ? searchProducts.map(el => (
                                 <ProductCard product={el} key={el._id}/>    
                                 )) : <h3  className='search-product__error-text'>
                                         {selectedLanguage?.searchPage?.searchErrorText}
@@ -58,7 +58,7 @@ function SearchProductView() {
                     }
                 </div>
 
-                <PaginationItems items={searchProducts} setCurrentPaginationItems={setPaginationProducts} pageRangeDisplayed={5} itemsPerPage={5}/>
+                <PaginationItems selectedPaget={selectedPaget} setSelectedPaget={setSelectedPaget} pageRangeDisplayed={5} itemsPerPage={10} quantityAllProducts={quantityAllProducts}/>
             </div>
         </div>
     );

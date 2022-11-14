@@ -24,11 +24,11 @@ export const languageShop = {
             titleSwiperNew: 'Новинки',
         },
         categoriesPage: {
-            categoriesSortTitle: 'Сортування:',
-            categoriesSortOption1: 'По зростанню ціни:',
-            categoriesSortOption2: 'По спаданню ціни:',
-            categoriesSortOption3: 'Знижки:',
-            categoriesSortOption4: 'Новинки:',
+            categoriesSortTitle: 'Сортування',
+            categoriesSortOption1: 'По зростанню ціни',
+            categoriesSortOption2: 'По спаданню ціни',
+            categoriesSortOption3: 'Знижки',
+            categoriesSortOption4: 'Новинки',
             categoriesError: 'В цій категорії не має товарів',
         },
         productPage: {
