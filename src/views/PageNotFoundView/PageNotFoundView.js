@@ -13,9 +13,9 @@ function PageNotFoundView() {
         <div className="page-not-found">
             <span className="page-not-found__number">404</span>
             <h2 className="page-not-found__title">{selectedLanguage?.notFoundPage?.notFoundTitle}</h2>
-            <div>
+            <div className="page-not-found__btn-wrap">
                 <span>{selectedLanguage?.notFoundPage?.notFoundGetBackTitle}</span>
-                <NavLink className="page-not-found__btn" to={`/${shop.name}`}>{selectedLanguage?.homePage?.homeName}</NavLink>
+                <NavLink className={`app__custom-btn app__btn-${shop?.colorSettings?.selectBtn?.length ? shop?.colorSettings.selectBtn : '5'}`} to={`/${shop.name}`}><span className="app__custom-btn-span">{selectedLanguage?.homePage?.homeName}</span></NavLink>
             </div>
         </div>
     );

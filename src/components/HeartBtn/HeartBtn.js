@@ -26,7 +26,7 @@ function HeartBtn() {
 
     return (
         <div className="heart-btn" onClick={handleClick}>
-            <svg className="heart-btn__img" fill='#fff' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <svg className="heart-btn__img" fill={shop?.colorSettings?.colorHeaderText ? shop?.colorSettings?.colorHeaderText : '#ffffff'} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 471.701 471.701"  xmlSpace="preserve">
                     <g>
                         <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1

@@ -204,6 +204,7 @@ function UserAnalytics() {
         type: 'bar',
         data: data2,
         options: {
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: true
@@ -284,7 +285,8 @@ function UserAnalytics() {
         position: "top"
       },
       // indexAxis: 'y',
-      aspectRatio: vw < 500 ? 1 / 1 : 2 / 1,
+      maintainAspectRatio: false,
+      // aspectRatio: vw < 500 ? 1 / 1 : 2 / 1,
       scales: {
         yAxes: [{
           ticks: {
@@ -325,6 +327,7 @@ function UserAnalytics() {
    
     function handleEditProduct(obj) {
         dispatch(setEditProduct(obj))
+        localStorage.setItem('editProduct', JSON.stringify(obj));
         navigate(`/auth/${user._id}/product/create`)
     }
  
@@ -400,7 +403,8 @@ function UserAnalytics() {
                     <div className="user-analytics__completed-sub-title">Рік: 2022р</div>
                     <div className="user-analytics__completed">
                         <div className="user-analytics__completed-graph">
-                            <canvas  className="user-analytics__completed-graph-canvas" id="userAnalyticsCompletedOrdersGraph"></canvas>
+                            {/* <canvas  className="user-analytics__completed-graph-canvas" id="userAnalyticsCompletedOrdersGraph"></canvas> */}
+                            <canvas id="userAnalyticsCompletedOrdersGraph"></canvas>
                         </div>
                         <div className="user-analytics__completed-tabl">
                           {

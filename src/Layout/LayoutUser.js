@@ -97,6 +97,7 @@ function LayoutUser() {
                 .then(res => {
                     if (res.success && res.data) {
                         dispatch(setPurchasesLength(res.data));
+                        console.log('GET LayoutUser:', res)
                     } else {
                         console.log('GET LayoutUser:', res)
                     }
@@ -185,14 +186,14 @@ function LayoutUser() {
                             <div className='layout-user__header-btn-message'>
                                 <NavLink to={`/auth/${user._id}/notifications`}><img className='layout-user__header-btn-message-img' src={bell} alt='img' /></NavLink>
                                 {
-                                    !!notificationsLength?.length && <div className='layout-user__header-btn-message-circle'>{notificationsLength}</div>
+                                    !!notificationsLength && <div className='layout-user__header-btn-message-circle'>{notificationsLength}</div>
                                 }
                             </div>
                             
                             <div className='layout-user__header-btn-message'>
                                 <NavLink to={`/auth/${user._id}/purchases`}><img className='layout-user__header-btn-message-img' src={cartUser} alt='img' /></NavLink>
                                 {
-                                    !!purchasesLength?.length && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
+                                    !!purchasesLength && <div className='layout-user__header-btn-message-circle'>{purchasesLength}</div>
                                 }
                             </div>
 

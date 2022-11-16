@@ -210,22 +210,23 @@ function ProductInformationView() {
                                     !!product?.details.length && (<div className="product-information__description"><p><b>{selectedLanguage?.productPage?.productDescriptionTitle}</b></p><p>{product.details}</p></div>)
                                 }
 
-                                <button className="product-information__btn-cart" onClick={handleAddFavoriteProduct}>
-                                    {
-                                        !isFavoriteProduct ? selectedLanguage?.productPage?.productBtnWishListAdd : selectedLanguage?.productPage?.productBtnWishListNotAdd
-                                    }
-                                </button>
-                                
-                                <button className="product-information__btn-cart" onClick={handleAddShoppingProduct}>
-                                    {
-                                        !isShoppingProduct ? selectedLanguage?.productPage?.productBtnCartAdd : selectedLanguage?.productPage?.productBtnCartNotAdd
-                                    }
-                                </button>
-                                {/* 
-                                {
-                                    datas?.shopInfo?.guarantee && (<div className="product-information__guarantee"><p><b>{selectedLanguage?.productPage?.productGuaranteeTitle}</b></p><p>{datas.shopInfo.guarantee}</p></div>)
-                                } */}
-
+                                <div className="product-information__btn-cart-wrap">
+                                    <button className={`app__custom-btn app__btn-${shop?.colorSettings?.selectBtn?.length ? shop?.colorSettings.selectBtn : '5'}`} onClick={handleAddFavoriteProduct}>
+                                        <span className="app__custom-btn-span">
+                                            {
+                                                !isFavoriteProduct ? selectedLanguage?.productPage?.productBtnWishListAdd : selectedLanguage?.productPage?.productBtnWishListNotAdd
+                                            }
+                                        </span>
+                                    </button>
+                                    <button className={`app__custom-btn app__btn-${shop?.colorSettings?.selectBtn?.length ? shop?.colorSettings.selectBtn : '5'}`} onClick={handleAddShoppingProduct}>
+                                        <span className="app__custom-btn-span">
+                                            {
+                                                !isShoppingProduct ? selectedLanguage?.productPage?.productBtnCartAdd : selectedLanguage?.productPage?.productBtnCartNotAdd
+                                            }
+                                        </span>
+                                    </button>
+                                </div>
+                            
                                 {
                                     !!shop?.deliveryMethods?.length && (<div className="product-information__delivery-mthods"><p><b>{selectedLanguage?.productPage?.productDeliveryTitle}</b></p><p>{shop.deliveryMethods.map((el, index) => <div>{index + 1}.&nbsp;{el}</div>)}</p></div>)
                                 }

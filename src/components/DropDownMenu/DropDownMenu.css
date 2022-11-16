@@ -23,7 +23,7 @@
 .drop-down-menu__header {
     padding-top: 20px;
     padding-bottom: 20px;
-    background: #333;
+    background: var(--bgColorHeader)
 }
 
 .drop-down-menu__header--wrap {
@@ -48,6 +48,7 @@
     white-space: nowrap;
     transition: .3s;
     margin-right: 35px;
+    color: var(--colorHeaderText);
 }
 
 .drop-down-menu__header-link:hover {
@@ -61,7 +62,7 @@
     height: 0.2em;
     position: absolute;
     bottom: -4px;
-    background-color: #fff;
+    background-color: var(--colorHeaderText);
     transition: width .3s ease-in;
 }
   

@@ -18,17 +18,12 @@
     margin-bottom: 30px;
 }
 
-.page-not-found__btn {
-    border: 1px solid #000;
-    border-radius: 4px;
-    padding: 12px 28px;
-    margin-left: 10px;
-    transition: .3s;
-}
-
-.page-not-found__btn:hover {
-    background: rgb(121, 117, 117);
-    color: #fff;
+.page-not-found__btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 @media (min-width: 576px) {

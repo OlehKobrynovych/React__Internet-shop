@@ -100,6 +100,22 @@ function Layout() {
         }
 
         dispatch(setSelectedLanguage(languageShop[shop?.language]));
+
+        if (shop?.colorSettings) {
+            const root = document.documentElement; 
+            root.style.setProperty(`--bgColorHeader`, shop?.colorSettings.bgColorHeader); 
+            root.style.setProperty(`--colorHeaderText`, shop?.colorSettings.colorHeaderText); 
+            root.style.setProperty(`--bgColorFooter`, shop?.colorSettings.bgColorFooter); 
+            root.style.setProperty(`--colorFooterText`, shop?.colorSettings.colorFooterText); 
+            root.style.setProperty(`--bgColorMain`, shop?.colorSettings.bgColorMain); 
+            root.style.setProperty(`--colorMainText`, shop?.colorSettings.colorMainText); 
+            root.style.setProperty(`--colorTextBtn`, shop?.colorSettings.colorTextBtn); 
+            root.style.setProperty(`--colorTextBtnHover`, shop?.colorSettings.colorTextBtnHover); 
+            root.style.setProperty(`--firstColorGradient`, shop?.colorSettings.firstColorGradient); 
+            root.style.setProperty(`--secondColorGradient`, shop?.colorSettings.secondColorGradient); 
+            root.style.setProperty(`--firstColorGradientHover`, shop?.colorSettings.firstColorGradientHover); 
+            root.style.setProperty(`--secondColorGradientHover`, shop?.colorSettings.secondColorGradientHover); 
+        }
     }, [shop])
 
     return (

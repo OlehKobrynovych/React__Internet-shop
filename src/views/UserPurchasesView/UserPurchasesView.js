@@ -5,7 +5,7 @@ import stars from './../../assets/images/stars.svg';
 import envelope from './../../assets/images/envelope.svg';
 import envelopeOpen from './../../assets/images/envelopeOpen.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPurchases, setFavoritePurchases } from '../../store/userSlice';
+import { getPurchases, setFavoritePurchases, setNotificationsLength, setPurchasesLength } from '../../store/userSlice';
 import SelectStatus from '../../components/SelectStatus/SelectStatus';
 import PaginationItems from '../../components/PaginationItems/PaginationItems';
 
@@ -78,6 +78,32 @@ function UserPurchasesView() {
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                })
+
+                fetch(`${process.env.REACT_APP_BASE_URL}/purchases/${shop._id}/number?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        dispatch(setPurchasesLength(res.data));
+                    } else {
+                        console.log('GET UserPurchases:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error UserPurchases:', error);
+                })
+            
+            fetch(`${process.env.REACT_APP_BASE_URL}/notifications/${shop._id}/number?token=${user.token}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success && res.data) {
+                        dispatch(setNotificationsLength(res.data));
+                    } else {
+                        console.log('GET UserPurchases:', res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error UserPurchases:', error);
                 })
         }
     }, [shop, selectedPaget, isSortByDate])

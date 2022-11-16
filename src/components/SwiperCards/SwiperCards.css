@@ -39,6 +39,7 @@
 } */
 
 .swiper-cards--wrap.container .swiper {
+    position: relative;
     overflow: visible;
 }
 
@@ -49,17 +50,19 @@
 }
 
 .swiper-button-prev {
-    top: -18px !important;
+    top: -30px !important;
     left: auto !important;
-    right: 54px !important;
+    right: 66px !important;
 }
 
 .swiper-button-prev::after {
-    content: '' !important;
-    background-image: url(../../assets/images/arrow.svg);
+    /* content: '' !important; */
+    content: "\2190" !important;
+    /* background-image: url(../../assets/images/arrow.svg); */
     width: 36px;
     height: 36px;
     transition: .3s;
+    color: var(--colorMainText);
 }
 
 .swiper-button-prev:hover::after {
@@ -67,21 +70,23 @@
 }
 
 .swiper-button-next {
-    top: -27px !important;
-    right: 6px !important;
-    transform: rotate(180deg);
+    top: -30px !important;
+    right: 3px !important;
+    /* transform: rotate(180deg); */
 }
 
 .swiper-button-next::after {
-    content: '' !important;
-    background-image: url(../../assets/images/arrow.svg);
+    /* content: '' !important; */
+    content: "\2192" !important;
+    /* background-image: url(../../assets/images/arrow.svg); */
     width: 36px;
     height: 36px;
     transition: .3s;
+    color: var(--colorMainText);
 }
 
 .swiper-button-next:hover::after {
-    transform: translateX(-10px);
+    transform: translateX(10px);
 }
 
 @media (min-width: 576px) {

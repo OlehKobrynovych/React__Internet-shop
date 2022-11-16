@@ -208,6 +208,7 @@ function UserProductView() {
 
     const handleEditProduct = (obj) => {
         dispatch(setEditProduct(obj))
+        localStorage.setItem('editProduct', JSON.stringify(obj));
         navigate(`/auth/${user._id}/product/create`)
     }
 

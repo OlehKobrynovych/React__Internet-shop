@@ -78,7 +78,8 @@ function ShoppingCartView() {
                 status: 'InProcess',
                 favorite: false,
                 shop_id: shop._id,
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2ODE3MDU2MywiZXhwIjoxNjY4MTg4NTYzfQ.ShC2EKHQIXEhiWKCwsFVYasufKfNqKqYVkHQYrbbVbQ',                // відправка токена звідки брати для покупців?
+                creation_time: new Date().getTime(),
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzYzU2NWVhYjE4MzIwODVkMzEyNTM1IiwiZW1haWwiOiJhc2RAYXNkLmFzZCIsImlhdCI6MTY2ODQzODIyMiwiZXhwIjoxNjY4NDU2MjIyfQ.wjtuFhLBr5EQz4xZgnMe67UO2c2zTc8is1UoJbsJ-ug',                // відправка токена звідки брати для покупців?
             }
 
             fetch(`${process.env.REACT_APP_BASE_URL}/purchases/`, {
@@ -311,7 +312,7 @@ function ShoppingCartView() {
                                     <input className="shopping-cart__form-checkbox" checked={checkboxForm} onChange={() => setCheckboxFor(!checkboxForm)} type="checkbox" id="checkbox" name="checkbox" />
                                     <span className="shopping-cart__form-checkbox-title">{selectedLanguage?.cartPage?.cartFormCheckbox}</span>
                                 </label>
-                                <button className="shopping-cart__btn-buy" onClick={() => handleSubmit()}>{selectedLanguage?.cartPage?.cartBtnBuy}</button>
+                                <button className={`app__custom-btn app__btn-${shop?.colorSettings?.selectBtn?.length ? shop?.colorSettings.selectBtn : '5'}`} onClick={() => handleSubmit()}><span className="app__custom-btn-span">{selectedLanguage?.cartPage?.cartBtnBuy}</span></button>
                             </div>
 
                             {

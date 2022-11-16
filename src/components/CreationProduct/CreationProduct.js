@@ -36,7 +36,9 @@ function CreationProduct() {
     // const nameInputRef = useRef(null);
     // const priceInputRef = useRef(null);
     // const categoryInputRef = useRef(null);
-    // console.log(editProduct)
+    // console.log(name)
+    // console.log(price)
+    // console.log(selectCategory)
 
 
     useEffect(() => {
@@ -49,20 +51,39 @@ function CreationProduct() {
             setSizes(editProduct.sizes)
             setImages(editProduct.images)
 
-            fetch(`${process.env.REACT_APP_BASE_URL}/categories/${editProduct.category_id}`)
-                .then(res => res.json())
-                .then(res => {
-                    if (res.success && res.data) {
-                        setSelectCategory(res.data);
-                    } else {
-                        setSelectCategory({})
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                })
+            handleCategory(editProduct)
+        } else {
+            let localProduct = (JSON.parse(localStorage.getItem('editProduct')));
+            if (localProduct._id) {
+                dispatch(setEditProduct(localProduct))
+                
+                setName(localProduct.name)
+                setPrice(localProduct.price)
+                setNew_price(localProduct.new_price)
+                setDetails(localProduct.details)
+                setColors(localProduct.colors)
+                setSizes(localProduct.sizes)
+                setImages(localProduct.images)
+
+                handleCategory(localProduct)
+            }
         }
     }, [])
+
+    const handleCategory = (product) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/categories/${product.category_id}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    setSelectCategory(res.data);
+                } else {
+                    setSelectCategory({})
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+    }
 
     const handleHelpOpen = (num) => {
         if (isOpenInfo.includes(num)) {
@@ -106,11 +127,12 @@ function CreationProduct() {
    
     const handleReturn = () => {
         navigate(`/auth/${user._id}/product`)
+        localStorage.setItem('editProduct', JSON.stringify({}));
         dispatch(setEditProduct({}))
     }
 
     const handleSend = () => {
-        if (name?.length && price?.length && selectCategory?._id) {
+        if (name?.length && price !== 0 && selectCategory?._id) {
             let data = {
                 shop_id: shop._id,
                 category_id: selectCategory._id,
@@ -138,6 +160,7 @@ function CreationProduct() {
                             console.log('asd as', res)  
                             dispatch(setUpdataProduct({...data, _id: editProduct._id}))
                             navigate(`/auth/${user._id}/product`)
+                            localStorage.setItem('editProduct', JSON.stringify({}));
                             showMessage('success', 'Дані оновлено')
                         } else {
                             console.log('PUT CreationProduct', res)

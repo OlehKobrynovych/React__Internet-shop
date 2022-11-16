@@ -378,6 +378,7 @@ function ReadPurchasesView () {
                         </select>
                     </div>
                 </div>
+                <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoDateTitle}&nbsp;</b>{new Date(purchaseContent?.creation_time).toLocaleString()}</div>
                 <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoNameTitle}</b>&nbsp;{purchaseContent?.full_name}</div>
                 <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoTelTitle}</b>&nbsp;{purchaseContent?.phone}</div>
                 <div className="read-purchases__info"><b>{selectedLanguage?.readPurchasesView?.readPurchasesInfoEmailTitle}</b>&nbsp;{purchaseContent?.email}</div>

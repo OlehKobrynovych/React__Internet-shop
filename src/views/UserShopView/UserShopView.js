@@ -46,7 +46,34 @@ function UserShopView() {
     const [shadowTextTransparency, setShadowTextTransparency] = useState('100');
     const dispatch = useDispatch();
     const [selectTypeStore, setSelectTypeStore] = useState([]);
+
+    const [bgColorHeader, setBgColorHeader] = useState('#4e4848');
+    const [colorHeaderText, setColorHeaderText] = useState('#ffffff');
+    const [bgColorFooter, setBgColorFooter] = useState('#F0F0F2');
+    const [colorFooterText, setColorFooterText] = useState('#000');
+    const [bgColorMain, setBgColorMain] = useState('#fff');
+    const [colorMainText, setColorMainText] = useState('#000');
+    
+    const [selectBtn, setSelectBtn] = useState('5');
+    const [colorTextBtn, setColorTextBtn] = useState('#ffffff');
+    const [colorTextBtnHover, setColorTextBtnHover] = useState('#ffffff');
+    const [firstColorGradient, setFirstColorGradient] = useState('#060e83');
+    const [secondColorGradient, setSecondColorGradient] = useState('#060e83');
+    const [firstColorGradientHover, setFirstColorGradientHover] = useState('#060e83');
+    const [secondColorGradientHover, setSecondColorGradientHover] = useState('#060e83');
+    
     console.log('asdasdxfxxxxddd: ', shop)
+    // console.log('asdasdxfxxxxddd: ', bgColorMain)
+
+    useEffect(() => {
+        const root = document.documentElement; 
+        root.style.setProperty(`--colorTextBtn`, colorTextBtn); 
+        root.style.setProperty(`--colorTextBtnHover`, colorTextBtnHover); 
+        root.style.setProperty(`--firstColorGradient`, firstColorGradient); 
+        root.style.setProperty(`--secondColorGradient`, secondColorGradient); 
+        root.style.setProperty(`--firstColorGradientHover`, firstColorGradientHover); 
+        root.style.setProperty(`--secondColorGradientHover`, secondColorGradientHover); 
+    }, [colorTextBtn, colorTextBtnHover, firstColorGradient, secondColorGradient, firstColorGradientHover, secondColorGradientHover])
 
 
     useEffect(() => {
@@ -77,7 +104,23 @@ function UserShopView() {
         if (shop?.typeStore?.length) {
             setSelectTypeStore([...shop?.typeStore])
         }
-
+        
+        // if (shop?.colorSettings) {
+            setBgColorHeader(shop?.colorSettings?.bgColorHeader?.length ? shop?.colorSettings.bgColorHeader : '#4e4848')
+            setColorHeaderText(shop?.colorSettings?.colorHeaderText?.length ? shop?.colorSettings.colorHeaderText : '#ffffff')
+            setBgColorFooter(shop?.colorSettings?.bgColorFooter?.length ? shop?.colorSettings.bgColorFooter : '#F0F0F2')
+            setColorFooterText(shop?.colorSettings?.colorFooterText?.length ? shop?.colorSettings.colorFooterText : '#000')
+            setBgColorMain(shop?.colorSettings?.bgColorMain?.length ? shop?.colorSettings.bgColorMain : '#ffffff')
+            setColorMainText(shop?.colorSettings?.colorMainText?.length ? shop?.colorSettings.colorMainText : '#000')
+    
+            setSelectBtn(shop?.colorSettings?.selectBtn?.length ? shop?.colorSettings.selectBtn : '5')
+            setColorTextBtn(shop?.colorSettings?.colorTextBtn?.length ? shop?.colorSettings.colorTextBtn : '#ffffff')
+            setColorTextBtnHover(shop?.colorSettings?.colorTextBtnHover?.length ? shop?.colorSettings.colorTextBtnHover : '#ffffff')
+            setFirstColorGradient(shop?.colorSettings?.firstColorGradient?.length ? shop?.colorSettings.firstColorGradient : '#060e83')
+            setSecondColorGradient(shop?.colorSettings?.secondColorGradient?.length ? shop?.colorSettings.secondColorGradient : '#060e83')
+            setFirstColorGradientHover(shop?.colorSettings?.firstColorGradientHover?.length ? shop?.colorSettings.firstColorGradientHover : '#060e83')
+            setSecondColorGradientHover(shop?.colorSettings?.secondColorGradientHover?.length ? shop?.colorSettings.secondColorGradientHover : '#060e83')
+        // }
     }, [shop])
     
     useEffect(() => {
@@ -188,6 +231,38 @@ function UserShopView() {
         } else {
             setSelectTypeStore([...selectTypeStore, id])
         }
+    }
+   
+    const handleUpdateColorShop = () => {
+        let data = {
+            ...shop,
+            colorSettings: {
+                bgColorHeader: bgColorHeader, 
+                colorHeaderText: colorHeaderText, 
+                bgColorFooter: bgColorFooter, 
+                colorFooterText: colorFooterText, 
+                bgColorMain: bgColorMain, 
+                colorMainText: colorMainText, 
+                selectBtn: selectBtn, 
+                colorTextBtn: colorTextBtn,
+                colorTextBtnHover: colorTextBtnHover,
+                firstColorGradient: firstColorGradient, 
+                secondColorGradient: secondColorGradient, 
+                firstColorGradientHover: firstColorGradientHover, 
+                secondColorGradientHover: secondColorGradientHover, 
+            },
+            token: user.token,
+        }
+        sendUpdateShop(data)
+    }
+  
+    const handleStandardColor = () => {
+        let data = {
+            ...shop,
+            colorSettings: {},
+            token: user.token,
+        }
+        sendUpdateShop(data)
     }
     
     const sendUpdateShop = (data) => {
@@ -304,7 +379,172 @@ function UserShopView() {
                                         
                                         <button className='user-shop__btn' onClick={() => handleUpdate()}>{selectedLanguage?.userShopView?.userShopEditBtn}</button>
 
+                                        {/* -------Налаштування вигляду магазину----------- */}
+                                        <div className="user-shop__section-wrap">
+                                            <div className="user-shop__section-title">Налаштування вигляду магазину</div>
+                                            
+                                            <div className="user-shop__section">
+                                                <div className="user-shop__section-input-wrap">
+                                                    <p className="user-shop__section-color-title">Налаштуквання кольорів</p>
+                                                    <div className='user-shop__section-color-wrap'>
+                                                        <label htmlFor="userShopBgColorHeader">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopBgColorHeader" 
+                                                                name="bgColorHeader"
+                                                                value={bgColorHeader}
+                                                                onChange={(e) => setBgColorHeader(e.target.value)}
+                                                            />
+                                                            <b>Фон шапки</b>
+                                                        </label>
+                                                        <label htmlFor="userShopColorHeaderText">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopColorHeaderText" 
+                                                                name="colorHeaderText"
+                                                                value={colorHeaderText}
+                                                                onChange={(e) => setColorHeaderText(e.target.value)}
+                                                            />
+                                                            <b>Колір тексту шапки</b>
+                                                        </label>
+                                                        <label htmlFor="userShopBgColorFooter">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopBgColorFooter" 
+                                                                name="bgColorFooter"
+                                                                value={bgColorFooter}
+                                                                onChange={(e) => setBgColorFooter(e.target.value)}
+                                                            />
+                                                            <b>Фон нижньої частини сайту</b>
+                                                        </label>
+                                                        <label htmlFor="userShopColorFooterText">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopColorFooterText" 
+                                                                name="colorFooterText"
+                                                                value={colorFooterText}
+                                                                onChange={(e) => setColorFooterText(e.target.value)}
+                                                            />
+                                                            <b>Колір тексту нижньої частини сайту</b>
+                                                        </label>
+                                                        <label htmlFor="userShopBgColorMain">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopBgColorMain" 
+                                                                name="bgColorMain"
+                                                                value={bgColorMain}
+                                                                onChange={(e) => setBgColorMain(e.target.value)}
+                                                            />
+                                                            <b>Фону сайту</b>
+                                                        </label>
+                                                        <label htmlFor="userShopColorMainText">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopColorMainText" 
+                                                                name="colorMainText"
+                                                                value={colorMainText}
+                                                                onChange={(e) => setColorMainText(e.target.value)}
+                                                            />
+                                                            <b>Колір тексту сайту</b>
+                                                        </label>
+                                                    </div>
 
+                                                    <p className="user-shop__section-selection-button-title">Вибір вигляду кнопки</p>
+                                                    <div className="user-shop__section-selection-button-wrap">
+                                                        <label htmlFor="userShopColorTextBtn">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopColorTextBtn" 
+                                                                name="colorTextBtn"
+                                                                value={colorTextBtn}
+                                                                onChange={(e) => setColorTextBtn(e.target.value)}
+                                                            />
+                                                            <b>Колір тексту</b>
+                                                        </label>
+                                                        <label htmlFor="userShopColorTextBtnHover">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopColorTextBtnHover" 
+                                                                name="colorTextBtnHover"
+                                                                value={colorTextBtnHover}
+                                                                onChange={(e) => setColorTextBtnHover(e.target.value)}
+                                                            />
+                                                            <b>Колір тексту при наведені</b>
+                                                        </label>
+                                                        <label htmlFor="userShopFirstColorGradient">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopFirstColorGradient" 
+                                                                name="firstColorGradient"
+                                                                value={firstColorGradient}
+                                                                onChange={(e) => setFirstColorGradient(e.target.value)}
+                                                            />
+                                                            <b>Перший колір градієнту</b>
+                                                        </label>
+                                                        <label htmlFor="userShopSecondColorGradient">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopSecondColorGradient" 
+                                                                name="secondColorGradient"
+                                                                value={secondColorGradient}
+                                                                onChange={(e) => setSecondColorGradient(e.target.value)}
+                                                            />
+                                                            <b>Другий колір градієнту</b>
+                                                        </label>
+                                                        <label htmlFor="userShopfirstColorGradientHover">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopfirstColorGradientHover" 
+                                                                name="firstColorGradientHover"
+                                                                value={firstColorGradientHover}
+                                                                onChange={(e) => setFirstColorGradientHover(e.target.value)}
+                                                            />
+                                                            <b>Перший колір градієнту при наведенні</b>
+                                                        </label>
+                                                        <label htmlFor="userShopSecondColorGradientHover">
+                                                            <input 
+                                                                type="color" 
+                                                                id="userShopSecondColorGradientHover" 
+                                                                name="secondColorGradientHover"
+                                                                value={secondColorGradientHover}
+                                                                onChange={(e) => setSecondColorGradientHover(e.target.value)}
+                                                            />
+                                                            <b>Другий колір градієнту при наведені</b>
+                                                        </label>
+                                                      
+                                                    </div>
+                                                    <div>
+                                                        <p>Вибраний варіант</p>
+                                                        <button className={`app__custom-btn app__btn-${selectBtn}`}><span className="app__custom-btn-span">Button {selectBtn}</span></button>
+                                                    </div>
+                                                    <div className="user-shop__section-selection-button-wrap">
+                                                        <button onClick={() => setSelectBtn('1')} className="app__custom-btn app__btn-1"><span className="app__custom-btn-span">Button 1</span></button>
+                                                        <button onClick={() => setSelectBtn('2')} className="app__custom-btn app__btn-2"><span className="app__custom-btn-span">Button 2</span></button>
+                                                        <button onClick={() => setSelectBtn('3')} className="app__custom-btn app__btn-3"><span className="app__custom-btn-span">Button 3</span></button>
+                                                        <button onClick={() => setSelectBtn('4')} className="app__custom-btn app__btn-4"><span className="app__custom-btn-span">Button 4</span></button>
+                                                        <button onClick={() => setSelectBtn('5')} className="app__custom-btn app__btn-5"><span className="app__custom-btn-span">Button 5</span></button>
+                                                        <button onClick={() => setSelectBtn('6')} className="app__custom-btn app__btn-6"><span className="app__custom-btn-span">Button 6</span></button>
+                                                        <button onClick={() => setSelectBtn('7')} className="app__custom-btn app__btn-7"><span className="app__custom-btn-span">Button 7</span></button>
+                                                        <button onClick={() => setSelectBtn('8')} className="app__custom-btn app__btn-8"><span className="app__custom-btn-span">Button 8</span></button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className='user-shop__section-btn-wrap'>
+                                                    <button className='user-shop__section-btn' onClick={() => handleStandardColor()}>Стандартні</button>
+                                                    <button className='user-shop__section-btn' onClick={() => handleUpdateColorShop()}>Оновити</button>
+                                                    <div onClick={() => handleHelpOpen(3)} className='user-shop__section-btn-info-wrap'>
+                                                        <div className={`user-shop__section-btn-info ${arrIsOpenInfo.includes(3) ? 'user-shop__section-btn-info--active' : ''}`}></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className={`user-shop__section-info ${arrIsOpenInfo.includes(3) ? 'user-shop__section-info--active' : ''}`}>
+                                                <p>Налаштування вигляду магазину</p>
+                                            </div>
+                                        </div>
+
+
+                                            {/* ----------Блок інформації------------- */}
                                         <div className="user-shop__section-wrap">
                                             <div className="user-shop__section-title">{selectedLanguage?.userShopView?.userShopBlockMainTitle}</div>
                                             
@@ -467,6 +707,7 @@ function UserShopView() {
                                             }
                                         </div>
 
+                                            {/* -------------Блок реклами--------- */}
                                         <div className="user-shop__section-wrap">
                                             <div className="user-shop__section-title">Блок реклами</div>
                                             
