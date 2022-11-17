@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useSelector } from 'react-redux';
 
-// import cart from '../../assets/images/cart.svg';
 
-// function PaginationItems({items, setCurrentPaginationItems, pageRangeDisplayed, itemsPerPage}) {
 function PaginationItems({selectedPaget, setSelectedPaget, pageRangeDisplayed, quantityAllProducts, itemsPerPage}) {
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const [pageOffset, setPageOffset] = useState(null); 

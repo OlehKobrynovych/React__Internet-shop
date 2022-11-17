@@ -2,22 +2,11 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './HeartBtn.css';
 
-// import { useState, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import heart from '../../assets/images/heart.svg';
-// import { ReactComponent as heart } from '../../assets/images/heart.svg'  
-
-// import Helocation from '../Helocation/Helocation';
-
 function HeartBtn() {
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const shop = useSelector(state => state.homeSlice.shop);
     const navigate = useNavigate();
-
-    // const handleClick = () => {
-    //     searchInputRef.current.focus()
-    // };
 
     const handleClick = () => {
         navigate(`/${shop.name}/wishlist`)

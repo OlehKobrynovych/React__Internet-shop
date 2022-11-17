@@ -1,23 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import './AboutUsView.css';
-
 import woman from '../../assets/images/woman.webp';
 import { useSelector } from 'react-redux';
-
-
-// import { useState, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import cart from '../../assets/images/cart.svg';
-
-// import Helocation from '../Helocation/Helocation';
 
 function AboutUsView() {
     const shop = useSelector(state => state.homeSlice.shop);
     // const [isOpenMenu, setIsOpenMenu] = useState(false);
-
-    // const searchInputRef = useRef(null);
-
-    // const navigate = useNavigate();
 
     // const handleClick = () => {
     //     searchInputRef.current.focus()

@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import './AdvertisingBlock.css';
-// import { userTypeStore } from '../userTypeStore';
 import arrow from '../../assets/images/arrow.svg';
-
 import { userTypeStore } from '../../userTypeStore';
+import './AdvertisingBlock.css';
 
 
 function AdvertisingBlock() {
@@ -14,11 +12,9 @@ function AdvertisingBlock() {
     const [shop, setShop] = useState({});
     const [filterTypeStore, setFilterTypeStore] = useState('');
     const [otherTypeStore, setOtherTypeStore] = useState([]);
-    const navigate = useNavigate();
     const [filterShop, setFilterShop] = useState([])
     const [isSort, setIsSort] = useState(true)
-
-    // console.log(filterShop)
+    // const navigate = useNavigate();
     // console.log(filterTypeStore)
 
     const [testShop, setTestShop] = useState([
@@ -41,7 +37,6 @@ function AdvertisingBlock() {
     ]);
 
     useEffect(() => {
-
             // зробити запит на список фірм для реклами
             if (testShop?.length) {
                 setFilterShop([...testShop])

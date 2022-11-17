@@ -1,22 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import './SearchProductView.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditProduct, setIsCleanInput, setProduct, setUpdataProduct } from '../../store/userSlice';
-import deleteImg from '../../assets/images/deleteImg.svg';
-import InputText from '../../components/InputText/InputText';
-import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PaginationItems from '../../components/PaginationItems/PaginationItems';
-
 
 function SearchProductView() {
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const searchProductsName = useSelector(state => state.homeSlice.searchProductsName);
     const shop = useSelector(state => state.homeSlice.shop);
     const [searchProducts, setSearchProducts] = useState([]);
-    const [paginationProducts, setPaginationProducts] = useState([]);
     const [searchNoResults, setSearchNoResults] = useState(false);
     const [selectedPaget, setSelectedPaget] = useState('0');
     const [quantityAllProducts, setQuantityAllProducts] = useState('');

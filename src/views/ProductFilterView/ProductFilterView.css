@@ -108,8 +108,6 @@
 .product-filter__price-option-wrap {
     position: absolute;
     background: #fff;
-    /* height: 350px; */
-    /* width: 141px; */
     overflow: auto;
     display: flex;
     gap: 5px;

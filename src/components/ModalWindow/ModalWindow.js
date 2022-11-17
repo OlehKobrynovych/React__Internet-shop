@@ -1,10 +1,7 @@
 import './ModalWindow.css';
-import login from '../../assets/images/login.svg';
-import { useSelector } from 'react-redux';
 
 
 function ModalWindow({title, text, handleClick, leftBtn='Ні', rightBtn='Так', children}) {
-    // const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
 
     const handleClickBtn = (boolean) => {
         handleClick(boolean)

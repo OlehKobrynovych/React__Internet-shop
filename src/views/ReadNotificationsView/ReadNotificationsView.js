@@ -1,19 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ReadNotificationsView.css';
-import noPhotos from './../../assets/images/noPhotos.svg';
-import editIcon from './../../assets/images/editIcon.svg';
-import deleteImg from './../../assets/images/deleteImg.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSeenNotifications, setSeenPurchases, setStatusPurchases } from '../../store/userSlice';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from 'swiper';
-import { toast } from 'react-toastify';
-import ModalWindow from '../../components/ModalWindow/ModalWindow';
-import InputText from '../../components/InputText/InputText';
-import PurchasesEditeArr from '../../components/PurchasesEditeArr/PurchasesEditeArr';
-import InputTextarea from '../../components/InputTextarea/InputTextarea';
-import InputNumber from '../../components/InputNumber/InputNumber';
 
 
 function ReadNotificationsView () {
@@ -21,7 +10,6 @@ function ReadNotificationsView () {
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const purchases = useSelector(state => state.userSlice.purchases);
-    // let { idPurchases } = useParams();
     let { idNotifications } = useParams();
     // const [purchaseContent, setPurchaseContent] = useState({});
     const [notificationsContent, setNotificationsContent] = useState({});
@@ -79,23 +67,23 @@ function ReadNotificationsView () {
             <div className='read-notifications--wrap container'>
                 {
                     notificationsContent?.status == 'callBack' ? <div>
-                            <h4 className='read-notifications__title'>Прохання пердзвонити</h4>
-                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{new Date(notificationsContent?.creation_time).toLocaleString()}</div>
-                            <div className='read-notifications__text'>
-                                Власник телефонного номера
-                                &nbsp;<a className='read-notifications__text-link' href={`tel:${notificationsContent?.phone}`}>{notificationsContent?.phone}</a>&nbsp;
-                                чекає на дзвінок
-                            </div>
-                            <div className='read-notifications__comment'><b>Залишиний коментар:</b>&nbsp;{notificationsContent?.comment}</div>
-                        </div> : <div>
-                            <h4 className='read-notifications__title'>Підписка</h4>
-                            <div className='read-notifications__creation-time-title'>Повідомлення відправлене&nbsp;{new Date(notificationsContent?.creation_time).toLocaleString()}</div>
-                            <div className='read-notifications__text'>
-                                Власник електронної пошти 
-                                &nbsp;<a className='read-notifications__text-link' href={`mailto:${notificationsContent?.email}`}>{notificationsContent?.email}</a>&nbsp;
-                                готовий отримувати повідомлення з акціями, знижками і іншою важливою інформацією.
-                            </div>
-                        </div> 
+                        <h4 className='read-notifications__title'>{selectedLanguage?.readNotificationsView?.readNotificationsTitle1}</h4>
+                        <div className='read-notifications__creation-time-title'>{selectedLanguage?.readNotificationsView?.readNotificationsTitleDate}&nbsp;{new Date(notificationsContent?.creation_time).toLocaleString()}</div>
+                        <div className='read-notifications__text'>
+                            {selectedLanguage?.readNotificationsView?.readNotificationsText1}
+                            &nbsp;<a className='read-notifications__text-link' href={`tel:${notificationsContent?.phone}`}>{notificationsContent?.phone}</a>&nbsp;
+                            {selectedLanguage?.readNotificationsView?.readNotificationsText2}
+                        </div>
+                        <div className='read-notifications__comment'><b>{selectedLanguage?.readNotificationsView?.readNotificationsComment}</b>&nbsp;{notificationsContent?.comment}</div>
+                    </div> : <div>
+                        <h4 className='read-notifications__title'>{selectedLanguage?.readNotificationsView?.readNotificationsTitle2}</h4>
+                        <div className='read-notifications__creation-time-title'>{selectedLanguage?.readNotificationsView?.readNotificationsTitleDate}&nbsp;{new Date(notificationsContent?.creation_time).toLocaleString()}</div>
+                        <div className='read-notifications__text'>
+                            {selectedLanguage?.readNotificationsView?.readNotificationsText3}
+                            &nbsp;<a className='read-notifications__text-link' href={`mailto:${notificationsContent?.email}`}>{notificationsContent?.email}</a>&nbsp;
+                            {selectedLanguage?.readNotificationsView?.readNotificationsText4}
+                        </div>
+                    </div> 
                 }
             </div>
         </div>

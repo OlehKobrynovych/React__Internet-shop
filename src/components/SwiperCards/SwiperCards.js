@@ -5,9 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
-
 import { useState, useRef, useEffect } from 'react';
-
 import circle from '../../assets/images/circle.svg';
 import ProductCard from '../ProductCard/ProductCard';
 import { useSelector } from 'react-redux';

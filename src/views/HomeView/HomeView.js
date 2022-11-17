@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
 import SwiperCards from '../../components/SwiperCards/SwiperCards';
-import Preloader from '../../components/Preloader/Preloader';
 import './HomeView.css';
-import man from '../../assets/images/man.webp';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay} from "swiper";
 import AdvertisingBlock from '../../components/AdvertisingBlock/AdvertisingBlock';
-
 
 
 function HomeView() {
@@ -24,8 +20,7 @@ function HomeView() {
     const [productsOld, setProductsOld] = useState([]);
     // const dispatch = useDispatch();
     // debugger
-    console.log(shop)
-    // console.log(productsNew)
+    // console.log(shop)
     // console.log(productsOld)
     
     useEffect(() => {

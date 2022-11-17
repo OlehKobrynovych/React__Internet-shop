@@ -10,12 +10,9 @@ import { setSelectedLanguage } from '../../store/userSlice';
 
 function AdvertisementShopView() {
     const shop = useSelector(state => state.homeSlice.shop);
-
-    console.log(shop)
-
+    // console.log(shop)
 
     // useEffect(() => {
-       
     // }, [])
     
     // const handleChange = (str) => {

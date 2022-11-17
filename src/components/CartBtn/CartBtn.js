@@ -4,13 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import './CartBtn.css';
 
 function CartBtn() {
-    // const [isOpenMenu, setIsOpenMenu] = useState(false);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
     const selectedLanguage = useSelector(state => state.homeSlice.selectedLanguage);
     const shop = useSelector(state => state.homeSlice.shop);
-    const [shoppingProductUser, setShoppingProductUser] = useState([]);   
     const navigate = useNavigate();
-    // console.log(shoppingProductUser)
 
     const handleClick = () => {
         navigate(`/${shop.name}/cart`)
