@@ -4,15 +4,10 @@
     align-items: center;
     width: 100%;
     height: 100vh;
-    /****** center box
-    width: 300px;
-    height: 300px;
-    border: solid 1px #aaa; */
+
 }
-/* body {
-    background: #202628;
-} */
-.loader-circle-4 {
+
+.preloader__loader-circle-4 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,17 +17,17 @@
     border-radius: 100%;
     border-width: 3px;
 }
-.spinner_top {
+.preloader__spinner_top {
     animation: spinnerOne 3s linear infinite;
     height: 70px;
     width: 70px;
 }
-.spinner_mid {
+.preloader__spinner_mid {
     animation: spinnerOne 5s linear infinite;
     height: 47px;
     width: 47px;
 }
-.spinner_bot {
+.preloader__spinner_bot {
     animation: spinnerOne 5s linear infinite;
     height: 24px;
     width: 24px;

@@ -4,13 +4,8 @@ import './InputTextarea.css';
 
 function InputTextarea({setValue, value, id, label, name, rows='5', cols='50', placeholder=''}) {
     const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
-    // const isCleanInput = useSelector(state => state.userSlice.isCleanInput);
     const [text, setText] = useState('');
 
-    // useEffect(() => {
-    //     setText('')
-    // }, [isCleanInput])
-   
     useEffect(() => {
         setValue(text)
     }, [text])

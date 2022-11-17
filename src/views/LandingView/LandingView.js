@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import './LandingView.css';
 import { languageUser } from '../../languageUser';
 import { useDispatch } from 'react-redux';
@@ -12,7 +11,6 @@ function LandingView() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [languag, setLanguag] = useState('');
-
 
     useEffect(() => {
         let res = (JSON.parse(localStorage.getItem('userLanguage')));

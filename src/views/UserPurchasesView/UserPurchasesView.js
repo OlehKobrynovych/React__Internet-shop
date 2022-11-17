@@ -247,14 +247,14 @@ function UserPurchasesView() {
 
                         <div className="user-purchases__filter-date-wrap">
                             <div className='user-purchases__filter-date-btn-wrap'>
-                                <button className='user-purchases__filter-date-btn' onClick={handleSortCleanDate}>Очистити</button>
-                                <button className='user-purchases__filter-date-btn' onClick={handleSortDate}>Сортувати</button>
+                                <button className='user-purchases__filter-date-btn' onClick={handleSortCleanDate}>{selectedLanguage?.userPurchases?.userPurchasesFilterDateBtnClean}</button>
+                                <button className='user-purchases__filter-date-btn' onClick={handleSortDate}>{selectedLanguage?.userPurchases?.userPurchasesFilterDateBtnSort}</button>
                             </div>
                             <div className='user-purchases__filter-date' onClick={() => setIsSelectDate(!isSelectDate)}>
-                                <div className='user-purchases__filter-date-title'>Вибрати дні:&nbsp;</div>
+                                <div className='user-purchases__filter-date-title'>{selectedLanguage?.userPurchases?.userPurchasesFilterDateSelect}&nbsp;</div>
                                 <div className='user-purchases__filter-date-select'>
-                                    <div>{stateDate[0]?.startDate ? new Date(stateDate[0]?.startDate).toLocaleString().split(',')[0] : 'дд.мм.рррр'}</div>
-                                    <div>{stateDate[0]?.endDate ? new Date(stateDate[0]?.endDate).toLocaleString().split(',')[0] : 'дд.мм.рррр'}</div>
+                                    <div>{stateDate[0]?.startDate ? new Date(stateDate[0]?.startDate).toLocaleString().split(',')[0] : selectedLanguage?.userPurchases?.userPurchasesFilterDateFormat}</div>
+                                    <div>{stateDate[0]?.endDate ? new Date(stateDate[0]?.endDate).toLocaleString().split(',')[0] : selectedLanguage?.userPurchases?.userPurchasesFilterDateFormat}</div>
                                 </div>
                             </div>
                             <DateRange

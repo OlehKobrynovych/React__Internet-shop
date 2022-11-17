@@ -1,11 +1,7 @@
 import './Header.css';
-
 import { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
-import search from '../../assets/images/search.svg';
-
 import HeartBtn from '../HeartBtn/HeartBtn';
 import CartBtn from '../CartBtn/CartBtn';
 // import LoginBtn from '../LoginBtn/LoginBtn';

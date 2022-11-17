@@ -11,6 +11,9 @@ import CreationShop from '../../components/CreationShop/CreationShop';
 import InputNumber from '../../components/InputNumber/InputNumber';
 import AdvertisingBlock from '../../components/AdvertisingBlock/AdvertisingBlock';
 import { userTypeStore } from '../../userTypeStore';
+import InputColor from '../../components/InputColor/InputColor';
+import InputText from '../../components/InputText/InputText';
+import InputTextarea from '../../components/InputTextarea/InputTextarea';
 
 
 
@@ -381,140 +384,41 @@ function UserShopView() {
 
                                         {/* -------Налаштування вигляду магазину----------- */}
                                         <div className="user-shop__section-wrap">
-                                            <div className="user-shop__section-title">Налаштування вигляду магазину</div>
+                                            <div className="user-shop__section-title">{selectedLanguage?.userShopView?.userShopSettingColorShopTitle}</div>
                                             
                                             <div className="user-shop__section">
                                                 <div className="user-shop__section-input-wrap">
-                                                    <p className="user-shop__section-color-title">Налаштуквання кольорів</p>
+                                                    <p className="user-shop__section-color-title">{selectedLanguage?.userShopView?.userShopSettingColorTitle}</p>
                                                     <div className='user-shop__section-color-wrap'>
-                                                        <label htmlFor="userShopBgColorHeader">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopBgColorHeader" 
-                                                                name="bgColorHeader"
-                                                                value={bgColorHeader}
-                                                                onChange={(e) => setBgColorHeader(e.target.value)}
-                                                            />
-                                                            <b>Фон шапки</b>
-                                                        </label>
-                                                        <label htmlFor="userShopColorHeaderText">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopColorHeaderText" 
-                                                                name="colorHeaderText"
-                                                                value={colorHeaderText}
-                                                                onChange={(e) => setColorHeaderText(e.target.value)}
-                                                            />
-                                                            <b>Колір тексту шапки</b>
-                                                        </label>
-                                                        <label htmlFor="userShopBgColorFooter">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopBgColorFooter" 
-                                                                name="bgColorFooter"
-                                                                value={bgColorFooter}
-                                                                onChange={(e) => setBgColorFooter(e.target.value)}
-                                                            />
-                                                            <b>Фон нижньої частини сайту</b>
-                                                        </label>
-                                                        <label htmlFor="userShopColorFooterText">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopColorFooterText" 
-                                                                name="colorFooterText"
-                                                                value={colorFooterText}
-                                                                onChange={(e) => setColorFooterText(e.target.value)}
-                                                            />
-                                                            <b>Колір тексту нижньої частини сайту</b>
-                                                        </label>
-                                                        <label htmlFor="userShopBgColorMain">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopBgColorMain" 
-                                                                name="bgColorMain"
-                                                                value={bgColorMain}
-                                                                onChange={(e) => setBgColorMain(e.target.value)}
-                                                            />
-                                                            <b>Фону сайту</b>
-                                                        </label>
-                                                        <label htmlFor="userShopColorMainText">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopColorMainText" 
-                                                                name="colorMainText"
-                                                                value={colorMainText}
-                                                                onChange={(e) => setColorMainText(e.target.value)}
-                                                            />
-                                                            <b>Колір тексту сайту</b>
-                                                        </label>
+                                                        <InputColor setValue={setBgColorHeader} value={bgColorHeader} id={'userShopBgColorHeader'} name={'bgColorHeader'} label={selectedLanguage?.userShopView?.userShopSettingColorHatBg}/>
+                                                       
+                                                        <InputColor setValue={setColorHeaderText} value={colorHeaderText} id={'userShopColorHeaderText'} name={'colorHeaderText'} label={selectedLanguage?.userShopView?.userShopSettingColorHatText}/>
+                                                      
+                                                        <InputColor setValue={setBgColorFooter} value={bgColorFooter} id={'userShopBgColorFooter'} name={'bgColorFooter'} label={selectedLanguage?.userShopView?.userShopSettingColorFooterBg}/>
+                                                       
+                                                        <InputColor setValue={setColorFooterText} value={colorFooterText} id={'userShopColorFooterText'} name={'colorFooterText'} label={selectedLanguage?.userShopView?.userShopSettingColorFooterText}/>
+                                                      
+                                                        <InputColor setValue={setBgColorMain} value={bgColorMain} id={'userShopBgColorMain'} name={'bgColorMain'} label={selectedLanguage?.userShopView?.userShopSettingColorMainBg}/>
+                                                     
+                                                        <InputColor setValue={setColorMainText} value={colorMainText} id={'userShopColorMainText'} name={'colorMainText'} label={selectedLanguage?.userShopView?.userShopSettingColorMainText}/>
                                                     </div>
 
-                                                    <p className="user-shop__section-selection-button-title">Вибір вигляду кнопки</p>
+                                                    <p className="user-shop__section-selection-button-title">{selectedLanguage?.userShopView?.userShopSettingBtnTitle}</p>
                                                     <div className="user-shop__section-selection-button-wrap">
-                                                        <label htmlFor="userShopColorTextBtn">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopColorTextBtn" 
-                                                                name="colorTextBtn"
-                                                                value={colorTextBtn}
-                                                                onChange={(e) => setColorTextBtn(e.target.value)}
-                                                            />
-                                                            <b>Колір тексту</b>
-                                                        </label>
-                                                        <label htmlFor="userShopColorTextBtnHover">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopColorTextBtnHover" 
-                                                                name="colorTextBtnHover"
-                                                                value={colorTextBtnHover}
-                                                                onChange={(e) => setColorTextBtnHover(e.target.value)}
-                                                            />
-                                                            <b>Колір тексту при наведені</b>
-                                                        </label>
-                                                        <label htmlFor="userShopFirstColorGradient">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopFirstColorGradient" 
-                                                                name="firstColorGradient"
-                                                                value={firstColorGradient}
-                                                                onChange={(e) => setFirstColorGradient(e.target.value)}
-                                                            />
-                                                            <b>Перший колір градієнту</b>
-                                                        </label>
-                                                        <label htmlFor="userShopSecondColorGradient">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopSecondColorGradient" 
-                                                                name="secondColorGradient"
-                                                                value={secondColorGradient}
-                                                                onChange={(e) => setSecondColorGradient(e.target.value)}
-                                                            />
-                                                            <b>Другий колір градієнту</b>
-                                                        </label>
-                                                        <label htmlFor="userShopfirstColorGradientHover">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopfirstColorGradientHover" 
-                                                                name="firstColorGradientHover"
-                                                                value={firstColorGradientHover}
-                                                                onChange={(e) => setFirstColorGradientHover(e.target.value)}
-                                                            />
-                                                            <b>Перший колір градієнту при наведенні</b>
-                                                        </label>
-                                                        <label htmlFor="userShopSecondColorGradientHover">
-                                                            <input 
-                                                                type="color" 
-                                                                id="userShopSecondColorGradientHover" 
-                                                                name="secondColorGradientHover"
-                                                                value={secondColorGradientHover}
-                                                                onChange={(e) => setSecondColorGradientHover(e.target.value)}
-                                                            />
-                                                            <b>Другий колір градієнту при наведені</b>
-                                                        </label>
+                                                        <InputColor setValue={setColorTextBtn} value={colorTextBtn} id={'userShopColorTextBtn'} name={'colorTextBtn'} label={selectedLanguage?.userShopView?.userShopSettingBtnColorText}/>
+                                                       
+                                                        <InputColor setValue={setColorTextBtnHover} value={colorTextBtnHover} id={'userShopColorTextBtnHover'} name={'colorTextBtnHover'} label={selectedLanguage?.userShopView?.userShopSettingBtnColorTextHover}/>
+                                                       
+                                                        <InputColor setValue={setFirstColorGradient} value={firstColorGradient} id={'userShopFirstColorGradient'} name={'firstColorGradient'} label={selectedLanguage?.userShopView?.userShopSettingBtnColorGradient1}/>
                                                       
+                                                        <InputColor setValue={setSecondColorGradient} value={secondColorGradient} id={'userShopSecondColorGradient'} name={'secondColorGradient'} label={selectedLanguage?.userShopView?.userShopSettingBtnColorGradient2}/>
+                                                      
+                                                        <InputColor setValue={setFirstColorGradientHover} value={firstColorGradientHover} id={'userShopfirstColorGradientHover'} name={'firstColorGradientHover'} label={selectedLanguage?.userShopView?.userShopSettingBtnColorGradientHover1}/>
+                                                       
+                                                        <InputColor setValue={setSecondColorGradientHover} value={secondColorGradientHover} id={'userShopSecondColorGradientHover'} name={'secondColorGradientHover'} label={selectedLanguage?.userShopView?.userShopSettingBtnColorGradientHover2}/>
                                                     </div>
                                                     <div>
-                                                        <p>Вибраний варіант</p>
+                                                        <p>{selectedLanguage?.userShopView?.userShopSettingBtnSelectTitle}</p>
                                                         <button className={`app__custom-btn app__btn-${selectBtn}`}><span className="app__custom-btn-span">Button {selectBtn}</span></button>
                                                     </div>
                                                     <div className="user-shop__section-selection-button-wrap">
@@ -527,19 +431,18 @@ function UserShopView() {
                                                         <button onClick={() => setSelectBtn('7')} className="app__custom-btn app__btn-7"><span className="app__custom-btn-span">Button 7</span></button>
                                                         <button onClick={() => setSelectBtn('8')} className="app__custom-btn app__btn-8"><span className="app__custom-btn-span">Button 8</span></button>
                                                     </div>
-
                                                 </div>
 
                                                 <div className='user-shop__section-btn-wrap'>
-                                                    <button className='user-shop__section-btn' onClick={() => handleStandardColor()}>Стандартні</button>
-                                                    <button className='user-shop__section-btn' onClick={() => handleUpdateColorShop()}>Оновити</button>
+                                                    <button className='user-shop__section-btn' onClick={() => handleStandardColor()}>{selectedLanguage?.userShopView?.userShopSettingBtnSetStandard}</button>
+                                                    <button className='user-shop__section-btn' onClick={() => handleUpdateColorShop()}>{selectedLanguage?.userShopView?.userShopSettingBtnSetUpdate}</button>
                                                     <div onClick={() => handleHelpOpen(3)} className='user-shop__section-btn-info-wrap'>
                                                         <div className={`user-shop__section-btn-info ${arrIsOpenInfo.includes(3) ? 'user-shop__section-btn-info--active' : ''}`}></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className={`user-shop__section-info ${arrIsOpenInfo.includes(3) ? 'user-shop__section-info--active' : ''}`}>
-                                                <p>Налаштування вигляду магазину</p>
+                                                <p>{selectedLanguage?.userShopView?.userShopInfoSettingColor}</p>
                                             </div>
                                         </div>
 
@@ -550,84 +453,19 @@ function UserShopView() {
                                             
                                             <div className="user-shop__section">
                                                 <div className="user-shop__section-input-wrap">
-                                                    <label className='user-shop__section-input-label' htmlFor="informationBlockTitle">
-                                                        <b>{selectedLanguage?.userShopView?.userShopBlockTitle}</b>
-                                                    </label>
-                                                    <input
-                                                        id="informationBlockTitle"
-                                                        name="informationBlockTitle"
-                                                        type="text"
-                                                        className='user-shop__section-input'
-                                                        onChange={(e) => setInformationBlockTitle(e.target.value)}
-                                                        value={informationBlockTitle}
-                                                        placeholder="Заголовок..."
-                                                    />
+                                                    <InputText setValue={setInformationBlockTitle} value={informationBlockTitle} id={'userShopInformationBlockTitle'} name={'informationBlockTitle'} label={selectedLanguage?.userShopView?.userShopBlockTitle} placeholder={'Заголовок...'}/>
 
-                                                    <label className='user-shop__section-input-label' htmlFor="informationBlockText">
-                                                        <b>{selectedLanguage?.userShopView?.userShopBlockText}</b>
-                                                    </label>
-                                                    <textarea
-                                                        id="informationBlockText"
-                                                        name="informationBlockText"
-                                                        type="text"
-                                                        className='user-shop__section-textarea'
-                                                        onChange={(e) => setInformationBlockText(e.target.value)}
-                                                        value={informationBlockText}
-                                                        placeholder="Інформація..."
-                                                        rows="3" 
-                                                        cols="50"
-                                                    />
+                                                    <InputTextarea setValue={setInformationBlockText} value={informationBlockText} id={'userShopInformationBlockText'} name={'informationBlockText'} label={selectedLanguage?.userShopView?.userShopBlockText} placeholder='Інформація...' rows={'5'} cols={'50'}/>
+
+                                                    <InputTextarea setValue={setInformationBlockDescription} value={informationBlockDescription} id={'userShopInformationBlockDescription'} name={'informationBlockDescription'} label={selectedLanguage?.userShopView?.userShopBlockDescription} placeholder='Інформація...' rows={'5'} cols={'50'}/>
                                                     
-                                                    <label className='user-shop__section-input-label' htmlFor="informationBlockDescription">
-                                                        <b>{selectedLanguage?.userShopView?.userShopBlockDescription}</b>
-                                                    </label>
-                                                    <textarea
-                                                        id="informationBlockDescription"
-                                                        name="informationBlockDescription"
-                                                        type="text"
-                                                        className='user-shop__section-textarea'
-                                                        onChange={(e) => setInformationBlockDescription(e.target.value)}
-                                                        value={informationBlockDescription}
-                                                        placeholder="Інформація..."
-                                                        rows="3" 
-                                                        cols="50"
-                                                    />
-
                                                     <div className='user-shop__section-color-wrap'>
-                                                        <label htmlFor="colorTitle">
-                                                            <input 
-                                                                type="color" 
-                                                                id="colorTitle" 
-                                                                name="colorTitle"
-                                                                value={colorTitle}
-                                                                onChange={(e) => setColorTitle(e.target.value)}
-                                                            />
-                                                            <b>{selectedLanguage?.userShopView?.userShopBlockHeaderColor}</b>
-                                                        </label>
+                                                        <InputColor setValue={setColorTitle} value={colorTitle} id={'userShopColorTitle'} name={'colorTitle'} label={selectedLanguage?.userShopView?.userShopBlockHeaderColor}/>
                                                         
-                                                        <label htmlFor="colorText">
-                                                            <input 
-                                                                type="color" 
-                                                                id="colorText" 
-                                                                name="colorText"
-                                                                value={colorText}
-                                                                onChange={(e) => setColorText(e.target.value)}
-                                                            />
-                                                            <b>{selectedLanguage?.userShopView?.userShopBlockTextColor}</b>
-                                                        </label>
+                                                        <InputColor setValue={setColorText} value={colorText} id={'userShopColorText'} name={'colorText'} label={selectedLanguage?.userShopView?.userShopBlockTextColor}/>
                                                         
-                                                        <label htmlFor="colorBackground">
-                                                            <input 
-                                                                type="color" 
-                                                                id="colorBackground" 
-                                                                name="colorBackground"
-                                                                value={colorBackground}
-                                                                onChange={(e) => setColorBackground(e.target.value)}
-                                                            />
-                                                            <b>{selectedLanguage?.userShopView?.userShopBlockBackgroundColor}</b>
-                                                        </label>
+                                                        <InputColor setValue={setColorBackground} value={colorBackground} id={'userShopColorBackground'} name={'colorBackground'} label={selectedLanguage?.userShopView?.userShopBlockBackgroundColor}/>
                                                     </div>
-
                                                     <div className='user-shop__section-number-wrap'>
                                                         <InputNumber label={selectedLanguage?.userShopView?.userShopBlockHeaderSize} id={"userShopViewSizeTitle"} name={"userShopViewSizeTitle"} value={sizeTitle} setValue={setSizeTitle} min={'1'}/>
                                                       

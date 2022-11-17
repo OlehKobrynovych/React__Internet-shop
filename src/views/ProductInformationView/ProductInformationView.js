@@ -35,9 +35,6 @@ function ProductInformationView() {
     const [isFavoriteProduct, setIsFavoriteProduct] = useState(false);
     const dispatch = useDispatch();
 // console.log(product)
-    // const datas = useSelector(state => state.homeSlice.datas);
-    // const [selectedSubCategories, setSelectedSubCategories] = useState(null);
-// debugger
 
     useEffect(() => {
         setIsLoading(true);

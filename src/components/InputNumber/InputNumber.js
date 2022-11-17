@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import './InputNumber.css';
 
 function InputNumber({label, id, name, value, setValue, min='', max='', step=''}) {

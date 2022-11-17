@@ -4,7 +4,6 @@ import { NavLink, useLocation, useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsOpenMenu } from '../../store/homeSlice';
 
-import login from '../../assets/images/login.svg';
 import cart from '../../assets/images/cart.svg';
 import heart from '../../assets/images/heart.svg';
 import facebook from '../../assets/images/facebook.svg';
@@ -13,7 +12,6 @@ import instagram from '../../assets/images/instagram.svg';
 function DropDownMenu() {
     const categories = useSelector(state => state.homeSlice.categories);
     const shop = useSelector(state => state.homeSlice.shop);
-    const [shopCategories, setShopCategories] = useState([]);
     const [shopSubCategories, setShopSubCategories] = useState([]);
     const isOpenMenu = useSelector(state => state.homeSlice.isOpenMenu);
     let location = useLocation();

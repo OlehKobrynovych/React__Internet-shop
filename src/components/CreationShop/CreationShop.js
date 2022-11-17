@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import './CreationShop.css';
 import deleteImg from './../../assets/images/deleteImg.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,8 +31,8 @@ function CreationShop() {
     const [logo, setLogo] = useState('');
     const dispatch = useDispatch();
     // const navigate = useNavigate();
+    // console.log(shop)
 
-    console.log(shop)
 
     useEffect(() => {
         if (isNeedUpdateShop) {

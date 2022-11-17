@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './UserNotifications.css';
+import './UserNotificationsView.css';
 
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,15 +8,14 @@ import envelope from './../../assets/images/envelope.svg';
 import envelopeOpen from './../../assets/images/envelopeOpen.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPurchases, setFavoritePurchases, getNotifications, setFavoriteNotifications, setPurchasesLength, setNotificationsLength } from '../../store/userSlice';
-import SelectStatus from '../SelectStatus/SelectStatus';
-import PaginationItems from '../PaginationItems/PaginationItems';
+import PaginationItems from '../../components/PaginationItems/PaginationItems';
 
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
 
 
-function UserNotifications() {
+function UserNotificationsView() {
     const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
@@ -213,21 +212,21 @@ function UserNotifications() {
         <div className="user-notifications">
             <div className="user-notifications--wrap container">
                 <div>
-                    <h4 className="user-notifications__title">Мої повідомлення</h4>
+                    <h4 className="user-notifications__title">{selectedLanguage?.usernotifications?.userNotificationsTitle}</h4>
                     
                     <div className="user-notifications__filter">
                         
                         <div className="user-notifications__sort-status-wrap">
-                            <span className="user-notifications__sort-status-title">Статус:</span>
+                            <span className="user-notifications__sort-status-title">{selectedLanguage?.usernotifications?.userNotificationsSortTitle}</span>
                             <select onChange={(e) => handleSortStatus(e.target.value)} value={sortStatus}>
-                                <option value='all'>Всі</option>
-                                <option value='callBack'>Передзвонити</option>
-                                <option value='subscription'>Підписки</option>
+                                <option value='all'>{selectedLanguage?.usernotifications?.userNotificationsSortOption1}</option>
+                                <option value='callBack'>{selectedLanguage?.usernotifications?.userNotificationsSortOption2}</option>
+                                <option value='subscription'>{selectedLanguage?.usernotifications?.userNotificationsSortOption3}</option>
                             </select>
                         </div>
 
                         <div className="user-notifications__filter-sort-wrap">
-                            <div className="user-notifications__filter-sort-title">Вибрати всі:</div>
+                            <div className="user-notifications__filter-sort-title">{selectedLanguage?.usernotifications?.userNotificationsFilterTitle}</div>
                             <div className={`user-notifications__filter-sort-btn-wrap ${sortNotifications === 'isNotSeen' ? 'user-notifications__filter-sort-btn-wrap--active' : ''}`}>
                                 <img className="user-notifications__filter-sort-btn" onClick={() => handlesortNotifications('isNotSeen')} src={envelope} alt='img'/>
                             </div>
@@ -240,40 +239,15 @@ function UserNotifications() {
                         </div>
 
                         <div className="user-notifications__filter-date-wrap">
-                            {/* <div className="user-notifications__filter-date">
-                                <label className="user-notifications__filter-date-label" htmlFor="userNotificationsStartDate">Початок:&nbsp;</label>
-                                <input
-                                    className="user-notifications__filter-date-input"
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                    type="date" 
-                                    id="userNotificationsStartDate" 
-                                    name="userNotificationsStartDate"
-                                    value={startDate}
-                                    min="2022-01-01" 
-                                />
-                            </div>
-                            <div className="user-notifications__filter-date">
-                                <label className="user-notifications__filter-date-label" htmlFor="userNotificationsEndDate">Кінець:&nbsp;</label>
-                                <input
-                                    className="user-notifications__filter-date-input"
-                                    onChange={(e) => setEndDate(e.target.value)}
-                                    type="date" 
-                                    id="userNotificationsEndDate" 
-                                    name="userNotificationsEndDate"
-                                    value={endDate}
-                                    min="2022-01-01" 
-                                />
-                            </div> */}
-
                             <div className='user-notifications__filter-date-btn-wrap'>
-                                <button className='user-notifications__filter-date-btn' onClick={handleSortCleanDate}>Очистити</button>
-                                <button className='user-notifications__filter-date-btn' onClick={handleSortDate}>Сортувати</button>
+                                <button className='user-notifications__filter-date-btn' onClick={handleSortCleanDate}>{selectedLanguage?.usernotifications?.userNotificationsFilterDateBtnClean}</button>
+                                <button className='user-notifications__filter-date-btn' onClick={handleSortDate}>{selectedLanguage?.usernotifications?.userNotificationsFilterDateBtnSort}</button>
                             </div>
                             <div className='user-notifications__filter-date' onClick={() => setIsSelectDate(!isSelectDate)}>
-                                <div className='user-notifications__filter-date-title'>Вибрати дні:&nbsp;</div>
+                                <div className='user-notifications__filter-date-title'>{selectedLanguage?.usernotifications?.userNotificationsFilterDateSelect}&nbsp;</div>
                                 <div className='user-notifications__filter-date-select'>
-                                    <div>{stateDate[0]?.startDate ? new Date(stateDate[0]?.startDate).toLocaleString().split(',')[0] : 'дд.мм.рррр'}</div>
-                                    <div>{stateDate[0]?.endDate ? new Date(stateDate[0]?.endDate).toLocaleString().split(',')[0] : 'дд.мм.рррр'}</div>
+                                    <div>{stateDate[0]?.startDate ? new Date(stateDate[0]?.startDate).toLocaleString().split(',')[0] : selectedLanguage?.usernotifications?.userNotificationsFilterDateFormat}</div>
+                                    <div>{stateDate[0]?.endDate ? new Date(stateDate[0]?.endDate).toLocaleString().split(',')[0] : selectedLanguage?.usernotifications?.userNotificationsFilterDateFormat}</div>
                                 </div>
                             </div>
                             <DateRange
@@ -324,4 +298,4 @@ function UserNotifications() {
     );
 }
 
-export default UserNotifications;
+export default UserNotificationsView;

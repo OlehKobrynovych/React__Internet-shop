@@ -1,7 +1,5 @@
 import './SignUpView.css';
-
 import { useSelector, useDispatch } from 'react-redux';
-import ProductCard from '../../components/ProductCard/ProductCard';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import singInSwiper1 from '../../assets/images/singInSwiper1.svg';
 import singInSwiper2 from '../../assets/images/singInSwiper2.svg';

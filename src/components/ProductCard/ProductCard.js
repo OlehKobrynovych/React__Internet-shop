@@ -5,30 +5,17 @@ import { setFavoriteProduct, setLastViewProduct, setShoppingProduct } from '../.
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import noPhotos from '../../assets/images/noPhotos.svg';
-// import { useState, useRef, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 
 function ProductCard({product}) {
 
     const shop = useSelector(state => state.homeSlice.shop);
     const favoriteProduct = useSelector(state => state.homeSlice.favoriteProduct);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);
-    // const [isFavoriteProduct, setIsFavoriteProduct] = useState([]);
     const [isFavoriteProduct, setIsFavoriteProduct] = useState(false);
     const [isShoppingProduct, setIsShoppingProduct] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const datas = useSelector(state => state.homeSlice.datas);
-// console.log(isShoppingProduct)
 // console.log(shoppingProduct)
-
-    // useEffect(() => {
-    //     let res = (JSON.parse(localStorage.getItem('shoppingProducts')));
-    //     if (res?.length) {
-    //         let res2 = res.some(el => el._id == product._id)
-    //         setIsShoppingProduct(res2)
-    //         }
-    // }, [])
 
     const handleClick = (product) => {
         navigate(`/${shop.name}/product/${product._id}`);

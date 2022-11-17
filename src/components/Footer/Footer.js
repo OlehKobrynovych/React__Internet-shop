@@ -1,11 +1,4 @@
 import './Footer.css';
-
-import instagram from '../../assets/images/instagram.svg';
-import facebook from '../../assets/images/facebook.svg';
-import logo from '../../assets/images/logo.svg';
-import {datas} from '../../data.js'
-
-// import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
@@ -22,9 +15,6 @@ function Footer() {
     const [mail, setMail] = useState('');
     const mailRef = useRef(null);
     const telRef = useRef(null);
-
-    // const [isOpen, setIsOpen] = useState(false);
-    // const navigate = useNavigate();
     // console.log(contactNumber)
 
     const handleIsCallMe = (boolean) => {
@@ -119,10 +109,6 @@ function Footer() {
                 });
             })
     }
-
-    // useEffect(() => {
-    //     setShopCategories(categories.filter(el => el.parent_id == 'null'))
-    // }, [categories])
    
     return (
         <div className="footer hidden">

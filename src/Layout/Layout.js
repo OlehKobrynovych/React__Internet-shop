@@ -2,7 +2,6 @@ import './Layout.css';
 import React, { useEffect, useRef, useState } from "react";
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import Preloader from '../components/Preloader/Preloader';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, setCategories, setFavoriteProduct, setSelectedLanguage, setShop, setShoppingProduct } from '../store/homeSlice';
@@ -10,7 +9,6 @@ import { languageShop } from '../languageShop';
 
 
 function Layout() {
- 
     const shop = useSelector(state => state.homeSlice.shop);
     const products = useSelector(state => state.homeSlice.products);
     const shoppingProduct = useSelector(state => state.homeSlice.shoppingProduct);

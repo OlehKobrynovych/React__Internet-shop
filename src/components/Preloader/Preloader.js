@@ -1,6 +1,4 @@
 import './Preloader.css';
-import login from '../../assets/images/login.svg';
-import { useSelector } from 'react-redux';
 
 
 function Preloader() {
@@ -12,9 +10,9 @@ function Preloader() {
 
     return (
         <div className="preloader--wrap">
-           <div className="loader-circle-4 spinner_top">
-                <div className="loader-circle-4 spinner_mid">
-                    <div className="loader-circle-4 spinner_bot"></div>
+           <div className="preloader__loader-circle-4 preloader__spinner_top">
+                <div className="preloader__loader-circle-4 preloader__spinner_mid">
+                    <div className="preloader__loader-circle-4 preloader__spinner_bot"></div>
                 </div>
             </div>
         </div>

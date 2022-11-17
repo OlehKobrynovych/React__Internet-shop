@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import './UserAnalytics.css';
+import './UserAnalyticsView.css';
 import deleteImg from '../../assets/images/deleteImg.svg';
 import editIcon from './../../assets/images/editIcon.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
@@ -14,10 +14,10 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import { setEditProduct, setRemoveProduct } from '../../store/userSlice';
-import ModalWindow from '../ModalWindow/ModalWindow';
 import { toast } from 'react-toastify';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
 
-function UserAnalytics() {
+function UserAnalyticsView() {
     const selectedLanguage = useSelector(state => state.userSlice.selectedLanguage);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
@@ -540,4 +540,4 @@ function UserAnalytics() {
     );
 }
 
-export default UserAnalytics;
+export default UserAnalyticsView;

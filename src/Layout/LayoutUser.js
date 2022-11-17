@@ -17,17 +17,12 @@ function LayoutUser() {
     const notificationsLength = useSelector(state => state.userSlice.notificationsLength);
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [isModalWindow, setModalWindow] = useState(false);
-    // const [purchasesLength, setPurchasesLength] = useState(null);
-    // const [notificationsLength, setNotificationsLength] = useState(null);
     const user = useSelector(state => state.userSlice.user);
     const shop = useSelector(state => state.userSlice.shop);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const navigate = useNavigate();
     // let { userId } = useParams();
-    // const isNeedUpdateCategories = useSelector(state => state.userSlice.isNeedUpdateCategories);
     console.log(user)
-    console.log(purchasesLength)
 
     useEffect(() => {
         if (!user.email) {

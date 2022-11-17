@@ -13,13 +13,13 @@ import CreationProduct from './components/CreationProduct/CreationProduct';
 import { ToastContainer } from 'react-toastify';
 import UserPurchasesView from './views/UserPurchasesView/UserPurchasesView';
 import ReadPurchasesView from './views/ReadPurchasesView/ReadPurchasesView';
-import UserAnalytics from './components/UserAnalytics/UserAnalytics';
+import UserAnalyticsView from './views/UserAnalyticsView/UserAnalyticsView';
 import SearchProductView from './views/SearchProductView/SearchProductView';
-import UserNotifications from './components/UserNotifications/UserNotifications';
 import UserShopView from './views/UserShopView/UserShopView';
 import UserSettingsView from './views/UserSettingsView/UserSettingsView';
 import AdvertisementShopView from './views/AdvertisementShopView/AdvertisementShopView';
 import ReadNotificationsView from './views/ReadNotificationsView/ReadNotificationsView';
+import UserNotificationsView from './views/UserNotificationsView/UserNotificationsView';
 const HomeView = React.lazy(() => import('./views/HomeView/HomeView'));
 const ProductFilterView = React.lazy(() => import('./views/ProductFilterView/ProductFilterView'));
 const AboutUsView = React.lazy(() => import('./views/AboutUsView/AboutUsView'));
@@ -49,15 +49,14 @@ function App() {
                 <Routes>
                     <Route path="/" element={<LandingView />}/>
                     <Route path="/auth/:userId" element={<LayoutUser />}>
-                        <Route index element={<UserAnalytics />}/>
+                        <Route index element={<UserAnalyticsView />}/>
                         <Route path="shop" element={<UserShopView />}/>
                         <Route path="categories" element={<UserCategoriesView />}/>
                         <Route path="product" element={<UserProductView />}/>
-                        {/* <Route path="productPage/:productPage" element={<UserProductView />}/> */}
                         <Route path="product/create" element={<CreationProduct />}/>
                         <Route path="purchases" element={<UserPurchasesView />}/>
                         <Route path="purchases/:idPurchases" element={<ReadPurchasesView />}/>
-                        <Route path="notifications" element={<UserNotifications />}/>
+                        <Route path="notifications" element={<UserNotificationsView />}/>
                         <Route path="notifications/:idNotifications" element={<ReadNotificationsView />}/>
                         <Route path="settings" element={<UserSettingsView />}/>
 

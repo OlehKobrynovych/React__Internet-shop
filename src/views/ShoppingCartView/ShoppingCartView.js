@@ -1,17 +1,13 @@
 import './ShoppingCartView.css';
-
 import { useSelector, useDispatch } from 'react-redux';
-import ProductCard from '../../components/ProductCard/ProductCard';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import QuantityProduct from '../../components/QuantityProduct/QuantityProduct';
-
 import deleteImg from '../../assets/images/deleteImg.svg';
 import noPhotos from '../../assets/images/noPhotos.svg';
 import { setShoppingProduct } from '../../store/homeSlice';
 import { toast } from 'react-toastify';
 import InputCheckbox from '../../components/InputCheckbox/InputCheckbox';
-import PaginationItems from '../../components/PaginationItems/PaginationItems';
 
 
 
@@ -36,13 +32,8 @@ function ShoppingCartView() {
     const [isOpenSelectPayment, setIsOpenSelectPayment] = useState(false);
     const [checkboxForm, setCheckboxFor] = useState(false);
     const [isSubmitError, setIsSubmitError] = useState(false);
-    const [currentPaginationItems, setCurrentPaginationItems] = useState([]);
-    const [selectedPaget, setSelectedPaget] = useState('0');
-    const [quantityAllProducts, setQuantityAllProducts] = useState('');
     const [shoppingHistoryProducts, setShoppingHistoryProducts] = useState([]);   // якщо клієнт зробить 2 різні покупки але той самий товар при роздруковці map  key???
-    // const datas = useSelector(state => state.homeSlice.datas);
     // console.log(shoppingProduct)
-    console.log(shoppingProduct)
     
 
     useEffect(() => {
